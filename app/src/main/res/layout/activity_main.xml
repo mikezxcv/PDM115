@@ -6,12 +6,4 @@
     android:layout_height="match_parent"
     tools:context="sv.edu.ues.fia.eisi.pdm115.MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="hola mundo"
-        tools:layout_editor_absoluteX="177dp"
-        tools:layout_editor_absoluteY="61dp"
-        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
