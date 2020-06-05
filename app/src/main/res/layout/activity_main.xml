@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context="sv.edu.ues.fia.eisi.pdm115.MainActivity">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="125dp"
+        tools:layout_editor_absoluteY="199dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
