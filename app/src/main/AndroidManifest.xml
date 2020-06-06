@@ -9,7 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".encargadoImpresion.EncargadoImpresionesMenuActivity"></activity>
+        <activity android:name=".docente.AdmAprobarSolRepetido"></activity>
+        <activity android:name=".docente.AdmDetallesolicitudRepetido" />
+        <activity android:name=".docente.AdmListaSolicitudesRepetido" />
+        <activity android:name=".docente.AdmAprobarsolicitudDiferido" />
+        <activity android:name=".docente.AdmDetallesolicitudDiferido" />
+        <activity android:name=".docente.AdmListaSolicitudesDiferido" />
+        <activity android:name=".encargadoImpresion.EncargadoImpresionesMenuActivity" />
         <activity android:name=".estudiante.EstudianteMenuActivity" />
         <activity android:name=".docente.DocenteMenuActivity" />
         <activity android:name=".MainActivity">
