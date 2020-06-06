@@ -1,48 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="30dip"
     android:stretchColumns="1" >
-    <TableRow>
-        <TextView android:text="carneto"/>
-        <EditText
-            android:id="@+id/editCarnet"
-            android:inputType="text"
-            android:maxLength="7" />
-    </TableRow>
-    <TableRow>
-        <TextView android:text="nombre" />
-        <EditText
-            android:id="@+id/editNombre"
-            android:inputType="text"
-            android:maxLength="30" />
-    </TableRow>
-    <TableRow>
-        <TextView android:text="apellido" />
-        <EditText
-            android:id="@+id/editApellido"
-            android:inputType="text"
-            android:maxLength="30" />
-    </TableRow>
-    <TableRow>
-        <TextView android:text="sexo" />
-        <EditText
-            android:id="@+id/editSexo"
-            android:inputType="text"
-            android:maxLength="1" />
-    </TableRow>
 
-    <TableRow>
-        <TextView android:text="opciones" />
-    </TableRow>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
 
-    <TableRow>
-        <Button
-            android:onClick="insertarAlumno"
-            android:text="insertar" />
-        <Button
-            android:onClick="limpiarTexto"
-            android:text="limpiar" />
-    </TableRow>
-</TableLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:text="Solicitud Repetido"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+            <TextView
+                android:text="Carnet"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <EditText
+                android:id="@+id/editCarnet"
+                android:inputType="text"
+                android:maxLength="15"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+            <TextView android:text="Nombre"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <EditText
+                android:id="@+id/editNombre"
+                android:inputType="text"
+                android:maxLength="30"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+            <TextView android:text="Materia"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+            <EditText
+                android:id="@+id/editMateria"
+                android:inputType="text"
+                android:maxLength="30"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+
+            <TextView android:text="Evaluacion"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+            <EditText
+                android:id="@+id/editEvaluacion"
+                android:inputType="text"
+                android:maxLength="10"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+            <TextView android:text="Nota Evaluacion"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+            <EditText
+                android:id="@+id/editNotaEvaluacion"
+                android:inputType="text"
+                android:maxLength="10"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+            <TextView
+                android:text="opciones"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+            <Button
+                android:id="@+id/irAprobarSolicitudRepetido"
+                android:onClick="irAprobarSolicitudRepetido"
+                android:text="Aprobar Solicitud"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+            <Button
+                android:onClick="EliminarSolicitudDiferido"
+                android:text="Eliminar Solicitud"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

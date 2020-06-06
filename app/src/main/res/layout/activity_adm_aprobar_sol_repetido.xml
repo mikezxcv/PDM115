@@ -1,9 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="sv.edu.ues.fia.eisi.pdm115.docente.AdmAprobarSolRepetido">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="30dip"
+    android:stretchColumns="1" >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <TextView android:text="Aprobar Solicitud Repetido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView android:text="Estado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <RadioButton
+        android:id="@+id/radioRechazado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rechazar"
+        />
+
+    <RadioButton
+        android:id="@+id/radioAprobado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aprobar" />
+
+    <TextView android:text="Carnet"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <EditText
+        android:id="@+id/editCarnet"
+        android:inputType="text"
+        android:maxLength="15"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <TextView android:text="Nombre"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <EditText
+        android:id="@+id/editNombre"
+        android:inputType="text"
+        android:maxLength="15"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <TextView android:text="Materia"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <EditText
+        android:id="@+id/editMateria"
+        android:inputType="text"
+        android:maxLength="15"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <TextView android:text="Evaluacion"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <EditText
+        android:id="@+id/editEvaluacion"
+        android:inputType="text"
+        android:maxLength="15"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <TextView
+        android:text="Fecha de solicitud"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <EditText
+        android:id="@+id/editFechaSolicitudRepetido"
+        android:inputType="text"
+        android:maxLength="15"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <TextView android:text="Fecha del Evaluacion"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <EditText
+        android:id="@+id/editfechaEvaluacionRepetido"
+        android:inputType="text"
+        android:maxLength="30"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <TextView android:text="Hora"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <EditText
+        android:id="@+id/editHora"
+        android:inputType="text"
+        android:maxLength="10"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <TextView android:text="Local"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <EditText
+        android:id="@+id/editLocal"
+        android:inputType="text"
+        android:maxLength="30"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+
+    <TextView android:text="Observaciones"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    <EditText
+        android:id="@+id/editObservaciones"
+        android:inputType="text"
+        android:maxLength="50"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+
+    <Button
+        android:onClick="GuardarCambiosSolicitudRepetido"
+        android:id="@+id/guardar"
+        android:text="Guardar"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"/>
+    </LinearLayout>
+    </ScrollView>
+
+
+</TableLayout>

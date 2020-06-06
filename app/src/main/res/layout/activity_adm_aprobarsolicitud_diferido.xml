@@ -1,9 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="sv.edu.ues.fia.eisi.pdm115.docente.AdmAprobarsolicitudDiferido">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="30dip"
+    android:stretchColumns="1" >
+    <TableRow>
+        <TextView android:text="Aprobar Solicitud Diferido"/>
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Carnet"/>
+        <EditText
+            android:id="@+id/editCarnet"
+            android:inputType="text"
+            android:maxLength="15" />
+    </TableRow>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TableRow>
+        <TextView android:text="Fecha del Diferido" />
+        <EditText
+            android:id="@+id/editfechaDiferido"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Hora" />
+        <EditText
+            android:id="@+id/editHora"
+            android:inputType="text"
+            android:maxLength="10" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Local" />
+        <EditText
+            android:id="@+id/editLocal"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+    <TextView android:text="Estado" />
+    <TableRow>
+        <RadioButton
+            android:id="@+id/radioRechazado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rechazado" />
+    </TableRow>
+
+    <TableRow>
+        <RadioButton
+            android:id="@+id/radioAprobado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aprobado" />
+    </TableRow>
+
+    <TableRow>
+        <TextView android:text="Observaciones" />
+        <EditText
+            android:id="@+id/editObservaciones"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+
+    <TableRow android:layout_height="105dp">
+        <Button
+            android:onClick="GuardarCambiosSolicitudDiferido"
+            android:text="Guardar" />
+    </TableRow>
+
+
+
+</TableLayout>
