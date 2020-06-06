@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import sv.edu.ues.fia.eisi.pdm115.R;
+
 public class EstudianteMenuActivity extends AppCompatActivity {
 
     @Override
