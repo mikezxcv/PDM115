@@ -17,7 +17,7 @@ public class MainActivity extends ListActivity {
     String[] menu={"Estudiante","Docente","Encargado de Impresion","LLenar Base de Datos"};
     String[]
             activities={"EstudianteMenuActivity","DocenteMenuActivity","EncargadoImpresionesMenuActivity"};
-    ControlBDGrupo12 BDhelper;
+    ControlBdGrupo12 BDhelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
