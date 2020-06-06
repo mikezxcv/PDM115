@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".docente.AdmRepetidoActivity"></activity>
+        <activity android:name=".estudiante.SolicitudPrimeraRevisionActivity"></activity>
+        <activity android:name=".docente.AdmRepetidoActivity" />
         <activity android:name=".docente.AdmDiferidoActivity" />
         <activity android:name=".docente.AdmAprobarSolRepetido" />
         <activity android:name=".docente.AdmDetallesolicitudRepetido" />
