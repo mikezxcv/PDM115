@@ -13,10 +13,12 @@ import android.widget.Toast;
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
-public class DocenteMenuActivity extends ListActivity {
-    String[] menu={"Administrar Primera Revision","Administrar Segunda Revision","Administrar Diferiddos ","Administrar Repetidos ","Administrar Impresiones"};
-    String[] activities={"uno","dos","AdmDiferidoActivity","AdmRepetidoActivity",""};
+public class AdmDiferidoActivity extends ListActivity {
+    String[] menu={"Solicitud 1 "};
+    String[]
+            activities={"AdmDetallesolicitudDiferido"};
     ControlBdGrupo12 BDhelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="sv.edu.ues.fia.eisi.pdm115.docente.AdmDetallesolicitudDiferido">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="30dip"
+    android:stretchColumns="1" >
+    <TableRow>
+        <TextView android:text="carneto"/>
+        <EditText
+            android:id="@+id/editCarnet"
+            android:inputType="text"
+            android:maxLength="7" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="nombre" />
+        <EditText
+            android:id="@+id/editNombre"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="apellido" />
+        <EditText
+            android:id="@+id/editApellido"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="sexo" />
+        <EditText
+            android:id="@+id/editSexo"
+            android:inputType="text"
+            android:maxLength="1" />
+    </TableRow>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TableRow>
+        <TextView android:text="opciones" />
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:onClick="insertarAlumno"
+            android:text="insertar" />
+        <Button
+            android:onClick="limpiarTexto"
+            android:text="limpiar" />
+    </TableRow>
+</TableLayout>
