@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+    <TextView
+        android:text="Administracion Segunda Revision "
+
+
+        />
+
+    <TableRow>
+        <TextView android:text="Carnet " />
+        <EditText
+            android:id="@+id/carnetSolSegundaRevision"
+            android:inputType="text"
+            android:maxLength="7" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Nombre" />
+        <EditText
+            android:id="@+id/nombreSolSegundaRevision"
+            android:inputType="text"
+            android:maxLength="25" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Materia" />
+
+        <EditText
+            android:id="@+id/materiaSolSegundaRevision"
+            android:inputType="number"
+            android:maxLength="4" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Evaluacion" />
+        <EditText
+            android:id="@+id/evaluacionSolSegundaRevision"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Fecha Solicitud" />
+        <EditText
+            android:id="@+id/fechasolicitudSolSegundaRevision"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Fecha Primera Revision" />
+        <EditText
+            android:id="@+id/fechaprimeraRevisionsolicitudSolSegundaRevision"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+
+
+
+    <Button
+
+        android:id="@+id/irAprobarSolicitudSegundaRevision"
+        android:text="Aprobar Solicitud" />
+
+
+
+    <Button
+        android:id="@+id/irDarRevisionSegundaRevision"
+        android:text="Dar Revision"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+    <TableRow>
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:onClick="metodo3"
+            android:text="Eliminar"
+            android:icon="@android:drawable/ic_menu_call"
+
+
+            />
+
+
+
+    </TableRow>
+
+
+
+</TableLayout>

@@ -73,8 +73,9 @@ public class MainActivity extends ListActivity {
             }
 
 
-        }else{
-            /*BDhelper.abrir();
+        }
+        if(position==3){
+             /*BDhelper.abrir();
             String tost=BDhelper.llenarBDCarnet();
             BDhelper.cerrar(); */
             Toast.makeText(this, "FALTA IMPLEMENTACION", Toast.LENGTH_SHORT).show();

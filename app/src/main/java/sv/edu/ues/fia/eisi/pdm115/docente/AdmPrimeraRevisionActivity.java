@@ -13,9 +13,10 @@ import android.widget.Toast;
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
-public class AdmDiferidoActivity extends ListActivity {
+public class AdmPrimeraRevisionActivity extends ListActivity {
+
     String[] menu={"Solicitud 1 "};
-    String[]  activities={"AdmDetallesolicitudDiferido"};
+    String[] activities={"AdmDetallesolicitudPrimeraRevision"};
     ControlBdGrupo12 BDhelper;
 
 
@@ -29,7 +30,7 @@ public class AdmDiferidoActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        if(position!=5){
+        if(position==0){
 
             String nombreValue=activities[position];
 

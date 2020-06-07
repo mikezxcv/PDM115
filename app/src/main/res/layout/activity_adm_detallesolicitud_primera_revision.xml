@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+    <TextView
+        android:text="Administracion Primera Revision "
+
+
+        />
+    <TableRow>
+        <TextView android:text="Carnet " />
+        <EditText
+            android:id="@+id/carnetSolPrimeraRevision"
+            android:inputType="text"
+            android:maxLength="7" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Nombre" />
+        <EditText
+            android:id="@+id/nombreSolPrimeraRevision"
+            android:inputType="text"
+            android:maxLength="25" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Materia" />
+        <EditText
+            android:id="@+id/materiaSolPrimeraRevision"
+            android:inputType="number"
+            android:maxLength="4" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Evaluacion" />
+        <EditText
+            android:id="@+id/evaluacionSolPrimeraRevision"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Fecha Solicitud" />
+        <EditText
+            android:id="@+id/fechasolicitudSolPrimeraRevision"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+
+
+
+        <Button
+
+            android:id="@+id/irAorobarSolicitudPrimeraRevision"
+            android:text="Aprobar Revision" />
+
+
+
+        <Button
+            android:id="@+id/darRevisionPrimeraRevision"
+            android:text="Dar Revision"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+   <TableRow>
+
+       <Button
+           android:layout_width="200dp"
+           android:layout_height="wrap_content"
+           android:onClick="metodo3"
+           android:text="Eliminar"
+           android:icon="@android:drawable/ic_menu_call"
+
+
+           />
+
+
+
+   </TableRow>
+
+
+
+</TableLayout>

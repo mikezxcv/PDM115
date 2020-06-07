@@ -9,7 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".estudiante.SolicitudPrimeraRevisionActivity"></activity>
+        <activity android:name=".docente.AdmDarRevisionSegundaRevision"></activity>
+        <activity android:name=".docente.AdmDarRevisionPrimeraRevision" />
+        <activity android:name=".docente.AdmAprobarSolSegundaRevision" />
+        <activity android:name=".docente.AdmAprobarSolPrimeraRevision" />
+        <activity android:name=".docente.AdmDetallesolicitudPrimeraRevision" />
+        <activity android:name=".docente.AdmDetallesolicitudSegundaRevision" />
+        <activity android:name=".docente.AdmSegundaRevisionActivity" />
+        <activity android:name=".docente.AdmPrimeraRevisionActivity" />
+        <activity android:name=".estudiante.SolicitudPrimeraRevisionActivity" />
         <activity android:name=".docente.AdmRepetidoActivity" />
         <activity android:name=".docente.AdmDiferidoActivity" />
         <activity android:name=".docente.AdmAprobarSolRepetido" />

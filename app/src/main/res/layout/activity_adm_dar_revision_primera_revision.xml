@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+    <TextView
+        android:text=" Dar Primera Revision "
+
+
+        />
+
+
+
+    <TableRow>
+        <TextView android:text="Nota antes Revision" />
+        <EditText
+            android:id="@+id/notaAntesAsignarPrimeraRevision"
+            android:inputType="number"
+            android:maxLength="4" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Nota Despues Revision" />
+        <EditText
+            android:id="@+id/notaDespuesAsignarPrimeraRevision"
+            android:inputType="number"
+            android:maxLength="4" />
+    </TableRow>
+
+
+
+    <Button
+
+
+        android:text="Guardar " />
+
+
+
+
+
+
+
+</TableLayout>
+
