@@ -12,6 +12,10 @@ import java.util.List;
 public class ControlBdGrupo12 {
     private static final String[]camposRol = new String []
             {"ID_ROL","NOMBRE_ROL"};
+    private static final String[]camposSOLICITUDDIFERIDO = new String []
+            {"IDDIFERIDO","ID_DETALLEALUMNOSEVALUADOS", "FECHASOLICITUDDIFERIDO", "ESTADODIFERIDO", "FECHADIFERIDO", "NOTADIFERIDO", "OBSERVACIONESDIFERIDO", "MATERIADIFERIDO", "MOTIVODIFERIDO", "HORADIFERIDO"};
+    private static final String[]camposArea = new String []
+            {"ID_AREA","ID_ROL","NOMBRE_AREA"};
 
     private final Context context;
     private DatabaseHelper DBHelper;
@@ -21,7 +25,7 @@ public class ControlBdGrupo12 {
         DBHelper = new DatabaseHelper(context);
     }
     private static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "procesosGrupo12.s3db";
+        private static final String BASE_DATOS = "procesosGrupo12_2.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -29,11 +33,14 @@ public class ControlBdGrupo12 {
         @Override
         public void onCreate(SQLiteDatabase db) {
             try{
+                db.execSQL("CREATE TABLE AREA (ID_AREA INTEGER not null,ID_ROL INTEGER, NOMBRE_AREA CHAR(50) not null, primary key (ID_AREA))");
                 db.execSQL("CREATE TABLE ROL (\n" +
                         "   ID_ROL INTEGER not null,\n" +
                         "   NOMBRE_ROL CHAR(50),\n" +
                         "    primary key (ID_ROL)\n" +
                         ")");
+
+
             }catch(SQLException e){
                 e.printStackTrace();
             }
@@ -49,6 +56,7 @@ public class ControlBdGrupo12 {
     }
     public void cerrar(){
         DBHelper.close();
+        return;
     }
 
     public void insertar(RolTabla rol){
@@ -57,19 +65,13 @@ public class ControlBdGrupo12 {
         roles.put("NOMBRE_ROL", rol.getNOMBRE_ROL());
         db.insert("ROL", null, roles);
     }
-    public void insertar(SolicitudDiferidoTabla solDiferido){
+
+    public void insertar(AreaTabla area){
         ContentValues roles = new ContentValues();
-        //roles.put("IDDIFERIDO", solDiferido.get);
-        roles.put("ID_DETALLEALUMNOSEVALUADOS", solDiferido.getID_DETALLEALUMNOSEVALUADOS());
-        roles.put("FECHASOLICITUDDIFERIDO", solDiferido.getFECHADIFERIDO());
-        roles.put("ESTADODIFERIDO", solDiferido.getESTADODIFERIDO());
-        roles.put("FECHADIFERIDO", solDiferido.getFECHADIFERIDO());
-        roles.put("NOTADIFERIDO", solDiferido.getNOTADIFERIDO());
-        roles.put("OBSERVACIONESDIFERIDO", solDiferido.getOBSERVACIONESDIFERIDO());
-        roles.put("MATERIADIFERIDO", solDiferido.getMATERIADIFERIDO());
-        roles.put("MOTIVODIFERIDO", solDiferido.getMOTIVODIFERIDO());
-        roles.put("HORADIFERIDO", solDiferido.getHORADIFERIDO());
-        db.insert("SOLICITUDDIFERIDO", null, roles);
+        roles.put("ID_AREA", area.getID_AREA());
+        roles.put("ID_ROL", area.getID_ROL());
+        roles.put("NOMBRE_AREA", area.getNOMBRE_AREA());
+        db.insert("AREA", null, roles);
     }
 
     private boolean verificarIntegridad(Object dato, int relacion) throws SQLException {
@@ -90,52 +92,39 @@ public class ControlBdGrupo12 {
 
     }
 
-    public String llenarBDCarnet(){
+    public String llenarBDCarnet() {
         // Tabla ROL
-        final String[] ROL_ID_ROL = {"1","2","3"};
-        final String[] ROL_NOMBRE_ROL = {"Director","Jefe de Sistemas","Secretario"};
+        final String[] ROL_ID_ROL = {"1", "2", "3"};
+        final String[] ROL_NOMBRE_ROL = {"Director", "Jefe de Sistemas", "Secretario"};
 
-        // TABLA SolicitudDiferido
-        // Formato Fecha YYYY-MM-DD HH:MM:SS
-        // final String[] SolicitudDiferidoTabla_IDDIFERIDO = {};
-        final String[] ID_DETALLEALUMNOSEVALUADOS = {"1","2","3"};
-        final String[] FECHASOLICITUDDIFERIDO = {"2020-04-04","2020-04-05","2020-04-06"};
-        // 0 (falso) y 1 (verdadero)
-        final String[] ESTADODIFERIDO = {"0","0","0"};
-        final String[] FECHADIFERIDO = {"","",""};
-        final String[] NOTADIFERIDO = {"","",""};
-        final String[] OBSERVACIONESDIFERIDO = {"","",""};
-        final String[] MATERIADIFERIDO = {"MAT115","FIR115","IEC115"};
-        final String[] MOTIVODIFERIDO = {"Motivo1", "Motivo2", "Motivo3"};
-        final String[] HORADIFERIDO = {"","",""};
-
+        // Tabla Area
+        final String[] ID_AREA = {"1"};
+        final String[] ID_ROL = {"1"};
+        final String[] NOMBRE_AREA = {"Area 1"};
 
         abrir();
         db.execSQL("DELETE FROM ROL");
-        db.execSQL("DELETE FROM SOLICITUDDIFERIDO");
+        db.execSQL("DELETE FROM AREA");
+
 
         RolTabla rol = new RolTabla();
-        for(int i=0;i<3;i++){
+        for (int i = 0; i < 3; i++) {
             rol.setNOMBRE_ROL(ROL_NOMBRE_ROL[i]);
             rol.setID_ROL(ROL_ID_ROL[i]);
             insertar(rol);
         }
 
-        SolicitudDiferidoTabla solDiferido  = new SolicitudDiferidoTabla();
-        for(int i=0;i<2;i++){
-            solDiferido.setID_DETALLEALUMNOSEVALUADOS(ID_DETALLEALUMNOSEVALUADOS[i]);
-            solDiferido.setFECHASOLICITUDDIFERIDO(FECHASOLICITUDDIFERIDO[i]);
-            solDiferido.setESTADODIFERIDO(ESTADODIFERIDO[i]);
-            solDiferido.setFECHADIFERIDO(FECHADIFERIDO[i]);
-            solDiferido.setNOTADIFERIDO(NOTADIFERIDO[i]);
-            solDiferido.setOBSERVACIONESDIFERIDO(OBSERVACIONESDIFERIDO[i]);
-            solDiferido.setMATERIADIFERIDO(MATERIADIFERIDO[i]);
-            solDiferido.setMOTIVODIFERIDO(MOTIVODIFERIDO[i]);
-            solDiferido.setHORADIFERIDO(HORADIFERIDO[i]);
+        AreaTabla area = new AreaTabla();
+        for (int i = 0; i < 1; i++) {
+            area.setID_AREA(ID_AREA[i]);
+            area.setID_ROL(ID_ROL[i]);
+            area.setNOMBRE_AREA(NOMBRE_AREA[i]);
+            insertar(area);
 
-            insertar(solDiferido);
         }
+
+
         cerrar();
-        return "Guardo Correctamente";
+        return "Registros insertados";
     }
 }

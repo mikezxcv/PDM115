@@ -27,10 +27,6 @@ public class AdmRepetidoActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_lista);
-        lv = (ListView)findViewById(R.id.lista);
-        ControlBdGrupo12 BDhelper = new ControlBdGrupo12(getApplicationContext());
-        //lista = BDhelper.llenar_lv();
-        adaptador = new ArrayAdapter(this, android.R.layout.simple_list_item_1,lista);
-        lv.setAdapter(adaptador);
+
     }
 }

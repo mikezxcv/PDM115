@@ -16,7 +16,7 @@ import sv.edu.ues.fia.eisi.pdm115.R;
 public class DocenteMenuActivity extends ListActivity {
     String[] menu={"Administrar Primera Revision","Administrar Segunda Revision","Administrar Diferiddos ","Administrar Repetidos ","Administrar Impresiones"};
     String[] activities={"AdmPrimeraRevisionActivity","AdmSegundaRevisionActivity","AdmDiferidoActivity","AdmRepetidoActivity",""};
-    ControlBdGrupo12 BDhelper;
+    //ControlBdGrupo12 BDhelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
