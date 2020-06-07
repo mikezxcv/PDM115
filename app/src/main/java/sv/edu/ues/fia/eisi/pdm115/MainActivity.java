@@ -24,7 +24,7 @@ public class MainActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setListAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, menu));
-       // BDhelper = new ControlBDGrupo12(this);
+       BDhelper = new ControlBdGrupo12(this);
     }
 
     @Override
@@ -73,12 +73,11 @@ public class MainActivity extends ListActivity {
             }
 
 
-        }
-        if(position==3){
-             /*BDhelper.abrir();
+        }else{
+            BDhelper.abrir();
             String tost=BDhelper.llenarBDCarnet();
-            BDhelper.cerrar(); */
-            Toast.makeText(this, "FALTA IMPLEMENTACION", Toast.LENGTH_SHORT).show();
+            BDhelper.cerrar();
+            Toast.makeText(this, "Registros Insertados", Toast.LENGTH_SHORT).show();
         }
 
     }

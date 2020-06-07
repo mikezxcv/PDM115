@@ -10,29 +10,35 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.R;
+import sv.edu.ues.fia.eisi.pdm115.Rol;
 
 public class AdmDiferidoActivity extends ListActivity {
-    String[] menu={"Solicitud 1 "};
-    String[]  activities={"AdmDetallesolicitudDiferido"};
-    ControlBdGrupo12 BDhelper;
+
+    String[] activities={"AdmDetallesolicitudDiferido"};
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ControlBdGrupo12 BDhelper = new ControlBdGrupo12(this);
+        List<String> menu  = BDhelper.llenar_lv();
+        String[] menuLista = menu.toArray(new String[menu.size()]);
         setListAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, menu));
-        // BDhelper = new ControlBDGrupo12(this);
+                android.R.layout.simple_list_item_1, menuLista));
     }
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        if(position!=5){
-
-            String nombreValue=activities[position];
-
+        ControlBdGrupo12 BDhelper = new ControlBdGrupo12(this);
+        List<String> menu  = BDhelper.llenar_lv();
+        if(position!=menu.size()){
+            String nombreValue=activities[0];
             try{
                 Class<?>
                         clase=Class.forName("sv.edu.ues.fia.eisi.pdm115.docente."+nombreValue);
@@ -41,11 +47,6 @@ public class AdmDiferidoActivity extends ListActivity {
             }catch(ClassNotFoundException e){
                 e.printStackTrace();
             }
-        }else{
-          /*  BDhelper.abrir();
-            String tost=BDhelper.llenarBDCarnet();
-            BDhelper.cerrar(); */
-            Toast.makeText(this, "falta implementacion", Toast.LENGTH_SHORT).show();
         }
     }
 }

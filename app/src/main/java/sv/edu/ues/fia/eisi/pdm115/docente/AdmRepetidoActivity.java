@@ -10,42 +10,27 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
 public class AdmRepetidoActivity extends ListActivity {
 
-    String[] menu={"Solicitud 1 "};
-    String[] activities={"AdmDetallesolicitudRepetido"};
-    ControlBdGrupo12 BDhelper;
+    //String[] menuX={"Solicitud 1 Repetido"};
+    //String[] activities={"AdmDetallesolicitudRepetido"};
 
+    ListView lv ;
+    ArrayList<String> lista;
+    ArrayAdapter adaptador;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, menu));
-        // BDhelper = new ControlBDGrupo12(this);
-    }
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        if(position!=5){
-
-            String nombreValue=activities[position];
-
-            try{
-                Class<?>
-                        clase=Class.forName("sv.edu.ues.fia.eisi.pdm115.docente."+nombreValue);
-                Intent inte = new Intent(this,clase);
-                this.startActivity(inte);
-            }catch(ClassNotFoundException e){
-                e.printStackTrace();
-            }
-        }else{
-          /*  BDhelper.abrir();
-            String tost=BDhelper.llenarBDCarnet();
-            BDhelper.cerrar(); */
-            Toast.makeText(this, "falta implementacion", Toast.LENGTH_SHORT).show();
-        }
+        setContentView(R.layout.activity_custom_lista);
+        lv = (ListView)findViewById(R.id.lista);
+        ControlBdGrupo12 BDhelper = new ControlBdGrupo12(getApplicationContext());
+        //lista = BDhelper.llenar_lv();
+        adaptador = new ArrayAdapter(this, android.R.layout.simple_list_item_1,lista);
+        lv.setAdapter(adaptador);
     }
 }
