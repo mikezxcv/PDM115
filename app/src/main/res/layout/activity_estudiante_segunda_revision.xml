@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="30dip"
+    android:stretchColumns="1" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/irCrearSolicitudSegundaRevision"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="irCrearSolicitudSegundaRevision"
+                android:text="Crear Solicitud Revision" />
+
+            <Button
+                android:id="@+id/irConsultarSolicitudSegundaRevision"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:onClick="irConsultarSolicitudSegundaRevision"
+                android:text="Consultar Solicitud Revision" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
