@@ -1,11 +1,11 @@
 package sv.edu.ues.fia.eisi.pdm115;
 
-public class Rol {
-    String ID_ROL;
-    String NOMBRE_ROL;
+public class RolTabla {
+    private String ID_ROL;
+    private String NOMBRE_ROL;
 
-    public Rol() {}
-    public Rol(String ID_ROL, String NOMBRE_ROL) {
+    public RolTabla() {}
+    public RolTabla(String ID_ROL, String NOMBRE_ROL) {
         this.ID_ROL = ID_ROL;
         this.NOMBRE_ROL = NOMBRE_ROL;
     }

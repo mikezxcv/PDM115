@@ -51,11 +51,25 @@ public class ControlBdGrupo12 {
         DBHelper.close();
     }
 
-    public void insertar(Rol rol){
+    public void insertar(RolTabla rol){
         ContentValues roles = new ContentValues();
         roles.put("ID_ROL", rol.getID_ROL());
         roles.put("NOMBRE_ROL", rol.getNOMBRE_ROL());
         db.insert("ROL", null, roles);
+    }
+    public void insertar(SolicitudDiferidoTabla solDiferido){
+        ContentValues roles = new ContentValues();
+        //roles.put("IDDIFERIDO", solDiferido.get);
+        roles.put("ID_DETALLEALUMNOSEVALUADOS", solDiferido.getID_DETALLEALUMNOSEVALUADOS());
+        roles.put("FECHASOLICITUDDIFERIDO", solDiferido.getFECHADIFERIDO());
+        roles.put("ESTADODIFERIDO", solDiferido.getESTADODIFERIDO());
+        roles.put("FECHADIFERIDO", solDiferido.getFECHADIFERIDO());
+        roles.put("NOTADIFERIDO", solDiferido.getNOTADIFERIDO());
+        roles.put("OBSERVACIONESDIFERIDO", solDiferido.getOBSERVACIONESDIFERIDO());
+        roles.put("MATERIADIFERIDO", solDiferido.getMATERIADIFERIDO());
+        roles.put("MOTIVODIFERIDO", solDiferido.getMOTIVODIFERIDO());
+        roles.put("HORADIFERIDO", solDiferido.getHORADIFERIDO());
+        db.insert("SOLICITUDDIFERIDO", null, roles);
     }
 
     private boolean verificarIntegridad(Object dato, int relacion) throws SQLException {
@@ -81,16 +95,45 @@ public class ControlBdGrupo12 {
         final String[] ROL_ID_ROL = {"1","2","3"};
         final String[] ROL_NOMBRE_ROL = {"Director","Jefe de Sistemas","Secretario"};
 
-        // Tabla
+        // TABLA SolicitudDiferido
+        // Formato Fecha YYYY-MM-DD HH:MM:SS
+        // final String[] SolicitudDiferidoTabla_IDDIFERIDO = {};
+        final String[] ID_DETALLEALUMNOSEVALUADOS = {"1","2","3"};
+        final String[] FECHASOLICITUDDIFERIDO = {"2020-04-04","2020-04-05","2020-04-06"};
+        // 0 (falso) y 1 (verdadero)
+        final String[] ESTADODIFERIDO = {"0","0","0"};
+        final String[] FECHADIFERIDO = {"","",""};
+        final String[] NOTADIFERIDO = {"","",""};
+        final String[] OBSERVACIONESDIFERIDO = {"","",""};
+        final String[] MATERIADIFERIDO = {"MAT115","FIR115","IEC115"};
+        final String[] MOTIVODIFERIDO = {"Motivo1", "Motivo2", "Motivo3"};
+        final String[] HORADIFERIDO = {"","",""};
+
 
         abrir();
         db.execSQL("DELETE FROM ROL");
+        db.execSQL("DELETE FROM SOLICITUDDIFERIDO");
 
-        Rol rol = new Rol();
+        RolTabla rol = new RolTabla();
         for(int i=0;i<3;i++){
             rol.setNOMBRE_ROL(ROL_NOMBRE_ROL[i]);
             rol.setID_ROL(ROL_ID_ROL[i]);
             insertar(rol);
+        }
+
+        SolicitudDiferidoTabla solDiferido  = new SolicitudDiferidoTabla();
+        for(int i=0;i<2;i++){
+            solDiferido.setID_DETALLEALUMNOSEVALUADOS(ID_DETALLEALUMNOSEVALUADOS[i]);
+            solDiferido.setFECHASOLICITUDDIFERIDO(FECHASOLICITUDDIFERIDO[i]);
+            solDiferido.setESTADODIFERIDO(ESTADODIFERIDO[i]);
+            solDiferido.setFECHADIFERIDO(FECHADIFERIDO[i]);
+            solDiferido.setNOTADIFERIDO(NOTADIFERIDO[i]);
+            solDiferido.setOBSERVACIONESDIFERIDO(OBSERVACIONESDIFERIDO[i]);
+            solDiferido.setMATERIADIFERIDO(MATERIADIFERIDO[i]);
+            solDiferido.setMOTIVODIFERIDO(MOTIVODIFERIDO[i]);
+            solDiferido.setHORADIFERIDO(HORADIFERIDO[i]);
+
+            insertar(solDiferido);
         }
         cerrar();
         return "Guardo Correctamente";

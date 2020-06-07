@@ -1,21 +1,15 @@
 package sv.edu.ues.fia.eisi.pdm115.docente;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
-import sv.edu.ues.fia.eisi.pdm115.R;
-import sv.edu.ues.fia.eisi.pdm115.Rol;
 
 public class AdmDiferidoActivity extends ListActivity {
 
