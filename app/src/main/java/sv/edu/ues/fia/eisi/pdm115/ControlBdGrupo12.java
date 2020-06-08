@@ -311,6 +311,22 @@ public class ControlBdGrupo12 {
         roles.put("NOMBRE_AREA", area.getNOMBRE_AREA());
         db.insert("AREA", null, roles);
     }
+
+    public void insertar(SolicitudDiferidoTabla solDiferido){
+        ContentValues roles = new ContentValues();
+        roles.put("IDDIFERIDO", solDiferido.getIDDIFERIDO());
+        roles.put("ID_DETALLEALUMNOSEVALUADOS", solDiferido.getID_DETALLEALUMNOSEVALUADOS());
+        roles.put("FECHASOLICITUDDIFERIDO", solDiferido.getFECHADIFERIDO());
+        roles.put("ESTADODIFERIDO", solDiferido.getESTADODIFERIDO());
+        roles.put("FECHADIFERIDO", solDiferido.getFECHADIFERIDO());
+        roles.put("NOTADIFERIDO", solDiferido.getNOTADIFERIDO());
+        roles.put("OBSERVACIONESDIFERIDO", solDiferido.getOBSERVACIONESDIFERIDO());
+        roles.put("MATERIADIFERIDO", solDiferido.getMATERIADIFERIDO());
+        roles.put("MOTIVODIFERIDO", solDiferido.getMOTIVODIFERIDO());
+        roles.put("HORADIFERIDO", solDiferido.getHORADIFERIDO());
+        db.insert("SOLICITUDDIFERIDO", null, roles);
+    }
+
     public String consultarCantidadSolicitudesPrimeraRevision(){
         long contador=0;
         Cursor datos = db.rawQuery("SELECT CARNET,IDASIGNATURA,IDCICLO,ASISTIO  FROM primerrevision AS p \n" +
@@ -322,7 +338,7 @@ public class ControlBdGrupo12 {
                 datos.moveToNext();
             }
         }
-           return String.valueOf(contador);
+        return String.valueOf(contador);
     }
 
     public String[]  alumnosPrimeraRevision(){
@@ -353,8 +369,8 @@ public class ControlBdGrupo12 {
 
         if(datos.moveToFirst()){
             while (datos.isAfterLast()==false){
-               String materia= datos.getString(1);
-               materias[contador]= materia;
+                String materia= datos.getString(1);
+                materias[contador]= materia;
                 contador= contador+1;
                 datos.moveToNext();
             }
@@ -391,10 +407,24 @@ public class ControlBdGrupo12 {
         final String[] ID_ROL = {"1"};
         final String[] NOMBRE_AREA = {"Area 1"};
 
+        // TABLA SolicitudDiferido
+        // Formato Fecha YYYY-MM-DD HH:MM:SS
+        final String[] SolicitudDiferidoTabla_IDDIFERIDO = {"11","22","33"};
+        final String[] ID_DETALLEALUMNOSEVALUADOS = {"1","2","3"};
+        final String[] FECHASOLICITUDDIFERIDO = {"2020-04-04","2020-04-05","2020-04-06"};
+        // 0 (falso) y 1 (verdadero)
+        final String[] ESTADODIFERIDO = {"0","0","0"};
+        final String[] FECHADIFERIDO = {"","",""};
+        final String[] NOTADIFERIDO = {"","",""};
+        final String[] OBSERVACIONESDIFERIDO = {"","",""};
+        final String[] MATERIADIFERIDO = {"MAT115","FIR115","IEC115"};
+        final String[] MOTIVODIFERIDO = {"Motivo1", "Motivo2", "Motivo3"};
+        final String[] HORADIFERIDO = {"","",""};
+
         abrir();
         db.execSQL("DELETE FROM ROL");
         db.execSQL("DELETE FROM AREA");
-
+        db.execSQL("DELETE FROM SOLICITUDDIFERIDO");
 
         RolTabla rol = new RolTabla();
         for (int i = 0; i < 3; i++) {
@@ -411,9 +441,25 @@ public class ControlBdGrupo12 {
             insertar(area);
 
         }
+        
+        SolicitudDiferidoTabla solDiferido  = new SolicitudDiferidoTabla();
+        for(int i=0;i<3;i++) {
+            solDiferido.setID_DETALLEALUMNOSEVALUADOS(ID_DETALLEALUMNOSEVALUADOS[i]);
+            solDiferido.setFECHASOLICITUDDIFERIDO(FECHASOLICITUDDIFERIDO[i]);
+            solDiferido.setESTADODIFERIDO(ESTADODIFERIDO[i]);
+            solDiferido.setFECHADIFERIDO(FECHADIFERIDO[i]);
+            solDiferido.setNOTADIFERIDO(NOTADIFERIDO[i]);
+            solDiferido.setOBSERVACIONESDIFERIDO(OBSERVACIONESDIFERIDO[i]);
+            solDiferido.setMATERIADIFERIDO(MATERIADIFERIDO[i]);
+            solDiferido.setMOTIVODIFERIDO(MOTIVODIFERIDO[i]);
+            solDiferido.setHORADIFERIDO(HORADIFERIDO[i]);
 
+            insertar(solDiferido);
+        }
 
         cerrar();
         return "Registros insertados";
     }
 }
+
+
