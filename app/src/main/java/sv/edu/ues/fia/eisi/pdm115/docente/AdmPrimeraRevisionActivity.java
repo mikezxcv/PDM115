@@ -31,8 +31,6 @@ public class AdmPrimeraRevisionActivity extends ListActivity {
     String [] opciones;
     ControlBdGrupo12 helper;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
