@@ -1,7 +1,5 @@
 package sv.edu.ues.fia.eisi.pdm115;
 
-
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
