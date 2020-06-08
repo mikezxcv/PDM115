@@ -57,9 +57,9 @@ public class AdmPrimeraRevisionActivity extends ListActivity {
     protected  void llenar(){
         int contador=0;
         helper.abrir();
-        cantidad= helper.consultarCantidadSolicitudesPrimeraRevision();
+        //cantidad= helper.consultarCantidadSolicitudesPrimeraRevision();
         alumnos= new String[Integer.parseInt(cantidad)];
-        alumnos= helper.alumnosPrimeraRevision();
+        //alumnos= helper.alumnosPrimeraRevision();
         materias= new String[Integer.parseInt(cantidad)];
         materias= helper.materiasPrimeraRevision();
         opciones= new String[Integer.parseInt(cantidad)];
@@ -71,10 +71,8 @@ public class AdmPrimeraRevisionActivity extends ListActivity {
         for (int i=0; i<Integer.valueOf(cantidad);i++){
             contador= contador+1;
             String alumno= alumnos[i];
-
             String materia= materias[i];
             opciones[i]= "Solicitud "+contador+" ["+ alumno+" - "+materia+" ]";
-
 
         }
 
