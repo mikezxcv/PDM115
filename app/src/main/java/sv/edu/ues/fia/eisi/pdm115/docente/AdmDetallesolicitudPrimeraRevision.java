@@ -15,6 +15,10 @@ public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
     Button btn;
     Button btn2;
     EditText carnet;
+    EditText nombre;
+    EditText materia;
+    EditText evaluacion;
+    EditText fechasolicitud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +27,10 @@ public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
          btn = (Button) findViewById(R.id.irAorobarSolicitudPrimeraRevision);
          btn2= (Button) findViewById(R.id.darRevisionPrimeraRevision);
          carnet= (EditText) findViewById(R.id.carnetSolPrimeraRevision);
+         nombre= (EditText) findViewById(R.id.nombreSolPrimeraRevision);
+         materia=(EditText) findViewById(R.id.materiaSolPrimeraRevision);
+         evaluacion=(EditText) findViewById(R.id.evaluacionSolPrimeraRevision);
+         fechasolicitud= (EditText) findViewById(R.id.fechasolicitudSolPrimeraRevision);
 
          btn.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -43,7 +51,11 @@ public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
         //ontener los datos de ADMPRIMERAREVISIONACTIVITY
         Bundle bundle= getIntent().getExtras();
 
-        carnet.setText(bundle.getString("alumno"));
+        carnet.setText(bundle.getString("carnet"));
+        nombre.setText(bundle.getString("carnet"));
+        materia.setText(bundle.getString("materia"));
+        evaluacion.setText(bundle.getString("carnet"));
+        fechasolicitud.setText(bundle.getString("carnet"));
     }
 
 }

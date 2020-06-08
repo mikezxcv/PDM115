@@ -25,9 +25,14 @@ public class AdmPrimeraRevisionActivity extends ListActivity {
 
     String[] activities={"AdmDetallesolicitudPrimeraRevision"};
     String cantidad;
-
+//campos a mostrar
     String [] alumnos;
+    String [] nombres;
     String [] materias;
+    String [] evaluaciones;
+    String [] fechaSolicitud;
+
+    //campos a mostrar
     String [] opciones;
     ControlBdGrupo12 helper;
 
@@ -47,7 +52,12 @@ public class AdmPrimeraRevisionActivity extends ListActivity {
 
 
             Intent intent = new Intent(AdmPrimeraRevisionActivity.this, AdmDetallesolicitudPrimeraRevision.class);
+            intent.putExtra("carnet",alumnos[position]);
+            intent.putExtra("nombre",alumnos[position]);
+            intent.putExtra("materia",materias[position]);
+            intent.putExtra("evaluacion",alumnos[position]);
             intent.putExtra("alumno",alumnos[position]);
+            intent.putExtra("fechaSolicitud",alumnos[position]);
             startActivity(intent);
     }
 

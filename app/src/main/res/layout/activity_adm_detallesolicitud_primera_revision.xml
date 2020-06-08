@@ -12,32 +12,33 @@
         />
     <TableRow>
         <TextView android:text="Carnet "
-            android:layout_width="40dip"/>
+           />
         <EditText
             android:id="@+id/carnetSolPrimeraRevision"
             android:inputType="text"
-            android:maxLength="7" />
+            android:maxLength="15" />
     </TableRow>
     <TableRow>
         <TextView android:text="Nombre" />
         <EditText
             android:id="@+id/nombreSolPrimeraRevision"
             android:inputType="text"
-            android:maxLength="25" />
+
+            android:maxLength="15" />
     </TableRow>
     <TableRow>
         <TextView android:text="Materia" />
         <EditText
             android:id="@+id/materiaSolPrimeraRevision"
-            android:inputType="number"
-            android:maxLength="4" />
+            android:inputType="text"
+            android:maxLength="15" />
     </TableRow>
     <TableRow>
         <TextView android:text="Evaluacion" />
         <EditText
             android:id="@+id/evaluacionSolPrimeraRevision"
             android:inputType="text"
-            android:maxLength="30" />
+            android:maxLength="15" />
     </TableRow>
     <TableRow>
         <TextView android:text="Fecha Solicitud" />
