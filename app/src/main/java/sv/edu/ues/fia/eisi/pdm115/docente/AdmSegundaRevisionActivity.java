@@ -16,7 +16,7 @@ import sv.edu.ues.fia.eisi.pdm115.R;
 public class AdmSegundaRevisionActivity extends ListActivity {
     String[] menu={"Solicitud uno","solicitud 2","solicitud 3"};
     int cantidad= menu.length;
-    String [] opciones= new String[cantidad];
+    String [] opciones;
 
     String[] activities={"AdmDetallesolicitudSegundaRevision"};
     ControlBdGrupo12 BDhelper;
@@ -41,7 +41,9 @@ public class AdmSegundaRevisionActivity extends ListActivity {
 
     }
     protected void llenarOpciones(){
+        opciones= new String[3];
         for(int i=0; i< menu.length; i++){
+
 
             opciones[i]= "solicitud "+i;
         }
