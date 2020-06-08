@@ -42,8 +42,8 @@ public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
 
         //ontener los datos de ADMPRIMERAREVISIONACTIVITY
         Bundle bundle= getIntent().getExtras();
-        String alumno= bundle.getString("key");
-        carnet.setText(alumno);
+
+        carnet.setText(bundle.getString("alumno"));
     }
 
 }
