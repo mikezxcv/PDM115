@@ -25,7 +25,7 @@ public class ControlBdGrupo12 {
         DBHelper = new DatabaseHelper(context);
     }
     public static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "procesosGrupo12_2.s3db";
+        private static final String BASE_DATOS = "procesosGrupo12_7.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -386,11 +386,11 @@ public class ControlBdGrupo12 {
     public List<String> llenar_lv(){
         List<String> lista = new ArrayList<String>();
         db = DBHelper.getWritableDatabase();
-        String q = "SELECT * FROM ROL";
+        String q = "SELECT * FROM SOLICITUDDIFERIDO";
         Cursor registros = db.rawQuery(q,null);
         if(registros.moveToFirst()){
             do{
-                lista.add(registros.getString(1));
+                lista.add(registros.getString(0));
             }while(registros.moveToNext());
         }
         return lista;
@@ -441,7 +441,7 @@ public class ControlBdGrupo12 {
             insertar(area);
 
         }
-        
+
         SolicitudDiferidoTabla solDiferido  = new SolicitudDiferidoTabla();
         for(int i=0;i<3;i++) {
             solDiferido.setID_DETALLEALUMNOSEVALUADOS(ID_DETALLEALUMNOSEVALUADOS[i]);
