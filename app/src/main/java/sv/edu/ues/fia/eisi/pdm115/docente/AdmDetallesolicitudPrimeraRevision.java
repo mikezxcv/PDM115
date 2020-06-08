@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import sv.edu.ues.fia.eisi.pdm115.R;
 
 public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
     Button btn;
     Button btn2;
+    EditText carnet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,7 @@ public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
         setContentView(R.layout.activity_adm_detallesolicitud_primera_revision);
          btn = (Button) findViewById(R.id.irAorobarSolicitudPrimeraRevision);
          btn2= (Button) findViewById(R.id.darRevisionPrimeraRevision);
+         carnet= (EditText) findViewById(R.id.carnetSolPrimeraRevision);
 
          btn.setOnClickListener(new View.OnClickListener() {
              @Override
@@ -35,6 +39,11 @@ public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //ontener los datos de ADMPRIMERAREVISIONACTIVITY
+        Bundle bundle= getIntent().getExtras();
+        String alumno= bundle.getString("key");
+        carnet.setText(alumno);
     }
 
 }

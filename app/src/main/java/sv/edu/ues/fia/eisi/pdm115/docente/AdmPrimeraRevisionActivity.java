@@ -29,11 +29,6 @@ public class AdmPrimeraRevisionActivity extends ListActivity {
     String [] alumnos;
     String [] materias;
     String [] opciones;
-
-
-
-
-
     ControlBdGrupo12 helper;
 
 
@@ -51,16 +46,14 @@ public class AdmPrimeraRevisionActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Intent intent = new Intent(AdmPrimeraRevisionActivity.this, AdmDetallesolicitudPrimeraRevision.class);
-        startActivity(intent);
 
 
-
+            Intent intent = new Intent(AdmPrimeraRevisionActivity.this, AdmDetallesolicitudPrimeraRevision.class);
+            intent.putExtra("key",alumnos[position]);
+            startActivity(intent);
     }
 
-    protected  void obtenerOpciones(){
 
-    }
     protected  void llenar(){
         int contador=0;
         helper.abrir();
