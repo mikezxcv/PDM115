@@ -11,7 +11,8 @@
 
         />
     <TableRow>
-        <TextView android:text="Carnet " />
+        <TextView android:text="Carnet "
+            android:layout_width="4dip"/>
         <EditText
             android:id="@+id/carnetSolPrimeraRevision"
             android:inputType="text"
