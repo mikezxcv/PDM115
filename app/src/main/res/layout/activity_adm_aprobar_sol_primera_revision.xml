@@ -51,6 +51,7 @@
             android:id="@+id/localAsignarPrimeraRevision"
             android:inputType="number"
             android:maxLength="10" />
+
     </TableRow>
     <TableRow>
         <TextView android:text="Observaciones" />

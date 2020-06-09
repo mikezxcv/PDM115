@@ -23,7 +23,7 @@ import sv.edu.ues.fia.eisi.pdm115.R;
 public class AdmPrimeraRevisionActivity extends ListActivity {
 
 
-    String[] activities={"AdmDetallesolicitudPrimeraRevision"};
+
     String cantidad;
 //campos a mostrar
     String [] alumnos;
@@ -49,6 +49,9 @@ public class AdmPrimeraRevisionActivity extends ListActivity {
             llenar();
             setListAdapter(new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1, opciones));
+
+
+
         }
         else {
             Toast.makeText(this,"No hay solicitudes",Toast.LENGTH_LONG).show();

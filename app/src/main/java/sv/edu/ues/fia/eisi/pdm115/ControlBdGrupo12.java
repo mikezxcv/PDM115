@@ -496,6 +496,18 @@ public class ControlBdGrupo12 {
         db.update("primerrevision", cv, "IDPRIMERREVISION = ? ",id);
         return "Registro Actualizado Correctamente";
     }
+    public String eliminar(PrimeraRevision primeraRevision){
+        String regAfectados="filas afectadas= ";
+        int contador=0;
+
+            contador+=db.delete("primerrevision", "IDPRIMERREVISION= '"+primeraRevision.getIdPrimeraRevision()+"'", null);
+
+
+
+        regAfectados+=contador;
+        return regAfectados;
+    }
+
 
     //fin funciones crud
 

@@ -70,11 +70,12 @@
    <TableRow>
 
        <Button
+           android:id="@+id/eliminarSolicitud"
            android:layout_width="200dp"
            android:layout_height="wrap_content"
            android:onClick="metodo3"
            android:text="Eliminar"
-           android:icon="@android:drawable/ic_menu_call"
+
            android:background="#d46c88"
 
 
