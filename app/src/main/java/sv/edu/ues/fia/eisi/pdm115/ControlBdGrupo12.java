@@ -25,7 +25,7 @@ public class ControlBdGrupo12 {
         DBHelper = new DatabaseHelper(context);
     }
     public static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "procesosGrupo12_7.s3db";
+        private static final String BASE_DATOS = "procesosGrupo12_9.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -33,15 +33,7 @@ public class ControlBdGrupo12 {
         @Override
         public void onCreate(SQLiteDatabase db) {
             try{
-                /*db.execSQL("CREATE TABLE AREA (ID_AREA INTEGER not null,ID_ROL INTEGER, NOMBRE_AREA CHAR(50) not null, primary key (ID_AREA))");
-                db.execSQL("CREATE TABLE ROL (\n" +
-                        "   ID_ROL INTEGER not null,\n" +
-                        "   NOMBRE_ROL CHAR(50),\n" +
-                        "    primary key (ID_ROL)\n" +
-                        ")"); */
-
                 //creacion de tablas
-
                 db.execSQL("CREATE TABLE ACCESOUSUARIO  (\n" +
                         "   USUARIO              VARCHAR(7)                     not null,\n" +
                         "   ID_OPCION            VARCHAR(3)                         not null,\n" +
@@ -239,10 +231,12 @@ public class ControlBdGrupo12 {
                         "\t(25, 25, 'AREA DE BASE DE DATOS');");
                 db.execSQL("INSERT INTO `ciclo` (`IDCICLO`, `FECHADESDE`, `FECHAHASTA`) VALUES\n" +
                         "\t('01-20', '2020-06-07', '2020-07-07');");
+
                 db.execSQL("INSERT INTO `detallealumnosevaluados` (`ID_DETALLEALUMNOSEVALUADOS`, `ASISTIO`, `NOTAEVALUACION`, `FECHA_PUBLICACION`, `FECHA_LIMITE`, `CARNET`, `IDREPETIDO`, `IDDIFERIDO`, `IDDOCENTE`, `IDPRIMERREVISION`, `IDEVALUACION`) VALUES\n" +
-                        "\t(1, 1, 8, '2020-06-07', '2020-06-07', 'MP16001', NULL, NULL, '01', NULL, 1);");
+                        "\t(1, 1, 8, '2020-06-07', '2020-06-07', 'MP16001', NULL, 11, '01', NULL, 1);");
                 db.execSQL("  INSERT INTO `detallealumnosevaluados` (`ID_DETALLEALUMNOSEVALUADOS`, `ASISTIO`, `NOTAEVALUACION`, `FECHA_PUBLICACION`, `FECHA_LIMITE`, `CARNET`, `IDREPETIDO`, `IDDIFERIDO`, `IDDOCENTE`, `IDPRIMERREVISION`, `IDEVALUACION`) VALUES\n" +
-                        "    (2, 1, 8, '2020-06-07', '2020-06-07', 'MP16001', NULL, NULL, '02', NULL, 1);");
+                        "    (2, 1, 8, '2020-06-07', '2020-06-07', 'MP16001', NULL, 22, '02', NULL, 1);");
+
                 db.execSQL("INSERT INTO `evaluacion` (`IDEVALUACION`, `IDTIPOEVAL`, `NOMBREEVALUACION`, `FECHAEVALUACION`) VALUES\n" +
                         "\t('1', '1', 'PARCIAL 1', '2020-12-12');");
                 db.execSQL("INSERT INTO `docente` (`IDDOCENTE`, `IDTIPODOCENTECICLO`, `IDESCUELA`, `IDASIGNATURA`, `IDCICLO`, `USUARIO`, `ID_OPCION`, `NOMBREDOCENTE`, `APELLIDODOCENTE`) VALUES\n" +
@@ -277,6 +271,11 @@ public class ControlBdGrupo12 {
                 db.execSQL("INSERT INTO `usuario` (`USUARIO`, `NOMBRE_USUARIO`) VALUES\n" +
                         "\t('DOCENTE', 'JUAN RAMOS'),\n" +
                         "\t('ESTUDIA', 'MIGUEL PEREZ');\n");
+
+                // Llenados CS17049
+                db.execSQL("INSERT INTO EVALUACION VALUES (3,'', 'Parcial 1', '04/04/04');");
+                // Fin Llenados CS17049
+
 
                 //FIN DATOS DE PRUEBA
 
@@ -410,7 +409,6 @@ public class ControlBdGrupo12 {
             }
         }
         return materias;
-
     }
     public String[]  nombreEvaluacionPrimeraRevision(){
 
@@ -477,6 +475,102 @@ public class ControlBdGrupo12 {
     }
     //fin datos primera reivision
 
+    // ADM DIFERIDOS
+    public String consultarCantidadSolicitudesDiferidos(){
+        long contador=0;
+        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
+                "FROM SOLICITUDDIFERIDO AS solD\n" +
+                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()== false){
+                contador= contador+1;
+                datos.moveToNext();
+            }
+        }
+        return String.valueOf(contador);
+    }
+
+    public String[]  idDiferido(){
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
+                "FROM SOLICITUDDIFERIDO AS solD\n" +
+                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(1);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[]  carnetDiferido(){
+
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
+                "FROM SOLICITUDDIFERIDO AS solD\n" +
+                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(1);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[]  NombreEvaluacionDiferido(){
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, estu.NOMBREESTUDIANTE, doc.IDASIGNATURA\n" +
+                "FROM SOLICITUDDIFERIDO AS solD\n" +
+                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "JOIN estudiante as estu ON det.CARNET = estu.CARNET\n" +
+                "JOIN docente as doc ON det.IDDOCENTE = doc.IDDOCENTE",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(3);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[]  NombreEstudianteDiferido(){
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
+                "FROM SOLICITUDDIFERIDO AS solD\n" +
+                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(1);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    // FIN ADM DIFERIDOS
+
     //funciones crud(insert,update,delete,create) de la clase primera revision
     public String actualizar(PrimeraRevision primeraRevision){
         String[] id = {primeraRevision.getIdPrimeraRevision()};
@@ -527,7 +621,6 @@ public class ControlBdGrupo12 {
             }while(registros.moveToNext());
         }
         return lista;
-
     }
 
     public String llenarBDCarnet() {
@@ -542,9 +635,9 @@ public class ControlBdGrupo12 {
 
         // TABLA SolicitudDiferido
         // Formato Fecha YYYY-MM-DD HH:MM:SS
-        final String[] SolicitudDiferidoTabla_IDDIFERIDO = {"11","22","33"};
+        final String[] IDDIFERIDO = {"11","22","33"};
         final String[] ID_DETALLEALUMNOSEVALUADOS = {"1","2","3"};
-        final String[] FECHASOLICITUDDIFERIDO = {"2020-04-04","2020-04-05","2020-04-06"};
+        final String[] FECHASOLICITUDDIFERIDO = {"04/04/2020","04/04/2020","04/04/2020"};
         // 0 (falso) y 1 (verdadero)
         final String[] ESTADODIFERIDO = {"0","0","0"};
         final String[] FECHADIFERIDO = {"","",""};
@@ -577,6 +670,7 @@ public class ControlBdGrupo12 {
 
         SolicitudDiferidoTabla solDiferido  = new SolicitudDiferidoTabla();
         for(int i=0;i<3;i++) {
+            solDiferido.setIDDIFERIDO(IDDIFERIDO[i]);
             solDiferido.setID_DETALLEALUMNOSEVALUADOS(ID_DETALLEALUMNOSEVALUADOS[i]);
             solDiferido.setFECHASOLICITUDDIFERIDO(FECHASOLICITUDDIFERIDO[i]);
             solDiferido.setESTADODIFERIDO(ESTADODIFERIDO[i]);

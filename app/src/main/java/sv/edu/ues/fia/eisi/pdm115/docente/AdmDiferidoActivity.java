@@ -15,16 +15,22 @@ public class AdmDiferidoActivity extends ListActivity {
 
     String[] activities={"AdmDetallesolicitudDiferido"};
 
+    //campos a mostrar
+    String [] carnet;
+    String [] idDiferidos;
+    String [] materias;
+    String [] opciones;
+    String cantidad;
+    ControlBdGrupo12 helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        helper= new ControlBdGrupo12(this);
 
-        ControlBdGrupo12 BDhelper = new ControlBdGrupo12(this);
-        List<String> menu  = BDhelper.llenar_lv();
-        String[] menuLista = menu.toArray(new String[menu.size()]);
+        llenar();
         setListAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, menuLista));
+                android.R.layout.simple_list_item_1, opciones));
     }
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -43,6 +49,25 @@ public class AdmDiferidoActivity extends ListActivity {
             }catch(ClassNotFoundException e){
                 e.printStackTrace();
             }
+        }
+    }
+
+    protected  void llenar(){
+        int contador=0;
+        helper.abrir();
+        cantidad= helper.consultarCantidadSolicitudesDiferidos();
+        carnet= new String[Integer.parseInt(cantidad)];
+        carnet= helper.carnetDiferido();
+        materias= new String[Integer.parseInt(cantidad)];
+        materias= helper.NombreEvaluacionDiferido();
+        opciones= new String[Integer.parseInt(cantidad)];
+        helper.cerrar();
+
+        for (int i=0; i<Integer.valueOf(cantidad);i++){
+            contador= contador+1;
+            String alumno= carnet[i];
+            String materia= materias[i];
+            opciones[i]= "Solicitud Diferido "+contador+" ["+ alumno+" - "+materia+" ]";
         }
     }
 }

@@ -11,6 +11,6 @@ public class EstudiantePrimeraRevisionActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_estudiante_primera_revision);
+       setContentView(R.layout.activity_estudiante_primera_revision);
     }
 }

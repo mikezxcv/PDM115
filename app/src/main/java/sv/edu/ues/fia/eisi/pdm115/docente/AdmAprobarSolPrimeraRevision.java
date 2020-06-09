@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -53,6 +52,7 @@ public class AdmAprobarSolPrimeraRevision extends AppCompatActivity {
         String local=localRevison.getText().toString();
         String observacion= observaciones.getText().toString();
 
+
         if(!estadoAprobado.isChecked() && !estadoDenegado.isChecked()){
             Toast.makeText(this, "seleccione un estado",Toast.LENGTH_LONG).show();
         }
@@ -80,7 +80,10 @@ public class AdmAprobarSolPrimeraRevision extends AppCompatActivity {
             }
 
 
+
+
         }
+
 
     }
 }

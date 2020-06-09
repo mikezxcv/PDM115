@@ -43,8 +43,6 @@ public class AdmSegundaRevisionActivity extends ListActivity {
     protected void llenarOpciones(){
         opciones= new String[3];
         for(int i=0; i< menu.length; i++){
-
-
             opciones[i]= "solicitud "+i;
         }
     }
