@@ -14,35 +14,42 @@
         <TextView android:text="Estado " />
        <RadioGroup>
            <RadioButton
+               android:id="@+id/estadoAprobado"
                android:text="Aprobado " >
 
            </RadioButton>
            <RadioButton
+               android:id="@+id/estadoDenegado"
                android:text="Denegado " >
 
            </RadioButton>
        </RadioGroup>
     </TableRow>
     <TableRow>
-        <TextView android:text="Fecha de Revision" />
+        <TextView android:text="Fecha Revision" />
         <EditText
             android:id="@+id/fechaAsignarPrimeraRevision"
             android:inputType="date"
-            android:maxLength="25" />
+            android:hint="Formato valido yyyy-mm-dd"
+            android:maxLength="10"
+
+
+            />
     </TableRow>
 
     <TableRow>
         <TextView android:text="Hora Revision" />
         <EditText
-            android:id="@+id/horaLocalPrimeraRevision"
-            android:inputType="text"
-            android:maxLength="30" />
+            android:id="@+id/horaAsignarPrimeraRevision"
+            android:inputType="number"
+            android:hint="Formato valido 0 a 24 horas"
+            android:maxLength="10" />
     </TableRow>
     <TableRow>
         <TextView android:text="Local Revision" />
         <EditText
             android:id="@+id/localAsignarPrimeraRevision"
-            android:inputType="date"
+            android:inputType="number"
             android:maxLength="10" />
     </TableRow>
     <TableRow>
@@ -51,13 +58,26 @@
             android:id="@+id/observacionesAsignarPrimeraRevision"
             android:inputType="text"
             android:maxLength="30" />
+
     </TableRow>
+    <!--<TableRow>
+        <TextView android:text="Spinner" />
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="40dip"
+            android:text="Observaciones"
+            android:layout_height="40dip" />
+        <TextView android:text="          " />
+
+    </TableRow>-->
+
 
 
 
     <Button
 
-        android:id="@+id/irAorobarSolicitudPrimeraRevision"
+
+        android:onClick="actualizarPrimeraRevision"
         android:text="Guardar " />
 
 

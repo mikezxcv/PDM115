@@ -31,6 +31,7 @@ public class AdmPrimeraRevisionActivity extends ListActivity {
     String [] materias;
     String [] evaluaciones;
     String [] fechaSolicitud;
+    String [] idPrimerRevision;
 
     //campos a mostrar
     String [] opciones;
@@ -41,9 +42,19 @@ public class AdmPrimeraRevisionActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         helper= new ControlBdGrupo12(this);
 
-                llenar();
-                 setListAdapter(new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, opciones));
+        helper.abrir();
+        cantidad= helper.consultarCantidadSolicitudesPrimeraRevision();
+        helper.cerrar();
+        if(Integer.valueOf(cantidad)!=0){
+            llenar();
+            setListAdapter(new ArrayAdapter<String>(this,
+                    android.R.layout.simple_list_item_1, opciones));
+        }
+        else {
+            Toast.makeText(this,"No hay solicitudes",Toast.LENGTH_LONG).show();
+        }
+
+
 
     }
     @Override
@@ -53,11 +64,12 @@ public class AdmPrimeraRevisionActivity extends ListActivity {
 
             Intent intent = new Intent(AdmPrimeraRevisionActivity.this, AdmDetallesolicitudPrimeraRevision.class);
             intent.putExtra("carnet",alumnos[position]);
-            intent.putExtra("nombre",alumnos[position]);
+            intent.putExtra("nombre",nombres[position]);
             intent.putExtra("materia",materias[position]);
-            intent.putExtra("evaluacion",alumnos[position]);
-            intent.putExtra("alumno",alumnos[position]);
-            intent.putExtra("fechaSolicitud",alumnos[position]);
+            intent.putExtra("evaluacion",evaluaciones[position]);
+            intent.putExtra("fechaSolicitud",fechaSolicitud[position]);
+            intent.putExtra("id", idPrimerRevision[position]);
+
             startActivity(intent);
     }
 
@@ -66,10 +78,25 @@ public class AdmPrimeraRevisionActivity extends ListActivity {
         int contador=0;
         helper.abrir();
         cantidad= helper.consultarCantidadSolicitudesPrimeraRevision();
+
         alumnos= new String[Integer.parseInt(cantidad)];
         alumnos= helper.alumnosPrimeraRevision();
+
+        nombres= new String[Integer.parseInt(cantidad)];
+        nombres= helper.nombreEstudiantePrimeraRevision();
+
         materias= new String[Integer.parseInt(cantidad)];
         materias= helper.materiasPrimeraRevision();
+
+        evaluaciones= new String[Integer.parseInt(cantidad)];
+        evaluaciones= helper.nombreEvaluacionPrimeraRevision();
+
+        fechaSolicitud= new String[Integer.parseInt(cantidad)];
+        fechaSolicitud= helper.fechaSolicitudPrimeraRevision();
+
+        idPrimerRevision= new String[Integer.parseInt(cantidad)];
+        idPrimerRevision= helper.idPrimeraRevision();
+
         opciones= new String[Integer.parseInt(cantidad)];
 
 

@@ -19,6 +19,9 @@ public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
     EditText materia;
     EditText evaluacion;
     EditText fechasolicitud;
+    //id viene desde el intent detalle de primer revision
+    String idPrimerRevision;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,14 +35,27 @@ public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
          evaluacion=(EditText) findViewById(R.id.evaluacionSolPrimeraRevision);
          fechasolicitud= (EditText) findViewById(R.id.fechasolicitudSolPrimeraRevision);
 
-         btn.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent intent = new Intent(AdmDetallesolicitudPrimeraRevision.this, AdmAprobarSolPrimeraRevision.class);
-                 startActivity(intent);
-             }
-         });
 
+        //ontener los datos de ADMPRIMERAREVISIONACTIVITY
+        Bundle bundle= getIntent().getExtras();
+
+        carnet.setText(bundle.getString("carnet"));
+        nombre.setText(bundle.getString("nombre"));
+        materia.setText(bundle.getString("materia"));
+        evaluacion.setText(bundle.getString("evaluacion"));
+        fechasolicitud.setText(bundle.getString("fechaSolicitud"));
+        idPrimerRevision= bundle.getString("id");
+
+        //aprobar Revision
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdmDetallesolicitudPrimeraRevision.this, AdmAprobarSolPrimeraRevision.class);
+                intent.putExtra("id",idPrimerRevision);
+                startActivity(intent);
+            }
+        });
+        //dar revision
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,14 +64,7 @@ public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
             }
         });
 
-        //ontener los datos de ADMPRIMERAREVISIONACTIVITY
-        Bundle bundle= getIntent().getExtras();
 
-        carnet.setText(bundle.getString("carnet"));
-        nombre.setText(bundle.getString("carnet"));
-        materia.setText(bundle.getString("materia"));
-        evaluacion.setText(bundle.getString("carnet"));
-        fechasolicitud.setText(bundle.getString("carnet"));
     }
 
 }

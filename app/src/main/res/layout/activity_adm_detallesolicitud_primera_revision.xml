@@ -7,6 +7,7 @@
     android:stretchColumns="1" >
     <TextView
         android:text="Administracion Primera Revision "
+        android:background="#d4cee0"
 
 
         />
@@ -53,7 +54,10 @@
         <Button
 
             android:id="@+id/irAorobarSolicitudPrimeraRevision"
-            android:text="Aprobar Revision" />
+            android:text="Aprobar Revision"
+            android:background="#50ba6c"
+
+            />
 
 
 
@@ -61,7 +65,8 @@
             android:id="@+id/darRevisionPrimeraRevision"
             android:text="Dar Revision"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="#6cd4d4"/>
    <TableRow>
 
        <Button
@@ -70,6 +75,7 @@
            android:onClick="metodo3"
            android:text="Eliminar"
            android:icon="@android:drawable/ic_menu_call"
+           android:background="#d46c88"
 
 
            />
