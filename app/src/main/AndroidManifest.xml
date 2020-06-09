@@ -17,8 +17,13 @@
         <activity android:name=".docente.AdmDetallesolicitudSegundaRevision" />
         <activity android:name=".docente.AdmSegundaRevisionActivity" />
         <activity android:name=".docente.AdmPrimeraRevisionActivity" />
-        <activity android:name=".estudiante.SolicitudPrimeraRevisionActivity" />
-        <activity android:name=".docente.AdmRepetidoActivity" />
+        <activity android:name=".estudiante.EstudiantePrimeraRevisionActivity" />
+        <activity android:name=".estudiante.EstudianteSegundaRevisionActivity" />
+        <activity android:name=".estudiante.EstudianteSolicitudPrimeraRevisionActivity" />
+        <activity android:name=".estudiante.EstudianteConsultarSolicitudPrimeraRevisionActivity" />
+        <activity android:name=".estudiante.EstudianteSolicitudSegundaRevisionActivity" />
+        <activity android:name=".estudiante.EstudianteConsultarSolicitudSegundaRevision" />
+         <activity android:name=".docente.AdmRepetidoActivity" />
         <activity android:name=".docente.AdmDiferidoActivity" />
         <activity android:name=".docente.AdmAprobarSolRepetido" />
         <activity android:name=".docente.AdmDetallesolicitudRepetido" />

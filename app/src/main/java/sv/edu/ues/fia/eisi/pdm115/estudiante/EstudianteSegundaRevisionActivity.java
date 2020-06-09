@@ -14,8 +14,8 @@ public class EstudianteSegundaRevisionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estudiante_segunda_revision);
-        boton3=(Button)findViewById(R.id.irCrearSolicitudSegundaRevision);
-        boton4=(Button)findViewById(R.id.irConsultarSolicitudSegundaRevision);
+        boton3= findViewById(R.id.irCrearSolicitudSegundaRevision);
+        boton4= findViewById(R.id.irConsultarSolicitudSegundaRevision);
 
         boton3.setOnClickListener(new View.OnClickListener() {
 
