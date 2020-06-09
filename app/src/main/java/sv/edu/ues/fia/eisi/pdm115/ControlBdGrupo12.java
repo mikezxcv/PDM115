@@ -276,7 +276,6 @@ public class ControlBdGrupo12 {
                 db.execSQL("INSERT INTO EVALUACION VALUES (3,'', 'Parcial 1', '04/04/04');");
                 // Fin Llenados CS17049
 
-
                 //FIN DATOS DE PRUEBA
 
 
@@ -502,7 +501,7 @@ public class ControlBdGrupo12 {
                 "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
         if(datos.moveToFirst()){
             while (datos.isAfterLast()==false){
-                String carnet= datos.getString(1);
+                String carnet= datos.getString(0);
                 alumnos[contador]= carnet;
                 contador=contador+1;
                 datos.moveToNext();
@@ -510,6 +509,7 @@ public class ControlBdGrupo12 {
         }
         return alumnos;
     }
+
     public String[]  carnetDiferido(){
 
         String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
@@ -530,7 +530,28 @@ public class ControlBdGrupo12 {
         }
         return alumnos;
     }
-    public String[]  NombreEvaluacionDiferido(){
+
+    public String[]  nombreEvaluacionDiferido(){
+
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
+                "FROM SOLICITUDDIFERIDO AS solD\n" +
+                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(2);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[]  NombreMateriaDiferido(){
         String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
         Integer contador= 0;
         Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, estu.NOMBREESTUDIANTE, doc.IDASIGNATURA\n" +
@@ -561,7 +582,7 @@ public class ControlBdGrupo12 {
 
         if(datos.moveToFirst()){
             while (datos.isAfterLast()==false){
-                String carnet= datos.getString(1);
+                String carnet= datos.getString(3);
                 alumnos[contador]= carnet;
                 contador=contador+1;
                 datos.moveToNext();

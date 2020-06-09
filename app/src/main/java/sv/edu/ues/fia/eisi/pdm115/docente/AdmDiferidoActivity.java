@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -16,9 +17,12 @@ public class AdmDiferidoActivity extends ListActivity {
     String[] activities={"AdmDetallesolicitudDiferido"};
 
     //campos a mostrar
-    String [] carnet;
     String [] idDiferidos;
+    String [] carnet;
+    String [] nombre;
     String [] materias;
+    String [] tipoEvaluacion;
+
     String [] opciones;
     String cantidad;
     ControlBdGrupo12 helper;
@@ -32,6 +36,7 @@ public class AdmDiferidoActivity extends ListActivity {
         setListAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, opciones));
     }
+
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
@@ -50,17 +55,40 @@ public class AdmDiferidoActivity extends ListActivity {
                 e.printStackTrace();
             }
         }
+
+        Intent intent = new Intent(this, AdmDetallesolicitudDiferido.class);
+        intent.putExtra("idDiferido",idDiferidos[position]);
+        intent.putExtra("carnet",carnet[position]);
+        intent.putExtra("nombre",nombre[position]);
+        intent.putExtra("materia",materias[position]);
+        intent.putExtra("evaluacion",tipoEvaluacion[position]);
+        startActivity(intent);
     }
 
     protected  void llenar(){
         int contador=0;
         helper.abrir();
         cantidad= helper.consultarCantidadSolicitudesDiferidos();
+
+        idDiferidos= new String[Integer.parseInt(cantidad)];
+        idDiferidos= helper.idDiferido();
+
         carnet= new String[Integer.parseInt(cantidad)];
         carnet= helper.carnetDiferido();
+
+        nombre= new String[Integer.parseInt(cantidad)];
+        nombre= helper.NombreEstudianteDiferido();
+
         materias= new String[Integer.parseInt(cantidad)];
-        materias= helper.NombreEvaluacionDiferido();
+        materias= helper.NombreMateriaDiferido();
+
+        tipoEvaluacion= new String[Integer.parseInt(cantidad)];
+        tipoEvaluacion= helper.nombreEvaluacionDiferido();
+
         opciones= new String[Integer.parseInt(cantidad)];
+
+
+        helper.cerrar();
         helper.cerrar();
 
         for (int i=0; i<Integer.valueOf(cantidad);i++){
@@ -69,5 +97,6 @@ public class AdmDiferidoActivity extends ListActivity {
             String materia= materias[i];
             opciones[i]= "Solicitud Diferido "+contador+" ["+ alumno+" - "+materia+" ]";
         }
+
     }
 }

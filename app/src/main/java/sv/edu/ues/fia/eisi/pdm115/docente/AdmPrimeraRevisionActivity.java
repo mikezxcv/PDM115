@@ -54,13 +54,10 @@ public class AdmPrimeraRevisionActivity extends ListActivity {
             Toast.makeText(this,"No hay solicitudes",Toast.LENGTH_LONG).show();
         }
 
-
-
     }
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-
 
             Intent intent = new Intent(AdmPrimeraRevisionActivity.this, AdmDetallesolicitudPrimeraRevision.class);
             intent.putExtra("carnet",alumnos[position]);
