@@ -46,19 +46,30 @@ public class AdmAprobarSolPrimeraRevision extends AppCompatActivity {
 
     }
     public void actualizarPrimeraRevision(View view){
+
+        String fecha= fechaRevison.getText().toString();
+        String hora = HoraRevison.getText().toString();
+        String local=localRevison.getText().toString();
+        String observacion= observaciones.getText().toString();
+
+
         if(!estadoAprobado.isChecked() && !estadoDenegado.isChecked()){
             Toast.makeText(this, "seleccione un estado",Toast.LENGTH_LONG).show();
         }
         else{
-            String opcion= (estadoAprobado.isChecked())?  APROBADO:DENEGADO;
+            if(fecha.isEmpty()||hora.isEmpty()||local.isEmpty()||observacion.isEmpty()){
+                Toast.makeText(this, "Rellene todos los capos",Toast.LENGTH_LONG).show();
+            }
+            else{
+                 String opcion= (estadoAprobado.isChecked())?  APROBADO:DENEGADO;
             Toast.makeText(this, opcion,Toast.LENGTH_LONG).show();
             PrimeraRevision primeraRevision= new PrimeraRevision();
 
             primeraRevision.setEstadoPrimeraRevision(opcion);
-            primeraRevision.setFechaPrimeraRevision(fechaRevison.getText().toString());
-            primeraRevision.setHoraPrimerarevision(HoraRevison.getText().toString());
-            primeraRevision.setIdLocal(localRevison.getText().toString());
-            primeraRevision.setObservacionesPrimeraRevision(observaciones.getText().toString());
+            primeraRevision.setFechaPrimeraRevision(fecha);
+            primeraRevision.setHoraPrimerarevision(hora);
+            primeraRevision.setIdLocal(local);
+            primeraRevision.setObservacionesPrimeraRevision(observacion);
 
             //pasarle el id de primerrevision obtendio a  travez del intent
             primeraRevision.setIdPrimeraRevision(idPrimerRevision);
@@ -66,6 +77,8 @@ public class AdmAprobarSolPrimeraRevision extends AppCompatActivity {
             String resultado= helper.actualizar(primeraRevision);
             helper.cerrar();
             Toast.makeText(this,resultado,Toast.LENGTH_LONG).show();
+            }
+
 
 
 

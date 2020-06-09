@@ -43,7 +43,7 @@
             android:id="@+id/horaAsignarPrimeraRevision"
             android:inputType="number"
             android:hint="Formato valido 0 a 24 horas"
-            android:maxLength="10" />
+            android:maxLength="2" />
     </TableRow>
     <TableRow>
         <TextView android:text="Local Revision" />

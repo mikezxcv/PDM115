@@ -17,22 +17,21 @@
         <TextView android:text="Nota antes Revision" />
         <EditText
             android:id="@+id/notaAntesAsignarPrimeraRevision"
-            android:inputType="number"
+            android:inputType="phone"
             android:maxLength="4" />
     </TableRow>
     <TableRow>
         <TextView android:text="Nota Despues Revision" />
         <EditText
             android:id="@+id/notaDespuesAsignarPrimeraRevision"
-            android:inputType="number"
+            android:inputType="phone"
             android:maxLength="4" />
     </TableRow>
 
 
 
     <Button
-
-
+        android:onClick="darRevision"
         android:text="Guardar " />
 
 

@@ -156,8 +156,8 @@ public class ControlBdGrupo12 {
                         "   ESTADOPRIMERAREV     CHAR(10),\n" +
                         "   FECHAPRIMERAREV      DATE,\n" +
                         "   HORAPRIMERAREV       INTEGER,\n" +
-                        "   NOTAANTESPRIMERAREV  INTEGER(4),\n" +
-                        "   NOTADESPUESPRIMERAREV INTEGER(4),\n" +
+                        "   NOTAANTESPRIMERAREV  float(4),\n" +
+                        "   NOTADESPUESPRIMERAREV float(4),\n" +
                         "   OBSERVACIONESPRIMERAREV VARCHAR(30),\n" +
                         "   MATERIAPRIMERREV     CHAR(50),\n" +
                         " primary key (IDPRIMERREVISION)\n" +
@@ -482,15 +482,21 @@ public class ControlBdGrupo12 {
         String[] id = {primeraRevision.getIdPrimeraRevision()};
 
         ContentValues cv = new ContentValues();
+        //aprobar revision
         cv.put("ESTADOPRIMERAREV", primeraRevision.getEstadoPrimeraRevision());
         cv.put("FECHAPRIMERAREV", primeraRevision.getFechaPrimeraRevision());
         cv.put("HORAPRIMERAREV", primeraRevision.getHoraPrimerarevision());
         cv.put("IDLOCAL", primeraRevision.getIdLocal());
+        //dar revision
+        cv.put("NOTAANTESPRIMERAREV", primeraRevision.getNotaAntesPrimeraRevision());
+        cv.put("NOTADESPUESPRIMERAREV", primeraRevision.getNotaDespuesPrimeraRevision());
+
         cv.put("OBSERVACIONESPRIMERAREV", primeraRevision.getObservacionesPrimeraRevision());
 
         db.update("primerrevision", cv, "IDPRIMERREVISION = ? ",id);
         return "Registro Actualizado Correctamente";
     }
+
     //fin funciones crud
 
 
