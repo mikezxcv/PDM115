@@ -1,9 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="sv.edu.ues.fia.eisi.pdm115.docente.AdmRepetidoActivity">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+    <TextView
+        android:text="Administracion de Repetidos"
+        />
+    <TableRow>
+        <TextView android:text="Carnet "
+            />
+        <EditText
+            android:id="@+id/carnetSolicitudRepetido"
+            android:inputType="text"
+            android:maxLength="15" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Nombre" />
+        <EditText
+            android:id="@+id/nombreSolicitudRepetido"
+            android:inputType="text"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:maxLength="15" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Materia" />
+        <EditText
+            android:id="@+id/materiaSolicitudRepetido"
+            android:inputType="text"
+            android:maxLength="15" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="Evaluacion" />
+        <EditText
+            android:id="@+id/evaluacionSolicitudRepetido"
+            android:inputType="text"
+            android:maxLength="15" />
+    </TableRow>
+
+    <TableRow>
+        <TextView android:text="Fecha Solicitud" />
+        <EditText
+            android:id="@+id/fechaSolicitudRepetido"
+            android:inputType="text"
+            android:maxLength="15" />
+    </TableRow>
+
+    <Button
+        android:id="@+id/irAprobarSolicitudRepetido"
+        android:text="Aprobar Repetido"
+        />
+
+    <Button
+        android:id="@+id/asignarNotaRepetido"
+        android:text="Asignar nota De Repetido"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+    <Button
+        android:id="@+id/eliminarSolicitud"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="metodo3"
+        android:text="Eliminar"
+        />
+
+
+
+
+</TableLayout>

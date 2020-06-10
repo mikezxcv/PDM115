@@ -84,8 +84,6 @@ public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
                 crearDialog();
                 dialogo.show();
 
-
-
             }
         });
 

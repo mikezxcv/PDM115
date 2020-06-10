@@ -15,8 +15,8 @@ public class AdmDetallesolicitudRepetido extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adm_detallesolicitud_repetido);
-        boton = (Button) findViewById(R.id.enviarSolicitud);
+        setContentView(R.layout.activity_adm_repetido);
+        boton = (Button) findViewById(R.id.irAprobarSolicitudRepetido);
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -10,7 +10,7 @@
     <TableRow>
         <TextView android:text="Carnet"/>
         <EditText
-            android:id="@+id/editCarnet"
+            android:id="@+id/editCarnetDiferidoAprobar"
             android:inputType="text"
             android:maxLength="15" />
     </TableRow>
@@ -18,28 +18,28 @@
     <TableRow>
         <TextView android:text="Fecha del Diferido" />
         <EditText
-            android:id="@+id/editfechaDiferido"
+            android:id="@+id/editfechaDiferidoAprobar"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>
     <TableRow>
         <TextView android:text="Hora" />
         <EditText
-            android:id="@+id/editHora"
+            android:id="@+id/editHoraAprobar"
             android:inputType="text"
             android:maxLength="10" />
     </TableRow>
     <TableRow>
         <TextView android:text="Local" />
         <EditText
-            android:id="@+id/editLocal"
+            android:id="@+id/editLocalAprobar"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>
     <TextView android:text="Estado" />
     <TableRow>
         <RadioButton
-            android:id="@+id/radioRechazado"
+            android:id="@+id/radioRechazadoAprobar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rechazado" />
@@ -47,7 +47,7 @@
 
     <TableRow>
         <RadioButton
-            android:id="@+id/radioAprobado"
+            android:id="@+id/radioAprobadoAprobar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Aprobado" />
@@ -56,15 +56,15 @@
     <TableRow>
         <TextView android:text="Observaciones" />
         <EditText
-            android:id="@+id/editObservaciones"
+            android:id="@+id/editObservacionesAprobar"
             android:inputType="text"
             android:maxLength="30" />
     </TableRow>
 
     <TableRow android:layout_height="105dp">
         <Button
-            android:onClick="GuardarCambiosSolicitudDiferido"
-            android:id="@+id/guardar"
+            android:onClick="GuardarCambiosSolicitudDiferidoAprobar"
+            android:id="@+id/guardarDiferidoAprobar"
             android:text="Guardar" />
     </TableRow>
 

@@ -39,7 +39,6 @@ public class AdmDarRevisionPrimeraRevision extends AppCompatActivity {
                 //nota valida
                 PrimeraRevision primeraRevision= new PrimeraRevision();
 
-
                 primeraRevision.setNotaAntesPrimeraRevision(notaantes);
                 primeraRevision.setNotaDespuesPrimeraRevision(notadespues);
                 primeraRevision.setIdPrimeraRevision(idprimerRevision);
