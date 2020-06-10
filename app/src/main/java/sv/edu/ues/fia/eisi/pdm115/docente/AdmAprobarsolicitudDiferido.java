@@ -27,6 +27,8 @@ public class AdmAprobarsolicitudDiferido extends AppCompatActivity {
     final static String DENEGADO="DENEGADO";
     final static String APROBADO="APROBADO";
 
+    Button guardar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +40,21 @@ public class AdmAprobarsolicitudDiferido extends AppCompatActivity {
         HoraDiferido=(TextView) findViewById(R.id.editHoraAprobar);
         localDiferido= (TextView) findViewById(R.id.editLocalAprobar);
         observaciones=(TextView) findViewById(R.id.editObservacionesAprobar);
+        guardar = (Button)findViewById(R.id.guardarDiferidoAprobar);
+
         Bundle bundle=getIntent().getExtras();
         idDiferido= bundle.getString("idDiferido");
         Toast.makeText(this,idDiferido,Toast.LENGTH_LONG).show();
 
+        guardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actualizarDiferido(v);
+            }
+        });
+
     }
-    public void actualizarPrimeraRevision(View view){
+    public void actualizarDiferido(View view){
 
         String fecha= fechaDiferido.getText().toString();
         String hora = HoraDiferido.getText().toString();
@@ -67,7 +78,7 @@ public class AdmAprobarsolicitudDiferido extends AppCompatActivity {
                 solicitudDiferido.setESTADODIFERIDO(opcion);
                 solicitudDiferido.setFECHADIFERIDO(fecha);
                 solicitudDiferido.setHORADIFERIDO(hora);
-                //solicitudDiferido.setLOCALDIFERIDO(local);
+                solicitudDiferido.setLOCALDIFERIDO(local);
                 solicitudDiferido.setOBSERVACIONESDIFERIDO(observacion);
 
                 //pasarle el id de primerrevision obtendio a  travez del intent

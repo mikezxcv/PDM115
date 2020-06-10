@@ -25,7 +25,7 @@ public class ControlBdGrupo12 {
         DBHelper = new DatabaseHelper(context);
     }
     public static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "procesosGrupo12_9.s3db";
+        private static final String BASE_DATOS = "procesosGrupo12_10.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -192,6 +192,7 @@ public class ControlBdGrupo12 {
                         "   NOTADIFERIDO         INTEGER,\n" +
                         "   OBSERVACIONESDIFERIDO CHAR(100),\n" +
                         "   MATERIADIFERIDO      CHAR(20),\n" +
+                        "   IDLOCAL      CHAR(20),\n" +
                         "   MOTIVODIFERIDO       CHAR(100),\n" +
                         "   HORADIFERIDO         DATE,\n" +
                         "   primary key (IDDIFERIDO)\n" +
@@ -619,10 +620,7 @@ public class ControlBdGrupo12 {
         cv.put("ESTADODIFERIDO", solicitudDiferido.getESTADODIFERIDO());
         cv.put("FECHADIFERIDO", solicitudDiferido.getFECHADIFERIDO());
         cv.put("HORADIFERIDO", solicitudDiferido.getHORADIFERIDO());
-        //cv.put("IDLOCAL", solicitudDiferido.getIdLocal());
-        //dar revision
-        //cv.put("NOTAANTESPRIMERAREV", solicitudDiferido.getNotaAntesPrimeraRevision());
-        //cv.put("NOTADESPUESPRIMERAREV", solicitudDiferido.getNotaDespuesPrimeraRevision());
+        cv.put("IDLOCAL", solicitudDiferido.getLOCALDIFERIDO());
 
         cv.put("OBSERVACIONESDIFERIDO", solicitudDiferido.getOBSERVACIONESDIFERIDO());
 
