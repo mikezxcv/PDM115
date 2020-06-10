@@ -66,7 +66,6 @@ public class AdmPrimeraRevisionActivity extends ListActivity {
             intent.putExtra("evaluacion",evaluaciones[position]);
             intent.putExtra("fechaSolicitud",fechaSolicitud[position]);
             intent.putExtra("id", idPrimerRevision[position]);
-
             startActivity(intent);
     }
 

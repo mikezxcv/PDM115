@@ -611,6 +611,25 @@ public class ControlBdGrupo12 {
         db.update("primerrevision", cv, "IDPRIMERREVISION = ? ",id);
         return "Registro Actualizado Correctamente";
     }
+    public String actualizar(SolicitudDiferidoTabla solicitudDiferido){
+        String[] id = {solicitudDiferido.getIDDIFERIDO()};
+
+        ContentValues cv = new ContentValues();
+        //aprobar revision
+        cv.put("ESTADODIFERIDO", solicitudDiferido.getESTADODIFERIDO());
+        cv.put("FECHADIFERIDO", solicitudDiferido.getFECHADIFERIDO());
+        cv.put("HORADIFERIDO", solicitudDiferido.getHORADIFERIDO());
+        //cv.put("IDLOCAL", solicitudDiferido.getIdLocal());
+        //dar revision
+        //cv.put("NOTAANTESPRIMERAREV", solicitudDiferido.getNotaAntesPrimeraRevision());
+        //cv.put("NOTADESPUESPRIMERAREV", solicitudDiferido.getNotaDespuesPrimeraRevision());
+
+        cv.put("OBSERVACIONESDIFERIDO", solicitudDiferido.getOBSERVACIONESDIFERIDO());
+
+        db.update("SOLICITUDDIFERIDO", cv, "IDDIFERIDO = ? ",id);
+        return "Registro Actualizado Correctamente";
+    }
+
     public String eliminar(PrimeraRevision primeraRevision){
         String regAfectados="filas afectadas= ";
         int contador=0;

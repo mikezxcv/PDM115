@@ -1,5 +1,6 @@
 package sv.edu.ues.fia.eisi.pdm115.docente;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,38 +18,53 @@ import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
 public class AdmDetallesolicitudDiferido extends AppCompatActivity {
-    Button boton;
-    EditText editTextCarnet;
+
+    // ----------------------------
+    Button btnEliminar;
+    Button btnAprobar;
+    EditText carnet;
+    EditText nombre;
+    EditText materia;
+    EditText evaluacion;
+
+    //id viene desde el intent detalle de primer revision
+    String idDiferido;
+    ControlBdGrupo12 helper;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adm_detallesolicitud_diferido);
-        Bundle bundle = getIntent().getExtras();
-        //String position = bundle.getString("index");
+        helper= new ControlBdGrupo12(this);
+
+        btnEliminar = (Button) findViewById(R.id.irEliminarSolicitidDiferido);
+        btnAprobar= (Button) findViewById(R.id.irAprobarSolicitudDiferido);
+        carnet= (EditText) findViewById(R.id.editCarnetDiferido);
+        nombre= (EditText) findViewById(R.id.editNombreDiferido);
+        materia=(EditText) findViewById(R.id.editMateriaDiferido);
+        evaluacion=(EditText) findViewById(R.id.editEvaluacionDiferido);
 
 
-        editTextCarnet = (EditText)findViewById(R.id.editCarnet);
-        boton = (Button) findViewById(R.id.irAprobarSolicitudDiferido);
-        boton.setOnClickListener(new View.OnClickListener() {
+
+        // Obteniendo datos de AdmDiferidoActivity
+        Bundle bundle= getIntent().getExtras();
+        idDiferido= bundle.getString("idDiferido");
+
+        carnet.setText(bundle.getString("carnet"));
+        nombre.setText(bundle.getString("nombre"));
+        materia.setText(bundle.getString("materia"));
+        evaluacion.setText(bundle.getString("evaluacion"));
+
+
+        btnAprobar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AdmDetallesolicitudDiferido.this, AdmAprobarsolicitudDiferido.class));
+                Intent intent = new Intent(AdmDetallesolicitudDiferido.this, AdmAprobarsolicitudDiferido.class);
+                intent.putExtra("idDiferido",idDiferido);
+                startActivity(intent);
             }
         });
-
-        if(bundle != null && bundle.getString("index") != null){
-            String index = bundle.getString("index");
-            Toast.makeText(this,  index, Toast.LENGTH_SHORT).show();
-            //editTextCarnet.setText(index);
-            //int positionInt = Integer.parseInt(index);
-            //ControlBdGrupo12 BDhelper = new ControlBdGrupo12(this);
-            //List<String> menu  = BDhelper.llenar_listaCompleta(2);
-            //String[] menuLista = menu.toArray(new String[menu.size()]);
-            //editTextCarnet.setText(menuLista[0]);
-
-        }else{
-            Toast.makeText(this, "Index Vacio...", Toast.LENGTH_SHORT).show();
-        }
 
     }
 }
