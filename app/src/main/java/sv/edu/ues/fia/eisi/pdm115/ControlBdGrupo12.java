@@ -171,7 +171,9 @@ public class ControlBdGrupo12 {
                         "   HORAREPETIDO         DATE,\n" +
                         "   NOTADESPUESREPETIDO  INTEGER,\n" +
                         "   NOTAANTESREPETIDO    INTEGER,\n" +
+                        "   OBSERVACIONES        CHAR(100),\n" +
                         "   MATERIA              CHAR(100),\n" +
+                        "   LOCAL                CHAR(50),\n" +
                         "   primary key (IDREPETIDO)\n" +
                         ");\n");
                 db.execSQL("CREATE TABLE ROL  (\n" +
@@ -201,6 +203,7 @@ public class ControlBdGrupo12 {
                         "   NOTADIFERIDO         INTEGER,\n" +
                         "   OBSERVACIONESDIFERIDO CHAR(100),\n" +
                         "   MATERIADIFERIDO      CHAR(20),\n" +
+                        "   IDLOCAL      CHAR(20),\n" +
                         "   MOTIVODIFERIDO       CHAR(100),\n" +
                         "   HORADIFERIDO         DATE,\n" +
                         "   primary key (IDDIFERIDO)\n" +
@@ -241,9 +244,9 @@ public class ControlBdGrupo12 {
                 db.execSQL("INSERT INTO `ciclo` (`IDCICLO`, `FECHADESDE`, `FECHAHASTA`) VALUES\n" +
                         "\t('01-20', '2020-06-07', '2020-07-07');");
                 db.execSQL("INSERT INTO `detallealumnosevaluados` (`ID_DETALLEALUMNOSEVALUADOS`, `ASISTIO`, `NOTAEVALUACION`, `FECHA_PUBLICACION`, `FECHA_LIMITE`, `CARNET`, `IDREPETIDO`, `IDDIFERIDO`, `IDDOCENTE`, `IDPRIMERREVISION`, `IDEVALUACION`) VALUES\n" +
-                        "\t(1, 1, 8, '2020-06-07', '2020-06-07', 'MP16001', NULL, NULL, '01', NULL, 1);");
+                        "\t(1, 1, 8, '2020-06-07', '2020-06-07', 'MP16001', NULL, 11, '01', NULL, 1);");
                 db.execSQL("  INSERT INTO `detallealumnosevaluados` (`ID_DETALLEALUMNOSEVALUADOS`, `ASISTIO`, `NOTAEVALUACION`, `FECHA_PUBLICACION`, `FECHA_LIMITE`, `CARNET`, `IDREPETIDO`, `IDDIFERIDO`, `IDDOCENTE`, `IDPRIMERREVISION`, `IDEVALUACION`) VALUES\n" +
-                        "    (2, 1, 8, '2020-06-07', '2020-06-07', 'MP16001', NULL, NULL, '02', NULL, 1);");
+                        "    (2, 1, 8, '2020-06-07', '2020-06-07', 'MP16001', NULL, 22, '02', NULL, 1);");
                 db.execSQL("INSERT INTO `evaluacion` (`IDEVALUACION`, `IDTIPOEVAL`, `NOMBREEVALUACION`, `FECHAEVALUACION`) VALUES\n" +
                         "\t('1', '1', 'PARCIAL 1', '2020-12-12');");
                 db.execSQL("INSERT INTO `docente` (`IDDOCENTE`, `IDTIPODOCENTECICLO`, `IDESCUELA`, `IDASIGNATURA`, `IDCICLO`, `USUARIO`, `ID_OPCION`, `NOMBREDOCENTE`, `APELLIDODOCENTE`) VALUES\n" +
@@ -281,6 +284,14 @@ public class ControlBdGrupo12 {
                 db.execSQL("  INSERT INTO `segundarevicion` (`IDSEGUNDAREVICION`, `FECHASOLICITUDSEGUNDAREVICION`, `ESTADOSEGUNDAREVICION`, `FECHASEGUNDAREVICION`, `HORASEGUNDAREVICION`, `NOTADESPUESSEGUNDAREVICION`, `OBSERVACIONESSEGUNDAREVICION`, `MATERIASEGUNDAREVICION`, `MOTIVOSSEGUNDAREVICION`, `IDPRIMERAREVISION`) VALUES\n" +
                         "\t(1, '2020-06-09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1'),\n" +
                         "\t(2, '2020-06-09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2');");
+                // Llenados CS17049
+                db.execSQL("INSERT INTO EVALUACION VALUES (3,'', 'Parcial 1', '04/04/04');");
+
+                db.execSQL("INSERT INTO REPETIDO VALUES(1, 1,'2000-04-04', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
+                db.execSQL("INSERT INTO REPETIDO VALUES(2, 1,'2000-04-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
+                db.execSQL("INSERT INTO REPETIDO VALUES(3, 1,'2000-04-06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
+                db.execSQL("INSERT INTO REPETIDO VALUES(4, 1,'2000-04-07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
+                // Fin Llenados CS17049
 
                 //FIN DATOS DE PRUEBA
 
@@ -303,170 +314,6 @@ public class ControlBdGrupo12 {
         return;
     }
 
-    public void insertar(RolTabla rol){
-        ContentValues roles = new ContentValues();
-        roles.put("ID_ROL", rol.getID_ROL());
-        roles.put("NOMBRE_ROL", rol.getNOMBRE_ROL());
-        db.insert("ROL", null, roles);
-    }
-    public String actualizar(SolicitudDiferidoTabla solicitudDiferido){
-        String[] id = {solicitudDiferido.getIDDIFERIDO()};
-
-        ContentValues cv = new ContentValues();
-        //aprobar revision
-        cv.put("ESTADODIFERIDO", solicitudDiferido.getESTADODIFERIDO());
-        cv.put("FECHADIFERIDO", solicitudDiferido.getFECHADIFERIDO());
-        cv.put("HORADIFERIDO", solicitudDiferido.getHORADIFERIDO());
-        //cv.put("IDLOCAL", solicitudDiferido.getIdLocal());
-        //dar revision
-        //cv.put("NOTAANTESPRIMERAREV", solicitudDiferido.getNotaAntesPrimeraRevision());
-        //cv.put("NOTADESPUESPRIMERAREV", solicitudDiferido.getNotaDespuesPrimeraRevision());
-
-        cv.put("OBSERVACIONESDIFERIDO", solicitudDiferido.getOBSERVACIONESDIFERIDO());
-
-        db.update("SOLICITUDDIFERIDO", cv, "IDDIFERIDO = ? ",id);
-        return "Registro Actualizado Correctamente";
-    }
-
-    public void insertar(AreaTabla area){
-        ContentValues roles = new ContentValues();
-        roles.put("ID_AREA", area.getID_AREA());
-        roles.put("ID_ROL", area.getID_ROL());
-        roles.put("NOMBRE_AREA", area.getNOMBRE_AREA());
-        db.insert("AREA", null, roles);
-    }
-
-    public void insertar(SolicitudDiferidoTabla solDiferido){
-        ContentValues roles = new ContentValues();
-        roles.put("IDDIFERIDO", solDiferido.getIDDIFERIDO());
-        roles.put("ID_DETALLEALUMNOSEVALUADOS", solDiferido.getID_DETALLEALUMNOSEVALUADOS());
-        roles.put("FECHASOLICITUDDIFERIDO", solDiferido.getFECHADIFERIDO());
-        roles.put("ESTADODIFERIDO", solDiferido.getESTADODIFERIDO());
-        roles.put("FECHADIFERIDO", solDiferido.getFECHADIFERIDO());
-        roles.put("NOTADIFERIDO", solDiferido.getNOTADIFERIDO());
-        roles.put("OBSERVACIONESDIFERIDO", solDiferido.getOBSERVACIONESDIFERIDO());
-        roles.put("MATERIADIFERIDO", solDiferido.getMATERIADIFERIDO());
-        roles.put("MOTIVODIFERIDO", solDiferido.getMOTIVODIFERIDO());
-        roles.put("HORADIFERIDO", solDiferido.getHORADIFERIDO());
-        db.insert("SOLICITUDDIFERIDO", null, roles);
-    }
-    // ADM DIFERIDOS
-    public String consultarCantidadSolicitudesDiferidos(){
-        long contador=0;
-        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
-                "FROM SOLICITUDDIFERIDO AS solD\n" +
-                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
-                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
-                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
-        if(datos.moveToFirst()){
-            while (datos.isAfterLast()== false){
-                contador= contador+1;
-                datos.moveToNext();
-            }
-        }
-        return String.valueOf(contador);
-    }
-
-    public String[]  idDiferido(){
-        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
-        Integer contador= 0;
-        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
-                "FROM SOLICITUDDIFERIDO AS solD\n" +
-                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
-                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
-                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
-        if(datos.moveToFirst()){
-            while (datos.isAfterLast()==false){
-                String carnet= datos.getString(0);
-                alumnos[contador]= carnet;
-                contador=contador+1;
-                datos.moveToNext();
-            }
-        }
-        return alumnos;
-    }
-
-    public String[]  carnetDiferido(){
-
-        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
-        Integer contador= 0;
-        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
-                "FROM SOLICITUDDIFERIDO AS solD\n" +
-                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
-                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
-                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
-
-        if(datos.moveToFirst()){
-            while (datos.isAfterLast()==false){
-                String carnet= datos.getString(1);
-                alumnos[contador]= carnet;
-                contador=contador+1;
-                datos.moveToNext();
-            }
-        }
-        return alumnos;
-    }
-
-    public String[]  nombreEvaluacionDiferido(){
-
-        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
-        Integer contador= 0;
-        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
-                "FROM SOLICITUDDIFERIDO AS solD\n" +
-                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
-                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
-                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
-
-        if(datos.moveToFirst()){
-            while (datos.isAfterLast()==false){
-                String carnet= datos.getString(2);
-                alumnos[contador]= carnet;
-                contador=contador+1;
-                datos.moveToNext();
-            }
-        }
-        return alumnos;
-    }
-    public String[]  NombreMateriaDiferido(){
-        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
-        Integer contador= 0;
-        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, estu.NOMBREESTUDIANTE, doc.IDASIGNATURA\n" +
-                "FROM SOLICITUDDIFERIDO AS solD\n" +
-                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
-                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
-                "JOIN estudiante as estu ON det.CARNET = estu.CARNET\n" +
-                "JOIN docente as doc ON det.IDDOCENTE = doc.IDDOCENTE",null);
-
-        if(datos.moveToFirst()){
-            while (datos.isAfterLast()==false){
-                String carnet= datos.getString(3);
-                alumnos[contador]= carnet;
-                contador=contador+1;
-                datos.moveToNext();
-            }
-        }
-        return alumnos;
-    }
-    public String[]  NombreEstudianteDiferido(){
-        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
-        Integer contador= 0;
-        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
-                "FROM SOLICITUDDIFERIDO AS solD\n" +
-                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
-                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
-                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
-
-        if(datos.moveToFirst()){
-            while (datos.isAfterLast()==false){
-                String carnet= datos.getString(3);
-                alumnos[contador]= carnet;
-                contador=contador+1;
-                datos.moveToNext();
-            }
-        }
-        return alumnos;
-    }
-    // FIN ADM DIFERIDOS
 
     //datos primera revision
 
@@ -1023,6 +870,291 @@ public class ControlBdGrupo12 {
     private boolean verificarIntegridad(Object dato, int relacion) throws SQLException {
         return false;
     }
+    // METODOS DE CS17049 --------------------------------------------------------------------
+    public String actualizar(RepetidoTabla repetidoTabla){
+        String[] id = {repetidoTabla.getIDREPETIDO()};
+        ContentValues cv = new ContentValues();
+        //aprobar revision
+        cv.put("ESTADOREPETIDO", repetidoTabla.getESTADOREPETIDO());
+        cv.put("FECHAREPETIDO", repetidoTabla.getFECHAREPETIDO());
+        cv.put("HORAREPETIDO", repetidoTabla.getHORAREPETIDO());
+        cv.put("LOCAL", repetidoTabla.getLOCAL());
+        cv.put("OBSERVACIONES", repetidoTabla.getOBSERVACIONES());
+
+        db.update("REPETIDO", cv, "IDREPETIDO = ? ",id);
+        return "Registro Actualizado Correctamente";
+    }
+
+    public String actualizar(SolicitudDiferidoTabla solicitudDiferido){
+        String[] id = {solicitudDiferido.getIDDIFERIDO()};
+
+        ContentValues cv = new ContentValues();
+        //aprobar revision
+        cv.put("ESTADODIFERIDO", solicitudDiferido.getESTADODIFERIDO());
+        cv.put("FECHADIFERIDO", solicitudDiferido.getFECHADIFERIDO());
+        cv.put("HORADIFERIDO", solicitudDiferido.getHORADIFERIDO());
+        cv.put("IDLOCAL", solicitudDiferido.getLOCALDIFERIDO());
+
+        cv.put("OBSERVACIONESDIFERIDO", solicitudDiferido.getOBSERVACIONESDIFERIDO());
+
+        db.update("SOLICITUDDIFERIDO", cv, "IDDIFERIDO = ? ",id);
+        return "Registro Actualizado Correctamente";
+    }
+
+    // ADM DIFERIDOS
+    public String consultarCantidadSolicitudesDiferidos(){
+        long contador=0;
+        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
+                "FROM SOLICITUDDIFERIDO AS solD\n" +
+                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()== false){
+                contador= contador+1;
+                datos.moveToNext();
+            }
+        }
+        return String.valueOf(contador);
+    }
+    public String[]  idDiferido(){
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
+                "FROM SOLICITUDDIFERIDO AS solD\n" +
+                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(0);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[]  carnetDiferido(){
+
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
+                "FROM SOLICITUDDIFERIDO AS solD\n" +
+                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(1);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[]  nombreEvaluacionDiferido(){
+
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
+                "FROM SOLICITUDDIFERIDO AS solD\n" +
+                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(2);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[]  NombreMateriaDiferido(){
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, estu.NOMBREESTUDIANTE, doc.IDASIGNATURA\n" +
+                "FROM SOLICITUDDIFERIDO AS solD\n" +
+                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "JOIN estudiante as estu ON det.CARNET = estu.CARNET\n" +
+                "JOIN docente as doc ON det.IDDOCENTE = doc.IDDOCENTE",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(3);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[]  NombreEstudianteDiferido(){
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
+                "FROM SOLICITUDDIFERIDO AS solD\n" +
+                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(3);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    // FIN ADM DIFERIDOS
+
+    // ADM REPETIDOS
+    public String consultarCantidadSolicitudesRepetidos(){
+        long contador=0;
+        Cursor datos = db.rawQuery("SELECT det.CARNET, est.NOMBREESTUDIANTE, docente.IDASIGNATURA, eva.NOMBREEVALUACION\n" +
+                "FROM repetido AS r\n" +
+                "JOIN detallealumnosevaluados AS det ON r.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN DOCENTE ON det.IDDOCENTE= docente.IDDOCENTE\n" +
+                "JOIN estudiante as est ON det.CARNET= est.CARNET\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION",null);
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()== false){
+                contador= contador+1;
+                datos.moveToNext();
+            }
+        }
+        return String.valueOf(contador);
+    }
+    public String[]  carnetSolicitudRepetido(){
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesRepetidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT det.CARNET, est.NOMBREESTUDIANTE, docente.IDASIGNATURA, eva.NOMBREEVALUACION\n" +
+                "FROM repetido AS r\n" +
+                "JOIN detallealumnosevaluados AS det ON r.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN DOCENTE ON det.IDDOCENTE= docente.IDDOCENTE\n" +
+                "JOIN estudiante as est ON det.CARNET= est.CARNET\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(0);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[]  nombreSolicitudRepetido(){
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesRepetidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT det.CARNET, est.NOMBREESTUDIANTE, docente.IDASIGNATURA, eva.NOMBREEVALUACION\n" +
+                "FROM repetido AS r\n" +
+                "JOIN detallealumnosevaluados AS det ON r.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN DOCENTE ON det.IDDOCENTE= docente.IDDOCENTE\n" +
+                "JOIN estudiante as est ON det.CARNET= est.CARNET\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(1);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[]  tipoEvaluacionSolicitudRepetido(){
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesRepetidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT det.CARNET, est.NOMBREESTUDIANTE, docente.IDASIGNATURA, eva.NOMBREEVALUACION\n" +
+                "FROM repetido AS r\n" +
+                "JOIN detallealumnosevaluados AS det ON r.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN DOCENTE ON det.IDDOCENTE= docente.IDDOCENTE\n" +
+                "JOIN estudiante as est ON det.CARNET= est.CARNET\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(3);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[]  fechaSolicitudRepetido(){
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesRepetidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT det.CARNET, est.NOMBREESTUDIANTE, docente.IDASIGNATURA, eva.NOMBREEVALUACION, r.FECHASOLICITUDREPETIDO\n" +
+                "FROM repetido AS r\n" +
+                "JOIN detallealumnosevaluados AS det ON r.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN DOCENTE ON det.IDDOCENTE= docente.IDDOCENTE\n" +
+                "JOIN estudiante as est ON det.CARNET= est.CARNET\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(4);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[]  idAsignaturaSolicitudRepetido(){
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesRepetidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT det.CARNET, est.NOMBREESTUDIANTE, docente.IDASIGNATURA, eva.NOMBREEVALUACION\n" +
+                "FROM repetido AS r\n" +
+                "JOIN detallealumnosevaluados AS det ON r.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN DOCENTE ON det.IDDOCENTE= docente.IDDOCENTE\n" +
+                "JOIN estudiante as est ON det.CARNET= est.CARNET\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(2);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[]  idSolicitudRepetido(){
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesRepetidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT det.CARNET, est.NOMBREESTUDIANTE, docente.IDASIGNATURA, eva.NOMBREEVALUACION, r.FECHASOLICITUDREPETIDO, r.IDREPETIDO\n" +
+                "FROM repetido AS r\n" +
+                "JOIN detallealumnosevaluados AS det ON r.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN DOCENTE ON det.IDDOCENTE= docente.IDDOCENTE\n" +
+                "JOIN estudiante as est ON det.CARNET= est.CARNET\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(5);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    // FIN ADM REPETIDOS
+    // FIN METODOS DE CS17049 --------------------------------------------------------------------
 
     public List<String> llenar_lv(){
         List<String> lista = new ArrayList<String>();
@@ -1035,7 +1167,6 @@ public class ControlBdGrupo12 {
             }while(registros.moveToNext());
         }
         return lista;
-
     }
 
     public String llenarBDCarnet() {
@@ -1050,9 +1181,9 @@ public class ControlBdGrupo12 {
 
         // TABLA SolicitudDiferido
         // Formato Fecha YYYY-MM-DD HH:MM:SS
-        final String[] SolicitudDiferidoTabla_IDDIFERIDO = {"11","22","33"};
+        final String[] IDDIFERIDO = {"11","22","33"};
         final String[] ID_DETALLEALUMNOSEVALUADOS = {"1","2","3"};
-        final String[] FECHASOLICITUDDIFERIDO = {"2020-04-04","2020-04-05","2020-04-06"};
+        final String[] FECHASOLICITUDDIFERIDO = {"04/04/2020","04/04/2020","04/04/2020"};
         // 0 (falso) y 1 (verdadero)
         final String[] ESTADODIFERIDO = {"0","0","0"};
         final String[] FECHADIFERIDO = {"","",""};
@@ -1085,6 +1216,7 @@ public class ControlBdGrupo12 {
 
         SolicitudDiferidoTabla solDiferido  = new SolicitudDiferidoTabla();
         for(int i=0;i<3;i++) {
+            solDiferido.setIDDIFERIDO(IDDIFERIDO[i]);
             solDiferido.setID_DETALLEALUMNOSEVALUADOS(ID_DETALLEALUMNOSEVALUADOS[i]);
             solDiferido.setFECHASOLICITUDDIFERIDO(FECHASOLICITUDDIFERIDO[i]);
             solDiferido.setESTADODIFERIDO(ESTADODIFERIDO[i]);
@@ -1101,6 +1233,42 @@ public class ControlBdGrupo12 {
         cerrar();
         return "Registros insertados";
     }
-}
+    // METODOS INUTILES --------------------------------------------------------------
+
+    public void insertar(RolTabla rol){
+        ContentValues roles = new ContentValues();
+        roles.put("ID_ROL", rol.getID_ROL());
+        roles.put("NOMBRE_ROL", rol.getNOMBRE_ROL());
+        db.insert("ROL", null, roles);
+    }
+
+    public void insertar(AreaTabla area){
+        ContentValues roles = new ContentValues();
+        roles.put("ID_AREA", area.getID_AREA());
+        roles.put("ID_ROL", area.getID_ROL());
+        roles.put("NOMBRE_AREA", area.getNOMBRE_AREA());
+        db.insert("AREA", null, roles);
+    }
+
+    public void insertar(SolicitudDiferidoTabla solDiferido){
+        ContentValues roles = new ContentValues();
+        roles.put("IDDIFERIDO", solDiferido.getIDDIFERIDO());
+        roles.put("ID_DETALLEALUMNOSEVALUADOS", solDiferido.getID_DETALLEALUMNOSEVALUADOS());
+        roles.put("FECHASOLICITUDDIFERIDO", solDiferido.getFECHADIFERIDO());
+        roles.put("ESTADODIFERIDO", solDiferido.getESTADODIFERIDO());
+        roles.put("FECHADIFERIDO", solDiferido.getFECHADIFERIDO());
+        roles.put("NOTADIFERIDO", solDiferido.getNOTADIFERIDO());
+        roles.put("OBSERVACIONESDIFERIDO", solDiferido.getOBSERVACIONESDIFERIDO());
+        roles.put("MATERIADIFERIDO", solDiferido.getMATERIADIFERIDO());
+        roles.put("MOTIVODIFERIDO", solDiferido.getMOTIVODIFERIDO());
+        roles.put("HORADIFERIDO", solDiferido.getHORADIFERIDO());
+        db.insert("SOLICITUDDIFERIDO", null, roles);
+    }
+
+
+
+
+    // FIN METODOS INUTILES --------------------------------------------------------------
+    }
 
 
