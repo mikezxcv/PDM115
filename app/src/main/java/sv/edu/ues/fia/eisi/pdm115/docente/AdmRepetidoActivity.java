@@ -7,28 +7,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
-import sv.edu.ues.fia.eisi.pdm115.R;
 
 public class AdmRepetidoActivity extends ListActivity {
 
     String[] activities={"AdmDetallesolicitudRepetido"};
 
     //campos a mostrar
-    String [] idDiferidos;
+    String [] idRepetido;
     String [] carnet;
     String [] nombre;
     String [] materias;
     String [] tipoEvaluacion;
+    String [] fechaSolicitudRepetido;
 
-    String [] opciones = {"Solicitud 1 [CARNET - MATERIA]", "Solicitud 1 [CARNET - MATERIA]", "Solicitud 1 [CARNET - MATERIA]"};
+    String [] opciones;
     String cantidad;
     ControlBdGrupo12 helper;
 
@@ -37,7 +35,7 @@ public class AdmRepetidoActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         helper= new ControlBdGrupo12(this);
 
-        //llenar();
+        llenar();
         setListAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, opciones));
     }
@@ -45,22 +43,47 @@ public class AdmRepetidoActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        ControlBdGrupo12 BDhelper = new ControlBdGrupo12(this);
-        List<String> menu  = BDhelper.llenar_lv();
-        String[] menuLista = menu.toArray(new String[menu.size()]);
-        if(position!=menu.size()){
-            String nombreValue=activities[0];
-            try{
-                //String positionInt = String.valueOf(position);
-                Class<?> clase=Class.forName("sv.edu.ues.fia.eisi.pdm115.docente."+nombreValue);
-                Intent intent = new Intent(this,clase);
-                startActivity(intent);
-            }catch(ClassNotFoundException e){
-                e.printStackTrace();
-            }
-        }
+
+        Intent intent = new Intent(this,AdmDetallesolicitudRepetido.class);
+        intent.putExtra("idRepetido",idRepetido[position]);
+        intent.putExtra("carnet",carnet[position]);
+        intent.putExtra("nombre",nombre[position]);
+        intent.putExtra("materia",materias[position]);
+        intent.putExtra("evaluacion",tipoEvaluacion[position]);
+        intent.putExtra("fechaSolicitud",fechaSolicitudRepetido[position]);
+        this.startActivity(intent);
 
     }
 
+    protected  void llenar(){
+        int contador=0;
+        helper.abrir();
+        cantidad= helper.consultarCantidadSolicitudesRepetidos();
 
+        idRepetido = new String[Integer.parseInt(cantidad)];
+        carnet= new String[Integer.parseInt(cantidad)];
+        nombre = new String[Integer.parseInt(cantidad)];
+        materias = new String[Integer.parseInt(cantidad)];
+        tipoEvaluacion = new String[Integer.parseInt(cantidad)];
+        fechaSolicitudRepetido = new String[Integer.parseInt(cantidad)];
+
+        idRepetido = helper.idSolicitudRepetido();
+        carnet = helper.carnetSolicitudRepetido();
+        nombre = helper.nombreSolicitudRepetido();
+        materias = helper.idAsignaturaSolicitudRepetido();
+        tipoEvaluacion = helper.tipoEvaluacionSolicitudRepetido();
+        fechaSolicitudRepetido = helper.fechaSolicitudRepetido();
+        
+        opciones= new String[Integer.parseInt(cantidad)];
+
+        helper.cerrar();
+
+        for (int i=0; i<Integer.valueOf(cantidad);i++){
+            contador= contador+1;
+            String alumno= carnet[i];
+            String materia= materias[i];
+            opciones[i]= "Solicitud Diferido "+contador+" ["+ alumno+" - "+materia+" ]";
+        }
+
+    }
 }

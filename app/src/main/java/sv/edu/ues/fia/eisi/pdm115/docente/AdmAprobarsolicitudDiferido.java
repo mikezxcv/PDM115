@@ -50,9 +50,7 @@ public class AdmAprobarsolicitudDiferido extends AppCompatActivity {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 actualizarDiferido(v);
-
             }
         });
 
@@ -93,8 +91,6 @@ public class AdmAprobarsolicitudDiferido extends AppCompatActivity {
                 helper.cerrar();
                 Toast.makeText(this,resultado,Toast.LENGTH_LONG).show();
 
-                /*Intent intent = new Intent(AdmAprobarsolicitudDiferido.this, AdmDetallesolicitudDiferido.class);
-                startActivity(intent);*/
 
             }
         }
