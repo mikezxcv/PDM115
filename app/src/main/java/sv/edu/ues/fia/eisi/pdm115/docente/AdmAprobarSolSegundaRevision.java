@@ -1,5 +1,6 @@
 package sv.edu.ues.fia.eisi.pdm115.docente;
 
+import androidx.annotation.IntegerRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -58,14 +59,28 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
         listaElementos= helper.listaDocentes();
         listaIdElementos= new String[helper.listaDocentes().length];
         listaIdElementos=helper.listaIdDocentes();
-        docentes_segundarevision= new String[helper.docentes_segundarevision(Integer.valueOf(idSegundaRevicion)).length];
-        docentes_segundarevision= helper.docentes_segundarevision(Integer.valueOf(idSegundaRevicion));
+
         helper.cerrar();
-        Toast.makeText(this, idSegundaRevicion,Toast.LENGTH_LONG).show();
+
 
         asignarDocentes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //evaluar si el elemento ya existe
+                helper.abrir();
+                String [] datos= helper.docentes_segundarevision(Integer.valueOf(idSegundaRevicion));
+                helper.cerrar();
+                for(int j=0;j<Integer.valueOf(listaElementos.length);j++){
+                    for(int i=0;i< Integer.valueOf(datos.length);i++) {
+                        if (listaElementos[j].contentEquals(datos[i])) {
+                            //se encontro coincidencia, asignar ese item a null
+                            listaElementos[j] = "";
+
+                        }
+                    }
+                }
+
+
                 AlertDialog.Builder mensaseListaElementos =
                         new AlertDialog.Builder(AdmAprobarSolSegundaRevision.this);
                 mensaseListaElementos.setTitle("Seleccione Elemento");
@@ -75,26 +90,33 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int item)
                             {
 
+
+
                                 if(listaElementos[item]==""){
-                                    Toast.makeText(getApplicationContext(),"Escoga un docente",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(getApplicationContext(),"Por favor seleccione un DOCENTE de la lista",Toast.LENGTH_LONG).show();
                                 }else{
-                                    Toast.makeText(getApplicationContext(),
-                                            "Opción elegida: " + listaElementos[item],
 
-                                            Toast.LENGTH_SHORT).show();
+                                          //ejecutar metodo normal
+                                          Toast.makeText(getApplicationContext(),
+                                                  "Opción elegida: " + listaElementos[item],
+
+                                                  Toast.LENGTH_SHORT).show();
 
 
-                                    //implementacion delmetodo insertar en docente-segundarevision
-                                    String idDocente= listaIdElementos[item];
-                                    String idSegundaRev= idSegundaRevicion;
-                                    Docente docente= new Docente();
-                                    docente.setIdDocente(idDocente);
-                                    docente.setIdSegundaRevision(idSegundaRev);
-                                    helper.abrir();
-                                    String resultado= helper.insertar(docente);
-                                    helper.cerrar();
-                                    Toast.makeText(getApplicationContext(),resultado,Toast.LENGTH_LONG).show();
-                                    listaElementos[item]= "";
+                                          //implementacion delmetodo insertar en docente-segundarevision
+                                          String idDocente= listaIdElementos[item];
+                                          String idSegundaRev= idSegundaRevicion;
+                                          Docente docente= new Docente();
+                                          docente.setIdDocente(idDocente);
+                                          docente.setIdSegundaRevision(idSegundaRev);
+                                          helper.abrir();
+                                          String resultado= helper.insertar(docente);
+                                          helper.cerrar();
+                                          Toast.makeText(getApplicationContext(),resultado,Toast.LENGTH_LONG).show();
+                                          listaElementos[item]= "";
+
+
+
                                 }
 
                             }
@@ -107,6 +129,10 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
         verDocentes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                helper.abrir();
+                docentes_segundarevision= new String[helper.docentes_segundarevision(Integer.valueOf(idSegundaRevicion)).length];
+                docentes_segundarevision= helper.docentes_segundarevision(Integer.valueOf(idSegundaRevicion));
+                helper.cerrar();
                 AlertDialog.Builder mensaseListaElementos =
                         new AlertDialog.Builder(AdmAprobarSolSegundaRevision.this);
                 mensaseListaElementos.setTitle("Lista de  Docentes ASIGNADOS a esta solicitud");
