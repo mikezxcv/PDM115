@@ -4,15 +4,23 @@ import androidx.annotation.IntegerRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 
@@ -26,6 +34,7 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
     Button asignarDocentes;
     Button verDocentes;
     TextView fechaRevison;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
     TextView HoraRevison;
     TextView localRevison;
     TextView observaciones;
@@ -36,6 +45,7 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
     public String[] listaElementos;
     public String[] listaIdElementos;
     public String[] docentes_segundarevision;
+    private static final String TAG = "AdmAprobarSolSegundaRevision";
 
 
     @Override
@@ -47,7 +57,7 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
         helper= new ControlBdGrupo12(this);
         estadoDenegado= (RadioButton) findViewById(R.id.denegado);
         estadoAprobado= (RadioButton) findViewById(R.id.aprobado);
-        fechaRevison= (EditText)findViewById(R.id.fechaAsignarSegundaRevision);
+        fechaRevison= (TextView) findViewById(R.id.fechaAsignarSegundaRevision);
         HoraRevison= (EditText)findViewById(R.id.horaSegundaRevision);
         localRevison= (EditText)findViewById(R.id.localAsignarSegundaRevision);
         observaciones= (EditText)findViewById(R.id.observacionesAsignarSegundaRevision);
@@ -150,6 +160,35 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
 
             }
         });
+        fechaRevison.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal=Calendar.getInstance();
+                int year=cal.get(Calendar.YEAR);
+                int month=  cal.get(Calendar.MONTH);
+                int day= cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialogo = new DatePickerDialog(
+                        AdmAprobarSolSegundaRevision.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        year,month,day);
+                dialogo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialogo.show();
+
+            }
+        });
+        mDateSetListener=new DatePickerDialog.OnDateSetListener() {
+
+            @SuppressLint("LongLogTag")
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month= month+1;
+                Log.d(TAG,"onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
+                String date = day + "/" + month + "/" + year;
+                fechaRevison.setText(date);
+            }
+        };
     }
     public void actualizarSegundaRevision(View view){
 
