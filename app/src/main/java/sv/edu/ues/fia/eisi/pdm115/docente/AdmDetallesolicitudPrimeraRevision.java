@@ -121,7 +121,7 @@ public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
                     }
                 })
                 .setTitle("Confirmar") // El título
-                .setMessage("¿Deseas eliminar esta Solicitud") // El mensaje
+                .setMessage("¿Deseas eliminar esta Solicitud de Primera Revision?") // El mensaje
                 .create();// No olvides llamar a Create, ¡pues eso crea el AlertDialog!
 
     }

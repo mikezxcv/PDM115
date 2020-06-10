@@ -7,9 +7,7 @@
     android:stretchColumns="1" >
     <TextView
         android:text="Administracion Segunda Revision "
-
-
-        />
+        android:background="#d4cee0"/>
 
     <TableRow>
         <TextView android:text="Carnet " />
@@ -31,7 +29,7 @@
         <EditText
             android:id="@+id/materiaSolSegundaRevision"
             android:inputType="number"
-            android:maxLength="4" />
+            android:maxLength="15" />
     </TableRow>
     <TableRow>
         <TextView android:text="Evaluacion" />
@@ -60,6 +58,7 @@
     <Button
 
         android:id="@+id/irAprobarSolicitudSegundaRevision"
+        android:background="#50ba6c"
         android:text="Aprobar Solicitud" />
 
 
@@ -67,15 +66,18 @@
     <Button
         android:id="@+id/irDarRevisionSegundaRevision"
         android:text="Dar Revision"
+        android:background="#6cd4d4"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
     <TableRow>
 
         <Button
+            android:id="@+id/eliminarSolicitud"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:onClick="metodo3"
             android:text="Eliminar"
+            android:background="#d46c88"
             android:icon="@android:drawable/ic_menu_call"
 
 
