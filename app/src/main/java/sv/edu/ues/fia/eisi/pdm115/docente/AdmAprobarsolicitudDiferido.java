@@ -1,6 +1,7 @@
 package sv.edu.ues.fia.eisi.pdm115.docente;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,7 +50,9 @@ public class AdmAprobarsolicitudDiferido extends AppCompatActivity {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 actualizarDiferido(v);
+
             }
         });
 
@@ -64,10 +67,12 @@ public class AdmAprobarsolicitudDiferido extends AppCompatActivity {
 
         if(!estadoAprobado.isChecked() && !estadoDenegado.isChecked()){
             Toast.makeText(this, "Seleccione un estado",Toast.LENGTH_LONG).show();
+
         }
         else{
             if(fecha.isEmpty()||hora.isEmpty()||local.isEmpty()||observacion.isEmpty()){
                 Toast.makeText(this, "Rellene todos los campos",Toast.LENGTH_LONG).show();
+
             }
             else{
                 String opcion= (estadoAprobado.isChecked())?  APROBADO:DENEGADO;
@@ -87,6 +92,10 @@ public class AdmAprobarsolicitudDiferido extends AppCompatActivity {
                 String resultado= helper.actualizar(solicitudDiferido);
                 helper.cerrar();
                 Toast.makeText(this,resultado,Toast.LENGTH_LONG).show();
+
+                /*Intent intent = new Intent(AdmAprobarsolicitudDiferido.this, AdmDetallesolicitudDiferido.class);
+                startActivity(intent);*/
+
             }
         }
     }
