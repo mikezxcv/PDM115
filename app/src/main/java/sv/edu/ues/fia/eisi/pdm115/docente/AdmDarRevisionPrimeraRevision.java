@@ -43,7 +43,7 @@ public class AdmDarRevisionPrimeraRevision extends AppCompatActivity {
                 primeraRevision.setNotaDespuesPrimeraRevision(notadespues);
                 primeraRevision.setIdPrimeraRevision(idprimerRevision);
                 helper.abrir();
-                String resultado= helper.actualizar(primeraRevision);
+                String resultado= helper.actualizar1R(primeraRevision);
                 helper.cerrar();
                 Toast.makeText(this,resultado,Toast.LENGTH_LONG).show();
 
