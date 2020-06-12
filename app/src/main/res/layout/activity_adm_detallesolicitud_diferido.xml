@@ -26,7 +26,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
             <EditText
-                android:id="@+id/editCarnet"
+                android:id="@+id/editCarnetDiferido"
                 android:inputType="text"
                 android:maxLength="15"
                 android:layout_width="fill_parent"
@@ -36,7 +36,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
             <EditText
-                android:id="@+id/editNombre"
+                android:id="@+id/editNombreDiferido"
                 android:inputType="text"
                 android:maxLength="30"
                 android:layout_width="fill_parent"
@@ -47,7 +47,7 @@
                 android:layout_height="fill_parent"/>
 
             <EditText
-                android:id="@+id/editMateria"
+                android:id="@+id/editMateriaDiferido"
                 android:inputType="text"
                 android:maxLength="30"
                 android:layout_width="fill_parent"
@@ -59,7 +59,7 @@
                 android:layout_height="fill_parent"/>
 
             <EditText
-                android:id="@+id/editEvaluacion"
+                android:id="@+id/editEvaluacionDiferido"
                 android:inputType="text"
                 android:maxLength="10"
                 android:layout_width="fill_parent"
@@ -79,6 +79,7 @@
                 android:layout_height="fill_parent"/>
 
             <Button
+                android:id="@+id/irEliminarSolicitidDiferido"
                 android:onClick="EliminarSolicitudDiferido"
                 android:text="Eliminar Solicitud"
                 android:layout_width="fill_parent"

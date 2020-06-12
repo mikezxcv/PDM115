@@ -87,8 +87,6 @@ public class AdmDiferidoActivity extends ListActivity {
 
         opciones= new String[Integer.parseInt(cantidad)];
 
-
-        helper.cerrar();
         helper.cerrar();
 
         for (int i=0; i<Integer.valueOf(cantidad);i++){

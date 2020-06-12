@@ -39,7 +39,7 @@
 
     <Button
 
-
+        android:onClick="darRevisionSegunda"
         android:text="Guardar " />
 
 
