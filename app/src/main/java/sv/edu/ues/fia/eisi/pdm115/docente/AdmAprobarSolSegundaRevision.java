@@ -37,6 +37,7 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     TextView HoraRevison;
     TextView localRevison;
+    String idLocalRevision;
     TextView observaciones;
     String idSegundaRevicion;
     ControlBdGrupo12 helper;
@@ -45,6 +46,8 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
     public String[] listaElementos;
     public String[] listaIdElementos;
     public String[] docentes_segundarevision;
+    String date;
+
     private static final String TAG = "AdmAprobarSolSegundaRevision";
 
 
@@ -59,7 +62,7 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
         estadoAprobado= (RadioButton) findViewById(R.id.aprobado);
         fechaRevison= (TextView) findViewById(R.id.fechaAsignarSegundaRevision);
         HoraRevison= (EditText)findViewById(R.id.horaSegundaRevision);
-        localRevison= (EditText)findViewById(R.id.localAsignarSegundaRevision);
+        localRevison= (TextView) findViewById(R.id.localAsignarSegundaRevision);
         observaciones= (EditText)findViewById(R.id.observacionesAsignarSegundaRevision);
         Bundle bundle=getIntent().getExtras();
         idSegundaRevicion = bundle.getString("id");
@@ -70,16 +73,28 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
         listaIdElementos= new String[helper.listaDocentes().length];
         listaIdElementos=helper.listaIdDocentes();
 
+        String [] datos= helper.docentes_segundarevision(Integer.valueOf(idSegundaRevicion));
+
         helper.cerrar();
+        if(datos.length!=0){
+            verDocentes.setVisibility(View.VISIBLE);
+        }else{
+            verDocentes.setVisibility(View.INVISIBLE);
+            asignarDocentes.setVisibility(View.INVISIBLE);
+        }
+
+
 
 
         asignarDocentes.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 //evaluar si el elemento ya existe
                 helper.abrir();
                 String [] datos= helper.docentes_segundarevision(Integer.valueOf(idSegundaRevicion));
                 helper.cerrar();
+
                 for(int j=0;j<Integer.valueOf(listaElementos.length);j++){
                     for(int i=0;i< Integer.valueOf(datos.length);i++) {
                         if (listaElementos[j].contentEquals(datos[i])) {
@@ -125,15 +140,22 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
                                           Toast.makeText(getApplicationContext(),resultado,Toast.LENGTH_LONG).show();
                                           listaElementos[item]= "";
 
-
+                                    helper.abrir();
+                                    String [] data= helper.docentes_segundarevision(Integer.valueOf(idSegundaRevicion));
+                                    helper.cerrar();
+                                    if(data.length!=0){
+                                        verDocentes.setVisibility(View.VISIBLE);
+                                    }
 
                                 }
-
                             }
                         });
 
                 mensaseListaElementos.show();
+
+
             }
+
         });
 
         verDocentes.setOnClickListener(new View.OnClickListener() {
@@ -160,6 +182,8 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
 
             }
         });
+
+
         fechaRevison.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,12 +208,49 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
                 month= month+1;
-                Log.d(TAG,"onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
-                String date = day + "/" + month + "/" + year;
+                Log.d(TAG,"onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
+
+                 if(month<10){
+                     date = year + "-" + "0"+month + "-" + day;
+                 }else{
+                     date = year + "-" + month + "-" + day;
+                 }
                 fechaRevison.setText(date);
             }
         };
+
+        localRevison.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.abrir();
+                final String [] locales= helper.obtenerLocales();
+                helper.cerrar();
+
+                AlertDialog.Builder mensaseListaElementos =
+                        new AlertDialog.Builder(AdmAprobarSolSegundaRevision.this);
+                mensaseListaElementos.setTitle("Escoga un Local ");
+                mensaseListaElementos.setItems(locales,
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int item)
+                            {
+                                Toast.makeText(getApplicationContext(),
+                                        "Opción elegida: " + locales[item],
+                                        Toast.LENGTH_SHORT).show();
+                                helper.abrir();
+
+                                localRevison.setText(locales[item]);
+                                idLocalRevision= helper.IDLocales()[item];
+                                Toast.makeText(getApplicationContext(),idLocalRevision,Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                mensaseListaElementos.show();
+            }
+        });
     }
+
+
+
     public void actualizarSegundaRevision(View view){
 
         String fecha= fechaRevison.getText().toString();
@@ -212,15 +273,19 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
                 segundaRevision.setEstadoSegundaRevision(opcion);
                 segundaRevision.setFechaSegundaRevision(fecha);
                 segundaRevision.setHoraSegundaRevision(hora);
-                segundaRevision.setLocalSegundaRevision(local);
+                segundaRevision.setLocalSegundaRevision(idLocalRevision);
                 segundaRevision.setObservacionesSegundaRevision(observacion);
 
                 //pasarle el id de primerrevision obtendio a  travez del intent
                 segundaRevision.setIdSegundaRevision(idSegundaRevicion);
+
                 helper.abrir();
                 String resultado= helper.actualizar(segundaRevision);
                 helper.cerrar();
-                Toast.makeText(this,resultado,Toast.LENGTH_LONG).show();
+                Toast.makeText(this, date,Toast.LENGTH_LONG).show();
+                if(estadoAprobado.isChecked()){
+                    asignarDocentes.setVisibility(View.VISIBLE);
+                }
             }
 
 

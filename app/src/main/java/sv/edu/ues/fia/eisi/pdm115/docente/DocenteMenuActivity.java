@@ -14,8 +14,8 @@ import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
 public class DocenteMenuActivity extends ListActivity {
-    String[] menu={"Administrar Primera Revision","Administrar Segunda Revision","Administrar Diferiddos ","Administrar Repetidos ","Administrar Impresiones"};
-    String[] activities={"AdmPrimeraRevisionActivity","AdmSegundaRevisionActivity","AdmDiferidoActivity","AdmRepetidoActivity",""};
+    String[] menu={"Administrar Primera Revision","Administrar Segunda Revision","Administrar Diferiddos ","Administrar Repetidos ","Administrar Impresiones","Gestionar Locales  de Revision"};
+    String[] activities={"AdmPrimeraRevisionActivity","AdmSegundaRevisionActivity","AdmDiferidoActivity","AdmRepetidoActivity","","AdmLocalActivity"};
     //ControlBdGrupo12 BDhelper;
 
     @Override
@@ -28,23 +28,30 @@ public class DocenteMenuActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        if(position!=5){
+        if(position!=6){
 
             String nombreValue=activities[position];
+            String clases=("sv.edu.ues.fia.eisi.pdm115.docente."+nombreValue);
+            Toast.makeText(getApplicationContext(),clases,Toast.LENGTH_LONG).show();
+
 
             try{
                 Class<?>
                         clase=Class.forName("sv.edu.ues.fia.eisi.pdm115.docente."+nombreValue);
+
                 Intent inte = new Intent(this,clase);
+
                 this.startActivity(inte);
             }catch(ClassNotFoundException e){
                 e.printStackTrace();
             }
+
         }else{
           /*  BDhelper.abrir();
             String tost=BDhelper.llenarBDCarnet();
             BDhelper.cerrar(); */
             Toast.makeText(this, "falta implementacion", Toast.LENGTH_SHORT).show();
+
         }
     }
 }
