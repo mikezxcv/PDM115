@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/ic_add_local"
         android:layout_margin="16dp"
         />
 
