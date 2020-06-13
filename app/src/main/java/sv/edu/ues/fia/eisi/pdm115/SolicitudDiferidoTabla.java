@@ -1,6 +1,7 @@
 package sv.edu.ues.fia.eisi.pdm115;
 
 public class SolicitudDiferidoTabla {
+    //Comentario MP16001
     private String IDDIFERIDO;
     private String ID_DETALLEALUMNOSEVALUADOS;
     private String FECHASOLICITUDDIFERIDO;
