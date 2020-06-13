@@ -22,6 +22,7 @@ public class AdmDiferidoActivity extends ListActivity {
     String [] nombre;
     String [] materias;
     String [] tipoEvaluacion;
+    String [] idDetalleAlumnosEvaluados;
 
     String [] opciones;
     String cantidad;
@@ -40,21 +41,6 @@ public class AdmDiferidoActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        ControlBdGrupo12 BDhelper = new ControlBdGrupo12(this);
-        List<String> menu  = BDhelper.llenar_lv();
-        String[] menuLista = menu.toArray(new String[menu.size()]);
-        if(position!=menu.size()){
-            String nombreValue=activities[0];
-            try{
-                //String positionInt = String.valueOf(position);
-                Class<?> clase=Class.forName("sv.edu.ues.fia.eisi.pdm115.docente."+nombreValue);
-                Intent intent = new Intent(this,clase);
-                intent.putExtra("index", String.valueOf(menuLista[position]));
-                this.startActivity(intent);
-            }catch(ClassNotFoundException e){
-                e.printStackTrace();
-            }
-        }
 
         Intent intent = new Intent(this, AdmDetallesolicitudDiferido.class);
         intent.putExtra("idDiferido",idDiferidos[position]);
@@ -62,6 +48,7 @@ public class AdmDiferidoActivity extends ListActivity {
         intent.putExtra("nombre",nombre[position]);
         intent.putExtra("materia",materias[position]);
         intent.putExtra("evaluacion",tipoEvaluacion[position]);
+        intent.putExtra("idDetalle",idDetalleAlumnosEvaluados[position]);
         startActivity(intent);
     }
 
@@ -84,6 +71,9 @@ public class AdmDiferidoActivity extends ListActivity {
 
         tipoEvaluacion= new String[Integer.parseInt(cantidad)];
         tipoEvaluacion= helper.nombreEvaluacionDiferido();
+
+        idDetalleAlumnosEvaluados= new String[Integer.parseInt(cantidad)];
+        idDetalleAlumnosEvaluados= helper.idDetalleAlumnosEvaluacionSolicitudesDiferidos();
 
         opciones= new String[Integer.parseInt(cantidad)];
 

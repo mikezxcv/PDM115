@@ -7,50 +7,59 @@
     <TableRow>
         <TextView android:text="Aprobar Solicitud Diferido"/>
     </TableRow>
-    <TableRow>
+<!--    <TableRow>
         <TextView android:text="Carnet"/>
         <EditText
             android:id="@+id/editCarnetDiferidoAprobar"
             android:inputType="text"
             android:maxLength="15" />
-    </TableRow>
+    </TableRow>-->
 
     <TableRow>
         <TextView android:text="Fecha del Diferido" />
         <EditText
             android:id="@+id/editfechaDiferidoAprobar"
-            android:inputType="text"
-            android:maxLength="30" />
+            android:maxLength="30"
+            android:hint="Fecha"
+            android:inputType="date"
+            android:focusable="false"
+            android:clickable="true"/>
     </TableRow>
     <TableRow>
         <TextView android:text="Hora" />
         <EditText
             android:id="@+id/editHoraAprobar"
             android:inputType="text"
-            android:maxLength="10" />
+            android:maxLength="10"
+            android:focusable="true"
+            android:clickable="true"/>
     </TableRow>
     <TableRow>
         <TextView android:text="Local" />
         <EditText
             android:id="@+id/editLocalAprobar"
             android:inputType="text"
-            android:maxLength="30" />
+            android:maxLength="30"
+            android:focusable="false"
+            android:clickable="true"/>
     </TableRow>
     <TextView android:text="Estado" />
     <TableRow>
-        <RadioButton
-            android:id="@+id/radioRechazadoAprobar"
+        <RadioGroup
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rechazado" />
-    </TableRow>
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/radioRechazadoAprobar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rechazado" />
 
-    <TableRow>
-        <RadioButton
-            android:id="@+id/radioAprobadoAprobar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Aprobado" />
+            <RadioButton
+                android:id="@+id/radioAprobadoAprobar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aprobado" />
+        </RadioGroup>
     </TableRow>
 
     <TableRow>

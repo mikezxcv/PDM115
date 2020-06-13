@@ -21,6 +21,10 @@
     <TextView android:text="Estado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
+<RadioGroup
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <RadioButton
         android:id="@+id/radioRechazado"
         android:layout_width="wrap_content"
@@ -33,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Aprobar" />
+</RadioGroup>
 
 
 
@@ -49,7 +54,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
     <EditText
-        android:id="@+id/editHora"
+        android:id="@+id/editHoraRepetido"
         android:inputType="text"
         android:maxLength="10"
         android:layout_width="fill_parent"
@@ -58,7 +63,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
     <EditText
-        android:id="@+id/editLocal"
+        android:id="@+id/editLocalRepetido"
         android:inputType="text"
         android:maxLength="30"
         android:layout_width="fill_parent"
@@ -68,7 +73,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
     <EditText
-        android:id="@+id/editObservaciones"
+        android:id="@+id/editObservacionesRepetido"
         android:inputType="text"
         android:maxLength="50"
         android:layout_width="fill_parent"
@@ -76,7 +81,7 @@
 
     <Button
         android:onClick="GuardarCambiosSolicitudRepetido"
-        android:id="@+id/guardar"
+        android:id="@+id/guardarRepetido"
         android:text="Guardar"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>

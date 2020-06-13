@@ -77,10 +77,14 @@
                 android:text="Aprobar Solicitud"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"/>
+            <Button
+                android:id="@+id/asignarNotaSolicitudDiferido"
+                android:text="Asignar nota de Diferido"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
 
             <Button
                 android:id="@+id/irEliminarSolicitidDiferido"
-                android:onClick="EliminarSolicitudDiferido"
                 android:text="Eliminar Solicitud"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"/>

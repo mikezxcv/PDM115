@@ -28,7 +28,7 @@ public class ControlBdGrupo12 {
         DBHelper = new DatabaseHelper(context);
     }
     public static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "procesosGrupo12_7.s3db";
+        private static final String BASE_DATOS = "procesosGrupo12_5.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -200,14 +200,14 @@ public class ControlBdGrupo12 {
                         "   IDDIFERIDO           INTEGER                         not null,\n" +
                         "   ID_DETALLEALUMNOSEVALUADOS INTEGER,\n" +
                         "   FECHASOLICITUDDIFERIDO DATE,\n" +
-                        "   ESTADODIFERIDO       SMALLINT,\n" +
+                        "   ESTADODIFERIDO       CHAR(20),\n" +
                         "   FECHADIFERIDO        DATE,\n" +
                         "   NOTADIFERIDO         INTEGER,\n" +
                         "   OBSERVACIONESDIFERIDO CHAR(100),\n" +
                         "   MATERIADIFERIDO      CHAR(20),\n" +
                         "   IDLOCAL      CHAR(20),\n" +
                         "   MOTIVODIFERIDO       CHAR(100),\n" +
-                        "   HORADIFERIDO         DATE,\n" +
+                        "   HORADIFERIDO         TIME,\n" +
                         "   primary key (IDDIFERIDO)\n" +
                         ");");
                 db.execSQL("CREATE TABLE SOLICITUDIMPRESION  (\n" +
@@ -247,9 +247,11 @@ public class ControlBdGrupo12 {
                 db.execSQL("INSERT INTO `detallealumnosevaluados` (`ID_DETALLEALUMNOSEVALUADOS`, `ASISTIO`, `NOTAEVALUACION`, `FECHA_PUBLICACION`, `FECHA_LIMITE`, `CARNET`, `IDREPETIDO`, `IDDIFERIDO`, `IDDOCENTE`, `IDPRIMERREVISION`, `IDEVALUACION`) VALUES\n" +
                         "\t(1, 1, 8, '2020-06-07', '2020-06-07', 'MP16001', NULL, 11, '01', NULL, 1);");
                 db.execSQL("  INSERT INTO `detallealumnosevaluados` (`ID_DETALLEALUMNOSEVALUADOS`, `ASISTIO`, `NOTAEVALUACION`, `FECHA_PUBLICACION`, `FECHA_LIMITE`, `CARNET`, `IDREPETIDO`, `IDDIFERIDO`, `IDDOCENTE`, `IDPRIMERREVISION`, `IDEVALUACION`) VALUES\n" +
-                        "    (2, 1, 8, '2020-06-07', '2020-06-07', 'MP16001', NULL, 22, '02', NULL, 1);");
+                        "    (2, 1, 8, '2020-06-07', '2020-06-07', 'MP16001', NULL, 22, '02', NULL, 2);");
                 db.execSQL("INSERT INTO `evaluacion` (`IDEVALUACION`, `IDTIPOEVAL`, `NOMBREEVALUACION`, `FECHAEVALUACION`) VALUES\n" +
                         "\t('1', '1', 'PARCIAL 1', '2020-12-12');");
+                db.execSQL("INSERT INTO `evaluacion` (`IDEVALUACION`, `IDTIPOEVAL`, `NOMBREEVALUACION`, `FECHAEVALUACION`) VALUES\n" +
+                        "\t('2', '1', 'PARCIAL 1', '2020-12-12');");
                 db.execSQL("INSERT INTO `docente` (`IDDOCENTE`, `IDTIPODOCENTECICLO`, `IDESCUELA`, `IDASIGNATURA`, `IDCICLO`, `USUARIO`, `ID_OPCION`, `NOMBREDOCENTE`, `APELLIDODOCENTE`) VALUES\n" +
                         "\t('01', '01', '01', 'DSI115', '01-20', 'DOCENTE', '1', 'JUAN', 'RAMOS');");
                 db.execSQL("INSERT INTO `docente` (`IDDOCENTE`, `IDTIPODOCENTECICLO`, `IDESCUELA`, `IDASIGNATURA`, `IDCICLO`, `USUARIO`, `ID_OPCION`, `NOMBREDOCENTE`, `APELLIDODOCENTE`) VALUES\n" +
@@ -878,8 +880,6 @@ public class ControlBdGrupo12 {
         Cursor datos= db.rawQuery("SELECT * FROM local",null);
         if(datos.moveToFirst()){
             while (datos.isAfterLast()== false){
-
-
                 contador2= contador2+1;
                 datos.moveToNext();
             }
@@ -1009,11 +1009,20 @@ public class ControlBdGrupo12 {
         return "Registro Actualizado Correctamente";
     }
 
+    public String actualizarDetalleAlumnosEvaluados2(int nota1, int idDetalle ){
+        String[] id ={String.valueOf(idDetalle)};
+        String nota = String.valueOf(nota1);
+        ContentValues cv = new ContentValues();
+        cv.put("NOTADIFERIDO", nota);
+        // Actualiza Nota
+        db.update("SOLICITUDDIFERIDO", cv, "IDDIFERIDO = ? ",id);
+        return "Registro Actualizado Correctamente";
+    }
+
     public String actualizar(SolicitudDiferidoTabla solicitudDiferido){
         String[] id = {solicitudDiferido.getIDDIFERIDO()};
 
         ContentValues cv = new ContentValues();
-        //aprobar revision
         cv.put("ESTADODIFERIDO", solicitudDiferido.getESTADODIFERIDO());
         cv.put("FECHADIFERIDO", solicitudDiferido.getFECHADIFERIDO());
         cv.put("HORADIFERIDO", solicitudDiferido.getHORADIFERIDO());
@@ -1026,6 +1035,20 @@ public class ControlBdGrupo12 {
     }
 
     // ADM DIFERIDOS
+    public String estadoSolicitudDiferido( String idDiferido ){
+        String alumnos = null;
+
+        Cursor datos = db.rawQuery("SELECT ESTADODIFERIDO FROM SOLICITUDDIFERIDO WHERE IDDIFERIDO = " +idDiferido, null);
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(0);
+                alumnos= carnet;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+
     public String consultarCantidadSolicitudesDiferidos(){
         long contador=0;
         Cursor datos = db.rawQuery("SELECT solD.IDDIFERIDO, det.CARNET, eva.NOMBREEVALUACION, estu.NOMBREESTUDIANTE\n" +
@@ -1131,6 +1154,25 @@ public class ControlBdGrupo12 {
         if(datos.moveToFirst()){
             while (datos.isAfterLast()==false){
                 String carnet= datos.getString(3);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[] idDetalleAlumnosEvaluacionSolicitudesDiferidos(){
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "FROM SOLICITUDDIFERIDO AS solD\n" +
+                "JOIN detallealumnosevaluados AS det ON solD.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "JOIN estudiante as estu ON det.CARNET = estu.CARNET",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(0);
                 alumnos[contador]= carnet;
                 contador=contador+1;
                 datos.moveToNext();
@@ -1278,6 +1320,14 @@ public class ControlBdGrupo12 {
         return alumnos;
     }
     // FIN ADM REPETIDOS
+
+    public String eliminarDiferido(String id){
+        String regAfectados="filas afectadas= ";
+        int contador=0;
+        contador+=db.delete("SOLICITUDDIFERIDO", "IDDIFERIDO= '"+id+"'", null);
+        regAfectados+=contador;
+        return regAfectados;
+    }
     // FIN METODOS DE CS17049 --------------------------------------------------------------------
 
     public List<String> llenar_lv(){
@@ -1309,7 +1359,7 @@ public class ControlBdGrupo12 {
         final String[] ID_DETALLEALUMNOSEVALUADOS = {"1","2","3"};
         final String[] FECHASOLICITUDDIFERIDO = {"04/04/2020","04/04/2020","04/04/2020"};
         // 0 (falso) y 1 (verdadero)
-        final String[] ESTADODIFERIDO = {"0","0","0"};
+        final String[] ESTADODIFERIDO = {"0","APROBADO","0"};
         final String[] FECHADIFERIDO = {"","",""};
         final String[] NOTADIFERIDO = {"","",""};
         final String[] OBSERVACIONESDIFERIDO = {"","",""};
@@ -1389,70 +1439,7 @@ public class ControlBdGrupo12 {
         db.insert("SOLICITUDDIFERIDO", null, roles);
     }
 
-
-
-
     // FIN METODOS INUTILES --------------------------------------------------------------
-    // INICIO CRISS
-    public boolean verificarIntegridad(String carnet, String nombre, String materia, String evaluacion, int relacion) throws  SQLException{
-        switch (relacion) {
-            case 1: {
-                String[] id1 = {carnet};
-                String[] id2 = {nombre};
-                String[] id3 = {materia};
-                String[] id4 = {evaluacion};
-//abrir();
-                Cursor carnet1 = db.query("DETALLEALUMNOSEVALUADOS", null, "carnet = ?", id1, null, null, null);
-                Cursor nombre1 = db.query("ESTUDIANTE", null, "nombreestudiante = ?", id2, null, null, null);
-                Cursor materia1 = db.query("MATERIA", null, "idasignatura = ?", id3, null, null, null);
-                Cursor evaluacion1 = db.query("EVALUACION", null, "nombreevaluacion = ?", id4, null, null, null);
-                Cursor asistio1 = db.rawQuery("SELECT CARNET, ASISTIO\n" +
-                        "FROM detallealumnosevaluados\n" +
-                        "where  CARNET = '" +carnet+ "' and ASISTIO = 1", null);
-                if(asistio1.moveToFirst() && carnet1.moveToFirst() && nombre1.moveToFirst() && materia1.moveToFirst() && evaluacion1.moveToFirst()){
-
-                    return true;
-                }
-                return false;
-            }
-        }
-
-        return false;
-    }
-
-    public int idPrimeraRevisionSolicitudCV(String carnet, String nombre, String materia, String evaluacion){
-        int idDetalle=0;
-
-        Cursor datos = db.rawQuery("SELECT  det.ID_DETALLEALUMNOSEVALUADOS\n" +
-                "FROM detallealumnosevaluados as det\n" +
-                "JOIN estudiante as estu ON  estu.CARNET = det.CARNET\n" +
-                "JOIN docente as doc ON doc.IDDOCENTE = det.IDDOCENTE\n" +
-                "JOIN evaluacion as eva ON eva.IDEVALUACION = det.IDEVALUACION\n" +
-                "where det.CARNET = "+carnet+" and det.ASISTIO = 1 and doc.IDASIGNATURA = "+materia+" and eva.NOMBREEVALUACION = "+evaluacion+"",null);
-
-        if(datos.moveToFirst()){
-            while (datos.isAfterLast()==false){
-                idDetalle=datos.getInt(0);
-                datos.moveToNext();
-            }
-        }
-        return idDetalle;
-    }
-    public String actualizarSolicitudCV(PrimeraRevision primeraRevision){
-        String[] id = {primeraRevision.getIdPrimeraRevision()};
-
-        ContentValues cv = new ContentValues();
-        //aprobar revision
-        cv.put("IDDETALLESEVALUADOS", primeraRevision.getIdDetalleAlumnosEvaluados());
-        cv.put("FECHA_LIMITE", primeraRevision.getFechaSolicitudPrimeraRevision());
-
-
-        db.update("primerrevision", cv, "IDPRIMERREVISION = ? ",id);
-        //  db.insert("DETALLEALUMNOSEVALUADORS", cv, "ID_DETALLEALUMNOSEVALUADOS=?", id);
-
-        return "Registro Actualizado Correctamente";
-    }
-    // FIN CRISS
     }
 
 

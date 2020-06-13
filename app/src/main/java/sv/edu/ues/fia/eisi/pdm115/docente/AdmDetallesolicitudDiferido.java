@@ -3,6 +3,7 @@ package sv.edu.ues.fia.eisi.pdm115.docente;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.renderscript.Sampler;
@@ -15,13 +16,16 @@ import android.widget.Toast;
 import java.util.List;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
+import sv.edu.ues.fia.eisi.pdm115.PrimeraRevision;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
 public class AdmDetallesolicitudDiferido extends AppCompatActivity {
 
     // ----------------------------
-    Button btnEliminar;
     Button btnAprobar;
+    Button btnAsignarNota;
+    Button btnEliminar;
+
     EditText carnet;
     EditText nombre;
     EditText materia;
@@ -29,7 +33,10 @@ public class AdmDetallesolicitudDiferido extends AppCompatActivity {
 
     //id viene desde el intent detalle de primer revision
     String idDiferido;
+    String idDetalleEva;
     ControlBdGrupo12 helper;
+
+    AlertDialog dialogo;
 
 
     @Override
@@ -44,12 +51,13 @@ public class AdmDetallesolicitudDiferido extends AppCompatActivity {
         nombre= (EditText) findViewById(R.id.editNombreDiferido);
         materia=(EditText) findViewById(R.id.editMateriaDiferido);
         evaluacion=(EditText) findViewById(R.id.editEvaluacionDiferido);
-
+        btnAsignarNota = (Button)findViewById(R.id.asignarNotaSolicitudDiferido);
 
 
         // Obteniendo datos de AdmDiferidoActivity
         Bundle bundle= getIntent().getExtras();
         idDiferido= bundle.getString("idDiferido");
+        idDetalleEva = bundle.getString("idDetalle");
 
         carnet.setText(bundle.getString("carnet"));
         nombre.setText(bundle.getString("nombre"));
@@ -65,6 +73,56 @@ public class AdmDetallesolicitudDiferido extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btnAsignarNota.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(AdmDetallesolicitudDiferido.this, AdmAsignarNotaDiferido.class);
+                intent.putExtra("idDiferido",idDiferido);
+                intent.putExtra("idDetalle",idDetalleEva);
+                startActivity(intent);
+            }
+        });
+
+        btnEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                crearDialog();
+                dialogo.show();
+                // Dialogo
+            }
+        });
+    }
+
+    public void crearDialog(){
+        dialogo = new AlertDialog
+                .Builder(AdmDetallesolicitudDiferido.this) // NombreDeTuActividad.this, o getActivity() si es dentro de un fragmento
+                .setPositiveButton("Sí, eliminar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Hicieron click en el botón positivo, así que la acción está confirmada
+                        String idprimerRev = idDiferido;
+
+                        helper.abrir();
+                        String resultado= helper.eliminarDiferido(idDiferido);
+                        helper.cerrar();
+                        Intent intent= new Intent(AdmDetallesolicitudDiferido.this,AdmDiferidoActivity.class);
+                        startActivity(intent);
+
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Hicieron click en el botón negativo, no confirmaron
+                        // Simplemente descartamos el diálogo
+                        dialog.dismiss();
+                    }
+                })
+                .setTitle("Confirmar") // El título
+                .setMessage("¿Deseas eliminar esta Solicitud de Primera Revision?") // El mensaje
+                .create();// No olvides llamar a Create, ¡pues eso crea el AlertDialog!
 
     }
 }
