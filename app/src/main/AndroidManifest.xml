@@ -8,17 +8,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashActivity"
-            android:theme="@style/SplashScreen" >
+        <activity android:name=".estudiante.EstudianteSolicitudRepetidoActivity"></activity>
+        <activity android:name=".estudiante.EstudianteSolicitudDiferidoActivity" />
+        <activity android:name=".estudiante.EstudianteRepetidoActivity" />
+        <activity android:name=".estudiante.EstudianteDiferidoActivity" />
+        <activity android:name=".estudiante.EstudianteConsultarSolicitudRepetidoActivity" />
+        <activity android:name=".estudiante.EstudianteConsultarSolicitudDiferidoActivity" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity">
-
-        </activity>
+        <activity android:name=".LoginActivity" />
         <activity android:name=".docente.AdmLocalDetalle" />
         <activity android:name=".docente.AdmLocalActivity" />
         <activity android:name=".docente.AdmDarRevisionSegundaRevision" />
@@ -46,7 +51,7 @@
         <activity android:name=".encargadoImpresion.EncargadoImpresionesMenuActivity" />
         <activity android:name=".estudiante.EstudianteMenuActivity" />
         <activity android:name=".docente.DocenteMenuActivity" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
