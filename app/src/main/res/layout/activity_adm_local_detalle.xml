@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+    <TextView
+
+        android:text="Detalle de Local"
+        android:background="#d4cee0"/>
+
+
+
+    <TableRow>
+
+        <TextView
+            android:layout_width="141dp"
+            android:text="Id Local " />
+
+    </TableRow>
+    <TextView
+        android:id="@+id/idLocal"
+        android:textSize="20sp"
+        android:maxLength="2" />
+    <TableRow>
+        <TextView android:text="Nombre " />
+
+    </TableRow>
+    <EditText
+        android:id="@+id/nombreLocal"
+        android:inputType="text"
+        android:maxLength="25" />
+    <TableRow>
+        <TextView android:text="Ubicacion" />
+
+        <TextView
+            android:id="@+id/fachada"
+            android:inputType="text"
+            android:maxLength="15" />
+    </TableRow>
+    <EditText
+        android:id="@+id/ubicacionLocal"
+        android:inputType="text"
+        android:maxLength="15" />
+
+    <Button
+
+        android:id="@+id/actualizarLocal"
+        android:layout_width="match_parent"
+        android:background="#50ba6c"
+        android:text="Actualizar" />
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/eliminarLocal"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:onClick="metodo3"
+            android:text="Eliminar"
+            android:background="#d46c88"
+
+
+
+            />
+
+
+
+    </TableRow>
+
+
+
+</TableLayout>

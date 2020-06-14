@@ -27,10 +27,11 @@
     </TableRow>
     <TableRow>
         <TextView android:text="Fecha Revision" />
-        <EditText
+        <TextView
             android:id="@+id/fechaAsignarPrimeraRevision"
             android:inputType="date"
-            android:hint="Formato valido yyyy-mm-dd"
+            android:textSize="22sp"
+            android:hint="Selecciones una fecha"
             android:maxLength="10"
 
 
@@ -47,10 +48,11 @@
     </TableRow>
     <TableRow>
         <TextView android:text="Local Revision" />
-        <EditText
+        <TextView
             android:id="@+id/localAsignarPrimeraRevision"
-            android:inputType="number"
-            android:maxLength="10" />
+            android:hint="Seleccione un Local"
+          android:textSize="21sp"
+            android:maxLength="40" />
 
     </TableRow>
     <TableRow>

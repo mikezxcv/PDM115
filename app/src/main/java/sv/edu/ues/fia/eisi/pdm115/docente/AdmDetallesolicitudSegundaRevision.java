@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.PrimeraRevision;
@@ -56,6 +57,20 @@ public class AdmDetallesolicitudSegundaRevision extends AppCompatActivity {
         fechaPrimeraRevision.setText(bundle.getString("fechaPrimeraRevision"));
 
         idsegundaRevision= bundle.getString("id");
+
+        //desabilitar botones
+        helper.abrir();
+        String [] datos= helper.docentes_segundarevision(Integer.valueOf(idsegundaRevision));
+        helper.cerrar();
+        if(datos.length!=0){
+            btn2.setVisibility(View.VISIBLE);
+            eliminar.setVisibility(View.VISIBLE);
+        }else{
+            btn2.setVisibility(View.INVISIBLE);
+            eliminar.setVisibility(View.INVISIBLE);
+        }
+
+
         //aprobar segunda revision
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +78,17 @@ public class AdmDetallesolicitudSegundaRevision extends AppCompatActivity {
                 Intent intent = new Intent(AdmDetallesolicitudSegundaRevision.this, AdmAprobarSolSegundaRevision.class);
                 intent.putExtra("id",idsegundaRevision);
                 startActivity(intent);
+                //desabilitar botones
+                helper.abrir();
+                String [] datos= helper.docentes_segundarevision(Integer.valueOf(idsegundaRevision));
+                helper.cerrar();
+                if(datos.length!=0){
+                    btn2.setVisibility(View.VISIBLE);
+                    eliminar.setVisibility(View.VISIBLE);
+                }else{
+                    btn2.setVisibility(View.INVISIBLE);
+                    eliminar.setVisibility(View.INVISIBLE);
+                }
             }
         });
         //calificar segunda revision
@@ -88,6 +114,23 @@ public class AdmDetallesolicitudSegundaRevision extends AppCompatActivity {
                 dialogo.show();
             }
         });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //desabilitar botones
+        helper.abrir();
+        String [] datos= helper.docentes_segundarevision(Integer.valueOf(idsegundaRevision));
+        helper.cerrar();
+        if(datos.length!=0){
+            btn2.setVisibility(View.VISIBLE);
+            eliminar.setVisibility(View.VISIBLE);
+        }else{
+            btn2.setVisibility(View.INVISIBLE);
+            eliminar.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     public void crearDialog(){

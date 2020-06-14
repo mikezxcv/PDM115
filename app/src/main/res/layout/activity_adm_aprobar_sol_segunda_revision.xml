@@ -48,10 +48,12 @@
     </TableRow>
     <TableRow>
         <TextView android:text="Local Revision" />
-        <EditText
+        <TextView
+            android:text="Seleccione un  local"
+            android:textSize="20sp"
             android:id="@+id/localAsignarSegundaRevision"
-            android:inputType="date"
-            android:maxLength="10" />
+
+            android:maxLength="30" />
     </TableRow>
     <TableRow>
         <TextView android:text="Observaciones" />

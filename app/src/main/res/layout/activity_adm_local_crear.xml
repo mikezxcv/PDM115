@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dip"
+    android:stretchColumns="1" >
+
+    <TableRow>
+
+        <TextView
+            android:layout_width="141dp"
+            android:text="Id Local " />
+
+    </TableRow>
+    <EditText
+        android:id="@+id/idcrearLocal"
+        android:textSize="20sp"
+        android:maxLength="2" />
+    <TableRow>
+        <TextView android:text="Nombre " />
+
+    </TableRow>
+    <EditText
+        android:id="@+id/nombrecrearLocal"
+        android:inputType="text"
+        android:maxLength="25" />
+    <TableRow>
+        <TextView android:text="Ubicacion" />
+
+        <TextView
+            android:id="@+id/fachada"
+            android:inputType="text"
+            android:maxLength="15" />
+    </TableRow>
+    <EditText
+        android:id="@+id/ubicacioncrearLocal"
+        android:inputType="text"
+        android:maxLength="15" />
+
+
+
+</TableLayout>
