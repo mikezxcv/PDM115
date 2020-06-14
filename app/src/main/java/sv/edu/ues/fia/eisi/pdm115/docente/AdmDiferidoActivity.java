@@ -22,6 +22,7 @@ public class AdmDiferidoActivity extends ListActivity {
     String [] nombre;
     String [] materias;
     String [] tipoEvaluacion;
+    String [] idDetalleAlumnosEvaluados;
 
     String [] opciones;
     String cantidad;
@@ -47,6 +48,7 @@ public class AdmDiferidoActivity extends ListActivity {
         intent.putExtra("nombre",nombre[position]);
         intent.putExtra("materia",materias[position]);
         intent.putExtra("evaluacion",tipoEvaluacion[position]);
+        intent.putExtra("idDetalle",idDetalleAlumnosEvaluados[position]);
         startActivity(intent);
     }
 
@@ -69,6 +71,9 @@ public class AdmDiferidoActivity extends ListActivity {
 
         tipoEvaluacion= new String[Integer.parseInt(cantidad)];
         tipoEvaluacion= helper.nombreEvaluacionDiferido();
+
+        idDetalleAlumnosEvaluados= new String[Integer.parseInt(cantidad)];
+        idDetalleAlumnosEvaluados= helper.idDetalleAlumnosEvaluacionSolicitudesDiferidos();
 
         opciones= new String[Integer.parseInt(cantidad)];
 

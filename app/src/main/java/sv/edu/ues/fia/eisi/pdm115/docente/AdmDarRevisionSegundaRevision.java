@@ -53,9 +53,9 @@ public class AdmDarRevisionSegundaRevision extends AppCompatActivity {
                 segundaRevision.setIdSegundaRevision(idSegundaRevicion);
 
                 helper.abrir();
-                String resultado= helper.actualizar1R(segundaRevision);
+                //String resultado= helper.actualizar1R(segundaRevision);
                 helper.cerrar();
-                Toast.makeText(this, resultado,Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, resultado,Toast.LENGTH_LONG).show();
 
             }else{ Toast.makeText(this,"Ingrese nota valida. NOTA DESPUES de la revision debe ser MAYOR o al menos IGUAL a NOTA PRIMERA REVISION",Toast.LENGTH_LONG).show(); }
         }

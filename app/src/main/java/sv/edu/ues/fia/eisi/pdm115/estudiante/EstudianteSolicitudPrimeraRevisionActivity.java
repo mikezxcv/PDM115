@@ -63,13 +63,13 @@ Button btnEnviarSolicitud;
             @Override
             public void onClick(View v) {
                 //
-                helper = new ControlBdGrupo12(EstudianteSolicitudPrimeraRevisionActivity.this);
+                /*helper = new ControlBdGrupo12(EstudianteSolicitudPrimeraRevisionActivity.this);
 
                 if (helper.verificarIntegridad(carnet, nombre, materia, evaluacion, 1)) {
                     crearSolicitudPR(v);
                 } else {
                     Toast.makeText(EstudianteSolicitudPrimeraRevisionActivity.this, "No asistio o datos no coincidenntes", Toast.LENGTH_LONG).show();
-                }
+                }*/
             }
         });
     }
@@ -91,12 +91,12 @@ public void crearSolicitudPR (View view)
         primeraRevisionTabla.setFechaPrimeraRevision(fecha);
 
         // Pasamos el id que viene del intent
-        String id=String.valueOf(helper.idPrimeraRevisionSolicitudCV(carnet, nombre, materia, evaluacion));
+       /* String id=String.valueOf(helper.idPrimeraRevisionSolicitudCV(carnet, nombre, materia, evaluacion));
         primeraRevisionTabla.setIdDetalleAlumnosEvaluados(id);
         helper.abrir();
         String resultado= helper.actualizar(primeraRevisionTabla);
         helper.cerrar();
-        Toast.makeText(this,resultado,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,resultado,Toast.LENGTH_SHORT).show();*/
     }
 
 }

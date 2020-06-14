@@ -51,7 +51,7 @@ public class AdmAprobarSolRepetido extends AppCompatActivity {
         btnGuardarSolRepetidio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                actualizarDiferido(v);
+                actualizarRepetido(v);
             }
         });
 
@@ -60,7 +60,7 @@ public class AdmAprobarSolRepetido extends AppCompatActivity {
         Toast.makeText(this,idRepetido,Toast.LENGTH_LONG).show();
     }
 
-    public void actualizarDiferido(View view){
+    public void actualizarRepetido(View view){
 
         String fecha= fechaRealizarRepetido.getText().toString();
         String hora = horaRepetido.getText().toString();
@@ -93,7 +93,6 @@ public class AdmAprobarSolRepetido extends AppCompatActivity {
                 String resultado= helper.actualizar(repetidoTabla);
                 helper.cerrar();
                 Toast.makeText(this,resultado,Toast.LENGTH_SHORT).show();
-
 
             }
         }

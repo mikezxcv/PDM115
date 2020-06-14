@@ -118,4 +118,3 @@ public class RepetidoTabla {
         this.MATERIA = MATERIA;
     }
 }
-

@@ -144,7 +144,7 @@ public class AdmDetallesolicitudSegundaRevision extends AppCompatActivity {
                         SegundaRevision segundaRevision=new SegundaRevision();
                         segundaRevision.setIdSegundaRevision(idSegundaRev);
                         helper.abrir();
-                        String resultado= helper.eliminar(segundaRevision);
+                        //String resultado= helper.eliminar(segundaRevision);
                         helper.cerrar();
                         Intent intent= new Intent(AdmDetallesolicitudSegundaRevision.this,AdmSegundaRevisionActivity.class);
 
