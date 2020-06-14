@@ -1269,6 +1269,66 @@ public class ControlBdGrupo12 {
 
 
     // FIN METODOS INUTILES --------------------------------------------------------------
+    // INICIO CRISS
+    public boolean verificarIntegridad(String carnet, String nombre, String materia, String evaluacion, int relacion) throws  SQLException{
+        switch (relacion) {
+            case 1: {
+                String[] id1 = {carnet};
+                String[] id2 = {nombre};
+                String[] id3 = {materia};
+                String[] id4 = {evaluacion};
+//abrir();
+                Cursor carnet1 = db.query("DETALLEALUMNOSEVALUADOS", null, "carnet = ?", id1, null, null, null);
+                Cursor nombre1 = db.query("ESTUDIANTE", null, "nombreestudiante = ?", id2, null, null, null);
+                Cursor materia1 = db.query("MATERIA", null, "idasignatura = ?", id3, null, null, null);
+                Cursor evaluacion1 = db.query("EVALUACION", null, "nombreevaluacion = ?", id4, null, null, null);
+                Cursor asistio1 = db.rawQuery("SELECT CARNET, ASISTIO\n" +
+                        "FROM detallealumnosevaluados\n" +
+                        "where  CARNET = '" +carnet+ "' and ASISTIO = 1", null);
+                if(asistio1.moveToFirst() && carnet1.moveToFirst() && nombre1.moveToFirst() && materia1.moveToFirst() && evaluacion1.moveToFirst()){
+
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        return false;
+    }
+
+    public int idPrimeraRevisionSolicitudCV(String carnet, String nombre, String materia, String evaluacion){
+        int idDetalle=0;
+
+        Cursor datos = db.rawQuery("SELECT  det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "FROM detallealumnosevaluados as det\n" +
+                "JOIN estudiante as estu ON  estu.CARNET = det.CARNET\n" +
+                "JOIN docente as doc ON doc.IDDOCENTE = det.IDDOCENTE\n" +
+                "JOIN evaluacion as eva ON eva.IDEVALUACION = det.IDEVALUACION\n" +
+                "where det.CARNET = "+carnet+" and det.ASISTIO = 1 and doc.IDASIGNATURA = "+materia+" and eva.NOMBREEVALUACION = "+evaluacion+"",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                idDetalle=datos.getInt(0);
+                datos.moveToNext();
+            }
+        }
+        return idDetalle;
+    }
+    public String actualizarSolicitudCV(PrimeraRevision primeraRevision){
+        String[] id = {primeraRevision.getIdPrimeraRevision()};
+
+        ContentValues cv = new ContentValues();
+        //aprobar revision
+        cv.put("IDDETALLESEVALUADOS", primeraRevision.getIdDetalleAlumnosEvaluados());
+        cv.put("FECHA_LIMITE", primeraRevision.getFechaSolicitudPrimeraRevision());
+
+
+        db.update("primerrevision", cv, "IDPRIMERREVISION = ? ",id);
+        //  db.insert("DETALLEALUMNOSEVALUADORS", cv, "ID_DETALLEALUMNOSEVALUADOS=?", id);
+
+        return "Registro Actualizado Correctamente";
+    }
+    // FIN CRISS
     }
 
 
