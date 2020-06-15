@@ -46,7 +46,7 @@ public class ControlBdGrupo12 {
                 //creacion de tablas
 
                 db.execSQL("CREATE TABLE ACCESOUSUARIO  (\n" +
-                        "   USUARIO              VARCHAR(7)                     not null,\n" +
+                        "   USUARIO              VARCHAR(15)                     not null,\n" +
                         "   ID_OPCION            VARCHAR(3)                         not null,\n" +
                         "   primary key (USUARIO, ID_OPCION)\n" +
                         ");");
@@ -229,8 +229,9 @@ public class ControlBdGrupo12 {
                         "    primary key (IDTIPOEVAL)\n" +
                         ");");
                 db.execSQL("CREATE TABLE USUARIO  (\n" +
-                        "   USUARIO              VARCHAR(7)                     not null,\n" +
+                        "   USUARIO              VARCHAR(15)                     not null,\n" +
                         "   NOMBRE_USUARIO       VARCHAR(256)                   not null,\n" +
+                        "   CONTRASENA       VARCHAR(256)                   NOT null,\n" +
                         "   primary key (USUARIO)\n" +
                         ");");
                 //fin creacion de tablas
@@ -238,8 +239,6 @@ public class ControlBdGrupo12 {
 
 
                 //insertar datos de prueba\
-                db.execSQL("INSERT INTO `accesousuario` (`USUARIO`, `ID_OPCION`) VALUES\n" +
-                        "\t('DOCENTE', '1');");
 
                 db.execSQL("INSERT INTO `area` (`ID_AREA`, `ID_ROL`, `NOMBRE_AREA`) VALUES\n" +
                         "\t(25, 25, 'AREA DE BASE DE DATOS');");
@@ -282,9 +281,10 @@ public class ControlBdGrupo12 {
                         "\t(25, 'ADMINISTRADOR');");
                 db.execSQL("INSERT INTO `tipodocente` (`IDTIPODOCENTECICLO`, `NOMTIPODOCENTECICLO`) VALUES\n" +
                         "\t('01', 'NOMBRE TIPO DOCENTE');");
-                db.execSQL("INSERT INTO `usuario` (`USUARIO`, `NOMBRE_USUARIO`) VALUES\n" +
-                        "\t('DOCENTE', 'JUAN RAMOS'),\n" +
-                        "\t('ESTUDIA', 'MIGUEL PEREZ');\n");
+                db.execSQL("INSERT INTO `usuario` (`USUARIO`, `NOMBRE_USUARIO`, `CONTRASENA`) VALUES\n" +
+                        "\t('DOCENTE', 'JUAN RAMOS','PASS1'),\n" +
+                        "\t('ESTUDIANTE', 'MIGUEL PEREZ','PASS2');\n");
+                db.execSQL("INSERT INTO ACCESOUSUARIO VALUES ('ESTUDIANTE','1');");
                 db.execSQL("  INSERT INTO `segundarevicion` (`IDSEGUNDAREVICION`, `FECHASOLICITUDSEGUNDAREVICION`, `ESTADOSEGUNDAREVICION`, `FECHASEGUNDAREVICION`, `HORASEGUNDAREVICION`, `NOTADESPUESSEGUNDAREVICION`, `OBSERVACIONESSEGUNDAREVICION`, `MATERIASEGUNDAREVICION`, `MOTIVOSSEGUNDAREVICION`, `IDPRIMERAREVISION`) VALUES\n" +
                         "\t(1, '2020-06-09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1'),\n" +
                         "\t(2, '2020-06-09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2');");
@@ -967,6 +967,27 @@ public class ControlBdGrupo12 {
         String resultado= "Local Creado";
         return resultado;
     }
+    public boolean verificarUsuario(String usuario){
+
+        Cursor datos= db.rawQuery("SELECT ac.usuario,us.contrasena FROM accesousuario AS ac\n" +
+                "JOIN usuario as us ON ac.usuario=us.USUARIO where ac.usuario= '"+usuario+"'",null);
+        boolean resultado=false;
+        if(datos.moveToFirst()){
+            resultado=true;
+        }
+        return resultado;
+    }
+    public boolean verificarPassword(String password){
+        Cursor datos= db.rawQuery("SELECT ac.usuario,us.contrasena FROM accesousuario AS ac\n" +
+                "JOIN usuario as us ON ac.usuario=us.USUARIO where us.contrasena= '"+password+"'" ,null);
+        boolean resultado=false;
+        if(datos.moveToFirst()){
+            resultado=true;
+        }
+        return resultado;
+    }
+
+
     //FINALIZACION!!!!      METODOS NECESARIOS MP16001------------------------------------------------
 
     private boolean verificarIntegridad(Object dato, int relacion) throws SQLException {
