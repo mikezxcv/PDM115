@@ -44,14 +44,6 @@ View.OnClickListener{
         opcion1=(RadioButton)findViewById(R.id.opcionTrabajo);
         opcion2=(RadioButton)findViewById(R.id.opcionChoqueEvaluaciones);
         opcion3=(RadioButton)findViewById(R.id.opcionEnfermedad);
-
-    }
-    public void enviarSolicitudDiferido(View v) {
-
-        String regInsertados;
-        String carnet=editCarnet.getText().toString();
-        String nombremateria=editNombreMateria.getText().toString();
-        String nombreevaluacion=editNombreEvaluacion.getText().toString();
         opcion1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +71,14 @@ View.OnClickListener{
                 }
             }
         });
+
+    }
+    public void enviarSolicitudDiferido(View v) {
+
+        String regInsertados;
+        String carnet=editCarnet.getText().toString();
+        String nombremateria=editNombreMateria.getText().toString();
+        String nombreevaluacion=editNombreEvaluacion.getText().toString();
         if (motivoInasistencia==" ")Toast.makeText(this, "Seleccione un motivo de inasistencia", Toast.LENGTH_SHORT).show();
         else{
             Diferido diferido= new Diferido();

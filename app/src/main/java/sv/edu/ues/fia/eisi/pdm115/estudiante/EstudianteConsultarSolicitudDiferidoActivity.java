@@ -53,7 +53,7 @@ public class EstudianteConsultarSolicitudDiferidoActivity extends Activity {
         }
         else
         {
-            editEstado.setText(String.valueOf(diferido.getESTADODIFERIDO()));
+            editEstado.setText(diferido.getESTADODIFERIDO());
             editFechaDiferido.setText(diferido.getFECHADIFERIDO());
             editHoraDiferido.setText(diferido.getHORADIFERIDO());
             editLocal.setText(diferido.getIDLOCAL());
