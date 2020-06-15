@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="30dip"
+    android:stretchColumns="1" >
+    <TableRow>
+        <TextView android:text="Cambiar Nota Solicitud Repetido"/>
+    </TableRow>
+    <!--    <TableRow>
+            <TextView android:text="Carnet"/>
+            <EditText
+                android:id="@+id/editCarnetDiferidoAprobar"
+                android:inputType="text"
+                android:maxLength="15" />
+        </TableRow>-->
+    <TableRow>
+        <TextView android:text="Nota Antes Repetido" />
+        <EditText
+            android:id="@+id/editNotaAntesRepetido"
+            android:inputType="text"
+            android:maxLength="30" />
+    </TableRow>
+    <TableRow>
+    <TextView android:text="Nota Despues Repetido" />
+    <EditText
+        android:id="@+id/editNotaDespuesRepetido"
+        android:inputType="text"
+        android:maxLength="30" />
+</TableRow>
+
+    <TableRow android:layout_height="105dp">
+        <Button
+            android:id="@+id/cambiarNotaRepetidoAprobar"
+            android:text="Cambiar Nota" />
+    </TableRow>
+
+</TableLayout>

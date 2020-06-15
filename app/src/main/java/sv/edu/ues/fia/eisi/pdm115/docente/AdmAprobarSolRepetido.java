@@ -2,13 +2,24 @@ package sv.edu.ues.fia.eisi.pdm115.docente;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Calendar;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.R;
@@ -29,6 +40,11 @@ public class AdmAprobarSolRepetido extends AppCompatActivity {
     String idRepetido;
     final static String DENEGADO="DENEGADO";
     final static String APROBADO="APROBADO";
+
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
+    String date;
+    private static final String TAG = "AdmAprobarsolicitudDiferido";
+    String idLocalRevision;
 
     ControlBdGrupo12 helper;
     @Override
@@ -58,6 +74,74 @@ public class AdmAprobarSolRepetido extends AppCompatActivity {
         Bundle bundle=getIntent().getExtras();
         idRepetido= bundle.getString("idRepetido");
         Toast.makeText(this,idRepetido,Toast.LENGTH_LONG).show();
+
+
+        // Selecciones
+        fechaRealizarRepetido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Calendar cal=Calendar.getInstance();
+                int year=cal.get(Calendar.YEAR);
+                int month=  cal.get(Calendar.MONTH);
+                int day= cal.get(Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog dialogo = new DatePickerDialog(
+                        AdmAprobarSolRepetido.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        mDateSetListener,
+                        year,month,day);
+                dialogo.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialogo.show();
+
+
+            }
+        });
+        mDateSetListener=new DatePickerDialog.OnDateSetListener() {
+
+            @SuppressLint("LongLogTag")
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                month= month+1;
+                Log.d(TAG,"onDateSet: dd/mm/yyy: " + day + "/" + month + "/" + year);
+
+                if(month<10){
+                    date = year + "-" + "0"+month + "-" + day;
+                }else{
+                    date = year + "-" + month + "-" + day;
+                }
+                fechaRealizarRepetido.setText(date);
+            }
+        };
+
+        localRepetido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helper.abrir();
+                final String [] locales= helper.obtenerLocales();
+                helper.cerrar();
+
+                AlertDialog.Builder mensaseListaElementos =
+                        new AlertDialog.Builder(AdmAprobarSolRepetido.this);
+                mensaseListaElementos.setTitle("Escoga un Local ");
+                mensaseListaElementos.setItems(locales,
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int item)
+                            {
+                                Toast.makeText(getApplicationContext(),
+                                        "Opción elegida: " + locales[item],
+                                        Toast.LENGTH_SHORT).show();
+                                helper.abrir();
+
+                                localRepetido.setText(locales[item]);
+                                idLocalRevision= helper.IDLocales()[item];
+                                Toast.makeText(getApplicationContext(),idLocalRevision,Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                mensaseListaElementos.show();
+            }
+        });
     }
 
     public void actualizarRepetido(View view){

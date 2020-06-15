@@ -47,20 +47,26 @@ public class AdmAsignarNotaDiferido extends AppCompatActivity {
         String estadoDiferido = helper.estadoSolicitudDiferido(idDiferido);
         helper.cerrar();
 
-        if (notaFinal.isEmpty()) {
-            Toast.makeText(this, "Rellene todos los campos", Toast.LENGTH_SHORT).show();
-        } else {
-            if(Integer.valueOf(notaFinal)>= 0 && Integer.valueOf(notaFinal) <= 10){
-                int notaFinal1 = Integer.valueOf(notaFinal);
-                int idDetalle1 = Integer.valueOf(idDiferido);
-                helper.abrir();
-                String resultado= helper.actualizarDetalleAlumnosEvaluados2(notaFinal1, idDetalle1 );
-                helper.cerrar();
-                Toast.makeText(this,resultado,Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(this, "Ingrese una nota entre 0 y 10 ", Toast.LENGTH_SHORT).show();
+        if("APROBADO".equals(estadoDiferido)){
+            if (notaFinal.isEmpty()) {
+                Toast.makeText(this, "Rellene todos los campos", Toast.LENGTH_SHORT).show();
+            } else {
+                if(Float.valueOf(notaFinal)>= 0 && Float.valueOf(notaFinal) <= 10){
+                    float notaFinal1 = Float.valueOf(notaFinal);
+                    int idDetalle1 = Integer.valueOf(idDiferido);
+                    helper.abrir();
+                    String resultado= helper.actualizarDetalleAlumnosEvaluados2(notaFinal1, idDetalle1 );
+                    helper.cerrar();
+                    Toast.makeText(this,resultado,Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(this, "Ingrese una nota entre 0 y 10 ", Toast.LENGTH_SHORT).show();
+                }
             }
+        }else{
+            Toast.makeText(this, "La solicitud no Fue aprobada", Toast.LENGTH_SHORT).show();
         }
+
+
 
     }
 }

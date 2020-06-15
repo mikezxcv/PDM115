@@ -28,7 +28,7 @@ public class ControlBdGrupo12 {
         DBHelper = new DatabaseHelper(context);
     }
     public static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "procesosGrupo12_5.s3db";
+        private static final String BASE_DATOS = "procesosGrupo12_8.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -168,11 +168,11 @@ public class ControlBdGrupo12 {
                         "   IDREPETIDO           INTEGER                         not null,\n" +
                         "   ID_DETALLEALUMNOSEVALUADOS INTEGER,\n" +
                         "   FECHASOLICITUDREPETIDO DATE,\n" +
-                        "   ESTADOREPETIDO       SMALLINT,\n" +
+                        "   ESTADOREPETIDO       CHAR(50),\n" +
                         "   FECHAREPETIDO        DATE,\n" +
-                        "   HORAREPETIDO         DATE,\n" +
-                        "   NOTADESPUESREPETIDO  INTEGER,\n" +
-                        "   NOTAANTESREPETIDO    INTEGER,\n" +
+                        "   HORAREPETIDO         TIME,\n" +
+                        "   NOTADESPUESREPETIDO  FLOAT,\n" +
+                        "   NOTAANTESREPETIDO    FLOAT,\n" +
                         "   OBSERVACIONES        CHAR(100),\n" +
                         "   MATERIA              CHAR(100),\n" +
                         "   LOCAL                CHAR(50),\n" +
@@ -202,7 +202,7 @@ public class ControlBdGrupo12 {
                         "   FECHASOLICITUDDIFERIDO DATE,\n" +
                         "   ESTADODIFERIDO       CHAR(20),\n" +
                         "   FECHADIFERIDO        DATE,\n" +
-                        "   NOTADIFERIDO         INTEGER,\n" +
+                        "   NOTADIFERIDO         FLOAT,\n" +
                         "   OBSERVACIONESDIFERIDO CHAR(100),\n" +
                         "   MATERIADIFERIDO      CHAR(20),\n" +
                         "   IDLOCAL      CHAR(20),\n" +
@@ -356,7 +356,6 @@ public class ControlBdGrupo12 {
             }
         }
         return alumnos;
-
     }
     public String[]  nombreEstudiantePrimeraRevision(){
 
@@ -988,13 +987,26 @@ public class ControlBdGrupo12 {
         return "Registro Actualizado Correctamente";
     }
 
-    public String actualizarDetalleAlumnosEvaluados2(int nota1, int idDetalle ){
+    public String actualizarDetalleAlumnosEvaluados2(float nota1, int idDetalle ){
         String[] id ={String.valueOf(idDetalle)};
         String nota = String.valueOf(nota1);
         ContentValues cv = new ContentValues();
         cv.put("NOTADIFERIDO", nota);
         // Actualiza Nota
         db.update("SOLICITUDDIFERIDO", cv, "IDDIFERIDO = ? ",id);
+        return "Registro Actualizado Correctamente";
+    }
+
+    public String actualizarNotaRepetido(float notaDespues, float notaAntes ,int idDetalle ){
+        String[] id ={String.valueOf(idDetalle)};
+        String notaAntesD = String.valueOf(notaAntes);
+        String notaDespuesD = String.valueOf(notaDespues);
+
+        ContentValues cv = new ContentValues();
+        cv.put("NOTADESPUESREPETIDO", notaDespuesD);
+        cv.put("NOTAANTESREPETIDO", notaAntesD);
+        // Actualiza Nota
+        db.update("REPETIDO", cv, "IDREPETIDO = ? ",id);
         return "Registro Actualizado Correctamente";
     }
 
@@ -1043,6 +1055,7 @@ public class ControlBdGrupo12 {
         }
         return String.valueOf(contador);
     }
+
     public String[]  idDiferido(){
         String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesDiferidos())];
         Integer contador= 0;
@@ -1162,6 +1175,19 @@ public class ControlBdGrupo12 {
     // FIN ADM DIFERIDOS
 
     // ADM REPETIDOS
+    public String estadoSolicitudRepetido( String idDiferido ){
+        String alumnos = null;
+
+        Cursor datos = db.rawQuery("SELECT ESTADOREPETIDO FROM REPETIDO WHERE IDREPETIDO = " +idDiferido, null);
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(0);
+                alumnos= carnet;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
     public String consultarCantidadSolicitudesRepetidos(){
         long contador=0;
         Cursor datos = db.rawQuery("SELECT det.CARNET, est.NOMBREESTUDIANTE, docente.IDASIGNATURA, eva.NOMBREEVALUACION\n" +
@@ -1182,6 +1208,26 @@ public class ControlBdGrupo12 {
         String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesRepetidos())];
         Integer contador= 0;
         Cursor datos = db.rawQuery("SELECT det.CARNET, est.NOMBREESTUDIANTE, docente.IDASIGNATURA, eva.NOMBREEVALUACION\n" +
+                "FROM repetido AS r\n" +
+                "JOIN detallealumnosevaluados AS det ON r.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "JOIN DOCENTE ON det.IDDOCENTE= docente.IDDOCENTE\n" +
+                "JOIN estudiante as est ON det.CARNET= est.CARNET\n" +
+                "JOIN evaluacion AS eva ON det.IDEVALUACION = eva.IDEVALUACION",null);
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()==false){
+                String carnet= datos.getString(0);
+                alumnos[contador]= carnet;
+                contador=contador+1;
+                datos.moveToNext();
+            }
+        }
+        return alumnos;
+    }
+    public String[]  notaAntesSolicitudRepetido(){
+        String [] alumnos= new String[Integer.parseInt(this.consultarCantidadSolicitudesRepetidos())];
+        Integer contador= 0;
+        Cursor datos = db.rawQuery("SELECT det.NOTAEVALUACION\n" +
                 "FROM repetido AS r\n" +
                 "JOIN detallealumnosevaluados AS det ON r.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
                 "JOIN DOCENTE ON det.IDDOCENTE= docente.IDDOCENTE\n" +
@@ -1304,6 +1350,13 @@ public class ControlBdGrupo12 {
         String regAfectados="filas afectadas= ";
         int contador=0;
         contador+=db.delete("SOLICITUDDIFERIDO", "IDDIFERIDO= '"+id+"'", null);
+        regAfectados+=contador;
+        return regAfectados;
+    }
+    public String eliminarRepetido(String id){
+        String regAfectados="filas afectadas= ";
+        int contador=0;
+        contador+=db.delete("REPETIDO", "IDREPETIDO= '"+id+"'", null);
         regAfectados+=contador;
         return regAfectados;
     }

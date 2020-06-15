@@ -34,7 +34,7 @@ public class AdmDetallesolicitudDiferido extends AppCompatActivity {
     //id viene desde el intent detalle de primer revision
     String idDiferido;
     String idDetalleEva;
-    ControlBdGrupo12 helper;
+    ControlBdGrupo12 helper = new ControlBdGrupo12(this);
 
     AlertDialog dialogo;
 
@@ -90,7 +90,7 @@ public class AdmDetallesolicitudDiferido extends AppCompatActivity {
             public void onClick(View v) {
                 crearDialog();
                 dialogo.show();
-                // Dialogo
+
             }
         });
     }
@@ -121,7 +121,7 @@ public class AdmDetallesolicitudDiferido extends AppCompatActivity {
                     }
                 })
                 .setTitle("Confirmar") // El título
-                .setMessage("¿Deseas eliminar esta Solicitud de Primera Revision?") // El mensaje
+                .setMessage("¿Deseas eliminar esta Solicitud Diferido?") // El mensaje
                 .create();// No olvides llamar a Create, ¡pues eso crea el AlertDialog!
 
     }

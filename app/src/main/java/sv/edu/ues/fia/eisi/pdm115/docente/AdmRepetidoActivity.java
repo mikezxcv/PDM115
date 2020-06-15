@@ -25,6 +25,7 @@ public class AdmRepetidoActivity extends ListActivity {
     String [] materias;
     String [] tipoEvaluacion;
     String [] fechaSolicitudRepetido;
+    String[] notaAntesRepetido;
 
     String [] opciones;
     String cantidad;
@@ -51,6 +52,7 @@ public class AdmRepetidoActivity extends ListActivity {
         intent.putExtra("materia",materias[position]);
         intent.putExtra("evaluacion",tipoEvaluacion[position]);
         intent.putExtra("fechaSolicitud",fechaSolicitudRepetido[position]);
+        intent.putExtra("notaAntesRepetido",notaAntesRepetido[position]);
         this.startActivity(intent);
 
     }
@@ -66,6 +68,7 @@ public class AdmRepetidoActivity extends ListActivity {
         materias = new String[Integer.parseInt(cantidad)];
         tipoEvaluacion = new String[Integer.parseInt(cantidad)];
         fechaSolicitudRepetido = new String[Integer.parseInt(cantidad)];
+        notaAntesRepetido = new String[Integer.parseInt(cantidad)];
 
         idRepetido = helper.idSolicitudRepetido();
         carnet = helper.carnetSolicitudRepetido();
@@ -73,7 +76,8 @@ public class AdmRepetidoActivity extends ListActivity {
         materias = helper.idAsignaturaSolicitudRepetido();
         tipoEvaluacion = helper.tipoEvaluacionSolicitudRepetido();
         fechaSolicitudRepetido = helper.fechaSolicitudRepetido();
-        
+        notaAntesRepetido = helper.notaAntesSolicitudRepetido();
+
         opciones= new String[Integer.parseInt(cantidad)];
 
         helper.cerrar();
@@ -82,7 +86,7 @@ public class AdmRepetidoActivity extends ListActivity {
             contador= contador+1;
             String alumno= carnet[i];
             String materia= materias[i];
-            opciones[i]= "Solicitud Diferido "+contador+" ["+ alumno+" - "+materia+" ]";
+            opciones[i]= "Solicitud Repetido "+contador+" ["+ alumno+" - "+materia+" ]";
         }
 
     }
