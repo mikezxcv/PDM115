@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
+    useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "sv.edu.ues.fia.eisi.p2mp16001"

@@ -28,7 +28,7 @@ public class ControlBdGrupo12 {
         DBHelper = new DatabaseHelper(context);
     }
     public static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "procesosGrupo12_5.s3db";
+        private static final String BASE_DATOS = "procesosGrupo12_nuevo.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -987,6 +987,7 @@ public class ControlBdGrupo12 {
         }
         return resultado;
     }
+
 
 
     //FINALIZACION!!!!      METODOS NECESARIOS MP16001------------------------------------------------

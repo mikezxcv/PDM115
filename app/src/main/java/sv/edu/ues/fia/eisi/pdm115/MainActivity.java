@@ -3,8 +3,6 @@ package sv.edu.ues.fia.eisi.pdm115;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,9 +14,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    String[] menu={"Estudiante","Docente","Encargado de Impresion","LLenar Base de Datos"};
+    String[] menu={"Estudiante","Docente","Encargado de Impresion","Web Services","LLenar Base de Datos"};
     String[]
-            activities={"EstudianteMenuActivity","DocenteMenuActivity","EncargadoImpresionesMenuActivity"};
+            activities={"EstudianteMenuActivity","DocenteMenuActivity","EncargadoImpresionesMenuActivity","webServices"};
     ControlBdGrupo12 BDhelper;
     ListView listViewMain;
     private int datoUsuario;
@@ -35,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         listViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                if(position!=3){
+                if(position!=4){
                     String nombreValue=activities[position];
                     if(position==0){
 
@@ -69,6 +67,19 @@ public class MainActivity extends AppCompatActivity {
                         try{
                             Class<?>
                                     clase=Class.forName("sv.edu.ues.fia.eisi.pdm115.encargadoImpresion."+nombreValue);
+                            Intent inte = new Intent(getApplicationContext(),clase);
+                            startActivity(inte);
+                        }catch(ClassNotFoundException e){
+                            e.printStackTrace();
+                        }
+
+                    }
+                    if(position==3){
+
+
+                        try{
+                            Class<?>
+                                    clase=Class.forName("sv.edu.ues.fia.eisi.pdm115.webServices.MenuWebServices");
                             Intent inte = new Intent(getApplicationContext(),clase);
                             startActivity(inte);
                         }catch(ClassNotFoundException e){
