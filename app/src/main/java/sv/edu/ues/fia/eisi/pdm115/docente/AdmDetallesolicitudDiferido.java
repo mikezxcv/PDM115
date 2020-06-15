@@ -78,10 +78,19 @@ public class AdmDetallesolicitudDiferido extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(AdmDetallesolicitudDiferido.this, AdmAsignarNotaDiferido.class);
-                intent.putExtra("idDiferido",idDiferido);
-                intent.putExtra("idDetalle",idDetalleEva);
-                startActivity(intent);
+                ControlBdGrupo12 helper = new ControlBdGrupo12(AdmDetallesolicitudDiferido.this);
+                helper.abrir();
+                String estadoDiferido = helper.estadoSolicitudDiferido(idDiferido);
+                helper.cerrar();
+                if("APROBADO".equals(estadoDiferido)){
+                    Intent intent = new Intent(AdmDetallesolicitudDiferido.this, AdmAsignarNotaDiferido.class);
+                    intent.putExtra("idDiferido",idDiferido);
+                    intent.putExtra("idDetalle",idDetalleEva);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(AdmDetallesolicitudDiferido.this, "La solicitud no Fue aprobada", Toast.LENGTH_SHORT).show();
+                }
+                
             }
         });
 

@@ -93,7 +93,6 @@ public class AdmDetallesolicitudRepetido extends AppCompatActivity {
                 }
 
 
-
             }
         });
 
