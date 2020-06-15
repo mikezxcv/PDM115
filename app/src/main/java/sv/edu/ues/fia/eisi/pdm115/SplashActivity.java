@@ -10,10 +10,13 @@ import android.text.TextUtils;
 
 public class SplashActivity extends AppCompatActivity {
     private SharedPreferences prefs;
+    ControlBdGrupo12 BDhelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BDhelper = new ControlBdGrupo12(this);
+        BDhelper.abrir();
         prefs= getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         Intent login= new Intent(this,LoginActivity.class);
         Intent main= new Intent(this,MainActivity.class);

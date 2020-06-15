@@ -22,6 +22,7 @@
             android:maxLength="30"
             android:hint="Fecha"
             android:inputType="date"
+            android:editable="false"
             android:focusable="false"
             android:clickable="true"/>
     </TableRow>
@@ -40,6 +41,7 @@
             android:id="@+id/editLocalAprobar"
             android:inputType="text"
             android:maxLength="30"
+            android:editable="false"
             android:focusable="false"
             android:clickable="true"/>
     </TableRow>

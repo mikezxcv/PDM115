@@ -1,8 +1,10 @@
 package sv.edu.ues.fia.eisi.pdm115.estudiante;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,19 +21,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.PrimeraRevision;
 import sv.edu.ues.fia.eisi.pdm115.R;
-
 
 public class EstudianteSolicitudPrimeraRevisionActivity extends AppCompatActivity {
 String carnet;
 String nombre;
 String materia;
 String evaluacion;
-String fecha="2020-12-31";
+String fecha= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
 
 TextView carnet1;
 TextView nombre1;
@@ -40,7 +46,7 @@ TextView evaluacion1;
 
 Button btnEnviarSolicitud;
 
-    ControlBdGrupo12 helper;
+    ControlBdGrupo12 helper = new ControlBdGrupo12(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +68,7 @@ Button btnEnviarSolicitud;
 
             @Override
             public void onClick(View v) {
+                crearSolicitudPR();
                 //
                 /*helper = new ControlBdGrupo12(EstudianteSolicitudPrimeraRevisionActivity.this);
 
@@ -74,31 +81,24 @@ Button btnEnviarSolicitud;
         });
     }
 
-public void crearSolicitudPR (View view)
+public void crearSolicitudPR ()
 {
-
- carnet  = carnet1.getText().toString();
- nombre  = nombre1.getText().toString();
- materia = materia1.getText().toString();
- evaluacion = evaluacion1.getText().toString();
+try {
+    carnet  = carnet1.getText().toString();
+    nombre  = nombre1.getText().toString();
+    materia = materia1.getText().toString();
+    evaluacion = evaluacion1.getText().toString();
 
     if(carnet.isEmpty()||nombre.isEmpty()||materia.isEmpty()||evaluacion.isEmpty()){
         Toast.makeText(this, "Rellene todos los campos", Toast.LENGTH_LONG).show();
     }
     else{
-       PrimeraRevision primeraRevisionTabla = new PrimeraRevision();
-
-        primeraRevisionTabla.setFechaPrimeraRevision(fecha);
-
-        // Pasamos el id que viene del intent
-       /* String id=String.valueOf(helper.idPrimeraRevisionSolicitudCV(carnet, nombre, materia, evaluacion));
-        primeraRevisionTabla.setIdDetalleAlumnosEvaluados(id);
-        helper.abrir();
-        String resultado= helper.actualizar(primeraRevisionTabla);
-        helper.cerrar();
-        Toast.makeText(this,resultado,Toast.LENGTH_SHORT).show();*/
+        helper.insertPrimerRevision(fecha, carnet, materia, evaluacion);
     }
-
+}
+ catch (Exception e) {
+    Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+ }
 }
 
 }

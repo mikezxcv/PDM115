@@ -48,8 +48,12 @@
         android:id="@+id/editfechaEvaluacionRepetido"
         android:inputType="text"
         android:maxLength="30"
+
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="fill_parent"
+        android:editable="false"
+        android:focusable="false"
+        android:clickable="true"/>
     <TextView android:text="Hora"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
@@ -61,7 +65,10 @@
         android:layout_height="fill_parent"/>
     <TextView android:text="Local"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="fill_parent"
+        android:editable="false"
+        android:focusable="false"
+        android:clickable="true"/>
     <EditText
         android:id="@+id/editLocalRepetido"
         android:inputType="text"

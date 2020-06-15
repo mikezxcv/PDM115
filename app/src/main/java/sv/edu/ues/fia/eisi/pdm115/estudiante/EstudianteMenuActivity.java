@@ -14,7 +14,7 @@ import sv.edu.ues.fia.eisi.pdm115.R;
 
 public class EstudianteMenuActivity extends ListActivity {
     String[] menu={"Primera Revision","Segunda Revision","Diferido", "Repetido"};
-    String[] activities={"EstudiantePrimeraRevisionActivity","EstudianteSegundaRevisionActivity","AlumnoConsultarActivity", "AlumnoActualizarActivity"};
+    String[] activities={"EstudiantePrimeraRevisionActivity","EstudianteSegundaRevisionActivity","EstudianteDiferidoActivity", "EstudianteRepetidoActivity"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

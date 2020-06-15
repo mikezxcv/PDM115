@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         ingresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                helper = new ControlBdGrupo12(LoginActivity.this);
                 String user= usuario.getText().toString();
                 String pass= password.getText().toString();
                 if(validarEntrada(user,pass)){
