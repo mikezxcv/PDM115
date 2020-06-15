@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="30dip"
     android:stretchColumns="1" >
-
+    <TextView android:text="SOLICITUD DE DIFERIDO" />
     <TableRow>
         <TextView android:text="Carnet"/>
         <EditText
@@ -28,7 +28,34 @@
             android:inputType="text"
             android:maxLength="50" />
     </TableRow>
-
+    <TableRow>
+        <TextView android:text="Motivo de inasistencia" />
+    <RadioGroup
+        android:id="@+id/grupo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true">
+        <RadioButton
+            android:id="@+id/opcionTrabajo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Trabajo"
+            />
+        <RadioButton
+            android:id="@+id/opcionChoqueEvaluaciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choque de evaluaciones"
+            />
+        <RadioButton
+            android:id="@+id/opcionEnfermedad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enfermedad"
+            />
+    </RadioGroup>
+    </TableRow>
     <TableRow>
         <Button
             android:onClick="enviarSolicitudDiferido"

@@ -1621,6 +1621,7 @@ public class ControlBdGrupo12 {
                 soliRep.put("ID_DETALLEALUMNOSEVALUADOS",idDetalleAlumnosEvaluados);
                 soliRep.put("FECHASOLICITUDDIFERIDO",diferido.getFECHASOLICITUDDIFERIDO());
                 soliRep.put("MATERIADIFERIDO",diferido.getMATERIADIFERIDO());
+                soliRep.put("MOTIVODIFERIDO",diferido.getMOTIVODIFERIDO());
                 contador=db.insert("SOLICITUDDIFERIDO", null, soliRep);
                 regInsertados="Solicitud enviada";
             }

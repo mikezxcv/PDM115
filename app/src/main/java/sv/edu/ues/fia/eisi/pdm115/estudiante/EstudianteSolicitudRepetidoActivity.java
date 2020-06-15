@@ -38,7 +38,6 @@ public class EstudianteSolicitudRepetidoActivity extends Activity {
         String nombreevaluacion=editNombreEvaluacion.getText().toString();
         Repetido repetido= new Repetido();
         String fechaActual = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        //repetido.setID_DETALLEALUMNOSEVALUADOS();
         repetido.setFECHASOLICITUDREPETIDO(fechaActual);
         repetido.setMATERIA(nombremateria);
         helper.abrir();

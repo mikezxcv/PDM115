@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:paddingTop="30dip"
     android:stretchColumns="1" >
-
     <TableRow>
         <TextView android:text="Carnet"/>
         <EditText
