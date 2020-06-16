@@ -3,6 +3,8 @@ package sv.edu.ues.fia.eisi.pdm115.estudiante;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,21 +34,24 @@ import java.util.Locale;
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.PrimeraRevision;
 import sv.edu.ues.fia.eisi.pdm115.R;
+import sv.edu.ues.fia.eisi.pdm115.docente.AdmAprobarsolicitudDiferido;
 
 public class EstudianteSolicitudPrimeraRevisionActivity extends AppCompatActivity {
-String carnet;
-String nombre;
-String materia;
-String evaluacion;
-String fecha= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
-int fechaLimiteDetalleEvaluacion;
-TextView carnet1;
-TextView nombre1;
-TextView materia1;
-TextView evaluacion1;
+    String carnet;
+    String nombre;
+    String materia;
+    String evaluacion;
+    String fecha= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
+    int fechaLimiteDetalleEvaluacion;
+    TextView carnet1;
+    TextView nombre1;
+    TextView materia1;
+    TextView evaluacion1;
 
-Button btnEnviarSolicitud;
-Button probarFechas;
+    Button btnEnviarSolicitud;
+    Button probarFechas;
+
+    String idMateriaIngresada;
 
     ControlBdGrupo12 helper = new ControlBdGrupo12(this);
     @Override
@@ -76,11 +81,77 @@ Button probarFechas;
         probarFechas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 compararFechas();
                 }
         });
+
+        evaluacion1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String carnetGET = carnet1.getText().toString();
+                String materiaGET = materia1.getText().toString();
+
+                if(carnetGET.isEmpty() || materiaGET.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Carnet o Materia estan vacios",Toast.LENGTH_SHORT).show();
+                }else{
+                    helper.abrir();
+
+                    final String [] evaluaciones= helper.obtenerEvaluacionesCR(carnetGET, materiaGET);
+                    helper.cerrar();
+
+                    AlertDialog.Builder mensaseListaElementos =
+                            new AlertDialog.Builder(EstudianteSolicitudPrimeraRevisionActivity.this);
+                    mensaseListaElementos.setTitle("Escoga una Evaluacion ");
+                    mensaseListaElementos.setItems(evaluaciones,
+                            new DialogInterface.OnClickListener()
+                            {
+                                public void onClick(DialogInterface dialog, int item)
+                                {
+                                    Toast.makeText(getApplicationContext(),
+                                            "Opción elegida: " + evaluaciones[item],
+                                            Toast.LENGTH_SHORT).show();
+                                    helper.abrir();
+
+                                    evaluacion1.setText(evaluaciones[item]);
+                                    //idMateriaIngresada= helper.idMateriasCR();
+                                    //Toast.makeText(getApplicationContext(),idMateriaIngresada,Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                    mensaseListaElementos.show();
+                }
+            }
+        });
+
+        materia1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                evaluacion1.setText(null);
+                helper.abrir();
+                final String [] materias= helper.obtenerMateriasCR();
+                helper.cerrar();
+
+                AlertDialog.Builder mensaseListaElementos =
+                        new AlertDialog.Builder(EstudianteSolicitudPrimeraRevisionActivity.this);
+                mensaseListaElementos.setTitle("Escoga una materia ");
+                mensaseListaElementos.setItems(materias,
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int item)
+                            {
+                                Toast.makeText(getApplicationContext(),
+                                        "Opción elegida: " + materias[item],
+                                        Toast.LENGTH_SHORT).show();
+                                helper.abrir();
+                                materia1.setText(materias[item]);
+
+                            }
+                        });
+                mensaseListaElementos.show();
+            }
+        });
     }
+
+
 
     public void compararFechas(){
         ControlBdGrupo12 helper = new ControlBdGrupo12(this);

@@ -52,7 +52,10 @@
                 android:inputType="text"
                 android:maxLength="30"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
 
 
             <TextView android:text="Evaluacion"
@@ -64,7 +67,10 @@
                 android:inputType="text"
                 android:maxLength="10"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
 
             <TextView
                 android:id="@+id/fecha_evaluacion"
