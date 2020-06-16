@@ -19,6 +19,32 @@ public class ControlBdGrupo12 {
             {"IDDIFERIDO","ID_DETALLEALUMNOSEVALUADOS", "FECHASOLICITUDDIFERIDO", "ESTADODIFERIDO", "FECHADIFERIDO", "NOTADIFERIDO", "OBSERVACIONESDIFERIDO", "MATERIADIFERIDO", "MOTIVODIFERIDO", "HORADIFERIDO"};
     private static final String[]camposArea = new String []
             {"ID_AREA","ID_ROL","NOMBRE_AREA"};
+    private static final String[]camposRepetido = new String []
+            {"rep.IDREPETIDO",
+                    "rep.ID_DETALLEALUMNOSEVALUADOS",
+                    "rep.FECHASOLICITUDREPETIDO",
+                    "rep.ESTADOREPETIDO",
+                    "rep.FECHAREPETIDO",
+                    "rep.HORAREPETIDO",
+                    "rep.NOTADESPUESREPETIDO",
+                    "rep.NOTAANTESREPETIDO",
+                    "rep.OBSERVACIONES",
+                    "rep.MATERIA",
+                    "rep.LOCAL"
+            };
+    private static final String[]camposDiferido = new String []
+            {"dif.IDDIFERIDO",
+                    "dif.ID_DETALLEALUMNOSEVALUADOS",
+                    "dif.FECHASOLICITUDDIFERIDO",
+                    "dif.ESTADODIFERIDO",
+                    "dif.FECHADIFERIDO",
+                    "dif.NOTADIFERIDO",
+                    "dif.OBSERVACIONESDIFERIDO",
+                    "dif.MATERIADIFERIDO",
+                    "dif.IDLOCAL",
+                    "dif.MOTIVODIFERIDO",
+                    "dif.HORADIFERIDO"
+            };
 
     private final Context context;
     private DatabaseHelper DBHelper;
@@ -247,7 +273,7 @@ public class ControlBdGrupo12 {
                 db.execSQL("INSERT INTO `detallealumnosevaluados` (`ID_DETALLEALUMNOSEVALUADOS`, `ASISTIO`, `NOTAEVALUACION`, `FECHA_PUBLICACION`, `FECHA_LIMITE`, `CARNET`, `IDREPETIDO`, `IDDIFERIDO`, `IDDOCENTE`, `IDPRIMERREVISION`, `IDEVALUACION`) VALUES\n" +
                         "\t(1, 1, 8, '2020-06-07', '2020-06-07', 'MP16001', NULL, 11, '01', NULL, 1);");
                 db.execSQL("  INSERT INTO `detallealumnosevaluados` (`ID_DETALLEALUMNOSEVALUADOS`, `ASISTIO`, `NOTAEVALUACION`, `FECHA_PUBLICACION`, `FECHA_LIMITE`, `CARNET`, `IDREPETIDO`, `IDDIFERIDO`, `IDDOCENTE`, `IDPRIMERREVISION`, `IDEVALUACION`) VALUES\n" +
-                        "    (2, 1, 8, '2020-06-07', '2020-06-07', 'MP16001', NULL, 22, '02', NULL, 2);");
+                        "    (2, 0, 8, '2020-06-07', '2020-06-07', 'MP16001', NULL, 22, '02', NULL, 2);");
                 db.execSQL("INSERT INTO `evaluacion` (`IDEVALUACION`, `IDTIPOEVAL`, `NOMBREEVALUACION`, `FECHAEVALUACION`) VALUES\n" +
                         "\t('1', '1', 'PARCIAL 1', '2020-12-12');");
                 db.execSQL("INSERT INTO `evaluacion` (`IDEVALUACION`, `IDTIPOEVAL`, `NOMBREEVALUACION`, `FECHAEVALUACION`) VALUES\n" +
@@ -291,10 +317,12 @@ public class ControlBdGrupo12 {
                 // Llenados CS17049
                 db.execSQL("INSERT INTO EVALUACION VALUES (3,'', 'Parcial 1', '04/04/04');");
 
-                db.execSQL("INSERT INTO REPETIDO VALUES(1, 1,'2000-04-04', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
-                db.execSQL("INSERT INTO REPETIDO VALUES(2, 1,'2000-04-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
-                db.execSQL("INSERT INTO REPETIDO VALUES(3, 1,'2000-04-06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
-                db.execSQL("INSERT INTO REPETIDO VALUES(4, 1,'2000-04-07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
+                //db.execSQL("INSERT INTO SOLICITUDDIFERIDO VALUES(1, 1,'2000-04-04', 0, '2000-04-04', 8, 'EXCELENTE', 'DISENO DE SISTEMAS 1', 'B11','trabajo',null);");
+
+                //db.execSQL("INSERT INTO REPETIDO VALUES(1, 1,'2000-04-04', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
+                //db.execSQL("INSERT INTO REPETIDO VALUES(2, 1,'2000-04-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
+                //db.execSQL("INSERT INTO REPETIDO VALUES(3, 1,'2000-04-06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
+                //db.execSQL("INSERT INTO REPETIDO VALUES(4, 1,'2000-04-07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
                 // Fin Llenados CS17049
 
                 //FIN DATOS DE PRUEBA
@@ -1493,6 +1521,258 @@ public class ControlBdGrupo12 {
     }
 
     // FIN METODOS INUTILES --------------------------------------------------------------
+
+
+    /*--------------------METODOS PARA REPETIDO---------------------------*/
+    public Repetido consultarEstadoSolicitudRepetido(String carnet, String nombremateria, String nombreevaluacion){
+        String[] consulta = {carnet, nombremateria, nombreevaluacion};
+        Cursor cursor = db.query("REPETIDO rep INNER JOIN DETALLEALUMNOSEVALUADOS det " +
+                        "ON rep.ID_DETALLEALUMNOSEVALUADOS=det.ID_DETALLEALUMNOSEVALUADOS INNER JOIN EVALUACION ev " +
+                        "ON det.IDEVALUACION=ev.IDEVALUACION INNER JOIN DOCENTE doc " +
+                        "ON det.IDDOCENTE=doc.IDDOCENTE INNER JOIN MATERIA asig " +
+                        "ON doc.IDASIGNATURA=asig.IDASIGNATURA JOIN ESTUDIANTE est " +
+                        "ON det.CARNET=est.CARNET",
+                camposRepetido,"est.CARNET=? AND asig.NOMBREASIGNATURA=? AND ev.NOMBREEVALUACION=?",
+                consulta,null, null, null);
+        if(cursor.moveToFirst()){
+            Repetido repetido = new Repetido();
+            repetido.setIDREPETIDO(cursor.getInt(0));
+            repetido.setID_DETALLEALUMNOSEVALUADOS(cursor.getInt(1));
+            repetido.setFECHASOLICITUDREPETIDO(cursor.getString(2));
+            repetido.setESTADOREPETIDO(cursor.getInt(3));
+            repetido.setFECHAREPETIDO(cursor.getString(4));
+            repetido.setHORAREPETIDO(cursor.getString(5));
+            repetido.setNOTADESPUESREPETIDO(cursor.getInt(6));
+            repetido.setNOTAANTESREPETIDO(cursor.getInt(7));
+            repetido.setOBSERVACIONES(cursor.getString(8));
+            repetido.setMATERIA(cursor.getString(9));
+            repetido.setLOCAL(cursor.getString(10));
+            return repetido;
+        }else{
+            return null;
+        }
+    }
+    public String enviarSolicitudRepetido(Repetido repetido,String carnet,String nombreevaluacion){
+        String regInsertados=" ";
+        long contador=0;
+        // 1 Verificar integridad referencial
+        if(verificarIntegridadRepetido(repetido,carnet,nombreevaluacion,1))
+        {
+            int idDetalleAlumnosEvaluados=obtenerIdDetalleAlumnosEvaluadosRepetido(carnet,repetido.getMATERIA(),nombreevaluacion);
+            String[] id={String.valueOf(idDetalleAlumnosEvaluados)};
+
+            if (asistioAlumnoaEvaluacion(carnet,repetido.getMATERIA(),nombreevaluacion)==0)
+                regInsertados="Usted no asistió a la evaluación "+nombreevaluacion+ "de la materia "+repetido.getMATERIA() +
+                        ". No puede realizarse la solicitud de repetido";
+            else {
+                Cursor cursor=db.query("REPETIDO",null,"ID_DETALLEALUMNOSEVALUADOS=?",
+                        id,null, null, null);
+                if (cursor.moveToFirst())
+                    regInsertados = "Esta solicitud ya ha sido enviada antes. Puede realizar una consulta";
+                else {
+                    ContentValues soliRep = new ContentValues();
+                    soliRep.put("ID_DETALLEALUMNOSEVALUADOS", idDetalleAlumnosEvaluados);
+                    soliRep.put("FECHASOLICITUDREPETIDO", repetido.getFECHASOLICITUDREPETIDO());
+                    soliRep.put("MATERIA", repetido.getMATERIA());
+                    soliRep.put("NOTAANTESREPETIDO", obtenerNotaAntesRepetido(carnet, repetido.getMATERIA(), nombreevaluacion));
+                    contador = db.insert("REPETIDO", null, soliRep);
+                    regInsertados = "Solicitud enviada";
+                }
+            }
+        }
+        else
+        {
+            regInsertados= "Usted no ha realizado esta evaluacion. Verifique sus datos";
+        }
+        return regInsertados;
+    }
+    private boolean verificarIntegridadRepetido(Object dato,String carnet,String nombreevaluacion, int opcion) throws SQLException {
+
+        switch (opcion) {
+
+            case 1: {
+                //verificar que el alumno haya realizado la evaluacion (DETALLEALUMNOEVALUADO)
+                //antes de hacer solicitud de repetido (REPETIDO)
+                Repetido rep1 = (Repetido) dato;
+                String[] consulta = {carnet, rep1.getMATERIA(), nombreevaluacion};
+                abrir();
+                Cursor c1 = db.query("DETALLEALUMNOSEVALUADOS det INNER JOIN EVALUACION ev " +
+                                "ON det.IDEVALUACION=ev.IDEVALUACION INNER JOIN DOCENTE doc " +
+                                "ON det.IDDOCENTE=doc.IDDOCENTE INNER JOIN MATERIA asig " +
+                                "ON doc.IDASIGNATURA=asig.IDASIGNATURA INNER JOIN ESTUDIANTE est " +
+                                "ON det.CARNET=est.CARNET",
+                        null, "est.CARNET=? AND asig.NOMBREASIGNATURA=? AND ev.NOMBREEVALUACION=?",
+                        consulta, null, null, null);
+                if (c1.moveToFirst()) {
+                    //Se encontraron datos ||
+                    return true;
+                }
+                return false;
+                //return true;
+            }
+
+            default:
+                return false;
+
+        }
+    }
+    public int obtenerIdDetalleAlumnosEvaluadosRepetido(String carnet,String nombremateria, String nombreevaluacion){
+        int idDetalleAlumnosEvaluados;
+        String[] consulta = {carnet, nombremateria, nombreevaluacion};
+        Cursor cursor1 = db.query("DETALLEALUMNOSEVALUADOS det INNER JOIN EVALUACION ev " +
+                        "ON det.IDEVALUACION=ev.IDEVALUACION INNER JOIN DOCENTE doc " +
+                        "ON det.IDDOCENTE=doc.IDDOCENTE INNER JOIN MATERIA asig " +
+                        "ON doc.IDASIGNATURA=asig.IDASIGNATURA INNER JOIN ESTUDIANTE est " +
+                        "ON det.CARNET=est.CARNET",null
+                ,"est.CARNET=? AND asig.NOMBREASIGNATURA=? AND ev.NOMBREEVALUACION=?",
+                consulta,null, null, null);
+        cursor1.moveToFirst();
+        idDetalleAlumnosEvaluados=cursor1.getInt(4);//columna que contiene el id
+        return idDetalleAlumnosEvaluados;
+    }
+    public int obtenerNotaAntesRepetido(String carnet,String nombremateria, String nombreevaluacion){
+        int nota;
+        String[] consulta = {carnet, nombremateria, nombreevaluacion};
+        Cursor cursor1 = db.query("DETALLEALUMNOSEVALUADOS det INNER JOIN EVALUACION ev " +
+                        "ON det.IDEVALUACION=ev.IDEVALUACION INNER JOIN DOCENTE doc " +
+                        "ON det.IDDOCENTE=doc.IDDOCENTE INNER JOIN MATERIA asig " +
+                        "ON doc.IDASIGNATURA=asig.IDASIGNATURA INNER JOIN ESTUDIANTE est " +
+                        "ON det.CARNET=est.CARNET",null
+                ,"est.CARNET=? AND asig.NOMBREASIGNATURA=? AND ev.NOMBREEVALUACION=?",
+                consulta,null, null, null);
+        cursor1.moveToFirst();
+        nota=cursor1.getInt(1);//columna que contiene la nota
+        return nota;
+    }
+    /*------------------------FIN METODOS REPETIDO---------------------*/
+
+
+    /*------------------------DIFERIDO--------------------------------*/
+    public Diferido consultarEstadoSolicitudDiferido(String carnet, String nombremateria, String nombreevaluacion){
+        String[] consulta = {carnet, nombremateria, nombreevaluacion};
+        Cursor cursor = db.query("SOLICITUDDIFERIDO dif INNER JOIN DETALLEALUMNOSEVALUADOS det " +
+                        "ON dif.ID_DETALLEALUMNOSEVALUADOS=det.ID_DETALLEALUMNOSEVALUADOS INNER JOIN EVALUACION ev " +
+                        "ON det.IDEVALUACION=ev.IDEVALUACION INNER JOIN DOCENTE doc " +
+                        "ON det.IDDOCENTE=doc.IDDOCENTE INNER JOIN MATERIA asig " +
+                        "ON doc.IDASIGNATURA=asig.IDASIGNATURA JOIN ESTUDIANTE est " +
+                        "ON det.CARNET=est.CARNET",
+                camposDiferido,"est.CARNET=? AND asig.NOMBREASIGNATURA=? AND ev.NOMBREEVALUACION=?",
+                consulta,null, null, null);
+        if(cursor.moveToFirst()){
+            Diferido diferido = new Diferido();
+            diferido.setIDDIFERIDO(cursor.getInt(0));
+            diferido.setID_DETALLEALUMNOSEVALUADOS(cursor.getInt(1));
+            diferido.setFECHASOLICITUDDIFERIDO(cursor.getString(2));
+            diferido.setESTADODIFERIDO(cursor.getString(3));
+            diferido.setFECHADIFERIDO(cursor.getString(4));
+            diferido.setNOTADIFERIDO(cursor.getInt(5));
+            diferido.setOBSERVACIONESDIFERIDO(cursor.getString(6));
+            diferido.setMATERIADIFERIDO(cursor.getString(7));
+            diferido.setIDLOCAL(cursor.getString(8));
+            diferido.setMOTIVODIFERIDO(cursor.getString(9));
+            diferido.setHORADIFERIDO(cursor.getString(10));
+            return diferido;
+        }else{
+            return null;
+        }
+    }
+    public String enviarSolicitudDiferido(Diferido diferido,String carnet,String nombreevaluacion){
+        String regInsertados=" ";
+        long contador=0;
+        // 1 Verificar integridad referencial
+        if(verificarIntegridadDiferido(diferido,carnet,nombreevaluacion,1))
+        {
+            int idDetalleAlumnosEvaluados=obtenerIdDetalleAlumnosEvaluadosDiferido(carnet,diferido.getMATERIADIFERIDO(),nombreevaluacion);
+            String[] id={String.valueOf(idDetalleAlumnosEvaluados)};
+
+            if (asistioAlumnoaEvaluacion(carnet,diferido.getMATERIADIFERIDO(),nombreevaluacion)==1)
+                regInsertados="Usted asistió a la evaluación "+nombreevaluacion+ "de la materia "+diferido.getMATERIADIFERIDO()+
+                        " .No puede realizarse la solicitud";
+            else {
+
+                Cursor cursor = db.query("SOLICITUDDIFERIDO", null, "ID_DETALLEALUMNOSEVALUADOS=?",
+                        id, null, null, null);
+                if (cursor.moveToFirst())
+                    regInsertados = "Esta solicitud ya ha sido enviada antes. Puede realizar una consulta";
+                else {
+                    ContentValues soliRep = new ContentValues();
+                    soliRep.put("ID_DETALLEALUMNOSEVALUADOS", idDetalleAlumnosEvaluados);
+                    soliRep.put("FECHASOLICITUDDIFERIDO", diferido.getFECHASOLICITUDDIFERIDO());
+                    soliRep.put("MATERIADIFERIDO", diferido.getMATERIADIFERIDO());
+                    soliRep.put("MOTIVODIFERIDO", diferido.getMOTIVODIFERIDO());
+                    soliRep.put("ESTADODIFERIDO", "PENDIENTE DE REVISION");
+                    contador = db.insert("SOLICITUDDIFERIDO", null, soliRep);
+                    regInsertados = "Solicitud enviada";
+                }
+            }
+        }
+        else
+        {
+            regInsertados= "Esta prueba no puede diferirse. Verifique sus datos";
+        }
+        return regInsertados;
+    }
+    private boolean verificarIntegridadDiferido(Object dato,String carnet,String nombreevaluacion, int opcion) throws SQLException {
+
+        switch (opcion) {
+
+            case 1: {
+                //verificar que el alumno haya realizado la evaluacion (DETALLEALUMNOEVALUADO)
+                //antes de hacer solicitud de repetido (REPETIDO)
+                Diferido dif1 = (Diferido) dato;
+                String[] consulta = {carnet, dif1.getMATERIADIFERIDO(), nombreevaluacion};
+                abrir();
+                Cursor c1 = db.query("DETALLEALUMNOSEVALUADOS det INNER JOIN EVALUACION ev " +
+                                "ON det.IDEVALUACION=ev.IDEVALUACION INNER JOIN DOCENTE doc " +
+                                "ON det.IDDOCENTE=doc.IDDOCENTE INNER JOIN MATERIA asig " +
+                                "ON doc.IDASIGNATURA=asig.IDASIGNATURA INNER JOIN ESTUDIANTE est " +
+                                "ON det.CARNET=est.CARNET",
+                        null, "est.CARNET=? AND asig.NOMBREASIGNATURA=? AND ev.NOMBREEVALUACION=?",
+                        consulta, null, null, null);
+                if (c1.moveToFirst()) {
+                    //Se encontraron datos ||
+                    return true;
+                }
+                return false;
+                //return true;
+            }
+
+            default:
+                return false;
+
+        }
+    }
+    public int obtenerIdDetalleAlumnosEvaluadosDiferido(String carnet,String nombremateria, String nombreevaluacion){
+        int idDetalleAlumnosEvaluados;
+        String[] consulta = {carnet, nombremateria, nombreevaluacion};
+        Cursor cursor1 = db.query("DETALLEALUMNOSEVALUADOS det INNER JOIN EVALUACION ev " +
+                        "ON det.IDEVALUACION=ev.IDEVALUACION INNER JOIN DOCENTE doc " +
+                        "ON det.IDDOCENTE=doc.IDDOCENTE INNER JOIN MATERIA asig " +
+                        "ON doc.IDASIGNATURA=asig.IDASIGNATURA INNER JOIN ESTUDIANTE est " +
+                        "ON det.CARNET=est.CARNET",null
+                ,"est.CARNET=? AND asig.NOMBREASIGNATURA=? AND ev.NOMBREEVALUACION=?",
+                consulta,null, null, null);
+        cursor1.moveToFirst();
+        idDetalleAlumnosEvaluados=cursor1.getInt(4);//columna que contiene el id
+        return idDetalleAlumnosEvaluados;
+    }
+    public int asistioAlumnoaEvaluacion(String carnet,String nombremateria, String nombreevaluacion){
+        int asistio;
+        String[] consulta = {carnet, nombremateria, nombreevaluacion};
+        Cursor cursor1 = db.query("DETALLEALUMNOSEVALUADOS det INNER JOIN EVALUACION ev " +
+                        "ON det.IDEVALUACION=ev.IDEVALUACION INNER JOIN DOCENTE doc " +
+                        "ON det.IDDOCENTE=doc.IDDOCENTE INNER JOIN MATERIA asig " +
+                        "ON doc.IDASIGNATURA=asig.IDASIGNATURA INNER JOIN ESTUDIANTE est " +
+                        "ON det.CARNET=est.CARNET",null
+                ,"est.CARNET=? AND asig.NOMBREASIGNATURA=? AND ev.NOMBREEVALUACION=?",
+                consulta,null, null, null);
+        cursor1.moveToFirst();
+        asistio=cursor1.getInt(0);//columna que contiene el indicador de asistencia
+        return asistio;
+    }
+
+
+    /*---------------------FIN METODOS DIFERIDO-------------------*/
     }
 
 
