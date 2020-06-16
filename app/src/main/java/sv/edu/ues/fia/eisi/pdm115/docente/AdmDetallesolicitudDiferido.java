@@ -90,7 +90,7 @@ public class AdmDetallesolicitudDiferido extends AppCompatActivity {
                 }else{
                     Toast.makeText(AdmDetallesolicitudDiferido.this, "La solicitud no Fue aprobada", Toast.LENGTH_SHORT).show();
                 }
-                
+
             }
         });
 
@@ -99,7 +99,6 @@ public class AdmDetallesolicitudDiferido extends AppCompatActivity {
             public void onClick(View v) {
                 crearDialog();
                 dialogo.show();
-
             }
         });
     }

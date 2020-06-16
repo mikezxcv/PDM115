@@ -8,7 +8,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity android:name=".docente.AdmRolDetalle"></activity>
+        <activity android:name=".docente.AdmRolActivity" />
+        <activity android:name=".docente.AdmAsignarNotaRepetido" />
 
         <activity android:name=".estudiante.EstudianteSolicitudRepetidoActivity"></activity>
         <activity android:name=".estudiante.EstudianteSolicitudDiferidoActivity" />
@@ -27,12 +29,8 @@
         </activity>
 
 
-
-
-
-        <activity android:name=".docente.AdmAsignarNotaRepetido"></activity>
         <activity android:name=".docente.AdmAsignarNotaDiferido" />
-
+        <activity android:name=".LoginActivity" />
         <activity android:name=".docente.AdmLocalDetalle" />
         <activity android:name=".docente.AdmLocalActivity" />
         <activity android:name=".docente.AdmDarRevisionSegundaRevision" />

@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 }else{
+                    ControlBdGrupo12 BDhelper = new ControlBdGrupo12(MainActivity.this);
                     BDhelper.abrir();
                     String mensaje =BDhelper.llenarBDCarnet();
                     BDhelper.cerrar();

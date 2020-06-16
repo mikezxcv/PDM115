@@ -38,10 +38,10 @@ public class AdmSegundaRevisionActivity extends ListActivity {
         helper= new ControlBdGrupo12(this);
 
         helper.abrir();
-        //cantidad= helper.consultarCantidadSolicitudesSegundaRevision();
+        cantidad= helper.consultarCantidadSolicitudesSegundaRevision();
         helper.cerrar();
         if(Integer.valueOf(cantidad)!=0){
-            //llenar();
+            llenar();
             setListAdapter(new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1, opciones));
 
@@ -72,7 +72,7 @@ public class AdmSegundaRevisionActivity extends ListActivity {
         startActivity(intent);
 
     }
-    /*protected  void llenar(){
+    protected  void llenar(){
         int contador=0;
         helper.abrir();
         cantidad= helper.consultarCantidadSolicitudesSegundaRevision();
@@ -121,6 +121,6 @@ public class AdmSegundaRevisionActivity extends ListActivity {
 
         }
 
-    }*/
+    }
 
 }
