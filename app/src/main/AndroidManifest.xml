@@ -20,13 +20,15 @@
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashScreen">
+        </activity>
+
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
         <activity android:name=".docente.AdmLocalDetalle" />
         <activity android:name=".docente.AdmLocalActivity" />
         <activity android:name=".docente.AdmDarRevisionSegundaRevision" />
@@ -56,7 +58,7 @@
         <activity android:name=".docente.DocenteMenuActivity" />
         <activity android:name=".MainActivity" />
 
-        //inicio ACTIVITIES
+
         <activity android:name=".estudiante.EstudianteSolicitudRepetidoActivity"></activity>
         <activity android:name=".estudiante.EstudianteSolicitudDiferidoActivity" />
         <activity android:name=".estudiante.EstudianteRepetidoActivity" />

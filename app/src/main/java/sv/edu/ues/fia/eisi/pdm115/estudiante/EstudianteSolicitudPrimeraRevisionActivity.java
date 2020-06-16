@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -38,13 +39,14 @@ String nombre;
 String materia;
 String evaluacion;
 String fecha= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
-
+int fechaLimiteDetalleEvaluacion;
 TextView carnet1;
 TextView nombre1;
 TextView materia1;
 TextView evaluacion1;
 
 Button btnEnviarSolicitud;
+Button probarFechas;
 
     ControlBdGrupo12 helper = new ControlBdGrupo12(this);
     @Override
@@ -63,42 +65,73 @@ Button btnEnviarSolicitud;
         materia1 = (TextView) findViewById(R.id.editMateria);
         evaluacion1 = (TextView) findViewById(R.id.editEvaluacion);
         btnEnviarSolicitud = (Button) findViewById(R.id.enviarSolicitud);
+        probarFechas = (Button)findViewById(R.id.probarFechas);
+
         btnEnviarSolicitud.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
                 crearSolicitudPR();
-                //
-                /*helper = new ControlBdGrupo12(EstudianteSolicitudPrimeraRevisionActivity.this);
-
-                if (helper.verificarIntegridad(carnet, nombre, materia, evaluacion, 1)) {
-                    crearSolicitudPR(v);
-                } else {
-                    Toast.makeText(EstudianteSolicitudPrimeraRevisionActivity.this, "No asistio o datos no coincidenntes", Toast.LENGTH_LONG).show();
-                }*/
             }
+        });
+        probarFechas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                compararFechas();
+                }
         });
     }
 
-public void crearSolicitudPR ()
-{
-try {
-    carnet  = carnet1.getText().toString();
-    nombre  = nombre1.getText().toString();
-    materia = materia1.getText().toString();
-    evaluacion = evaluacion1.getText().toString();
+    public void compararFechas(){
+        ControlBdGrupo12 helper = new ControlBdGrupo12(this);
+        materia = materia1.getText().toString();
+        evaluacion = evaluacion1.getText().toString();
+        carnet  = carnet1.getText().toString();
 
-    if(carnet.isEmpty()||nombre.isEmpty()||materia.isEmpty()||evaluacion.isEmpty()){
-        Toast.makeText(this, "Rellene todos los campos", Toast.LENGTH_LONG).show();
+        fechaLimiteDetalleEvaluacion = helper.fechaLimiteDetalleEvaluacion(materia, evaluacion, carnet);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
+        Calendar calendar1 = Calendar.getInstance();
+        Calendar calendar2 = Calendar.getInstance();
+
+        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+        try
+        {
+            String fechaLocal= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
+
+            //Date fechaLimite = formateador.parse(fechaLimiteDetalleEvaluacion);
+            Date fechaSolicitud = formateador.parse(fechaLocal);
+
+            //calendar1.setTime(fechaLimite);
+            calendar2.setTime(fechaSolicitud);
+
+            System.out.println("Compare Result : " + calendar2.compareTo(calendar1));
+            System.out.println("Compare Result : " + calendar1.compareTo(calendar2));
+        }
+        catch (ParseException e)
+        {
+            Toast.makeText(EstudianteSolicitudPrimeraRevisionActivity.this, "No extiste Fecha Limite de Evaluacion", Toast.LENGTH_SHORT).show();
+        }
+
     }
-    else{
-        helper.insertPrimerRevision(fecha, carnet, materia, evaluacion);
+
+public void crearSolicitudPR () {
+    try {
+        carnet  = carnet1.getText().toString();
+        nombre  = nombre1.getText().toString();
+        materia = materia1.getText().toString();
+        evaluacion = evaluacion1.getText().toString();
+
+        if(carnet.isEmpty()||nombre.isEmpty()||materia.isEmpty()||evaluacion.isEmpty()){
+            Toast.makeText(this, "Rellene todos los campos", Toast.LENGTH_LONG).show();
+        }
+        else{
+            helper.insertPrimerRevision(fecha, carnet, materia, evaluacion);
+        }
     }
-}
- catch (Exception e) {
-    Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
- }
-}
+     catch (Exception e) {
+        Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+     }
+    }
 
 }

@@ -72,11 +72,17 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"/>
             <Button
-                android:id="@+id/enviarSolicitud"
+            android:id="@+id/enviarSolicitud"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:onClick="irAprobarSolicitudRepetido"
+            android:text="Enviar Solicitud" />
+
+            <Button
+                android:id="@+id/probarFechas"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:onClick="irAprobarSolicitudRepetido"
-                android:text="Enviar Solicitud" />
+                android:text="Probar" />
 
         </LinearLayout>
     </ScrollView>
