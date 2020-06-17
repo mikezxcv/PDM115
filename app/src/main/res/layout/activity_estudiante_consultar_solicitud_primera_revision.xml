@@ -26,19 +26,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
             <EditText
-
+                android:id="@+id/CarnetCR"
                 android:inputType="text"
                 android:maxLength="15"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-
-            <TextView android:text="Nombre"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <EditText
-                android:id="@+id/editNombre"
-                android:inputType="text"
-                android:maxLength="30"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
 
@@ -47,7 +37,7 @@
                 android:layout_height="fill_parent"/>
 
             <EditText
-
+                android:id="@+id/MateriaCR"
                 android:inputType="text"
                 android:maxLength="30"
                 android:layout_width="fill_parent"
@@ -59,13 +49,14 @@
                 android:layout_height="fill_parent"/>
 
             <EditText
-
+                android:id="@+id/evaluacionnCR"
                 android:inputType="text"
                 android:maxLength="10"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"/>
 
             <Button
+                android:id="@+id/consultarCR"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:onClick="ConsultarSolicitudPrimera"
@@ -76,7 +67,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
             <EditText
-
+                android:id="@+id/estadoCR"
                 android:inputType="text"
                 android:maxLength="15"
                 android:layout_width="fill_parent"
@@ -86,7 +77,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
             <EditText
-
+                android:id="@+id/fechaRevisionCR"
                 android:inputType="text"
                 android:maxLength="30"
                 android:layout_width="fill_parent"
@@ -97,7 +88,7 @@
                 android:layout_height="fill_parent"/>
 
             <EditText
-
+                android:id="@+id/horaRevisionCR"
                 android:inputType="text"
                 android:maxLength="30"
                 android:layout_width="fill_parent"
@@ -109,7 +100,7 @@
                 android:layout_height="fill_parent"/>
 
             <EditText
-                android:id="@+id/editEvaluacion"
+                android:id="@+id/localRevisionCR"
                 android:inputType="text"
                 android:maxLength="10"
                 android:layout_width="fill_parent"
@@ -120,7 +111,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
             <EditText
-
+                android:id="@+id/notaAntesCR"
                 android:inputType="text"
                 android:maxLength="15"
                 android:layout_width="fill_parent"
@@ -130,7 +121,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
             <EditText
-
+                android:id="@+id/notaDespuesCR"
                 android:inputType="text"
                 android:maxLength="30"
                 android:layout_width="fill_parent"
@@ -141,7 +132,7 @@
                 android:layout_height="fill_parent"/>
 
             <EditText
-
+                android:id="@+id/observacionesCR"
                 android:inputType="text"
                 android:maxLength="30"
                 android:layout_width="fill_parent"
