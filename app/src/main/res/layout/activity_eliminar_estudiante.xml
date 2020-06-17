@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout tools:context=".webServices.EliminarEstudiante"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/LinearLayout1"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView  android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="eliminar un estudiante desde Servidor EISI" />
+    <TextView  android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="" />
+    <TextView  android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+
+        android:text="Ingrese Carnet a elimianr" />
+    <EditText  android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/carnetEliminar"
+        android:hint="Ingrese Carnet"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <Button android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Eliminar Estudiante"
+            android:onClick="eliminarEstudiante"
+            tools:ignore="OnClick" />
+        <Button android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Ver Lista de Estudiantes"
+            android:onClick="verEstudiantes"
+            tools:ignore="OnClick" />
+
+
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

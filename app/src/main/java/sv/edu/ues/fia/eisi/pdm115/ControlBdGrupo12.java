@@ -152,7 +152,7 @@ public class ControlBdGrupo12 {
                         "    primary key (IDENCARGADO)\n" +
                         ");");
                 db.execSQL("CREATE TABLE ESCUELA  (\n" +
-                        "   IDESCUELA            CHAR(10)                        not null,\n" +
+                        "   IDESCUELA            INTEGER                       not null,\n" +
                         "   ID_AREA              INTEGER,\n" +
                         "   NOMBREESCUELA        VARCHAR(50)                    not null,\n" +
                         "   FACULTAD             VARCHAR(50)                    not null,\n" +
@@ -177,9 +177,9 @@ public class ControlBdGrupo12 {
                         "   primary key (IDEVALUACION)\n" +
                         ");");
                 db.execSQL("CREATE TABLE LOCAL  (\n" +
-                        "   IDLOCAL              CHAR(10)                        not null,\n" +
-                        "   NOMBRELOCAL          VARCHAR(50)                    not null,\n" +
-                        "   UBICACION            VARCHAR(50),\n" +
+                        "   IDLOCAL              INTEGER                        not null,\n" +
+                        "   NOMBRELOCAL          CHAR(50)                    not null,\n" +
+                        "   UBICACION            CHAR(50),\n" +
                         "   primary key (IDLOCAL)\n" +
                         ");");
                 db.execSQL("CREATE TABLE MATERIA  (\n" +
@@ -318,17 +318,17 @@ public class ControlBdGrupo12 {
 
 
                 db.execSQL("INSERT INTO `docente` (`IDDOCENTE`, `IDTIPODOCENTECICLO`, `IDESCUELA`, `IDASIGNATURA`, `IDCICLO`, `USUARIO`, `ID_OPCION`, `NOMBREDOCENTE`, `APELLIDODOCENTE`,`ID_ROL`) VALUES\n" +
-                        "\t(1, '01', '01', 'DSI115', '01-20', 'DOCENTE', '1', 'JUAN', 'RAMOS',1);");
+                        "\t(1, '01', 1, 'DSI115', '01-20', 'DOCENTE', '1', 'JUAN', 'RAMOS',1);");
                 db.execSQL("INSERT INTO `docente` (`IDDOCENTE`, `IDTIPODOCENTECICLO`, `IDESCUELA`, `IDASIGNATURA`, `IDCICLO`, `USUARIO`, `ID_OPCION`, `NOMBREDOCENTE`, `APELLIDODOCENTE`,`ID_ROL`) VALUES\n" +
-                        "\t(2, '01', '01', 'MAT115', '01-20', 'DOCENTE', '1', 'RUDY', 'RAMOS',1);");
+                        "\t(2, '01', 1, 'MAT115', '01-20', 'DOCENTE', '1', 'RUDY', 'RAMOS',1);");
 
 
                 db.execSQL("INSERT INTO `escuela` (`IDESCUELA`, `ID_AREA`, `NOMBREESCUELA`, `FACULTAD`) VALUES\n" +
-                        "\t('01', 1, 'ESCUELA DE SISTEMAS INFORMATICOS', 'INGENIERIA Y ARQUITECTURA');");
+                        "\t(1, 1, 'ESCUELA DE SISTEMAS INFORMATICOS', 'INGENIERIA Y ARQUITECTURA');");
                 db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
                         "\t('MP16001', 'DOCENTE', '1', 'MIGUEL', 'PEREZ', 'SISTEMAS', 'SISTEMAS');");
                 db.execSQL("INSERT INTO `local` (`IDLOCAL`, `NOMBRELOCAL`, `UBICACION`) VALUES\n" +
-                        "\t('01', 'B-21', 'PLANTA MEDIA');");
+                        "\t(1, 'B-21', 'PLANTA MEDIA');");
                 db.execSQL("INSERT INTO `materia` (`IDASIGNATURA`, `NOMBREASIGNATURA`) VALUES\n" +
                         "\t('DSI115', 'DISENO DE SISTEMAS 1');");
                 db.execSQL("INSERT INTO `materia` (`IDASIGNATURA`, `NOMBREASIGNATURA`) VALUES\n" +
@@ -1018,7 +1018,7 @@ public class ControlBdGrupo12 {
         db.update("local",contentValues,"IDLOCAL = ?",id);
         return resultado;
     }
-    public String eliminar(String idLocal){
+    public String eliminarLocal(String idLocal){
         String regAfectados="filas afectadas= ";
         int contador=0;
         contador+=db.delete("local", "IDLOCAL= '"+idLocal+"'", null);
@@ -1027,7 +1027,7 @@ public class ControlBdGrupo12 {
     }
     public String insertar(Locales local){
         ContentValues contentValues = new ContentValues();
-        contentValues.put("IDLOCAL", local.getIdLocal());
+       // contentValues.put("IDLOCAL", local.getIdLocal());
         contentValues.put("NOMBRELOCAL",local.getNombreLocal());
         contentValues.put("UBICACION",local.getUbicacion());
         db.insert("local", null, contentValues);
@@ -1053,7 +1053,120 @@ public class ControlBdGrupo12 {
         }
         return resultado;
     }
+    public String[] obtenerEscuelas(){
 
+        Integer contador2=0;
+        Cursor datos= db.rawQuery("SELECT * FROM ESCUELA",null);
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()== false){
+                contador2= contador2+1;
+                datos.moveToNext();
+            }
+        }
+        String [] data=new String[contador2];
+
+        Integer contador=0;
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()== false){
+
+                String nombre=(datos.getString(2))+"-- ";
+                String facultad=(datos.getString(3))+" ";
+                data[contador]= nombre+facultad;
+                contador= contador+1;
+                datos.moveToNext();
+            }
+        }
+        return data;
+    }
+    public String[] IDescuelas(){
+
+        Integer contador2=0;
+        Cursor datos= db.rawQuery("SELECT IDESCUELA FROM ESCUELA",null);
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()== false){
+
+                contador2= contador2+1;
+                datos.moveToNext();
+            }
+        }
+        String [] data=new String[contador2];
+
+        Integer contador=0;
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()== false){
+
+                String ID=(datos.getString(0));
+
+                data[contador]= ID;
+                contador= contador+1;
+                datos.moveToNext();
+            }
+        }
+        return data;
+    }
+    public String insertar(Escuela escuela){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("ID_AREA", escuela.getIdarea());
+        contentValues.put("NOMBREESCUELA",escuela.getNombre());
+        contentValues.put("FACULTAD",escuela.getFacultad());
+        db.insert("ESCUELA", null, contentValues);
+        String resultado= "Escuela Creada";
+        return resultado;
+    }
+    public Escuela getDataEscuela(String idEscuela){
+        String[] id = {idEscuela};
+        String [] campos= {"ID_AREA","NOMBREESCUELA","FACULTAD"};
+        Cursor cursor = db.query("ESCUELA", campos, "IDESCUELA = ?",
+                id, null, null, null);
+        if(cursor.moveToFirst()){
+            Escuela escuela = new Escuela();
+            escuela.setIdarea(cursor.getString(0));
+            escuela.setNombre(cursor.getString(1));
+            escuela.setFacultad(cursor.getString(2));
+            return escuela;
+        }else{
+            return null;
+        }
+
+    }
+    public  String actualizar(Escuela escuela){
+        String resultado="Local Actualizado Exitosamente";
+        String [] id={escuela.getIdEscuela()};
+        ContentValues contentValues= new ContentValues();
+        contentValues.put("ID_AREA",escuela.getIdarea());
+        contentValues.put("NOMBREESCUELA",escuela.getNombre());
+        contentValues.put("FACULTAD",escuela.getFacultad());
+        db.update("ESCUELA",contentValues,"IDESCUELA = ?",id);
+        return resultado;
+    }
+    public String eliminarEscuela(String idEscuela){
+        String regAfectados="filas afectadas= ";
+        int contador=0;
+        contador+=db.delete("ESCUELA", "IDESCUELA= '"+idEscuela+"'", null);
+        regAfectados+=contador;
+        return regAfectados;
+    }
+
+    //metodos necesarios para WEBSERVICES------------INICIO
+    public void guardarLocalesExterno(String nombre,String ubicacion){
+        //ejecutar aqui vaciar tabla db.execSQL();
+        ContentValues contentValues= new ContentValues();
+        contentValues.put("NOMBRELOCAL",nombre);
+        contentValues.put("UBICACION",ubicacion);
+       long result= db.insert("local", null, contentValues);
+    }
+    public void guardarEstudianteExterno(String carnet,String nombre,String apellido,String carrera){
+        //ejecutar aqui vaciar tabla db.execSQL();
+        ContentValues contentValues= new ContentValues();
+        contentValues.put("CARNET",carnet);
+        contentValues.put("NOMBREESTUDIANTE",nombre);
+        contentValues.put("APELLIDOESTUDIANTE",apellido);
+        contentValues.put("CARRERA",carrera);
+        long result= db.insert("ESTUDIANTE", null, contentValues);
+    }
+    //metodos necesarios para WEBSERVICES------------FIN
 
     //FINALIZACION!!!!      METODOS NECESARIOS MP16001------------------------------------------------
 

@@ -147,6 +147,7 @@ public class AdmDetallesolicitudSegundaRevision extends AppCompatActivity {
                         //String resultado= helper.eliminar(segundaRevision);
                         helper.cerrar();
                         Intent intent= new Intent(AdmDetallesolicitudSegundaRevision.this,AdmSegundaRevisionActivity.class);
+                       // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_DIRECT_BOOT_AUTO);
 
                         startActivity(intent);
 

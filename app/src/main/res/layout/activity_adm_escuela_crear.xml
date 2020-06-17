@@ -9,23 +9,30 @@
 
 
     <TableRow>
-        <TextView android:text="Nombre " />
+        <TextView android:text="ID AREA " />
 
     </TableRow>
     <EditText
-        android:id="@+id/nombrecrearLocal"
+        android:id="@+id/escuela_idarea"
         android:inputType="text"
         android:maxLength="25" />
     <TableRow>
-        <TextView android:text="Ubicacion" />
+        <TextView android:text="Nombre" />
 
-        <TextView
-            android:id="@+id/fachada"
-            android:inputType="text"
-            android:maxLength="15" />
+
     </TableRow>
     <EditText
-        android:id="@+id/ubicacioncrearLocal"
+        android:id="@+id/escuela_nombre"
+        android:inputType="text"
+        android:maxLength="15" />
+    <TableRow>
+        <TextView android:text="Facultad" />
+
+        <TextView
+             />
+    </TableRow>
+    <EditText
+        android:id="@+id/escuela_facultad"
         android:inputType="text"
         android:maxLength="15" />
 

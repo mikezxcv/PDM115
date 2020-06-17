@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,14 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
-import sv.edu.ues.fia.eisi.pdm115.PrimeraRevision;
+import sv.edu.ues.fia.eisi.pdm115.Escuela;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
-public class AdmLocalDetalle extends AppCompatActivity {
+public class AdmEscuelaDetalle extends AppCompatActivity {
     ControlBdGrupo12 helper;
-    TextView idLocal;
+    TextView idarea;
     TextView nombre;
-    TextView ubicacion;
+    TextView facultad;
     Button actualizar;
     Button eliminar;
     String id;
@@ -28,41 +27,40 @@ public class AdmLocalDetalle extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adm_local_detalle);
+        setContentView(R.layout.activity_adm_escuela_detalle);
         helper= new ControlBdGrupo12(this);
-        idLocal= (TextView) findViewById(R.id.idLocal);
-        nombre= (TextView) findViewById(R.id.nombreLocal);
-        ubicacion=(TextView) findViewById(R.id.ubicacionLocal);
+        idarea= (TextView) findViewById(R.id.escuela_idarea);
+        nombre= (TextView) findViewById(R.id.escuela_nombre);
+        facultad=(TextView) findViewById(R.id.escuela_facultad);
         actualizar= (Button) findViewById(R.id.actualizarLocal);
         eliminar=(Button) findViewById(R.id.eliminarLocal);
 
         Bundle bundle=  getIntent().getExtras();
-      id= bundle.getString("id");
-
-      Locales local;
-      helper.abrir();
-        local=helper.getDataLocales(id);
-        idLocal.setText(local.getIdLocal().toString());
-        nombre.setText(local.getNombreLocal());
-        ubicacion.setText(local.getUbicacion());
-      helper.cerrar();
-
+        id= bundle.getString("id");
+        Escuela escuela;
+        helper.abrir();
+        escuela=helper.getDataEscuela(id);
+        idarea.setText(escuela.getIdarea().toString());
+        nombre.setText(escuela.getNombre());
+        facultad.setText(escuela.getFacultad());
+        helper.cerrar();
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               AlertDialog dialogo = new AlertDialog
-                        .Builder(AdmLocalDetalle.this) // NombreDeTuActividad.this, o getActivity() si es dentro de un fragmento
+                AlertDialog dialogo = new AlertDialog
+                        .Builder(AdmEscuelaDetalle.this) // NombreDeTuActividad.this, o getActivity() si es dentro de un fragmento
                         .setPositiveButton("Actualizar", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // Hicieron click en el botón positivo, así que la acción está confirmada
-                                String idLocal= id;
-                                Locales local= new Locales();
-                                local.setIdLocal(id);
-                                local.setNombreLocal(nombre.getText().toString());
-                                local.setUbicacion(ubicacion.getText().toString());
+                                String idEscuela= id;
+                                Escuela escuela= new Escuela();
+                                escuela.setIdEscuela(id);
+                                escuela.setIdarea(idarea.getText().toString());
+                                escuela.setNombre(nombre.getText().toString());
+                                escuela.setFacultad(facultad.getText().toString());
                                 helper.abrir();
-                                String resultado=helper.actualizar(local);
+                                String resultado=helper.actualizar(escuela);
                                 Toast.makeText(getApplicationContext(),resultado,Toast.LENGTH_SHORT).show();
                                 helper.cerrar();
 
@@ -89,20 +87,19 @@ public class AdmLocalDetalle extends AppCompatActivity {
 
             }
         });
-
         eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog dialogo = new AlertDialog
-                        .Builder(AdmLocalDetalle.this) // NombreDeTuActividad.this, o getActivity() si es dentro de un fragmento
+                        .Builder(AdmEscuelaDetalle.this) // NombreDeTuActividad.this, o getActivity() si es dentro de un fragmento
                         .setPositiveButton("Si, Eliminar", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // Hicieron click en el botón positivo, así que la acción está confirmada--eliminar
                                 helper.abrir();
-                                String resultado=helper.eliminarLocal(id);
+                                String resultado=helper.eliminarEscuela(id);
                                 helper.cerrar();
-                                Intent intent= new Intent(AdmLocalDetalle.this,AdmLocalActivity.class);
+                                Intent intent= new Intent(AdmEscuelaDetalle.this,AdmEscuelaActivity.class);
                                 startActivity(intent);
 
 

@@ -10,7 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".webServices.MenuWebServices"></activity>
+        <activity android:name=".webServices.EliminarEstudiante"></activity>
+        <activity android:name=".webServices.ActualizarEstudiantes" />
+        <activity android:name=".docente.AdmEscuelaDetalle" />
+        <activity android:name=".docente.AdmEscuelaActivity" />
+        <activity android:name=".webServices.ConsultarCantidadSolicitudes" />
+        <activity android:name=".webServices.MenuWebServices" />
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -55,19 +60,16 @@
         <activity android:name=".estudiante.EstudianteMenuActivity" />
         <activity android:name=".docente.DocenteMenuActivity" />
         <activity android:name=".MainActivity" />
-
-        //inicio ACTIVITIES
-        <activity android:name=".estudiante.EstudianteSolicitudRepetidoActivity"></activity>
+        <activity android:name=".estudiante.EstudianteSolicitudRepetidoActivity" />
         <activity android:name=".estudiante.EstudianteSolicitudDiferidoActivity" />
         <activity android:name=".estudiante.EstudianteRepetidoActivity" />
         <activity android:name=".estudiante.EstudianteDiferidoActivity" />
         <activity android:name=".estudiante.EstudianteConsultarSolicitudRepetidoActivity" />
         <activity android:name=".estudiante.EstudianteConsultarSolicitudDiferidoActivity" />
         <activity android:name=".docente.AdmAsignarNotaDiferido" />
-        <activity android:name=".docente.AdmRolDetalle"></activity>
+        <activity android:name=".docente.AdmRolDetalle" />
         <activity android:name=".docente.AdmRolActivity" />
         <activity android:name=".docente.AdmAsignarNotaRepetido" />
-
     </application>
 
 </manifest>

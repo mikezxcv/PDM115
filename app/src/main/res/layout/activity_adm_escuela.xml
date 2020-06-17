@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sv.edu.ues.fia.eisi.pdm115.docente.AdmLocalActivity">
+    tools:context="sv.edu.ues.fia.eisi.pdm115.docente.AdmEscuelaActivity">
     <ListView
         android:id="@+id/listViewv"
         android:layout_width="match_parent"
@@ -21,3 +21,4 @@
 
 
 </FrameLayout>
+
