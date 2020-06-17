@@ -19,7 +19,7 @@
         <TextView android:text="Asignar nota Diferido" />
         <EditText
             android:id="@+id/editNotaDiferido"
-            android:inputType="text"
+            android:inputType="numberDecimal"
             android:maxLength="30" />
     </TableRow>
 

@@ -123,74 +123,79 @@ public class EstudianteConsultarSolicitudPrimeraRevisionActivity extends AppComp
     }
 
     public void ConsultarSolicitudesPR(View v){
+        try{
+            String carnet  = edtCarnetRevision.getText().toString();
+            String materia = edtMateriaRevision.getText().toString();
+            String evaluacion = edtEvaluacionRevision.getText().toString();
 
-        String carnet  = edtCarnetRevision.getText().toString();
-        String materia = edtMateriaRevision.getText().toString();
-        String evaluacion = edtEvaluacionRevision.getText().toString();
+            String estadoR;
+            String fechaR;
+            String horaR;
+            String localR;
+            String notaAntesR;
+            String notaDespuesR;
+            String observR;
 
-        String estadoR;
-        String fechaR;
-        String horaR;
-        String localR;
-        String notaAntesR;
-        String notaDespuesR;
-        String observR;
+            if(carnet.isEmpty()||materia.isEmpty()||evaluacion.isEmpty()){
+                Toast.makeText(this, "Rellene todos los campos", Toast.LENGTH_LONG).show();
+            }
+            else{
+                estadoR = helper.estadoSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
 
-        if(carnet.isEmpty()||materia.isEmpty()||evaluacion.isEmpty()){
-            Toast.makeText(this, "Rellene todos los campos", Toast.LENGTH_LONG).show();
-        }
-        else{
-            estadoR = helper.estadoSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
-            edtEstadoRevision.setText(estadoR);
-            if(estadoR == null){
-                edtEstadoRevision.setText("Sin cambios");
-            }else{
                 edtEstadoRevision.setText(estadoR);
-            }
+                if(estadoR == null){
+                    edtEstadoRevision.setText("---");
+                }else{
+                    edtEstadoRevision.setText(estadoR);
+                }
 
-            fechaR = helper.fechaSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
-            if(fechaR == null){
-                edtFechaRevision.setText("Sin cambios");
-            }else{
-                edtFechaRevision.setText(fechaR);
-            }
+                fechaR = helper.fechaSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
+                if(fechaR == null){
+                    edtFechaRevision.setText("---");
+                }else{
+                    edtFechaRevision.setText(fechaR);
+                }
 
-            horaR = helper.horaSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
-            if(horaR == null){
-                edtHoraRevision.setText("Sin cambios");
-            }else{
-                edtHoraRevision.setText(horaR);
-            }
+                horaR = helper.horaSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
+                if(horaR == null){
+                    edtHoraRevision.setText("---");
+                }else{
+                    edtHoraRevision.setText(horaR);
+                }
 
-            localR = helper.localSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
-            if(localR == null){
-                edtLocalRevision.setText("Sin cambios");
-            }else{
-                edtLocalRevision.setText(localR);
-            }
+                localR = helper.localSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
+                if(localR == null){
+                    edtLocalRevision.setText("---");
+                }else{
+                    edtLocalRevision.setText(localR);
+                }
 
-            notaAntesR = helper.notaAntesSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
-            if(notaAntesR == null){
-                edtNotaAntesRevision.setText("Sin cambios");
-            }else{
-                edtNotaAntesRevision.setText(notaAntesR);
-            }
+                notaAntesR = helper.notaAntesSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
+                if(notaAntesR == null){
+                    edtNotaAntesRevision.setText("---");
+                }else{
+                    edtNotaAntesRevision.setText(notaAntesR);
+                }
 
-            notaDespuesR = helper.notaDespuesSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
-            if(notaAntesR == null){
-                edtNotaDespuesRevision.setText("Sin cambios");
-            }else{
-                edtNotaDespuesRevision.setText(notaDespuesR);
-            }
+                notaDespuesR = helper.notaDespuesSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
+                if(notaDespuesR == null){
+                    edtNotaDespuesRevision.setText("---");
+                }else{
+                    edtNotaDespuesRevision.setText(notaDespuesR);
+                }
 
-            observR = helper.observacionesSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
-            if(notaAntesR == null){
-                edtObsevacionesRevision.setText("Sin cambios");
-            }else{
-                edtObsevacionesRevision.setText(observR);
-            }
+                observR = helper.observacionesSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
+                if(observR == null){
+                    edtObsevacionesRevision.setText("---");
+                }else{
+                    edtObsevacionesRevision.setText(observR);
+                }
 
+            }
+        }catch (Exception e){
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+
 
     }
 }
