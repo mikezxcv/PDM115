@@ -2,6 +2,7 @@ package sv.edu.ues.fia.eisi.pdm115.webServices;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,9 +12,10 @@ import android.widget.ListView;
 
 import sv.edu.ues.fia.eisi.pdm115.R;
 
-public class MenuWebServices extends AppCompatActivity {
-    String [] opciones={"Local"};
-    String []activity={"sv.edu.ues.fia.eisi.pdm115.webServices.ActualizarLocales"};
+public class MenuWebServices extends Activity {
+    String [] opciones={"Local","Ingresar materia"};
+    String []activity={"sv.edu.ues.fia.eisi.pdm115.webServices.ActualizarLocales",
+            "sv.edu.ues.fia.eisi.pdm115.webServices.IngresarMateriaActivity"};
     ListView listView;
     Intent intent=null;
 
