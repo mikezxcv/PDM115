@@ -100,6 +100,7 @@ public class AdmEscuelaDetalle extends AppCompatActivity {
                                 String resultado=helper.eliminarEscuela(id);
                                 helper.cerrar();
                                 Intent intent= new Intent(AdmEscuelaDetalle.this,AdmEscuelaActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
 
 

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -56,8 +57,6 @@ public class AdmEscuelaActivity extends AppCompatActivity {
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"onclick",Toast.LENGTH_SHORT).show();
-
 
                 //implementar alert
                 AlertDialog.Builder builder= new AlertDialog.Builder(AdmEscuelaActivity.this);
@@ -71,20 +70,21 @@ public class AdmEscuelaActivity extends AppCompatActivity {
                 builder.setPositiveButton("Crear", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Escuela escuela= new Escuela();
-                        // local.setIdLocal(idLocal.getText().toString());
-                        escuela.setIdarea(idarea.getText().toString());
-                        escuela.setNombre(nombre.getText().toString());
-                        escuela.setFacultad(facultad.getText().toString());
-                        helper.abrir();
-                        String resultado= helper.insertar(escuela);
-                        helper.cerrar();
-                        Toast.makeText(getApplicationContext(),resultado,Toast.LENGTH_SHORT).show();
-                        //recargar el activity para mostrar los datos
-                        recreate();
-
-
-
+                        if(TextUtils.isEmpty(idarea.getText().toString()) || TextUtils.isEmpty(nombre.getText().toString()) || TextUtils.isEmpty(facultad.getText().toString())){
+                            Toast.makeText(getApplicationContext(),"Rellene todos los campos",Toast.LENGTH_SHORT).show();
+                        }else{
+                            Escuela escuela= new Escuela();
+                            // local.setIdLocal(idLocal.getText().toString());
+                            escuela.setIdarea(idarea.getText().toString());
+                            escuela.setNombre(nombre.getText().toString());
+                            escuela.setFacultad(facultad.getText().toString());
+                            helper.abrir();
+                            String resultado= helper.insertar(escuela);
+                            helper.cerrar();
+                            Toast.makeText(getApplicationContext(),resultado,Toast.LENGTH_SHORT).show();
+                            //recargar el activity para mostrar los datos
+                            recreate();
+                        }
                     }
                 });
                 builder.setTitle("Crear Nuevo Local");

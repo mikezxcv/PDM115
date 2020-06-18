@@ -134,10 +134,30 @@ public class AdmAprobarSolPrimeraRevision extends AppCompatActivity {
         String local=localRevison.getText().toString();
         String observacion= observaciones.getText().toString();
 
-
+        //ningun estado seleccionado
         if(!estadoAprobado.isChecked() && !estadoDenegado.isChecked()){
             Toast.makeText(this, "seleccione un estado",Toast.LENGTH_LONG).show();
         }
+        //estado negado seleccionado pero observacion vacio
+        if(estadoDenegado.isChecked() &&observacion.isEmpty()){
+            Toast.makeText(this, "DENEGADO, campo OBSERVACIONES no puede estar vacio",Toast.LENGTH_LONG).show();
+        }
+        //estado negado y observacion lleno
+        if(estadoDenegado.isChecked() && !observacion.isEmpty()){
+            String opcion= (estadoAprobado.isChecked())?  APROBADO:DENEGADO;
+            Toast.makeText(this, opcion,Toast.LENGTH_LONG).show();
+            PrimeraRevision primeraRevision= new PrimeraRevision();
+            primeraRevision.setObservacionesPrimeraRevision(observacion);
+            primeraRevision.setEstadoPrimeraRevision(opcion);
+
+            //pasarle el id de primerrevision obtendio a  travez del intent
+            primeraRevision.setIdPrimeraRevision(idPrimerRevision);
+            helper.abrir();
+            String resultado= helper.actualizarNegado(primeraRevision);
+            helper.cerrar();
+            Toast.makeText(this,resultado,Toast.LENGTH_LONG).show();
+        }
+        //opcion aprobado
         else{
             if(fecha.isEmpty()||hora.isEmpty()||local.isEmpty()||observacion.isEmpty()){
                 Toast.makeText(this, "Rellene todos los capos",Toast.LENGTH_LONG).show();

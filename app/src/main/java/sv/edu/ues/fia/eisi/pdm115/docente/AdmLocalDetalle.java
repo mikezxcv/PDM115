@@ -103,6 +103,7 @@ public class AdmLocalDetalle extends AppCompatActivity {
                                 String resultado=helper.eliminarLocal(id);
                                 helper.cerrar();
                                 Intent intent= new Intent(AdmLocalDetalle.this,AdmLocalActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
 
 

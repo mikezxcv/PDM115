@@ -21,6 +21,7 @@ public class SplashActivity extends AppCompatActivity {
         Intent login= new Intent(this,LoginActivity.class);
         Intent main= new Intent(this,MainActivity.class);
         if(!TextUtils.isEmpty(prefs.getString("user","")) && !TextUtils.isEmpty(prefs.getString("password",""))){
+            main.putExtra("usuario","");
             startActivity(main);
         }else{
             startActivity(login);

@@ -7,13 +7,6 @@
     app:showAsAction="never">
 
 </item>
-    <item
 
-        android:id="@+id/datoUsuario"
-        android:title="Estudiante"
-        app:showAsAction="never">
-
-
-    </item>
 
 </menu>

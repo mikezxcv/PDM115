@@ -6,10 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.List;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.PrimeraRevision;
@@ -58,11 +61,14 @@ public class AdmDetallesolicitudSegundaRevision extends AppCompatActivity {
 
         idsegundaRevision= bundle.getString("id");
 
-        //desabilitar botones
+        //desabilitar-habilitar botones
         helper.abrir();
-        String [] datos= helper.docentes_segundarevision(Integer.valueOf(idsegundaRevision));
+        List<String> datos= helper.verificarSolicitudSegundaRevision(idsegundaRevision);
+       // String [] datos2= helper.docentes_segundarevision(Integer.valueOf(idsegundaRevision));
+
         helper.cerrar();
-        if(datos.length!=0){
+        if(!TextUtils.isEmpty(datos.get(0))){
+            //solicitud aceptada
             btn2.setVisibility(View.VISIBLE);
             eliminar.setVisibility(View.VISIBLE);
         }else{
@@ -85,9 +91,6 @@ public class AdmDetallesolicitudSegundaRevision extends AppCompatActivity {
                 if(datos.length!=0){
                     btn2.setVisibility(View.VISIBLE);
                     eliminar.setVisibility(View.VISIBLE);
-                }else{
-                    btn2.setVisibility(View.INVISIBLE);
-                    eliminar.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -118,12 +121,14 @@ public class AdmDetallesolicitudSegundaRevision extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-        //desabilitar botones
+        //desabilitar-habilitar botones
         helper.abrir();
-        String [] datos= helper.docentes_segundarevision(Integer.valueOf(idsegundaRevision));
+        List<String> datos= helper.verificarSolicitudSegundaRevision(idsegundaRevision);
+        // String [] datos2= helper.docentes_segundarevision(Integer.valueOf(idsegundaRevision));
+
         helper.cerrar();
-        if(datos.length!=0){
+        if(!TextUtils.isEmpty(datos.get(0))){
+            //solicitud aceptada
             btn2.setVisibility(View.VISIBLE);
             eliminar.setVisibility(View.VISIBLE);
         }else{
@@ -144,10 +149,10 @@ public class AdmDetallesolicitudSegundaRevision extends AppCompatActivity {
                         SegundaRevision segundaRevision=new SegundaRevision();
                         segundaRevision.setIdSegundaRevision(idSegundaRev);
                         helper.abrir();
-                        //String resultado= helper.eliminar(segundaRevision);
+                        String resultado= helper.eliminar(segundaRevision);
                         helper.cerrar();
                         Intent intent= new Intent(AdmDetallesolicitudSegundaRevision.this,AdmSegundaRevisionActivity.class);
-                       // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_DIRECT_BOOT_AUTO);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                         startActivity(intent);
 

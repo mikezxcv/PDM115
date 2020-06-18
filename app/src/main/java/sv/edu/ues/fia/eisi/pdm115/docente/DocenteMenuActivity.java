@@ -32,8 +32,6 @@ public class DocenteMenuActivity extends ListActivity {
 
             String nombreValue=activities[position];
             String clases=("sv.edu.ues.fia.eisi.pdm115.docente."+nombreValue);
-            Toast.makeText(getApplicationContext(),clases,Toast.LENGTH_LONG).show();
-
 
             try{
                 Class<?>

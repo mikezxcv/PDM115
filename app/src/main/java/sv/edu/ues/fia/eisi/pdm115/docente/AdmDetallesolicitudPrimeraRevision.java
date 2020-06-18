@@ -6,10 +6,13 @@ import android.content.DialogInterface;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.List;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.PrimeraRevision;
@@ -56,6 +59,20 @@ public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
         fechasolicitud.setText(bundle.getString("fechaSolicitud"));
         idPrimerRevision= bundle.getString("id");
 
+        //habilitar/desashabilitar botones
+        helper.abrir();
+        List<String> estado= helper.verificarSolicitudPrimeraRevision(idPrimerRevision);
+        if(!TextUtils.isEmpty(estado.get(0))){
+            //solicitud aceptada
+            btn.setVisibility(View.INVISIBLE);
+            btn2.setVisibility(View.VISIBLE);
+            eliminar.setVisibility(View.VISIBLE);
+        }else{
+            btn.setVisibility(View.VISIBLE);
+            btn2.setVisibility(View.INVISIBLE);
+            eliminar.setVisibility(View.INVISIBLE);
+        }
+        helper.cerrar();
         //aprobar Revision
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +122,7 @@ public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
                         String resultado= helper.eliminar(primeraRevision);
                         helper.cerrar();
                        Intent intent= new Intent(AdmDetallesolicitudPrimeraRevision.this,AdmPrimeraRevisionActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                        startActivity(intent);
 
@@ -124,4 +142,22 @@ public class AdmDetallesolicitudPrimeraRevision extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //habilitar/desashabilitar botones
+        helper.abrir();
+        List<String> estado= helper.verificarSolicitudPrimeraRevision(idPrimerRevision);
+        if(!TextUtils.isEmpty(estado.get(0))){
+            //solicitud aceptada
+            btn.setVisibility(View.INVISIBLE);
+            btn2.setVisibility(View.VISIBLE);
+            eliminar.setVisibility(View.VISIBLE);
+        }else{
+            btn.setVisibility(View.VISIBLE);
+            btn2.setVisibility(View.INVISIBLE);
+            eliminar.setVisibility(View.INVISIBLE);
+        }
+        helper.cerrar();
+    }
 }

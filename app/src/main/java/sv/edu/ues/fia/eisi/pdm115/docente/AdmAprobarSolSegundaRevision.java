@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,10 +22,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.List;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 
 import sv.edu.ues.fia.eisi.pdm115.Docente;
+import sv.edu.ues.fia.eisi.pdm115.PrimeraRevision;
 import sv.edu.ues.fia.eisi.pdm115.R;
 import sv.edu.ues.fia.eisi.pdm115.SegundaRevision;
 
@@ -34,6 +37,7 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
     Button asignarDocentes;
     Button verDocentes;
     TextView fechaRevison;
+    Button guardar;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     TextView HoraRevison;
     TextView localRevison;
@@ -57,6 +61,7 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
         setContentView(R.layout.activity_adm_aprobar_sol_segunda_revision);
         asignarDocentes= (Button) findViewById(R.id.asignarDocentes);
         verDocentes=(Button) findViewById(R.id.verDocentesAsignados);
+        guardar= (Button) findViewById(R.id.irAorobarSolicitudSegundaRevision);
         helper= new ControlBdGrupo12(this);
         estadoDenegado= (RadioButton) findViewById(R.id.denegado);
         estadoAprobado= (RadioButton) findViewById(R.id.aprobado);
@@ -73,14 +78,28 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
         listaIdElementos= new String[helper.listaDocentes().length];
         listaIdElementos=helper.listaIdDocentes();
 
+        //habilitar-desabilitar botones
+        List<String> datos1=helper.verificarSolicitudSegundaRevision(idSegundaRevicion);
         String [] datos= helper.docentes_segundarevision(Integer.valueOf(idSegundaRevicion));
-
         helper.cerrar();
-        if(datos.length!=0){
-            verDocentes.setVisibility(View.VISIBLE);
-        }else{
+        if(!TextUtils.isEmpty(datos1.get(0)) && datos.length==0){
+            //solicitud aceptada sin docentes asignados
+            guardar.setVisibility(View.INVISIBLE);
+            asignarDocentes.setVisibility(View.VISIBLE);
             verDocentes.setVisibility(View.INVISIBLE);
+        }
+        if(!TextUtils.isEmpty(datos1.get(0)) && datos.length!=0){
+            //solicitud aceptada y docentes asignados
+            guardar.setVisibility(View.INVISIBLE);
+            asignarDocentes.setVisibility(View.VISIBLE);
+            verDocentes.setVisibility(View.VISIBLE);
+        }
+
+        if(TextUtils.isEmpty(datos1.get(0))){
+            //solicitud no aceptada
+            guardar.setVisibility(View.VISIBLE);
             asignarDocentes.setVisibility(View.INVISIBLE);
+            verDocentes.setVisibility(View.INVISIBLE);
         }
 
 
@@ -94,7 +113,8 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
                 helper.abrir();
                 String [] datos= helper.docentes_segundarevision(Integer.valueOf(idSegundaRevicion));
                 helper.cerrar();
-
+                //desabilitar boton guardar
+                guardar.setVisibility(View.INVISIBLE);
                 for(int j=0;j<Integer.valueOf(listaElementos.length);j++){
                     for(int i=0;i< Integer.valueOf(datos.length);i++) {
                         if (listaElementos[j].contentEquals(datos[i])) {
@@ -261,6 +281,25 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
         if(!estadoAprobado.isChecked() && !estadoDenegado.isChecked()){
             Toast.makeText(this, "seleccione un estado",Toast.LENGTH_LONG).show();
         }
+        //estado negado seleccionado pero observacion vacio
+        if(estadoDenegado.isChecked() &&observacion.isEmpty()){
+            Toast.makeText(this, "DENEGADO, campo OBSERVACIONES no puede estar vacio",Toast.LENGTH_LONG).show();
+        }
+        //estado negado y observacion lleno
+        if(estadoDenegado.isChecked() && !observacion.isEmpty()){
+            String opcion= (estadoAprobado.isChecked())?  APROBADO:DENEGADO;
+            Toast.makeText(this, opcion,Toast.LENGTH_LONG).show();
+            SegundaRevision segundaRevision= new SegundaRevision();
+            segundaRevision.setObservacionesSegundaRevision(observacion);
+            segundaRevision.setEstadoSegundaRevision(opcion);
+            //pasarle el id de primerrevision obtendio a  travez del intent
+            segundaRevision.setIdSegundaRevision(idSegundaRevicion);
+            helper.abrir();
+            String resultado= helper.actualizarNegado(segundaRevision);
+            helper.cerrar();
+            Toast.makeText(this,resultado,Toast.LENGTH_LONG).show();
+        }
+        //aprobado
         else{
             if(fecha.isEmpty()||hora.isEmpty()||local.isEmpty()||observacion.isEmpty()){
                 Toast.makeText(this, "Rellene todos los capos",Toast.LENGTH_LONG).show();
@@ -282,7 +321,7 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
                 helper.abrir();
                 String resultado= helper.actualizar(segundaRevision);
                 helper.cerrar();
-                Toast.makeText(this, date,Toast.LENGTH_LONG).show();
+                Toast.makeText(this, resultado,Toast.LENGTH_LONG).show();
                 if(estadoAprobado.isChecked()){
                     asignarDocentes.setVisibility(View.VISIBLE);
                 }

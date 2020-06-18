@@ -31,7 +31,7 @@
             android:id="@+id/fechaAsignarPrimeraRevision"
             android:inputType="date"
             android:textSize="22sp"
-            android:hint="Selecciones una fecha"
+            android:hint="Seleccione una fecha"
             android:maxLength="10"
 
 

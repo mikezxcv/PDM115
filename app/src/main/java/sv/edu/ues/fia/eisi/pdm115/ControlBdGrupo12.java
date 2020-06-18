@@ -1,6 +1,4 @@
 package sv.edu.ues.fia.eisi.pdm115;
-import android.app.VoiceInteractor;
-import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -17,21 +15,9 @@ import sv.edu.ues.fia.eisi.pdm115.docente.Locales;
 
 
 // Import Cris
-import android.content.ComponentName;
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 // Import Cris
@@ -307,9 +293,15 @@ public class ControlBdGrupo12 {
 
 
                 db.execSQL("INSERT INTO `usuario` (`USUARIO`, `NOMBRE_USUARIO`, `CONTRASENA`) VALUES\n" +
-                        "\t('DOCENTE', 'JUAN RAMOS','PASS1'),\n" +
-                        "\t('ESTUDIANTE', 'MIGUEL PEREZ','PASS2');\n");
+                        "\t('DOCENTE', 'DOCENTE 1','PASS1'),\n" +
+                        "\t('ESTUDIANTE', 'ESTUDIANTE 1','PASS2');\n");
+                db.execSQL("INSERT INTO `usuario` (`USUARIO`, `NOMBRE_USUARIO`, `CONTRASENA`) VALUES\n" +
+                        "\t('IMPRESIONADMIN', 'ADMIN IMPRESION 1','PASS3'),\n" +
+                        "\t('ADMIN', 'ADMIN GENERAL','PASS4');\n");
+                db.execSQL("INSERT INTO ACCESOUSUARIO VALUES ('DOCENTE','1');");
                 db.execSQL("INSERT INTO ACCESOUSUARIO VALUES ('ESTUDIANTE','1');");
+                db.execSQL("INSERT INTO ACCESOUSUARIO VALUES ('IMPRESIONADMIN','1');");
+                db.execSQL("INSERT INTO ACCESOUSUARIO VALUES ('ADMIN','1');");
 
                 db.execSQL("INSERT INTO `evaluacion` (`IDEVALUACION`, `IDTIPOEVAL`, `NOMBREEVALUACION`, `FECHAEVALUACION`,`IDASIGNATURA`) VALUES\n" +
                         "\t(1, '1', 'PARCIAL 1', '2020-12-12','DSI115');");
@@ -551,6 +543,17 @@ public class ControlBdGrupo12 {
         cv.put("NOTAANTESPRIMERAREV", primeraRevision.getNotaAntesPrimeraRevision());
         cv.put("NOTADESPUESPRIMERAREV", primeraRevision.getNotaDespuesPrimeraRevision());
 
+        cv.put("OBSERVACIONESPRIMERAREV", primeraRevision.getObservacionesPrimeraRevision());
+
+        db.update("primerrevision", cv, "IDPRIMERREVISION = ? ",id);
+        return "Registro Actualizado Correctamente";
+    }
+    public String actualizarNegado(PrimeraRevision primeraRevision){
+        String[] id = {primeraRevision.getIdPrimeraRevision()};
+
+        ContentValues cv = new ContentValues();
+        //aprobar revision
+        cv.put("ESTADOPRIMERAREV", primeraRevision.getEstadoPrimeraRevision());
         cv.put("OBSERVACIONESPRIMERAREV", primeraRevision.getObservacionesPrimeraRevision());
 
         db.update("primerrevision", cv, "IDPRIMERREVISION = ? ",id);
@@ -913,6 +916,15 @@ public class ControlBdGrupo12 {
         db.update("segundarevicion", cv, "IDSEGUNDAREVICION = ? ",id);
         return "Registro Actualizado Correctamente";
     }
+    public String actualizarNegado(SegundaRevision segundaRevision){
+        String[] id = {segundaRevision.getIdSegundaRevision()};
+        ContentValues cv = new ContentValues();
+        //aprobar revision
+        cv.put("ESTADOSEGUNDAREVICION", segundaRevision.getEstadoSegundaRevision());
+        cv.put("OBSERVACIONESSEGUNDAREVICION", segundaRevision.getObservacionesSegundaRevision());
+        db.update("segundarevicion", cv, "IDSEGUNDAREVICION = ? ",id);
+        return "Registro Actualizado Correctamente";
+    }
     public String actualizar1R(SegundaRevision segundaRevision){
         String[] id = {segundaRevision.getIdSegundaRevision()};
 
@@ -1048,9 +1060,9 @@ public class ControlBdGrupo12 {
         }
         return resultado;
     }
-    public boolean verificarPassword(String password){
+    public boolean verificarPassword(String user,String password){
         Cursor datos= db.rawQuery("SELECT ac.usuario,us.contrasena FROM accesousuario AS ac\n" +
-                "JOIN usuario as us ON ac.usuario=us.USUARIO where us.contrasena= '"+password+"'" ,null);
+                "JOIN usuario as us ON ac.usuario=us.USUARIO where us.contrasena= '"+password+"'"+" and us.usuario= '"+user+"'",null);
         boolean resultado=false;
         if(datos.moveToFirst()){
             resultado=true;
@@ -1151,6 +1163,22 @@ public class ControlBdGrupo12 {
         contador+=db.delete("ESCUELA", "IDESCUELA= '"+idEscuela+"'", null);
         regAfectados+=contador;
         return regAfectados;
+    }
+    public List<String> verificarSolicitudPrimeraRevision(String id){
+        List<String> resultado= new ArrayList<String>();
+        Cursor datos= db.rawQuery("SELECT  * FROM PRIMERREVISION WHERE IDPRIMERREVISION  = "+id,null);
+        if(datos.moveToFirst()){
+            resultado.add(datos.getString(7));
+        }
+        return resultado;
+    }
+    public List<String> verificarSolicitudSegundaRevision(String id){
+        List<String> resultado= new ArrayList<String>();
+        Cursor datos= db.rawQuery("select * from segundarevicion where idsegundarevicion = "+id,null);
+        if(datos.moveToFirst()){
+            resultado.add(datos.getString(3));
+        }
+        return resultado;
     }
 
     //metodos necesarios para WEBSERVICES------------INICIO

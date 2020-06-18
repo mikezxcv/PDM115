@@ -7,6 +7,7 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -58,8 +59,6 @@ public class AdmLocalActivity extends AppCompatActivity {
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"onclick",Toast.LENGTH_SHORT).show();
-
 
                 //implementat alert
                 AlertDialog.Builder builder= new AlertDialog.Builder(AdmLocalActivity.this);
@@ -71,16 +70,20 @@ public class AdmLocalActivity extends AppCompatActivity {
                 builder.setPositiveButton("Crear", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Locales local= new Locales();
-                       // local.setIdLocal(idLocal.getText().toString());
-                        local.setNombreLocal(nombreLocal.getText().toString());
-                        local.setUbicacion(ubicacion.getText().toString());
-                        helper.abrir();
-                        String resultado= helper.insertar(local);
-                        helper.cerrar();
-                        Toast.makeText(getApplicationContext(),resultado,Toast.LENGTH_SHORT).show();
-                        //recargar el activity para mostrar los datos
-                        recreate();
+                       if(TextUtils.isEmpty(nombreLocal.getText().toString()) || TextUtils.isEmpty(ubicacion.getText().toString()) ){
+                           Toast.makeText(getApplicationContext(),"Rellene Todos los Campos",Toast.LENGTH_SHORT).show();
+                       }else{
+                           Locales local= new Locales();
+                           // local.setIdLocal(idLocal.getText().toString());
+                           local.setNombreLocal(nombreLocal.getText().toString());
+                           local.setUbicacion(ubicacion.getText().toString());
+                           helper.abrir();
+                           String resultado= helper.insertar(local);
+                           helper.cerrar();
+                           Toast.makeText(getApplicationContext(),resultado,Toast.LENGTH_SHORT).show();
+                           //recargar el activity para mostrar los datos
+                           recreate();
+                       }
 
 
 

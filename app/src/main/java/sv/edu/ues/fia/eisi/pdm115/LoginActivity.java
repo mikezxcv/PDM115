@@ -41,8 +41,9 @@ public class LoginActivity extends AppCompatActivity {
                 helper = new ControlBdGrupo12(LoginActivity.this);
                 String user= usuario.getText().toString();
                 String pass= password.getText().toString();
+
                 if(validarEntrada(user,pass)){
-                   goToMain();
+                   goToMain(user);
                    saveOnPreferences(user,pass);
                     }
             }
@@ -54,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         if(!validarCorreo(user)){
             Toast.makeText(this,"Usuario No encontrado, intente de nuevo.",Toast.LENGTH_SHORT).show();
             return false;
-        } else if(!validarContrasena(password)){
+        } else if(!validarContrasena(user,password)){
             Toast.makeText(this,"Contraseña No encontrado, intente de nuevo.",Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -66,13 +67,15 @@ public class LoginActivity extends AppCompatActivity {
        return !TextUtils.isEmpty(user)  && helper.verificarUsuario(user);
 
     }
-    private boolean validarContrasena(String password){
+    private boolean validarContrasena(String user,String password){
         helper.abrir();
-    return !TextUtils.isEmpty(password) && helper.verificarPassword(password);
+    return !TextUtils.isEmpty(password) && helper.verificarPassword(user,password);
     }
-    private void goToMain(){
+    private void goToMain(String user){
+
         Intent intent= new Intent(this,MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("usuario",user);
         startActivity(intent);
     }
     private void saveOnPreferences(String user, String pasword){
