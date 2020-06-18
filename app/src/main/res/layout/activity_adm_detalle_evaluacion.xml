@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:paddingTop="30dip"
     android:stretchColumns="1" >
 
@@ -17,27 +17,29 @@
 
 
             <TextView
+                android:text="Detalle evaluaciones"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:text="Consulta de Primera Revision" />
+                android:layout_height="fill_parent" />
 
             <TextView
                 android:text="Carnet"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
             <EditText
-                android:id="@+id/CarnetCR"
+                android:id="@+id/editCarnetEvaluacion"
                 android:inputType="text"
                 android:maxLength="15"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
 
             <TextView android:text="Materia"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
-
+                android:layout_height="fill_parent" />
             <EditText
-                android:id="@+id/MateriaCR"
+                android:id="@+id/editMateriaEvaluacion"
                 android:inputType="text"
                 android:maxLength="30"
                 android:layout_width="fill_parent"
@@ -45,14 +47,42 @@
                 android:editable="false"
                 android:focusable="false"
                 android:clickable="true"/>
-
 
             <TextView android:text="Evaluacion"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+
+            <EditText
+                android:id="@+id/editEvaluacionEvaluacion"
+                android:inputType="text"
+                android:maxLength="30"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
+
+            <TextView android:text="Nota"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"/>
 
             <EditText
-                android:id="@+id/evaluacionnCR"
+                android:id="@+id/editNotaEvaluacion"
+                android:inputType="text"
+                android:maxLength="30"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
+
+
+            <TextView android:text="Asistencia"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+            <EditText
+                android:id="@+id/editAsistenciaEvaluacion"
                 android:inputType="text"
                 android:maxLength="10"
                 android:layout_width="fill_parent"
@@ -60,110 +90,68 @@
                 android:editable="false"
                 android:focusable="false"
                 android:clickable="true"/>
+
+            <TextView android:text="Fecha de realizacion de prueba"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+            <EditText
+                android:id="@+id/editFechaRealizacionEvaluacion"
+                android:inputType="text"
+                android:maxLength="10"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
+
+            <TextView android:text="Fecha Limite para revision"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+            <EditText
+                android:id="@+id/editFechaLimRevisionEvaluacion"
+                android:inputType="text"
+                android:maxLength="10"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
+
+            <TextView android:text="Docente Encargado"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+            <EditText
+                android:id="@+id/editDoocenteEvaluacion"
+                android:inputType="text"
+                android:maxLength="10"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
+            <TextView
+                android:text="opciones"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
 
             <Button
-                android:id="@+id/consultarCR"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:onClick="ConsultarSolicitudPrimera"
-                android:text="Consultar" />
+                android:id="@+id/irActualizarEvaluacion"
 
-            <TextView
-                android:text="Estado"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <EditText
-                android:id="@+id/estadoCR"
-                android:inputType="text"
-                android:maxLength="15"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:editable="false"
-                android:focusable="false"
-                android:clickable="true"/>
-
-            <TextView android:text="Fecha Revision"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <EditText
-                android:id="@+id/fechaRevisionCR"
-                android:inputType="text"
-                android:maxLength="30"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:editable="false"
-                android:focusable="false"
-                android:clickable="true"/>
-
-            <TextView android:text="Hora Revision"
+                android:text="ACTUALIZAR"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"/>
 
-            <EditText
-                android:id="@+id/horaRevisionCR"
-                android:inputType="text"
-                android:maxLength="30"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:editable="false"
-                android:focusable="false"
-                android:clickable="true"/>
 
-
-            <TextView android:text="Local Revision"
+            <Button
+                android:id="@+id/irEliminarEvaluacion"
+                android:text="Eliminar"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"/>
 
-            <EditText
-                android:id="@+id/localRevisionCR"
-                android:inputType="text"
-                android:maxLength="10"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:editable="false"
-                android:focusable="false"
-                android:clickable="true"/>
-
-            <TextView
-                android:text="Nota antes Revision"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <EditText
-                android:id="@+id/notaAntesCR"
-                android:inputType="text"
-                android:maxLength="15"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:editable="false"
-                android:focusable="false"
-                android:clickable="true"/>
-
-            <TextView android:text="Nota despues Revision"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <EditText
-                android:id="@+id/notaDespuesCR"
-                android:inputType="text"
-                android:maxLength="30"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:editable="false"
-                android:focusable="false"
-                android:clickable="true"/>
-
-            <TextView android:text="Observaciones"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
-
-            <EditText
-                android:id="@+id/observacionesCR"
-                android:inputType="text"
-                android:maxLength="30"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:editable="false"
-                android:focusable="false"
-                android:clickable="true"/>
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

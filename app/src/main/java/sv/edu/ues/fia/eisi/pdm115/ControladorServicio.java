@@ -115,4 +115,25 @@ public class ControladorServicio {
             return " ";
         }
     }
+
+
+    /*METODO PARA INSERTAR MATERIA EN SERVIDOR EISI*/
+    public static void insertarMateriaEISI(String peticion, Context ctx) {
+        String json = obtenerRespuestaPeticion(peticion, ctx);
+        try {
+            JSONObject resultado = new JSONObject(json);
+            Toast.makeText(ctx, "Registro ingresado"+
+                    resultado.getJSONArray("resultado").toString(), Toast.LENGTH_LONG)
+                    .show();
+            int respuesta = resultado.getInt("resultado");
+            if (respuesta == 1)
+                Toast.makeText(ctx, "Registro ingresado", Toast.LENGTH_LONG)
+                        .show();
+            else
+                Toast.makeText(ctx, "Error registro duplicado",
+                        Toast.LENGTH_LONG).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

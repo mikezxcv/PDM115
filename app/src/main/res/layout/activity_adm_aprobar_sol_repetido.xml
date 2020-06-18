@@ -18,26 +18,6 @@
     <TextView android:text="Aprobar Solicitud Repetido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-    <TextView android:text="Estado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-<RadioGroup
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <RadioButton
-        android:id="@+id/radioRechazado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rechazar"
-        />
-
-    <RadioButton
-        android:id="@+id/radioAprobado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Aprobar" />
-</RadioGroup>
 
 
 
@@ -59,22 +39,43 @@
         android:layout_height="fill_parent"/>
     <EditText
         android:id="@+id/editHoraRepetido"
-        android:inputType="text"
+        android:inputType="number"
         android:maxLength="10"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
     <TextView android:text="Local"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:editable="false"
-        android:focusable="false"
-        android:clickable="true"/>
+        />
     <EditText
         android:id="@+id/editLocalRepetido"
         android:inputType="text"
         android:maxLength="30"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="fill_parent"
+        android:editable="false"
+        android:focusable="false"
+        android:clickable="true"/>
+        <TextView android:text="Estado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/radioRechazado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rechazar"
+                />
+
+            <RadioButton
+                android:id="@+id/radioAprobado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aprobar" />
+        </RadioGroup>
 
     <TextView android:text="Observaciones"
         android:layout_width="fill_parent"

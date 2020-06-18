@@ -3,6 +3,16 @@
     package="sv.edu.ues.fia.eisi.pdm115">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Para escanear el codigo QR o Carnet -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" /> <!-- Para copiar el archivo localmente y subirlo al servidor -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" /> <!-- Para versiones < 8.0 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +27,8 @@
         <activity android:name=".webServices.ConsultarCantidadSolicitudes" />
         <activity android:name=".webServices.MenuWebServices" />
 
+        <activity android:name=".docente.AdmDetalleEvaluacionActivity"></activity>
+        <activity android:name=".docente.AdmListaEvaluacionActivity" />
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
@@ -60,19 +72,30 @@
         <activity android:name=".estudiante.EstudianteMenuActivity" />
         <activity android:name=".docente.DocenteMenuActivity" />
         <activity android:name=".MainActivity" />
-
-
-        <activity android:name=".estudiante.EstudianteSolicitudRepetidoActivity"></activity>
+        <activity android:name=".estudiante.EstudianteSolicitudRepetidoActivity" />
         <activity android:name=".estudiante.EstudianteSolicitudDiferidoActivity" />
         <activity android:name=".estudiante.EstudianteRepetidoActivity" />
         <activity android:name=".estudiante.EstudianteDiferidoActivity" />
         <activity android:name=".estudiante.EstudianteConsultarSolicitudRepetidoActivity" />
         <activity android:name=".estudiante.EstudianteConsultarSolicitudDiferidoActivity" />
         <activity android:name=".docente.AdmAsignarNotaDiferido" />
-        <activity android:name=".docente.AdmRolDetalle"></activity>
+        <activity android:name=".docente.AdmRolDetalle" />
         <activity android:name=".docente.AdmRolActivity" />
         <activity android:name=".docente.AdmAsignarNotaRepetido" />
+        <activity android:name=".docente.AdmImpresionesActivity" />
+        <activity android:name=".docente.AdmSolicitarImpresionActivity" />
+        <activity android:name=".encargadoImpresion.EncargadoImpresionesMenuActivity" />
+        <activity android:name=".encargadoImpresion.VerSolicitudesImpresionActivity" />
+        <activity android:name=".encargadoImpresion.GestionarEncargadosActivity"/>
+        <activity android:name=".qr.EscanerActivity" />
 
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+
+        <service
+            android:name=".webServices.SubirDocumentoService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 
 </manifest>

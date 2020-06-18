@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dip"
+    android:stretchColumns="*"  >
+    <TextView
+        android:text="Administracion Primera Revision "
+        android:background="#d4cee0"
+
+
+        />
+    <TableRow>
+        <TextView android:text="Carnet "
+            />
+        <EditText
+            android:id="@+id/carnetSolPrimeraRevision"
+            android:inputType="text"
+            android:maxLength="15" />
+    </TableRow>
+    <TableRow>
+
+        <TextView android:text="Nombre" />
+
+        <EditText
+            android:id="@+id/nombreSolPrimeraRevision"
+            android:inputType="text"
+
+            android:maxLength="15" />
+    </TableRow>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="106dp"
+        android:orientation="horizontal"
+        android:gravity="center|bottom" >
+
+        <TextView android:text="Materia"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"/>
+
+        <EditText
+            android:id="@+id/materiaSolPrimeraRevision"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:maxLength="150" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="106dp"
+        android:orientation="horizontal"
+        android:gravity="center|bottom" >
+
+        <Button
+            android:id="@+id/eliminarSolicitud"
+            android:layout_width="219dp"
+            android:layout_height="wrap_content"
+            android:background="#d46c88"
+            android:onClick="metodo3"
+
+            android:text="Eliminar"
+
+
+            />
+
+        <Button
+
+            android:id="@+id/irAorobarSolicitudPrimeraRevision"
+            android:layout_width="207dp"
+            android:layout_height="wrap_content"
+
+            android:background="#50ba6c"
+            android:text="Aprobar Revision" />
+    </LinearLayout>
+
+
+
+
+
+</TableLayout>

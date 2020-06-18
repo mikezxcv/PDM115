@@ -1,20 +1,19 @@
 package sv.edu.ues.fia.eisi.pdm115;
 
 public class Escuela {
+
     private String idEscuela;
-    private String idarea;
-    private String nombre;
+    private int idArea;
+    private String nombreEscuela;
     private String facultad;
 
+    Escuela(){}
 
-    public Escuela(String idEscuela, String idarea, String nombre, String facultad) {
+    Escuela(String idEscuela, int idArea, String nombreEscuela, String facultad){
         this.idEscuela = idEscuela;
-        this.idarea = idarea;
-        this.nombre = nombre;
+        this.idArea = idArea;
+        this.nombreEscuela = nombreEscuela;
         this.facultad = facultad;
-    }
-    public Escuela(){
-
     }
 
     public String getIdEscuela() {
@@ -25,20 +24,20 @@ public class Escuela {
         this.idEscuela = idEscuela;
     }
 
-    public String getIdarea() {
-        return idarea;
+    public int getIdArea() {
+        return idArea;
     }
 
-    public void setIdarea(String idarea) {
-        this.idarea = idarea;
+    public void setIdArea(int idArea) {
+        this.idArea = idArea;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreEscuela() {
+        return nombreEscuela;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreEscuela(String nombreEscuela) {
+        this.nombreEscuela = nombreEscuela;
     }
 
     public String getFacultad() {

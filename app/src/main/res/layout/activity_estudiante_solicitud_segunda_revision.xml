@@ -26,19 +26,9 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
             <EditText
-                android:id="@+id/editCarnet"
+                android:id="@+id/editCarnet2"
                 android:inputType="text"
                 android:maxLength="15"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-
-            <TextView android:text="Nombre"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <EditText
-                android:id="@+id/editNombre"
-                android:inputType="text"
-                android:maxLength="30"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent" />
 
@@ -47,11 +37,14 @@
                 android:layout_height="fill_parent"/>
 
             <EditText
-                android:id="@+id/editMateria"
+                android:id="@+id/editMateria2"
                 android:inputType="text"
                 android:maxLength="30"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
 
 
             <TextView android:text="Evaluacion"
@@ -59,19 +52,23 @@
                 android:layout_height="fill_parent"/>
 
             <EditText
-                android:id="@+id/editEvaluacion"
+                android:id="@+id/editEvaluacion2"
                 android:inputType="text"
                 android:maxLength="10"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
 
             <TextView
-                android:text="opciones"
+                android:id="@+id/fecha_evaluacionSR"
+                android:text="Fecha Solicitud"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"/>
 
             <Button
-                android:id="@+id/enviarSolicitud"
+                android:id="@+id/enviarSolicitud2R"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:onClick="irAprobarSolicitudRepetido"

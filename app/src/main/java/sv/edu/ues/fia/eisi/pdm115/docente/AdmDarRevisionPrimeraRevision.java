@@ -7,6 +7,12 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.PrimeraRevision;
 import sv.edu.ues.fia.eisi.pdm115.R;
@@ -47,15 +53,40 @@ public class AdmDarRevisionPrimeraRevision extends AppCompatActivity {
                 helper.cerrar();
                 Toast.makeText(this,resultado,Toast.LENGTH_LONG).show();
 
+                // Asignando fecha Limite de Segunda revision en Primera Revision
+                asignarFechaLimSegundaRevision();
+
             }
             else{
                 Toast.makeText(this,"Ingrese nota valida. NOTA DESPUES de la revision debe ser MAYOR o al menos IGUAL a NOTA ORIGINAL",Toast.LENGTH_LONG).show();
-
             }
 
         }
-    /*   */
-
 
     }
+
+    public void asignarFechaLimSegundaRevision(){
+        String fechaLocal= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
+        Calendar calendarLimiteSengundaRevision = Calendar.getInstance();
+        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+        Date fechaLocalForFormat = null;
+        try {
+            fechaLocalForFormat = formateador.parse(fechaLocal);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        calendarLimiteSengundaRevision.setTime(fechaLocalForFormat);
+        calendarLimiteSengundaRevision.add(Calendar.DAY_OF_MONTH, 3);
+
+        Date fechaLim = calendarLimiteSengundaRevision.getTime();
+
+        String fechaLimSegundaREVISION = formateador.format(fechaLim);
+
+        helper.abrir();
+        String resultado= helper.actualizar1NotaLimSegundaRevision(idprimerRevision, fechaLimSegundaREVISION);
+        helper.cerrar();
+
+        return;
+    }
+
 }

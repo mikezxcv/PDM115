@@ -14,29 +14,40 @@
         <EditText
             android:id="@+id/carnetSolicitudRepetido"
             android:inputType="text"
-            android:maxLength="15" />
+            android:maxLength="15"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="true"/>
     </TableRow>
     <TableRow>
         <TextView android:text="Nombre" />
         <EditText
             android:id="@+id/nombreSolicitudRepetido"
             android:inputType="text"
-
-            android:maxLength="15" />
+            android:maxLength="15"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="true"/>
     </TableRow>
     <TableRow>
         <TextView android:text="Materia" />
         <EditText
             android:id="@+id/materiaSolicitudRepetido"
             android:inputType="text"
-            android:maxLength="15" />
+            android:maxLength="15"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="true"/>
     </TableRow>
     <TableRow>
         <TextView android:text="Evaluacion" />
         <EditText
             android:id="@+id/evaluacionSolicitudRepetido"
             android:inputType="text"
-            android:maxLength="15" />
+            android:maxLength="15"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="true"/>
     </TableRow>
 
     <TableRow>
@@ -44,7 +55,10 @@
         <EditText
             android:id="@+id/fechaSolicitudRepetido"
             android:inputType="text"
-            android:maxLength="15" />
+            android:maxLength="15"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="true"/>
     </TableRow>
 
     <Button
