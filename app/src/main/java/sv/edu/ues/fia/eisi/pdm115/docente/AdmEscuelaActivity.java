@@ -75,8 +75,8 @@ public class AdmEscuelaActivity extends AppCompatActivity {
                         }else{
                             Escuela escuela= new Escuela();
                             // local.setIdLocal(idLocal.getText().toString());
-                            escuela.setIdarea(idarea.getText().toString());
-                            escuela.setNombre(nombre.getText().toString());
+                            escuela.setIdArea(Integer.valueOf(idarea.getText().toString()) );
+                            escuela.setNombreEscuela(nombre.getText().toString());
                             escuela.setFacultad(facultad.getText().toString());
                             helper.abrir();
                             String resultado= helper.insertar(escuela);

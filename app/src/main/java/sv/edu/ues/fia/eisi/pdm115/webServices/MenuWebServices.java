@@ -13,15 +13,13 @@ import android.widget.ListView;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
 public class MenuWebServices extends AppCompatActivity {
-    String [] opciones={"Actualizar Lista de Locales","Cantidad Solicitudes de Procesos Academicos","Actualizar Lista de Estudiantes","Eliminar Estudiante"};
+    String [] opciones={"Actualizar Lista de Locales","Cantidad Solicitudes de Procesos Academicos","Actualizar Lista de Estudiantes","Eliminar Estudiante","Ingresar materia"};
     String []activity={"sv.edu.ues.fia.eisi.pdm115.webServices.ActualizarLocales",
             "sv.edu.ues.fia.eisi.pdm115.webServices.ConsultarCantidadSolicitudes",
             "sv.edu.ues.fia.eisi.pdm115.webServices.ActualizarEstudiantes",
-            "sv.edu.ues.fia.eisi.pdm115.webServices.EliminarEstudiante"};
-public class MenuWebServices extends Activity {
-    String [] opciones={"Local","Ingresar materia"};
-    String []activity={"sv.edu.ues.fia.eisi.pdm115.webServices.ActualizarLocales",
+            "sv.edu.ues.fia.eisi.pdm115.webServices.EliminarEstudiante",
             "sv.edu.ues.fia.eisi.pdm115.webServices.IngresarMateriaActivity"};
+
     ListView listView;
     Intent intent=null;
 

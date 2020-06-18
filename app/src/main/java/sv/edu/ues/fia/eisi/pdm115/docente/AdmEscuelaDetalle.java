@@ -40,8 +40,8 @@ public class AdmEscuelaDetalle extends AppCompatActivity {
         Escuela escuela;
         helper.abrir();
         escuela=helper.getDataEscuela(id);
-        idarea.setText(escuela.getIdarea().toString());
-        nombre.setText(escuela.getNombre());
+        idarea.setText(String.valueOf(escuela.getIdArea()));
+        nombre.setText(escuela.getNombreEscuela());
         facultad.setText(escuela.getFacultad());
         helper.cerrar();
         actualizar.setOnClickListener(new View.OnClickListener() {
@@ -56,8 +56,8 @@ public class AdmEscuelaDetalle extends AppCompatActivity {
                                 String idEscuela= id;
                                 Escuela escuela= new Escuela();
                                 escuela.setIdEscuela(id);
-                                escuela.setIdarea(idarea.getText().toString());
-                                escuela.setNombre(nombre.getText().toString());
+                                escuela.setIdArea(Integer.valueOf(idarea.getText().toString()));
+                                escuela.setNombreEscuela(nombre.getText().toString());
                                 escuela.setFacultad(facultad.getText().toString());
                                 helper.abrir();
                                 String resultado=helper.actualizar(escuela);

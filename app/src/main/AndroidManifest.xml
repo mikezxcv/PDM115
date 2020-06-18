@@ -21,11 +21,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".webServices.EliminarEstudiante"></activity>
+        <activity android:name=".webServices.IngresarMateriaActivity"></activity>
         <activity android:name=".webServices.ActualizarEstudiantes" />
         <activity android:name=".docente.AdmEscuelaDetalle" />
         <activity android:name=".docente.AdmEscuelaActivity" />
         <activity android:name=".webServices.ConsultarCantidadSolicitudes" />
         <activity android:name=".webServices.MenuWebServices" />
+        <activity android:name=".docente.AdmConsultarSolImpresionesActivity" />
 
         <activity android:name=".docente.AdmDetalleEvaluacionActivity"></activity>
         <activity android:name=".docente.AdmListaEvaluacionActivity" />

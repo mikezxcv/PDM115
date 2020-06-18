@@ -26,7 +26,7 @@ public class AdmImpresionesActivity extends ListActivity {
         String actividadInte = activities[position];
 
         try {
-            Class<?> clase = Class.forName("sv.edu.ues.fia.eisi.pdm115.docente.impresiones."+actividadInte);
+            Class<?> clase = Class.forName("sv.edu.ues.fia.eisi.pdm115.docente."+actividadInte);
             Intent inte = new Intent(this, clase);
             this.startActivity(inte);
         }catch (ClassNotFoundException e){

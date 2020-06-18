@@ -64,14 +64,16 @@ public class AdmDetallesolicitudSegundaRevision extends AppCompatActivity {
         //desabilitar-habilitar botones
         helper.abrir();
         List<String> datos= helper.verificarSolicitudSegundaRevision(idsegundaRevision);
-       // String [] datos2= helper.docentes_segundarevision(Integer.valueOf(idsegundaRevision));
+        // String [] datos2= helper.docentes_segundarevision(Integer.valueOf(idsegundaRevision));
 
         helper.cerrar();
         if(!TextUtils.isEmpty(datos.get(0))){
             //solicitud aceptada
             btn2.setVisibility(View.VISIBLE);
             eliminar.setVisibility(View.VISIBLE);
+            Toast.makeText(this, datos.get(0), Toast.LENGTH_SHORT).show();
         }else{
+            Toast.makeText(this, datos.get(0), Toast.LENGTH_SHORT).show();
             btn2.setVisibility(View.INVISIBLE);
             eliminar.setVisibility(View.INVISIBLE);
         }

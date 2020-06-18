@@ -7,9 +7,9 @@ public class Escuela {
     private String nombreEscuela;
     private String facultad;
 
-    Escuela(){}
+   public Escuela(){}
 
-    Escuela(String idEscuela, int idArea, String nombreEscuela, String facultad){
+    public  Escuela(String idEscuela, int idArea, String nombreEscuela, String facultad){
         this.idEscuela = idEscuela;
         this.idArea = idArea;
         this.nombreEscuela = nombreEscuela;

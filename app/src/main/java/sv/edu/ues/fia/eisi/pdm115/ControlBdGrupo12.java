@@ -362,7 +362,7 @@ public class ControlBdGrupo12 {
                 db.execSQL("INSERT INTO `tipodocente` (`IDTIPODOCENTECICLO`, `NOMTIPODOCENTECICLO`) VALUES\n" +
                         "\t('01', 'NOMBRE TIPO DOCENTE');");
                 db.execSQL("  INSERT INTO `segundarevicion` (`IDSEGUNDAREVICION`, `FECHASOLICITUDSEGUNDAREVICION`, `ESTADOSEGUNDAREVICION`, `FECHASEGUNDAREVICION`, `HORASEGUNDAREVICION`, `NOTADESPUESSEGUNDAREVICION`, `OBSERVACIONESSEGUNDAREVICION`, `MATERIASEGUNDAREVICION`, `MOTIVOSSEGUNDAREVICION`, `IDPRIMERAREVISION`,`ID_DETALLEALUMNOSEVALUADOS`) VALUES\n" +
-                        "\t(1, '2020-06-09', 'APROBADO', NULL, NULL, NULL, NULL, NULL, NULL, '1',1),\n" +
+                        "\t(1, '2020-06-09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1',1),\n" +
                         "\t(2, '2020-06-09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2',2);");
                 // Llenados CS17049
 
@@ -1146,8 +1146,8 @@ public class ControlBdGrupo12 {
     }
     public String insertar(Escuela escuela){
         ContentValues contentValues = new ContentValues();
-        contentValues.put("ID_AREA", escuela.getIdarea());
-        contentValues.put("NOMBREESCUELA",escuela.getNombre());
+        contentValues.put("ID_AREA", escuela.getIdArea());
+        contentValues.put("NOMBREESCUELA",escuela.getNombreEscuela());
         contentValues.put("FACULTAD",escuela.getFacultad());
         db.insert("ESCUELA", null, contentValues);
         String resultado= "Escuela Creada";
@@ -1160,8 +1160,8 @@ public class ControlBdGrupo12 {
                 id, null, null, null);
         if(cursor.moveToFirst()){
             Escuela escuela = new Escuela();
-            escuela.setIdarea(cursor.getString(0));
-            escuela.setNombre(cursor.getString(1));
+            escuela.setIdArea(cursor.getInt(0));
+            escuela.setNombreEscuela(cursor.getString(1));
             escuela.setFacultad(cursor.getString(2));
             return escuela;
         }else{
@@ -1173,8 +1173,8 @@ public class ControlBdGrupo12 {
         String resultado="Local Actualizado Exitosamente";
         String [] id={escuela.getIdEscuela()};
         ContentValues contentValues= new ContentValues();
-        contentValues.put("ID_AREA",escuela.getIdarea());
-        contentValues.put("NOMBREESCUELA",escuela.getNombre());
+        contentValues.put("ID_AREA",escuela.getIdArea());
+        contentValues.put("NOMBREESCUELA",escuela.getNombreEscuela());
         contentValues.put("FACULTAD",escuela.getFacultad());
         db.update("ESCUELA",contentValues,"IDESCUELA = ?",id);
         return resultado;
@@ -1198,7 +1198,7 @@ public class ControlBdGrupo12 {
         List<String> resultado= new ArrayList<String>();
         Cursor datos= db.rawQuery("select * from segundarevicion where idsegundarevicion = "+id,null);
         if(datos.moveToFirst()){
-            resultado.add(datos.getString(3));
+            resultado.add(datos.getString(4));
         }
         return resultado;
     }
