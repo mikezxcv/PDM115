@@ -3,7 +3,9 @@ package sv.edu.ues.fia.eisi.pdm115;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -115,8 +117,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void logOut(){
+        SharedPreferences prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor= prefs.edit();
+        //
+        editor.remove("usuarioActual").apply();
         Intent intent= new Intent(this,LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
         startActivity(intent);
     }
 
