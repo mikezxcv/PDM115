@@ -91,6 +91,9 @@
         <activity android:name=".encargadoImpresion.VerSolicitudesImpresionActivity" />
         <activity android:name=".encargadoImpresion.GestionarEncargadosActivity" />
         <activity android:name=".qr.EscanerActivity" />
+        <activity android:name=".docente.AdmCrearEvaluacionActivity" />
+        <activity android:name=".docente.AdmGestionarEvaluacionesActivity" />
+        <activity android:name=".docente.AdmEvaluacionDetalle" />
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"

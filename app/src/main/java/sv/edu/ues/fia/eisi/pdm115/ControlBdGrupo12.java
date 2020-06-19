@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import sv.edu.ues.fia.eisi.pdm115.docente.Evaluacion;
 import sv.edu.ues.fia.eisi.pdm115.docente.Locales;
 
 
@@ -161,9 +162,9 @@ public class ControlBdGrupo12 {
                 db.execSQL("CREATE TABLE EVALUACION  (\n" +
                         "   IDEVALUACION         INTEGER                        not null,\n" +
                         "   IDTIPOEVAL           CHAR(2),\n" +
-                        "   NOMBREEVALUACION     VARCHAR(50)                    not null,\n" +
-                        "   FECHAEVALUACION      DATE                            not null,\n" +
-                        "   IDASIGNATURA      CHAR(20)                            not null,\n" +
+                        "   NOMBREEVALUACION     VARCHAR(50)                    /*not null*/,\n" +
+                        "   FECHAEVALUACION      DATE                            /*not null*/,\n" +
+                        "   IDASIGNATURA      CHAR(20)                            /*not null*/,\n" +
                         "   primary key (IDEVALUACION)\n" +
                         ");");
                 db.execSQL("CREATE TABLE LOCAL  (\n" +
@@ -2414,6 +2415,105 @@ public class ControlBdGrupo12 {
     }
 
     /*---------------------FIN METODOS DIFERIDO-------------------*/
+    /*-------------------METODOS CRUD EVALUACION------------------*/
+    public String[] obtenerEvaluacionesCRUD(){
+
+        Integer contadorEv=0;
+        Cursor datos= db.rawQuery("SELECT * FROM evaluacion",null);
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()== false){
+                contadorEv= contadorEv+1;
+                datos.moveToNext();
+            }
+        }
+        String [] data=new String[contadorEv];
+
+        Integer contador=0;
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()== false){
+
+                String nombre=(datos.getString(2))+" ---->  ";
+                String fecha=(datos.getString(3))+" ";
+                data[contador]= nombre+fecha;
+                contador= contador+1;
+                datos.moveToNext();
+            }
+        }
+        return data;
+    }
+    public int[] IDEvaluacionesCRUD(){
+
+        Integer contadorIDev=0;
+        Cursor datos= db.rawQuery("SELECT IDEVALUACION FROM evaluacion",null);
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()== false){
+
+                contadorIDev= contadorIDev+1;
+                datos.moveToNext();
+            }
+        }
+        int [] data=new int[contadorIDev];
+
+        Integer contador=0;
+
+        if(datos.moveToFirst()){
+            while (datos.isAfterLast()== false){
+
+                int idEvaluacion=(datos.getInt(0));
+
+                data[contador]= idEvaluacion;
+                contador= contador+1;
+                datos.moveToNext();
+            }
+        }
+        return data;
+    }
+    public Evaluacion getDataEvaluacionCRUD(int idEvaluacion){
+        String[] id = {String.valueOf(idEvaluacion)};
+        String [] campos= {"IDEVALUACION","IDTIPOEVAL","NOMBREEVALUACION","FECHAEVALUACION"};
+        Cursor cursor = db.query("evaluacion", campos, "idEvaluacion = ?",
+                id, null, null, null);
+        if(cursor.moveToFirst()){
+            Evaluacion evaluacion = new Evaluacion();
+            evaluacion.setIdEvaluacion(cursor.getInt(0));
+            evaluacion.setTipoEvaluacion(cursor.getString(1));
+            evaluacion.setNombreEvaluacion(cursor.getString(2));
+            evaluacion.setFechaEvaluacion(cursor.getString(3));
+            return evaluacion;
+        }else{
+            return null;
+        }
+
+    }
+    public  String actualizar(Evaluacion evaluacion){
+        String resultado=" ";
+        String [] id={String.valueOf(evaluacion.getIdEvaluacion())};
+        ContentValues contentValues= new ContentValues();
+        contentValues.put("IDTIPOEVAL",evaluacion.getTipoEvaluacion());
+        contentValues.put("NOMBREEVALUACION",evaluacion.getNombreEvaluacion());
+        contentValues.put("FECHAEVALUACION",evaluacion.getFechaEvaluacion());
+        db.update("evaluacion",contentValues,"IDEVALUACION = ?",id);
+        return resultado;
+    }
+    public String eliminarEvaluacion(int idEvaluacion){
+        String regAfectados="filas afectadas= ";
+        int contador=0;
+        contador+=db.delete("evaluacion", "IDEVALUACION= '"+idEvaluacion+"'", null);
+        regAfectados+=contador;
+        return regAfectados;
+    }
+    public String insertar(Evaluacion evaluacion) {
+        ContentValues contentValues = new ContentValues();
+        //contentValues.put("IDEVALUACION", evaluacion.getIdEvaluacion());
+        contentValues.put("IDTIPOEVAL", evaluacion.getTipoEvaluacion());
+        contentValues.put("NOMBREEVALUACION", evaluacion.getNombreEvaluacion());
+        contentValues.put("FECHAEVALUACION",evaluacion.getFechaEvaluacion());
+        db.insert("evaluacion", null, contentValues);
+        String resultado = " ";
+        return resultado;
+    }
+    /*----------------------------------FIN METODOS CRUD EVALUACION---------------------------*/
     // INICIO CRISS
 
 

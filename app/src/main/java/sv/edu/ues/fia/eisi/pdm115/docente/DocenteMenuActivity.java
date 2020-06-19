@@ -14,8 +14,8 @@ import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
 public class DocenteMenuActivity extends ListActivity {
-    String[] menu={"Administrar Primera Revision","Administrar Segunda Revision","Administrar Diferiddos ","Administrar Repetidos ","Administrar Impresiones","Gestionar Locales  de Revision", "Gestionar ROLES de Docentes","Gestionar Escuelas", "Gestionar Evaluaciones"};
-    String[] activities={"AdmPrimeraRevisionActivity","AdmSegundaRevisionActivity","AdmDiferidoActivity","AdmRepetidoActivity","AdmImpresionesActivity","AdmLocalActivity", "AdmRolActivity","AdmEscuelaActivity", "AdmListaEvaluacionActivity"};
+    String[] menu={"Administrar Primera Revision","Administrar Segunda Revision","Administrar Diferiddos ","Administrar Repetidos ","Administrar Impresiones","Gestionar Locales  de Revision", "Gestionar ROLES de Docentes","Gestionar Escuelas", "Gestionar Evaluaciones","Gestionar fechas evaluaciones"};
+    String[] activities={"AdmPrimeraRevisionActivity","AdmSegundaRevisionActivity","AdmDiferidoActivity","AdmRepetidoActivity","AdmImpresionesActivity","AdmLocalActivity", "AdmRolActivity","AdmEscuelaActivity", "AdmListaEvaluacionActivity","AdmGestionarEvaluacionesActivity"};
     //ControlBdGrupo12 BDhelper;
 
     @Override
@@ -28,7 +28,7 @@ public class DocenteMenuActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        if(position!=9){
+        if(position!=10){
 
             String nombreValue=activities[position];
             String clases=("sv.edu.ues.fia.eisi.pdm115.docente."+nombreValue);
