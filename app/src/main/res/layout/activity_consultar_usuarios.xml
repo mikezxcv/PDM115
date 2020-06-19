@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout tools:context=".webServices.consultarUsuarios"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/LinearLayout1"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView  android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="Consultar Usuarios desde el servidor EISI" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+        <Button android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/wsUsuarios"
+            android:text="Obtener Usuarios"
+            android:onClick="obtenerUsuarios"
+            tools:ignore="OnClick" />
+
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:id="@+id/listViewUsuarios">
+    </ListView>
+
+
+</LinearLayout>
