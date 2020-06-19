@@ -12,18 +12,22 @@
         />
     <TableRow>
         <TextView android:text="Estado " />
-       <RadioGroup>
-           <RadioButton
-               android:id="@+id/estadoAprobado"
-               android:text="Aprobado " >
+        <RadioGroup>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/estadoAprobado"
+                android:text="Aprobado " >
 
-           </RadioButton>
-           <RadioButton
-               android:id="@+id/estadoDenegado"
-               android:text="Denegado " >
+            </RadioButton>
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/estadoDenegado"
+                android:text="Denegado " >
 
-           </RadioButton>
-       </RadioGroup>
+            </RadioButton>
+        </RadioGroup>
     </TableRow>
     <TableRow>
         <TextView android:text="Fecha Revision" />
@@ -51,7 +55,7 @@
         <TextView
             android:id="@+id/localAsignarPrimeraRevision"
             android:hint="Seleccione un Local"
-          android:textSize="21sp"
+            android:textSize="21sp"
             android:maxLength="40" />
 
     </TableRow>

@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -43,6 +44,11 @@ public class AdmAprobarSolPrimeraRevision extends AppCompatActivity {
     String date;
     private static final String TAG = "AdmAprobarSolPrimeraRevision";
 
+     String carnetB ;
+    String nombreB;
+   String materiaB ;
+   String evaluacionB ;
+   String fechaSolicitudB ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,13 @@ public class AdmAprobarSolPrimeraRevision extends AppCompatActivity {
         observaciones=(TextView) findViewById(R.id.observacionesAsignarPrimeraRevision);
         Bundle bundle=getIntent().getExtras();
         idPrimerRevision= bundle.getString("id");
+
+        carnetB = bundle.getString("carnet");
+         nombreB = bundle.getString("nombre");
+         materiaB = bundle.getString("materia");
+        evaluacionB = bundle.getString("evaluacion");
+        fechaSolicitudB = bundle.getString("fechaSolicitud");
+
         Toast.makeText(this,idPrimerRevision,Toast.LENGTH_LONG).show();
         fechaRevison.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,10 +192,15 @@ public class AdmAprobarSolPrimeraRevision extends AppCompatActivity {
             String resultado= helper.actualizar(primeraRevision);
             helper.cerrar();
             Toast.makeText(this,resultado,Toast.LENGTH_LONG).show();
+               /* Intent intent = new Intent(AdmAprobarSolPrimeraRevision.this, AdmDetallesolicitudPrimeraRevision.class);
+                intent.putExtra("id",idPrimerRevision);
+                intent.putExtra("carnet",carnetB);
+                intent.putExtra("nombre",nombreB);
+                intent.putExtra("materia",materiaB);
+                intent.putExtra("evaluacion",evaluacionB);
+                intent.putExtra("fechaSolicitud",fechaSolicitudB);
+                startActivity(intent);*/
             }
-
-
-
 
         }
 

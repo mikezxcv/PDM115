@@ -7,6 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
@@ -81,15 +85,22 @@ public class AdmDetalleEvaluacionActivity extends AppCompatActivity {
 
             edtCarnet.setText(CarnetEVA);
             edtMateria.setText(MateriaEVA);
-            edtEvaluacion  .setText(EvaluacionEVA);
+            edtEvaluacion.setText(EvaluacionEVA);
             edtNota.setText(NotaEVA);
-            edtAsistencia.setText(AsistenciaEVA);
+            if(AsistenciaEVA.equals("1")){
+                edtAsistencia.setText("Asistio");
+            }else{
+                edtAsistencia.setText("No Asistio");
+            }
+
             edtFechaRealizacionDePrueba.setText(FechaRealizacionDePruebaEVA);
             edtFechaLimiteParaRevision.setText(FechaLimiteParaRevisionEVA);
-            edtDocenteEncargado.setText(DocenteEncargadoEVA);
+            helper.abrir();
+            String nombreDocente = helper.nombredocenteDetalleEvaluacionesTODO(DocenteEncargadoEVA);
+            helper.cerrar();
+            edtDocenteEncargado.setText(nombreDocente);
         }catch (Exception e){
             Toast.makeText(AdmDetalleEvaluacionActivity.this, "Algun Campo es null", Toast.LENGTH_SHORT).show();
         }
-
     }
 }

@@ -28,7 +28,7 @@ public class DocenteMenuActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        if(position!=8){
+        if(position!=9){
 
             String nombreValue=activities[position];
             String clases=("sv.edu.ues.fia.eisi.pdm115.docente."+nombreValue);
