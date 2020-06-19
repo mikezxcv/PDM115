@@ -2182,7 +2182,7 @@ public class ControlBdGrupo12 {
             repetido.setIDREPETIDO(cursor.getInt(0));
             repetido.setID_DETALLEALUMNOSEVALUADOS(cursor.getInt(1));
             repetido.setFECHASOLICITUDREPETIDO(cursor.getString(2));
-            repetido.setESTADOREPETIDO(cursor.getInt(3));
+            repetido.setESTADOREPETIDO(cursor.getString(3));
             repetido.setFECHAREPETIDO(cursor.getString(4));
             repetido.setHORAREPETIDO(cursor.getString(5));
             repetido.setNOTADESPUESREPETIDO(cursor.getInt(6));
@@ -2218,6 +2218,7 @@ public class ControlBdGrupo12 {
                     soliRep.put("FECHASOLICITUDREPETIDO", repetido.getFECHASOLICITUDREPETIDO());
                     soliRep.put("MATERIA", repetido.getMATERIA());
                     soliRep.put("NOTAANTESREPETIDO", obtenerNotaAntesRepetido(carnet, repetido.getMATERIA(), nombreevaluacion));
+                    soliRep.put("ESTADOREPETIDO","PENDIENTE DE REVISION");
                     contador = db.insert("REPETIDO", null, soliRep);
                     regInsertados = "Solicitud enviada";
                 }
