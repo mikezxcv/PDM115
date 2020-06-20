@@ -9,6 +9,8 @@ public class MotivoNoImpresion {
         this.motivoNoImpresion = motivoNoImpresion;
     }
 
+    public MotivoNoImpresion(){}
+
     public int getIdMotivo() {
         return idMotivo;
     }

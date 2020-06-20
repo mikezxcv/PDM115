@@ -12,9 +12,9 @@ public class Impresion {
     private int estadoAprobacion;
     private int estadoImpresion;
 
-    Impresion(int idSolicitudImpresion, String idDocente, int idEncargado, int idMotivoNoImp,
-              String descripcionNoImp, String descripcionSolicitud, int cantidadExamenes,
-              int hojasEmpaque, int estadoAprobacion, int estadoImpresion){
+    public Impresion(int idSolicitudImpresion, String idDocente, int idEncargado, int idMotivoNoImp,
+                     String descripcionNoImp, String descripcionSolicitud, int cantidadExamenes,
+                     int hojasEmpaque, int estadoAprobacion, int estadoImpresion){
 
         this.idSolicitudImpresion = idSolicitudImpresion;
         this.idDocente = idDocente;
@@ -28,6 +28,8 @@ public class Impresion {
         this.estadoImpresion = estadoImpresion;
 
     }
+
+    public Impresion(){}
 
     public int getIdSolicitudImpresion() {
         return idSolicitudImpresion;

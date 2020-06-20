@@ -161,7 +161,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //menu docente
-        if(user.contentEquals("DOCENTE") || shared.contentEquals("DOCENTE")){
+        if((user.contentEquals("DOCENTE") || shared.contentEquals("DOCENTE")) ||
+                (user.contentEquals("DOCENTE2") || shared.contentEquals("DOCENTE2")) ||
+                (user.contentEquals("DOCENTE3") || shared.contentEquals("DOCENTE3"))){
 
             ArrayAdapter<String>  arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,menuDocente);
             listViewMain.setAdapter(arrayAdapter);
@@ -212,7 +214,8 @@ public class MainActivity extends AppCompatActivity {
             });
         }
         //menu encargado impresiones
-        if(user.contentEquals("IMPRESIONADMIN") || shared.contentEquals("IMPRESIONADMIN")){
+        if((user.contentEquals("IMPRESIONADMIN") || shared.contentEquals("IMPRESIONADMIN")) ||
+                (user.contentEquals("IMPRESIONADMIN2") || shared.contentEquals("IMPRESIONADMIN2"))){
 
             ArrayAdapter<String>  arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,menuEncargadoImpresion);
             listViewMain.setAdapter(arrayAdapter);

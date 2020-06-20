@@ -28,7 +28,7 @@ public class Docente {
         this.idRol = idRol;
     }
 
-    Docente(){
+    public Docente(){
 
     }
 

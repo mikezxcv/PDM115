@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TableLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dip"
+    android:stretchColumns="*"  >
+    <TextView
+        android:text="@string/detalles_de_la_solicitud"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"/>
+
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@string/cantidad_de_examenes" />
+        <EditText
+            android:id="@+id/cantidadExamenesSol"
+            android:inputType="number"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="false"
+            android:maxLength="3"
+            android:gravity="center"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@string/cantidad_de_hojas_empaque" />
+
+        <EditText
+            android:id="@+id/cantidadHojasEmpaqueSol"
+            android:gravity="center"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="false"
+            android:inputType="number"
+            android:maxLength="2" />
+    </TableRow>
+    <TableRow>
+        <TextView android:text="@string/detalles_extra"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <!-- Solo sirve como padding -->
+        <EditText
+            android:id="@+id/hiddenEdit"
+            android:inputType="number"
+            android:maxLength="3"
+            android:gravity="center"
+            android:visibility="invisible"/>
+    </TableRow>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/detallesExtraSol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="false"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:maxLength="100" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerPadding="10sp"
+        android:paddingBottom="20dp">
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@android:color/darker_gray"/>
+    <TableRow
+        android:paddingTop="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Aprobación" />
+        <EditText
+            android:id="@+id/estadoAprobacionSol"
+            android:inputType="none"
+            android:editable="false"
+            android:focusable="false"
+            android:enabled="false"
+            android:clickable="false"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:text="PENDIENTE" />
+
+    </TableRow>
+    <TableRow
+        android:paddingTop="5dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Impresión" />
+        <EditText
+            android:id="@+id/estadoImpresionSol"
+            android:inputType="none"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="false"
+            android:enabled="false"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:text="PENDIENTE"/>
+    </TableRow>
+    <TextView
+        android:id="@+id/tvRazonTitulo"
+        android:text="Razones de la negativa"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingTop="20dp"
+        android:gravity="center"/>
+    <TableRow
+        android:id="@+id/tableRow1">
+        <TextView android:text="Motivo"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <!-- Solo sirve como padding -->
+        <EditText
+            android:id="@+id/paddingEdit2"
+            android:inputType="number"
+            android:maxLength="3"
+            android:gravity="center"
+            android:visibility="invisible"/>
+    </TableRow>
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/editMotivoSol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:focusable="false"
+            android:enabled="false"
+            android:clickable="false"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:maxLength="100" />
+    </LinearLayout>
+    <TableRow
+        android:id="@+id/tableRow2">
+        <TextView android:text="Observaciones"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <!-- Solo sirve como padding -->
+        <EditText
+            android:id="@+id/paddingEdit3"
+            android:inputType="number"
+            android:maxLength="3"
+            android:gravity="center"
+            android:visibility="invisible"/>
+    </TableRow>
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:editable="false"
+        android:focusable="false"
+        android:enabled="false"
+        android:clickable="false"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/detallesRechazoSol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="false"
+            android:gravity="top"
+            android:maxLength="100" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingTop="1dp">
+
+        <Button
+            android:id="@+id/modificarEstadoAprobacion"
+            android:onClick="ActualizarAprobacion"
+            android:text="Aprobar / rechazar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/cambiarEstadoImpresion"
+            android:onClick="cambiarEstadoImpresion"
+            android:text="Actualizar proceso"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/guardarCambios"
+            android:onClick="guardar"
+            android:text="guardar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/cancelarCambios"
+            android:onClick="cancelar"
+            android:text="Cancelar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    </TableLayout>
+</ScrollView>

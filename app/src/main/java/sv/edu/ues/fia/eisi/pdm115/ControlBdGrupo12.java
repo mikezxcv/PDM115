@@ -65,7 +65,7 @@ public class ControlBdGrupo12 {
         DBHelper = new DatabaseHelper(context);
     }
     public static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "procesosGrupo12_32.s3db";
+        private static final String BASE_DATOS = "procesosGrupo12_35.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -119,7 +119,7 @@ public class ControlBdGrupo12 {
                         "   IDESCUELA            CHAR(10),\n" +
                         "   IDASIGNATURA         CHAR(10),\n" +
                         "   IDCICLO              CHAR(6),\n" +
-                        "   USUARIO              VARCHAR(7),\n" +
+                        "   USUARIO              VARCHAR(15),\n" +
                         "   ID_OPCION            CHAR(3),\n" +
                         "   NOMBREDOCENTE        VARCHAR(50)                    not null,\n" +
                         "   APELLIDODOCENTE      VARCHAR(50)                    not null,\n" +
@@ -134,7 +134,7 @@ public class ControlBdGrupo12 {
                 db.execSQL("CREATE TABLE ENCARGADODEIMPRESIONES  (\n" +
                         "   IDENCARGADO          INTEGER                        not null,\n" +
                         "   IDESCUELA            CHAR(10)                        not null,\n" +
-                        "   USUARIO              VARCHAR(7),\n" +
+                        "   USUARIO              VARCHAR(15),\n" +
                         "   ID_OPCION            CHAR(3),\n" +
                         "   NOMBREENCARGADO      VARCHAR(50)                    not null,\n" +
                         "   APELLIDOENCARGADO    VARCHAR(50)                    not null,\n" +
@@ -312,11 +312,19 @@ public class ControlBdGrupo12 {
                         "\t('ESTUDIANTE', 'ESTUDIANTE 1','PASS2');\n");
                 db.execSQL("INSERT INTO `usuario` (`USUARIO`, `NOMBRE_USUARIO`, `CONTRASENA`) VALUES\n" +
                         "\t('IMPRESIONADMIN', 'ADMIN IMPRESION 1','PASS3'),\n" +
-                        "\t('ADMIN', 'ADMIN GENERAL','PASS4');\n");
+                        "\t('ADMIN', 'ADMIN GENERAL','PASS4'),\n" +
+                        "\t('DOCENTE2', 'DOCENTE 2','PASS5'),\n" +
+                        "\t('DOCENTE3', 'DOCENTE 3','PASS6'),\n" +
+                        "\t('IMPRESIONADMIN2', 'ADMIN IMPRESION 2','PASS7');\n");
+
                 db.execSQL("INSERT INTO ACCESOUSUARIO VALUES ('DOCENTE','1');");
                 db.execSQL("INSERT INTO ACCESOUSUARIO VALUES ('ESTUDIANTE','1');");
                 db.execSQL("INSERT INTO ACCESOUSUARIO VALUES ('IMPRESIONADMIN','1');");
                 db.execSQL("INSERT INTO ACCESOUSUARIO VALUES ('ADMIN','1');");
+                db.execSQL("INSERT INTO ACCESOUSUARIO VALUES ('DOCENTE2','1');");
+                db.execSQL("INSERT INTO ACCESOUSUARIO VALUES ('DOCENTE3','1');");
+                db.execSQL("INSERT INTO ACCESOUSUARIO VALUES ('IMPRESIONADMIN2','1');");
+
 
                 db.execSQL("INSERT INTO `evaluacion` (`IDEVALUACION`, `IDTIPOEVAL`, `NOMBREEVALUACION`, `FECHAEVALUACION`,`IDASIGNATURA`) VALUES\n" +
                         "\t(1, '1', 'PARCIAL 1', '2020-12-12','DSI115');");
@@ -332,10 +340,21 @@ public class ControlBdGrupo12 {
                         "\t(1, '01', 1, 'DSI115', '01-20', 'DOCENTE', '1', 'JUAN', 'RAMOS',1);");
                 db.execSQL("INSERT INTO `docente` (`IDDOCENTE`, `IDTIPODOCENTECICLO`, `IDESCUELA`, `IDASIGNATURA`, `IDCICLO`, `USUARIO`, `ID_OPCION`, `NOMBREDOCENTE`, `APELLIDODOCENTE`,`ID_ROL`) VALUES\n" +
                         "\t(2, '01', 1, 'MAT115', '01-20', 'DOCENTE', '1', 'RUDY', 'RAMOS',1);");
+                db.execSQL("INSERT INTO `docente` (`IDDOCENTE`, `IDTIPODOCENTECICLO`, `IDESCUELA`, `IDASIGNATURA`, `IDCICLO`, `USUARIO`, `ID_OPCION`, `NOMBREDOCENTE`, `APELLIDODOCENTE`,`ID_ROL`) VALUES\n" +
+                        "\t(3, '01', 2, 'SIC115', '01-20', 'DOCENTE2', '1', 'RODRIGO', 'BREMER',1);");
+                db.execSQL("INSERT INTO `docente` (`IDDOCENTE`, `IDTIPODOCENTECICLO`, `IDESCUELA`, `IDASIGNATURA`, `IDCICLO`, `USUARIO`, `ID_OPCION`, `NOMBREDOCENTE`, `APELLIDODOCENTE`,`ID_ROL`) VALUES\n" +
+                        "\t(4, '01', 1, 'BAD115', '01-20', 'DOCENTE3', '1', 'ELMER', 'CARBALLO',1);");
 
+                db.execSQL("INSERT INTO `encargadodeimpresiones` (`IDENCARGADO`, `IDESCUELA`, `USUARIO`, `ID_OPCION`, `NOMBREENCARGADO`, `APELLIDOENCARGADO`) VALUES\n" +
+                        "\t(1, 1, 'IMPRESIONADMIN', '1', 'ELIAS', 'AYUB');");
+                db.execSQL("INSERT INTO `encargadodeimpresiones` (`IDENCARGADO`, `IDESCUELA`, `USUARIO`, `ID_OPCION`, `NOMBREENCARGADO`, `APELLIDOENCARGADO`) VALUES\n" +
+                        "\t(2, 2, 'IMPRESIONADMIN2', '1', 'PATRICIA', 'SANCHEZ');");
 
                 db.execSQL("INSERT INTO `escuela` (`IDESCUELA`, `ID_AREA`, `NOMBREESCUELA`, `FACULTAD`) VALUES\n" +
                         "\t(1, 1, 'ESCUELA DE SISTEMAS INFORMATICOS', 'INGENIERIA Y ARQUITECTURA');");
+                db.execSQL("INSERT INTO `escuela` (`IDESCUELA`, `ID_AREA`, `NOMBREESCUELA`, `FACULTAD`) VALUES\n" +
+                        "\t(2, 3, 'ESCUELA DE INGENIERIA INDUSTRIAL', 'INGENIERIA Y ARQUITECTURA');");
+
                 db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
                         "\t('MP16001', 'DOCENTE', '1', 'MIGUEL', 'PEREZ', 'SISTEMAS', 'SISTEMAS');");
                 db.execSQL("INSERT INTO `local` (`IDLOCAL`, `NOMBRELOCAL`, `UBICACION`) VALUES\n" +
@@ -344,6 +363,11 @@ public class ControlBdGrupo12 {
                         "\t('DSI115', 'DISENO DE SISTEMAS 1');");
                 db.execSQL("INSERT INTO `materia` (`IDASIGNATURA`, `NOMBREASIGNATURA`) VALUES\n" +
                         "\t('MAT115', 'MATEMATICAS 1');");
+                db.execSQL("INSERT INTO `materia` (`IDASIGNATURA`, `NOMBREASIGNATURA`) VALUES\n" +
+                        "\t('SIC115', 'SISTEMAS CONTABLES');");
+                db.execSQL("INSERT INTO `materia` (`IDASIGNATURA`, `NOMBREASIGNATURA`) VALUES\n" +
+                        "\t('BAD115', 'BASES DE DATOS');");
+
                 db.execSQL("INSERT INTO `materiaciclo` (`IDASIGNATURA`, `IDCICLO`) VALUES\n" +
                         "\t('DSI115', '01-20');");
                 db.execSQL("INSERT INTO `opcioncrud` (`ID_OPCION`, `DESOPCION`, `NUMCRUD`) VALUES\n" +
@@ -372,6 +396,10 @@ public class ControlBdGrupo12 {
                 db.execSQL("INSERT INTO REPETIDO VALUES(3, 1,'2000-04-06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
                 db.execSQL("INSERT INTO REPETIDO VALUES(4, 1,'2000-04-07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
                 // Fin Llenados CS17049
+
+                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(1,3,2,null,null,'Desc. generica', 25, null, null,0);");
+                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(2,4,1,null,null,'Desc. generica', 40, null, null,1);");
+                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(3,3,2,null,null,'Desc. generica', 80, null, null,2);");
 
                 //FIN DATOS DE PRUEBA
 
@@ -1927,9 +1955,9 @@ public class ControlBdGrupo12 {
         final String[] ROL_NOMBRE_ROL = {"Director", "Jefe de Sistemas", "Secretario"};
 
         // Tabla Area
-        final String[] ID_AREA = {"1"};
-        final String[] ID_ROL = {"1"};
-        final String[] NOMBRE_AREA = {"Area 1"};
+        final String[] ID_AREA = {"1", "2", "3"};
+        final String[] ID_ROL = {"1", "1", "1"};
+        final String[] NOMBRE_AREA = {"Area 1", "BASE DE DATOS", "ADMINISTRACION"};
 
         // TABLA SolicitudDiferido
         // Formato Fecha YYYY-MM-DD HH:MM:SS
@@ -1958,7 +1986,7 @@ public class ControlBdGrupo12 {
         }
 
         AreaTabla area = new AreaTabla();
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 3; i++) {
             area.setID_AREA(ID_AREA[i]);
             area.setID_ROL(ID_ROL[i]);
             area.setNOMBRE_AREA(NOMBRE_AREA[i]);
@@ -3241,7 +3269,7 @@ public class ControlBdGrupo12 {
     public EncargadoDeImpresiones consultarEncargado(String id){
         EncargadoDeImpresiones encargados = new EncargadoDeImpresiones();
         Cursor cursor = db.rawQuery("SELECT * FROM EMCARGADODEIMPRESIONES WHERE IDENCARGADO='"+id+"'",null);
-        if(cursor != null){
+        if(cursor.moveToFirst()){
             return new EncargadoDeImpresiones(
                     cursor.getInt(cursor.getColumnIndex("IDENCARGADO")),
                     cursor.getString(cursor.getColumnIndex("IDESCUELA")),
@@ -3275,9 +3303,10 @@ public class ControlBdGrupo12 {
   //Solicitud impresiones DOCENTE
 
     public Docente getDocenteActual(String usuario){
-        final String query = "SELECT * FROM DOCENTE d INNER JOIN USUARIO usr ON d.USUARIO = d.USUARIO WHERE usr.USUARIO=? LIMIT 1;";
+        String query = "SELECT * FROM DOCENTE d INNER JOIN USUARIO usr ON d.USUARIO = usr.USUARIO WHERE usr.USUARIO=? LIMIT 1;";
         Cursor cursor = db.rawQuery(query,new String[]{usuario});
-        if(cursor != null){
+        if(cursor.moveToFirst()){
+
             return new Docente(
                     cursor.getString(cursor.getColumnIndex("IDDOCENTE")),
                     cursor.getString(cursor.getColumnIndex("IDTIPODOCENTECICLO")),
@@ -3295,13 +3324,35 @@ public class ControlBdGrupo12 {
         }
     }
 
-    public String getIdEncargadoImpresionesEscuela(String idEscuela){
+    public Docente getDocente(String idDocente){
+        String query = "SELECT * FROM DOCENTE WHERE IDDOCENTE=? LIMIT 1;";
+        Cursor cursor = db.rawQuery(query,new String[]{idDocente});
+        if(cursor.moveToFirst()){
+
+            return new Docente(
+                    cursor.getString(cursor.getColumnIndex("IDDOCENTE")),
+                    cursor.getString(cursor.getColumnIndex("IDTIPODOCENTECICLO")),
+                    cursor.getString(cursor.getColumnIndex("IDESCUELA")),
+                    cursor.getString(cursor.getColumnIndex("IDASIGNATURA")),
+                    cursor.getString(cursor.getColumnIndex("IDCICLO")),
+                    cursor.getString(cursor.getColumnIndex("USUARIO")),
+                    cursor.getString(cursor.getColumnIndex("ID_OPCION")),
+                    cursor.getString(cursor.getColumnIndex("NOMBREDOCENTE")),
+                    cursor.getString(cursor.getColumnIndex("APELLIDODOCENTE")),
+                    cursor.getInt(cursor.getColumnIndex("ID_ROL"))
+            );
+        }else {
+            return null;
+        }
+    }
+
+    public int getIdEncargadoImpresionesEscuela(String idEscuela){
         final String query = "SELECT en.IDENCARGADO FROM ENCARGADODEIMPRESIONES en INNER JOIN ESCUELA esc ON esc.IDESCUELA = en.IDESCUELA WHERE esc.IDESCUELA=? LIMIT 1;";
         Cursor c = db.rawQuery(query, new String[]{idEscuela});
         if (c.moveToFirst()){
-            return c.getString(c.getColumnIndex("IDENCARGADO"));
+            return c.getInt(c.getColumnIndex("IDENCARGADO"));
         }
-        return null;
+        return 0;
     }
 
     public String insertarSolicitudImpresion(Impresion impresion){
@@ -3330,55 +3381,10 @@ public class ControlBdGrupo12 {
                 ? resultado : "Error";
     }
 
-   /* public ArrayList<Impresion> consultarImpresionesDocente(String idDocente){
+    public ArrayList<Impresion> consultarImpresionesDocente(String idDocente){
         ArrayList<Impresion> solicitudes = new ArrayList<Impresion>();
-        final String query = "SELECT * FROM SOLICITUDIMPRESIONES WHERE IDENCARGADO=?";
+        final String query = "SELECT * FROM SOLICITUDIMPRESION WHERE IDDOCENTE=?";
         Cursor cursor = db.rawQuery(query,new String[]{idDocente});
-
-        while (cursor.moveToNext()){
-            Impresion solicitud = new Impresion(
-                    cursor.getInt(cursor.getColumnIndex("IDSOLICITUDIMPRESION")),
-                    cursor.getString(cursor.getColumnIndex("IDDOCENTE")),
-                    cursor.getInt(cursor.getColumnIndex("IDENCARGADO")),
-                    cursor.getInt(cursor.getColumnIndex("MOTIVONOIMP")),
-                    cursor.getString(cursor.getColumnIndex("DESCRIPCION_NO_IMP")),
-                    cursor.getString(cursor.getColumnIndex("DESCRIPCION_SOLICITUD")),
-                    cursor.getInt(cursor.getColumnIndex("ESTADOAPROBACION")),
-                    cursor.getInt(cursor.getColumnIndex("ESTADOIMPRESION"))
-            );
-            solicitudes.add(solicitud);
-        }
-        return solicitudes;
-    }
-*/
-    public String eliminarSolicitudImpresion(String idSolicitud){
-        return (db.delete("SOLICITUDIMPRESION","IDSOLICITUDIMPRESION='"+idSolicitud+"'",null)>0)
-                ?"Registro eliminado":"Error";
-    }
-
-    //Solicitud impresiones ENCARGADO
-
-    public EncargadoDeImpresiones getEncargadoActual(String usuario){
-        final String query = "SELECT * FROM ENCARGADODEIMPRESIONES en INNER JOIN USUARIO usr ON en.USUARIO = usr.USUARIO WHERE usr.USUARIO=? LIMIT 1;";
-        Cursor cursor = db.rawQuery(query,new String[]{usuario});
-        if(cursor != null){
-            return new EncargadoDeImpresiones(
-                    cursor.getInt(cursor.getColumnIndex("IDENCARGADO")),
-                    cursor.getString(cursor.getColumnIndex("IDESCUELA")),
-                    cursor.getString(cursor.getColumnIndex("USUARIO")),
-                    cursor.getString(cursor.getColumnIndex("ID_OPCION")),
-                    cursor.getString(cursor.getColumnIndex("NOMBREENCARGADO")),
-                    cursor.getString(cursor.getColumnIndex("APELLIDOENCARGADO"))
-            );
-        }else {
-            return null;
-        }
-    }
-
-    public ArrayList<Impresion> consultarImpresionesEncargado(String idEncargado){
-        ArrayList<Impresion> solicitudes = new ArrayList<Impresion>();
-        final String query = "SELECT * FROM SOLICITUDIMPRESIONES WHERE IDENCARGADO=?";
-                Cursor cursor = db.rawQuery(query,new String[]{idEncargado});
 
         while (cursor.moveToNext()){
             Impresion solicitud = new Impresion(
@@ -3398,10 +3404,81 @@ public class ControlBdGrupo12 {
         return solicitudes;
     }
 
+    public String eliminarSolicitudImpresion(String idSolicitud){
+        return (db.delete("SOLICITUDIMPRESION","IDSOLICITUDIMPRESION='"+idSolicitud+"'",null)>0)
+                ?"Registro eliminado":"Error";
+    }
+
+    //Solicitud impresiones ENCARGADO
+
+    public EncargadoDeImpresiones getEncargadoActual(String usuario){
+        final String query = "SELECT * FROM ENCARGADODEIMPRESIONES en INNER JOIN USUARIO usr ON en.USUARIO = usr.USUARIO WHERE usr.USUARIO=? LIMIT 1;";
+        Cursor cursor = db.rawQuery(query,new String[]{usuario});
+        if(cursor.moveToFirst()){
+            return new EncargadoDeImpresiones(
+                    cursor.getInt(cursor.getColumnIndex("IDENCARGADO")),
+                    cursor.getString(cursor.getColumnIndex("IDESCUELA")),
+                    cursor.getString(cursor.getColumnIndex("USUARIO")),
+                    cursor.getString(cursor.getColumnIndex("ID_OPCION")),
+                    cursor.getString(cursor.getColumnIndex("NOMBREENCARGADO")),
+                    cursor.getString(cursor.getColumnIndex("APELLIDOENCARGADO"))
+            );
+        }else {
+            return null;
+        }
+    }
+
+    public ArrayList<Impresion> consultarImpresionesEncargado(int idEncargado){
+        ArrayList<Impresion> solicitudes = new ArrayList<Impresion>();
+        final String query = "SELECT * FROM SOLICITUDIMPRESION WHERE IDENCARGADO=?";
+                Cursor cursor = db.rawQuery(query,new String[]{String.valueOf(idEncargado)});
+
+        while (cursor.moveToNext()){
+            Impresion solicitud = new Impresion(
+                    cursor.getInt(cursor.getColumnIndex("IDSOLICITUDIMPRESION")),
+                    cursor.getString(cursor.getColumnIndex("IDDOCENTE")),
+                    cursor.getInt(cursor.getColumnIndex("IDENCARGADO")),
+                    cursor.getInt(cursor.getColumnIndex("MOTIVONOIMP")),
+                    cursor.getString(cursor.getColumnIndex("DESCRIPCION_NO_IMP")),
+                    cursor.getString(cursor.getColumnIndex("DESCRIPCION_SOLICITUD")),
+                    cursor.getInt(cursor.getColumnIndex("CANTIDADEXAMENES")),
+                    cursor.getInt(cursor.getColumnIndex("HOJASEMPAQUE")),
+                    cursor.getInt(cursor.getColumnIndex("ESTADOAPROBACION")),
+                    cursor.getInt(cursor.getColumnIndex("ESTADOIMPRESION"))
+            );
+            solicitudes.add(solicitud);
+        }
+        return solicitudes;
+    }
+
+    public String actualizarAprobacionSolicitudImpresion(Impresion impresion){
+        String resultado = "Solicitud actualizada exitosamente";
+        ContentValues solicitud = new ContentValues();
+        solicitud.put("MOTIVONOIMP", impresion.getIdMotivoNoImp());
+        solicitud.put("DESCRIPCION_NO_IMP", impresion.getDescripcionNoImp());
+        solicitud.put("ESTADOIMPRESION", impresion.getEstadoImpresion());
+
+        return  (db.update("SOLICITUDIMPRESION",solicitud,"IDSOLICITUDIMPRESION='"+impresion.getIdSolicitudImpresion()+"'",null)>0)
+                ? resultado : "Error";
+    }
+
+    public String actualizarEstadoDeImpresion(Impresion impresion){
+        String resultado = "Solicitud actualizada exitosamente";
+        ContentValues solicitud = new ContentValues();
+        solicitud.put("MOTIVONOIMP", impresion.getIdMotivoNoImp());
+        solicitud.put("DESCRIPCION_NO_IMP", impresion.getDescripcionNoImp());
+        solicitud.put("ESTADOAPROBACION", impresion.getEstadoAprobacion());
+        solicitud.put("ESTADOIMPRESION", impresion.getEstadoImpresion());
+
+        return  (db.update("SOLICITUDIMPRESION",solicitud,"IDSOLICITUDIMPRESION='"+impresion.getIdSolicitudImpresion()+"'",null)>0)
+                ? resultado : "Error";
+    }
+
     public String aprobarSolicitudImpresion(Impresion impresion){
         String resultado = "Solicitud actualizada";
         ContentValues solicitud = new ContentValues();
         solicitud.put("ESTADOAPROBACION", impresion.getEstadoAprobacion());
+        solicitud.put("ESTADOIMPRESION", impresion.getEstadoAprobacion());
         return  (db.update("SOLICITUDIMPRESION",solicitud,"IDSOLICITUDIMPRESION='"+impresion.getIdSolicitudImpresion()+"'",null)>0)
                 ? resultado : "Error";
     }
@@ -3424,12 +3501,34 @@ public class ControlBdGrupo12 {
                 ? resultado : "Error";
     }
 
+    public ArrayList<Impresion> obtenerImpresiones(){
+        ArrayList<Impresion> solicitudes = new ArrayList<Impresion>();
+        final String query = "SELECT * FROM SOLICITUDIMPRESION";
+        Cursor cursor = db.rawQuery(query,null);
+
+        while (cursor.moveToNext()){
+            Impresion solicitud = new Impresion(
+                    cursor.getInt(cursor.getColumnIndex("IDSOLICITUDIMPRESION")),
+                    cursor.getString(cursor.getColumnIndex("IDDOCENTE")),
+                    cursor.getInt(cursor.getColumnIndex("IDENCARGADO")),
+                    cursor.getInt(cursor.getColumnIndex("MOTIVONOIMP")),
+                    cursor.getString(cursor.getColumnIndex("DESCRIPCION_NO_IMP")),
+                    cursor.getString(cursor.getColumnIndex("DESCRIPCION_SOLICITUD")),
+                    cursor.getInt(cursor.getColumnIndex("CANTIDADEXAMENES")),
+                    cursor.getInt(cursor.getColumnIndex("HOJASEMPAQUE")),
+                    cursor.getInt(cursor.getColumnIndex("ESTADOAPROBACION")),
+                    cursor.getInt(cursor.getColumnIndex("ESTADOIMPRESION"))
+            );
+            solicitudes.add(solicitud);
+        }
+        return solicitudes;
+    }
+
 
     //Motivos de impresion no realizada
 
     public String insertarMotivo(MotivoNoImpresion motivoNoImpresion){
         ContentValues mot = new ContentValues();
-        mot.put("IDMOTIVONOIMP", motivoNoImpresion.getIdMotivo());
         mot.put("MOTIVONOIMP", motivoNoImpresion.getMotivoNoImpresion());
         return (db.insert("MOTIVONOIMPRESION", null, mot)>0)
                 ? "Registro exitoso" : "Error";
@@ -3464,8 +3563,8 @@ public class ControlBdGrupo12 {
         return (db.update("MOTIVONOIMPRESION", mot,"IDMOTIVONOIMP='"+motivoNoImpresion.getIdMotivo()+"'",null)>0)
                 ? "Registro actualizado exitosamente" : "Error";
     }
-    public String eliminarMotivo(String idMotivo){
-        return (db.delete("MOTIVONOIMPRESION","ID='"+idMotivo+"'",null)>0)?"Registro eliminado":"Error";
+    public String eliminarMotivo(int idMotivo){
+        return (db.delete("MOTIVONOIMPRESION","IDMOTIVONOIMP='"+idMotivo+"'",null)>0)?"Registro eliminado":"Error";
     }
 
 

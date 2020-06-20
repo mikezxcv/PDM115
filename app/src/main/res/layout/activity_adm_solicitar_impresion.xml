@@ -6,77 +6,101 @@
     android:padding="10dip"
     android:stretchColumns="*"  >
     <TextView
-        android:text="Administracion Primera Revision "
-        android:background="#d4cee0"
+        android:text="@string/solicitar_impresion"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"/>
 
-
-        />
     <TableRow>
-        <TextView android:text="Carnet "
-            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@string/cantidad_de_examenes" />
         <EditText
-            android:id="@+id/carnetSolPrimeraRevision"
-            android:inputType="text"
-            android:maxLength="15" />
+            android:id="@+id/cantidadExamenes"
+            android:inputType="number"
+            android:maxLength="3"
+            android:gravity="center"/>
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="@string/cantidad_de_hojas_empaque" />
+        <EditText
+            android:id="@+id/cantidadHojasEmpaque"
+            android:inputType="number"
+            android:gravity="center"
+            android:maxLength="2" />
     </TableRow>
     <TableRow>
-
-        <TextView android:text="Nombre" />
-
-        <EditText
-            android:id="@+id/nombreSolPrimeraRevision"
-            android:inputType="text"
-
-            android:maxLength="15" />
-    </TableRow>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="106dp"
-        android:orientation="horizontal"
-        android:gravity="center|bottom" >
-
-        <TextView android:text="Materia"
-            android:layout_height="match_parent"
+        <TextView android:text="@string/detalles_extra"
+            android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
+        <!-- Solo sirve como padding -->
+        <EditText
+            android:id="@+id/hiddenEdit"
+            android:inputType="number"
+            android:maxLength="3"
+            android:gravity="center"
+            android:visibility="invisible"/>
+    </TableRow>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <EditText
-            android:id="@+id/materiaSolPrimeraRevision"
+            android:id="@+id/detallesExtra"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:inputType="textMultiLine"
-            android:maxLength="150" />
-
+            android:gravity="top"
+            android:maxLength="100" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="106dp"
-        android:orientation="horizontal"
-        android:gravity="center|bottom" >
+        android:layout_height="match_parent"
+        android:dividerPadding="10sp">
+
+        <EditText
+            android:id="@+id/path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:focusable="false"
+            android:text="@string/elegir_archivo"
+            android:gravity="center"
+            android:inputType="none" />
 
         <Button
-            android:id="@+id/eliminarSolicitud"
-            android:layout_width="219dp"
+            android:id="@+id/buscar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#d46c88"
-            android:onClick="metodo3"
-
-            android:text="Eliminar"
-
-
-            />
-
-        <Button
-
-            android:id="@+id/irAorobarSolicitudPrimeraRevision"
-            android:layout_width="207dp"
-            android:layout_height="wrap_content"
-
-            android:background="#50ba6c"
-            android:text="Aprobar Revision" />
+            android:layout_weight="0"
+            android:text="Buscar"
+            android:onClick="buscarArchivo"/>
     </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingTop="20dp">
+        <Button
+            android:id="@+id/enviarSolicitud"
+            android:onClick="enviarSolicitud"
+            android:text="Enviar solicitud"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
 
-
-
-
+        <Button
+            android:onClick="cancelar"
+            android:text="Cancelar registro"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 </TableLayout>
