@@ -2672,7 +2672,7 @@ public class ControlBdGrupo12 {
         return fechaLim;
     }
 
-    public void insertPrimerRevision(String fechaSolcitud, String carnet, String materia, String evaluacion) {
+    public String insertPrimerRevision(String fechaSolcitud, String carnet, String materia, String evaluacion) {
         try {
             abrir();
             // Buscando materia
@@ -2736,8 +2736,8 @@ public class ControlBdGrupo12 {
                 }
             }
             if(!(integridadSol == 0)){
-                throw new NoSuchFieldException("Ya se realizo una solicitud de con estos datos");
-
+                //throw new NoSuchFieldException("Ya se realizo una solicitud de con estos datos");
+                return null;
             }else{
                 abrir();
                 ContentValues primerRevisionParametros = new ContentValues();
@@ -2747,15 +2747,15 @@ public class ControlBdGrupo12 {
                 // Solicitando la inserción a la tabla
                 db.insert("PRIMERREVISION", null, primerRevisionParametros);
                 cerrar();
-
+                return "1";
             }
 
-            cerrar();
         }
         catch(Exception e) {
             rollback();
             Toast.makeText(this.context, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+        return null;
     }
 
     /**
