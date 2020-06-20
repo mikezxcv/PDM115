@@ -61,7 +61,7 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         editHojas.setText(Integer.toString(impresion.getHojasEmpaque()));
         editDetalles.setText(impresion.getDescripcionSolicitud());
         if (impresion.getIdMotivoNoImp()!=0){
-            editMotivo.setText(motivos.get(motivos.indexOf(impresion.getIdMotivoNoImp())).getMotivoNoImpresion());
+            editMotivo.setText(motivos.get(impresion.getIdMotivoNoImp()).getMotivoNoImpresion());
         }
         observaciones.setText(impresion.getDescripcionNoImp());
         switch (impresion.getEstadoAprobacion()){
