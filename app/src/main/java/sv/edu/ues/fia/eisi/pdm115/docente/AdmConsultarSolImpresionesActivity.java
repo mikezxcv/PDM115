@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+/*import com.google.gson.Gson;*/
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ import sv.edu.ues.fia.eisi.pdm115.Impresion;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
 public class AdmConsultarSolImpresionesActivity extends AppCompatActivity {
-    ControlBdGrupo12 helper = new ControlBdGrupo12(this);
+   /* ControlBdGrupo12 helper = new ControlBdGrupo12(this);
     ListView listView;
     String idDocente;
     String[] lista;
@@ -82,5 +82,5 @@ public class AdmConsultarSolImpresionesActivity extends AppCompatActivity {
             }
         }
         helper.cerrar();
-    }
+    }*/
 }

@@ -2246,7 +2246,7 @@ public class ControlBdGrupo12 {
                     soliRep.put("FECHASOLICITUDREPETIDO", repetido.getFECHASOLICITUDREPETIDO());
                     soliRep.put("MATERIA", repetido.getMATERIA());
                     soliRep.put("NOTAANTESREPETIDO", obtenerNotaAntesRepetido(carnet, repetido.getMATERIA(), nombreevaluacion));
-                    soliRep.put("ESTADOREPETIDO","PENDIENTE DE REVISION");
+                    /*soliRep.put("ESTADOREPETIDO","PENDIENTE DE REVISION");*/
                     contador = db.insert("REPETIDO", null, soliRep);
                     regInsertados = "Solicitud enviada";
                 }
@@ -3086,7 +3086,7 @@ public class ControlBdGrupo12 {
     public String fechaSolicitudesPrimeraRevisionCR(String carnet, String materia, String evaluacion){
         String estadoSalida= null;
 
-        Cursor datos = db.rawQuery("SELECT P.ESTADOPRIMERAREV, p.FECHASOLICITUDPRIMERAREV, p.HORAPRIMERAREV, p.IDLOCAL, p.NOTAANTESPRIMERAREV, p.NOTADESPUESPRIMERAREV, p.OBSERVACIONESPRIMERAREV FROM primerrevision AS p\n" +
+        Cursor datos = db.rawQuery("SELECT P.ESTADOPRIMERAREV, p.FECHAPRIMERAREV, p.HORAPRIMERAREV, p.IDLOCAL, p.NOTAANTESPRIMERAREV, p.NOTADESPUESPRIMERAREV, p.OBSERVACIONESPRIMERAREV FROM primerrevision AS p\n" +
                 "JOIN detallealumnosevaluados AS det ON p.ID_DETALLEALUMNOSEVALUADOS= det.ID_DETALLEALUMNOSEVALUADOS\n" +
                 "JOIN DOCENTE ON p.IDDOCENTE= docente.IDDOCENTE\n" +
                 "JOIN evaluacion as eva ON det.IDEVALUACION= eva.IDEVALUACION\n" +
@@ -3816,7 +3816,3 @@ public class ControlBdGrupo12 {
 
 
 }
-
-
-
-
