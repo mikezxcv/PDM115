@@ -66,7 +66,7 @@ public class ControlBdGrupo12 {
         DBHelper = new DatabaseHelper(context);
     }
     public static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "procesosGrupo12_32.s3db";
+        private static final String BASE_DATOS = "procesosGrupo12_31.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -3599,7 +3599,7 @@ public class ControlBdGrupo12 {
                 ? resultado : "Error";
     }
 
-   /* public ArrayList<Impresion> consultarImpresionesDocente(String idDocente){
+    public ArrayList<Impresion> consultarImpresionesDocente(String idDocente){
         ArrayList<Impresion> solicitudes = new ArrayList<Impresion>();
         final String query = "SELECT * FROM SOLICITUDIMPRESIONES WHERE IDENCARGADO=?";
         Cursor cursor = db.rawQuery(query,new String[]{idDocente});
@@ -3619,7 +3619,7 @@ public class ControlBdGrupo12 {
         }
         return solicitudes;
     }
-*/
+//cambios
     public String eliminarSolicitudImpresion(String idSolicitud){
         return (db.delete("SOLICITUDIMPRESION","IDSOLICITUDIMPRESION='"+idSolicitud+"'",null)>0)
                 ?"Registro eliminado":"Error";
