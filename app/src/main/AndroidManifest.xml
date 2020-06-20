@@ -87,7 +87,6 @@
         <activity android:name=".docente.AdmAsignarNotaRepetido" />
         <activity android:name=".docente.AdmImpresionesActivity" />
         <activity android:name=".docente.AdmSolicitarImpresionActivity" />
-        <activity android:name=".encargadoImpresion.EncargadoImpresionesMenuActivity" />
         <activity android:name=".encargadoImpresion.VerSolicitudesImpresionActivity" />
         <activity android:name=".encargadoImpresion.GestionarEncargadosActivity" />
         <activity android:name=".qr.EscanerActivity" />
