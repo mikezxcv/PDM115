@@ -9,7 +9,7 @@
 
     <TextView  android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:text="eliminar un estudiante desde Servidor EISI" />
+        android:text="Eliminar un estudiante del Servidor EISI" />
     <TextView  android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="" />

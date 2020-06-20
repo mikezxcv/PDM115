@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:paddingTop="30dip"
+    android:stretchColumns="1"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="Detalle evaluaciones"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+
+            <EditText
+                android:hint="Carnet"
+                android:id="@+id/editCarnetEvaluacionCrear"
+                android:inputType="text"
+                android:maxLength="15"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                />
+
+
+            <EditText
+                android:hint="Materia"
+                android:id="@+id/editMateriaEvaluacionCrear"
+                android:inputType="text"
+                android:maxLength="30"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:focusableInTouchMode="false"
+                android:cursorVisible="false"
+                android:longClickable="false"
+                />
+
+            <EditText
+                android:hint="Evaluacion"
+                android:id="@+id/editEvaluacionEvaluacionCrear"
+                android:inputType="text"
+                android:maxLength="30"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:focusableInTouchMode="false"
+                android:cursorVisible="false"
+                android:longClickable="false"
+                />
+
+            <EditText
+                android:hint="Local"
+                android:id="@+id/editLocalEvaluacionCrear"
+                android:inputType="text"
+                android:maxLength="30"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:focusableInTouchMode="false"
+                android:cursorVisible="false"
+                android:longClickable="false"
+                />
+
+            <EditText
+                android:hint="Nota"
+                android:id="@+id/editNotaEvaluacionCrear"
+                android:inputType="text"
+                android:maxLength="30"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                />
+
+            <EditText
+                android:hint="Asistencia"
+                android:id="@+id/editAsistenciaEvaluacionCrear"
+                android:inputType="text"
+                android:maxLength="20"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:focusableInTouchMode="false"
+                android:cursorVisible="false"
+                android:longClickable="false"
+                />
+
+
+            <EditText
+                android:hint="Fecha de realizacion de prueba"
+                android:id="@+id/editFechaRealizacionEvaluacionCrear"
+                android:inputType="text"
+                android:maxLength="10"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:focusableInTouchMode="false"
+                android:cursorVisible="false"
+                android:longClickable="false"
+                />
+
+
+            <EditText
+                android:hint="Fecha Limite para revision"
+                android:id="@+id/editFechaLimRevisionEvaluacionCrear"
+                android:inputType="text"
+                android:maxLength="10"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:focusableInTouchMode="false"
+                android:cursorVisible="false"
+                android:longClickable="false" />
+
+            <EditText
+                android:hint="Docente Encargado"
+                android:id="@+id/editDoocenteEvaluacionCrear"
+                android:inputType="text"
+                android:maxLength="10"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+
+

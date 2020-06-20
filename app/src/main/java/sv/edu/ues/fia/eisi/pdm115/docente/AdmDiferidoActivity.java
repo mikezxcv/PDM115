@@ -53,38 +53,44 @@ public class AdmDiferidoActivity extends ListActivity {
     }
 
     protected  void llenar(){
-        int contador=0;
         helper.abrir();
-        cantidad= helper.consultarCantidadSolicitudesDiferidos();
+        if(helper.consultarCantidadSolicitudesDiferidos() == null){
+            Toast.makeText(this, "No hay solicitudes", Toast.LENGTH_SHORT).show();
+            opciones= new String[1];
+            opciones[0] =  "No hay solicitudes";
+        }else{
+            int contador=0;
 
-        idDiferidos= new String[Integer.parseInt(cantidad)];
-        idDiferidos= helper.idDiferido();
+            cantidad= helper.consultarCantidadSolicitudesDiferidos();
 
-        carnet= new String[Integer.parseInt(cantidad)];
-        carnet= helper.carnetDiferido();
+            idDiferidos= new String[Integer.parseInt(cantidad)];
+            idDiferidos= helper.idDiferido();
 
-        nombre= new String[Integer.parseInt(cantidad)];
-        nombre= helper.NombreEstudianteDiferido();
+            carnet= new String[Integer.parseInt(cantidad)];
+            carnet= helper.carnetDiferido();
 
-        materias= new String[Integer.parseInt(cantidad)];
-        materias= helper.NombreMateriaDiferido();
+            nombre= new String[Integer.parseInt(cantidad)];
+            nombre= helper.NombreEstudianteDiferido();
 
-        tipoEvaluacion= new String[Integer.parseInt(cantidad)];
-        tipoEvaluacion= helper.nombreEvaluacionDiferido();
+            materias= new String[Integer.parseInt(cantidad)];
+            materias= helper.NombreMateriaDiferido();
 
-        idDetalleAlumnosEvaluados= new String[Integer.parseInt(cantidad)];
-        idDetalleAlumnosEvaluados= helper.idDetalleAlumnosEvaluacionSolicitudesDiferidos();
+            tipoEvaluacion= new String[Integer.parseInt(cantidad)];
+            tipoEvaluacion= helper.nombreEvaluacionDiferido();
 
-        opciones= new String[Integer.parseInt(cantidad)];
+            idDetalleAlumnosEvaluados= new String[Integer.parseInt(cantidad)];
+            idDetalleAlumnosEvaluados= helper.idDetalleAlumnosEvaluacionSolicitudesDiferidos();
 
-        helper.cerrar();
+            opciones= new String[Integer.parseInt(cantidad)];
 
-        for (int i=0; i<Integer.valueOf(cantidad);i++){
-            contador= contador+1;
-            String alumno= carnet[i];
-            String materia= materias[i];
-            opciones[i]= "Solicitud Diferido "+contador+" ["+ alumno+" - "+materia+" ]";
+            helper.cerrar();
+
+            for (int i=0; i<Integer.valueOf(cantidad);i++){
+                contador= contador+1;
+                String alumno= carnet[i];
+                String materia= materias[i];
+                opciones[i]= "Solicitud Diferido "+contador+" ["+ alumno+" - "+materia+" ]";
+            }
         }
-
     }
 }

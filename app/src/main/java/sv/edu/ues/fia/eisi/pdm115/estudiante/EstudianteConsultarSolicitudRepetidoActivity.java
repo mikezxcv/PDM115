@@ -55,7 +55,7 @@ public class EstudianteConsultarSolicitudRepetidoActivity extends Activity {
         }
         else
         {
-            editEstado.setText(String.valueOf(repetido.getESTADOREPETIDO()));
+            editEstado.setText(repetido.getESTADOREPETIDO());
             editFechaExamen.setText(repetido.getFECHAREPETIDO());
             editHoraExamen.setText(repetido.getHORAREPETIDO());
             editLocal.setText(String.valueOf(repetido.getLOCAL()));
