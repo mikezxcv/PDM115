@@ -70,6 +70,7 @@ public class AdmRolDetalle extends AppCompatActivity {
                         String resultado= helper.eliminarRol(id);
                         helper.cerrar();
                         Intent intent= new Intent(AdmRolDetalle.this,AdmRolActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }
                 })
@@ -100,6 +101,7 @@ public class AdmRolDetalle extends AppCompatActivity {
                         String resultado= helper.ActualizarRol(name,id);
                         helper.cerrar();
                         Intent intent= new Intent(AdmRolDetalle.this,AdmRolActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                     }
                 })

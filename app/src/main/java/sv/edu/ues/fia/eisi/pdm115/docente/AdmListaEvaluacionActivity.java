@@ -95,7 +95,7 @@ public class AdmListaEvaluacionActivity extends AppCompatActivity {
                 docEncargado.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String materiaE = materia.getText().toString();
+                        String materiaE = docEncargado.getText().toString();
                         if(materiaE.isEmpty()){
                             Toast.makeText(getApplicationContext(),"MATERIA Vacia",Toast.LENGTH_SHORT).show();
                         }else{
@@ -297,8 +297,9 @@ public class AdmListaEvaluacionActivity extends AppCompatActivity {
                         String localEva = localDiferido.getText().toString();
                         String docEncargadoEva = docEncargado.getText().toString();
 
+                        helper.abrir();
                         String idDocenteEncargado = helper.obtenerIDDocentesParaDetalle(materiaEva, docEncargadoEva);
-
+                        helper.cerrar();
 
                         if(asistenciaEva.equals("SI, Asistio")){
                             asistenciaEva = "1";
@@ -328,7 +329,7 @@ public class AdmListaEvaluacionActivity extends AppCompatActivity {
 
                         String fechaLimEva = fechaL;
 
-                        if(carnetEva.isEmpty() || materiaEva.isEmpty() || evaluacionEva.isEmpty() || fechaRealizacionEva.isEmpty()){
+                        if(carnetEva.isEmpty() || materiaEva.isEmpty() || evaluacionEva.isEmpty() || fechaRealizacionEva.isEmpty() || idDocenteEncargado.isEmpty()){
                             Toast.makeText(getApplicationContext(),"CARNET, ,MATERIA, EVALUAICON O FECHAREALIZACION Estan Vacios",Toast.LENGTH_SHORT).show();
                         }else{
                             helper.abrir();
