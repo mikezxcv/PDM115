@@ -218,7 +218,19 @@ public void crearSolicitudPR () {
             Toast.makeText(this, "Rellene todos los campos", Toast.LENGTH_LONG).show();
         }
         else{
-            helper.insertPrimerRevision(fecha, carnet, materia, evaluacion);
+            helper.abrir();
+            if(helper.insertPrimerRevision(fecha, carnet, materia, evaluacion) == null){
+                Toast.makeText(this, "Ya existe una revision con estos datos", Toast.LENGTH_LONG).show();
+                helper.cerrar();
+            }else{
+                if(helper.insertPrimerRevision(fecha, carnet, materia, evaluacion).equals("1")){
+                    helper.insertPrimerRevision(fecha, carnet, materia, evaluacion);
+                    helper.cerrar();
+                    Toast.makeText(this, "Datos Insertados", Toast.LENGTH_LONG).show();
+                }
+            }
+
+
         }
     }
      catch (Exception e) {
