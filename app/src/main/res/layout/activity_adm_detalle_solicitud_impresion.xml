@@ -25,9 +25,7 @@
             <EditText
                 android:id="@+id/cantidadExamenesSol"
                 android:inputType="number"
-                android:editable="false"
-                android:focusable="false"
-                android:clickable="false"
+                android:enabled="false"
                 android:maxLength="3"
                 android:gravity="center"/>
         </TableRow>
@@ -42,9 +40,7 @@
             <EditText
                 android:id="@+id/cantidadHojasEmpaqueSol"
                 android:gravity="center"
-                android:editable="false"
-                android:focusable="false"
-                android:clickable="false"
+                android:enabled="false"
                 android:inputType="number"
                 android:maxLength="2" />
         </TableRow>
@@ -70,9 +66,7 @@
                 android:id="@+id/detallesExtraSol"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:editable="false"
-                android:focusable="false"
-                android:clickable="false"
+               android:enabled="false"
                 android:inputType="textMultiLine"
                 android:gravity="top"
                 android:maxLength="100" />
@@ -205,7 +199,7 @@
 
             <Button
                 android:id="@+id/actualizarSolicitud"
-                android:onClick="ActualizarAprobacion"
+                android:onClick="actualizar"
                 android:text="Actualizar"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"/>
@@ -220,7 +214,15 @@
                 android:onClick="cancelarModificacion"
                 android:text="Cancelar"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+            <Button
+                android:id="@+id/guardarSol"
+                android:onClick="guardarSolDocente"
+                android:text="Guardar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </TableLayout>
