@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp"
+    android:stretchColumns="0"
+    android:paddingBottom="20dp">
+
+    <TableRow>
+        <TextView android:text="Motivo de impresion no realizada"
+            />
+    </TableRow>
+<TableRow>
+    <EditText
+        android:id="@+id/editMotivoNoimp"
+        android:inputType="text"
+        android:maxLength="50" />
+</TableRow>
+    <Button
+        android:id="@+id/actualizarMotivo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Actualizar"/>
+    <Button
+        android:id="@+id/eliminarMotivo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Eliminar"/>
+</TableLayout>

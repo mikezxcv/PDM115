@@ -20,6 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".encargadoImpresion.DetalleMotivoActivity"></activity>
+        <activity android:name=".docente.AdmDetalleSolicitudImpresionActivity" />
+        <activity android:name=".encargadoImpresion.DetalleSolicitudImpresionActivity" />
+        <activity android:name=".encargadoImpresion.GestionarMotivosActivity" />
         <activity android:name=".webServices.consultarUsuarios"></activity>
         <activity android:name=".webServices.EliminarEstudiante" />
         <activity android:name=".webServices.IngresarMateriaActivity" />
@@ -89,6 +93,8 @@
         <activity android:name=".docente.AdmSolicitarImpresionActivity" />
         <activity android:name=".encargadoImpresion.VerSolicitudesImpresionActivity" />
         <activity android:name=".encargadoImpresion.GestionarEncargadosActivity" />
+        <activity android:name=".encargadoImpresion.DetalleSolicitudImpresionActivity" />
+        <activity android:name=".encargadoImpresion.GestionarMotivosActivity" />
         <activity android:name=".qr.EscanerActivity" />
         <activity android:name=".docente.AdmCrearEvaluacionActivity" />
         <activity android:name=".docente.AdmGestionarEvaluacionesActivity" />

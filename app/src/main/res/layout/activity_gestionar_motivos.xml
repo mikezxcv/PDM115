@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="sv.edu.ues.fia.eisi.pdm115.encargadoImpresion.VerSolicitudesImpresionActivity">
+    tools:context="sv.edu.ues.fia.eisi.pdm115.encargadoImpresion.GestionarMotivosActivity">
     <ListView
-        android:id="@+id/listViewImpEnc"
+        android:id="@+id/listViewImp"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>

@@ -37,7 +37,7 @@ public class DocenteMenuActivity extends ListActivity {
                 Class<?>
                         clase=Class.forName("sv.edu.ues.fia.eisi.pdm115.docente."+nombreValue);
 
-                Intent inte = new Intent(this,clase);
+                Intent inte = new Intent(getApplicationContext(),clase);
 
                 this.startActivity(inte);
             }catch(ClassNotFoundException e){

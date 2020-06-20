@@ -11,6 +11,7 @@ import androidx.core.app.JobIntentService;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -18,7 +19,7 @@ public class SubirDocumentoService extends JobIntentService {
     final Handler mHandler = new Handler();
     private static final String TAG = "SubirDocumentoService";
     private static final int JOB_ID = 1000;
-    String urlServidor = ""; //"https://pdmgrupo12.000webhostapp.com/upload.php?directorio=%s&nombre=%s";
+    String urlServidor = "https://pdmgrupo12.000webhostapp.com/upload.php?directorio=%s&nombre=%s";
     HttpURLConnection conn = null;
     DataOutputStream output = null;
     FileInputStream fileInputStream = null;
@@ -26,6 +27,7 @@ public class SubirDocumentoService extends JobIntentService {
     String twoHyphens = "--";
     String boundary = "*****";
     String rutaArchivoLocal;
+    String reply;
     int bytesRead, bytesAvailable, bufferSize;
     byte[] buffer;
     int maxBufferSize = 1024 * 1024;
@@ -97,10 +99,24 @@ public class SubirDocumentoService extends JobIntentService {
                     // Esperar respuesta del servidor
                     int serverResponseCode = conn.getResponseCode();
 
-                    if (serverResponseCode != 200) throw new AssertionError();
+                    if (serverResponseCode != 200){throw new AssertionError();}
+                    else {
+                        InputStream in = conn.getInputStream();
+                        StringBuffer sb = new StringBuffer();
+                        try {
+                            int chr;
+                            while ((chr = in.read()) != -1) {
+                                sb.append((char) chr);
+                            }
+                            reply = sb.toString();
+                        } finally {
+                            in.close();
+                        }
+                    }
 
                 }catch (Exception e){
                     e.printStackTrace();
+                    Toast.makeText(SubirDocumentoService.this, "Ha ocurrido un error", Toast.LENGTH_SHORT).show();
                 }finally {
                     //Cerrar flujo de entrada/salida
                     fileInputStream.close();
