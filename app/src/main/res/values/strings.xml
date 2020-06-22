@@ -18,4 +18,6 @@
     <string name="detalles_extra">Detalles extra</string>
     <string name="elegir_archivo">Elegir archivo...</string>
     <string name="detalles_de_la_solicitud">Detalles de la solicitud</string>
+    <string name="escuela">Escuela</string>
+    <string name="docente">Docente</string>
 </resources>

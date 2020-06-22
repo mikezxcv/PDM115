@@ -9,13 +9,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
+import sv.edu.ues.fia.eisi.pdm115.Docente;
+import sv.edu.ues.fia.eisi.pdm115.EncargadoDeImpresiones;
 import sv.edu.ues.fia.eisi.pdm115.Impresion;
 import sv.edu.ues.fia.eisi.pdm115.MotivoNoImpresion;
 import sv.edu.ues.fia.eisi.pdm115.R;
@@ -30,21 +32,24 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
     int motivoTmp;
     String observacionesTmp;
     Impresion impresion;
-    String[] opcionesEstadoImp = {"Pendiente", "Realizada", "No se realizó"};
-    String[] opcionesAprobacion = {"Pendiente","Aprobada","Rechazada"};
+    String[] estadoAprobacion = {"Pendiente","Aprobada","Rechazada"};
+    String[] estadoImpresion = {"Pendiente", "Realizada", "No se realizó"};
     ArrayList<MotivoNoImpresion> motivos;
-    EditText editExamenes, editHojas, editDetalles, editAprobacion, editEstadoImp, editMotivo, observaciones;
+    EditText editExamenes, editHojas, editDetalles, editAprobacion, editEstadoImp,
+            editMotivo, observaciones, editDocente, editEncargado;
     Button guardar, cancelar, modificarEstadoAprobacion, cambiarEstadoImpresion;
+    TableRow tr1;
+    LinearLayout li1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_solicitud_impresion);
-        helper.abrir();
-        motivos = helper.obtenerMotivos();
-        helper.cerrar();
-        Gson gson = new Gson();
-        String strObj = getIntent().getStringExtra("impresion");
-        impresion = gson.fromJson(strObj, Impresion.class);
+        this.setTitle("Detalle de la solicitud");
+
+        tr1 = findViewById(R.id.tableRow1);
+        li1 = findViewById(R.id.linearLayout1);
+        editDocente = findViewById(R.id.editDocente);
+        editEncargado = findViewById(R.id.editEncargado);
         editExamenes = findViewById(R.id.cantidadExamenesSol);
         editHojas = findViewById(R.id.cantidadHojasEmpaqueSol);
         editDetalles = findViewById(R.id.detallesExtraSol);
@@ -57,33 +62,39 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         modificarEstadoAprobacion = findViewById(R.id.modificarEstadoAprobacion);
         cambiarEstadoImpresion = findViewById(R.id.cambiarEstadoImpresion);
 
-        editExamenes.setText(Integer.toString(impresion.getCantidadExamenes()));
-        editHojas.setText(Integer.toString(impresion.getHojasEmpaque()));
+        int idSolicitud = getIntent().getIntExtra("idImpresion",0);
+        String usuario = getIntent().getStringExtra("usuarioActual");
+        helper.abrir();
+        motivos = helper.obtenerMotivos();
+        impresion = helper.getSolicitudImpresion(String.valueOf(idSolicitud));
+        Docente docente = helper.getDocenteAdmin(impresion.getIdDocente());
+        String edDocente = docente.getNombreDocente()+" "+docente.getApellidoDocente();
+        editDocente.setText(edDocente);
+        if (usuario.equals("ADMIN")){
+            EncargadoDeImpresiones encargado = helper.consultarEncargado(
+                    String.valueOf(impresion.getIdEncargado()));
+            String edEncargado = encargado.getNombreEncargado()+" "+encargado.getApellidoEncargado();
+            editEncargado.setText(edEncargado);
+
+        }else{
+            tr1.setVisibility(View.GONE);
+            li1.setVisibility(View.GONE);
+        }
+
+        helper.cerrar();
+
+
+        editExamenes.setText(String.valueOf(impresion.getCantidadExamenes()));
+        editHojas.setText(String.valueOf(impresion.getHojasEmpaque()));
         editDetalles.setText(impresion.getDescripcionSolicitud());
         if (impresion.getIdMotivoNoImp()!=0){
             editMotivo.setText(motivos.get(impresion.getIdMotivoNoImp()).getMotivoNoImpresion());
+        }else {
+            editMotivo.setText("No asignado");
         }
         observaciones.setText(impresion.getDescripcionNoImp());
-        switch (impresion.getEstadoAprobacion()){
-            case 0:
-                editAprobacion.setText("Pendiente");
-                break;
-            case 1:
-                editAprobacion.setText("Aprobada");
-                break;
-            case 2:
-                editAprobacion.setText("Rechazada");
-        }
-        switch (impresion.getEstadoImpresion()){
-            case 0:
-                editEstadoImp.setText("Pendiente");
-                break;
-            case 1:
-                editEstadoImp.setText("Realizada");
-                break;
-            case 2:
-                editEstadoImp.setText("No se realizó");
-        }
+        editAprobacion.setText(estadoAprobacion[impresion.getEstadoAprobacion()]);
+        editEstadoImp.setText(estadoImpresion[impresion.getEstadoImpresion()]);
 
         guardar.setVisibility(View.GONE);
         cancelar.setVisibility(View.GONE);
@@ -91,16 +102,15 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         editAprobacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 AlertDialog.Builder seleccion =
                         new AlertDialog.Builder(contexto);
                 seleccion.setTitle("Seleccione una opcion:");
-                seleccion.setItems(opcionesAprobacion,
+                seleccion.setItems(estadoAprobacion,
                         new DialogInterface.OnClickListener()
                         {
                             public void onClick(DialogInterface dialog, int item)
                             {
-                                editAprobacion.setText(opcionesAprobacion[item]);
+                                editAprobacion.setText(estadoAprobacion[item]);
                                 impresion.setEstadoAprobacion(item);
                                 switch (item){
                                     case 0:
@@ -133,10 +143,10 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
                         AlertDialog.Builder seleccion = new AlertDialog
                                 .Builder(contexto);
                         seleccion.setTitle("Seleccione una opcion:");
-                        seleccion.setItems(opcionesEstadoImp,
+                        seleccion.setItems(estadoImpresion,
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int item) {
-                                    editEstadoImp.setText(opcionesEstadoImp[item]);
+                                    editEstadoImp.setText(estadoImpresion[item]);
                                     impresion.setEstadoImpresion(item);
                                     if (item==2){
                                         editMotivo.setEnabled(true);
@@ -250,29 +260,11 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
     public void cancelar(View view) {
         editAprobacion.setEnabled(false);
         rollback();
-        switch (impresion.getEstadoAprobacion()){
-            case 0:
-                editAprobacion.setText("Pendiente");
-                break;
-            case 1:
-                editAprobacion.setText("Aprobada");
-                break;
-            case 2:
-                editAprobacion.setText("Rechazada");
-        }
-        switch (impresion.getEstadoImpresion()){
-            case 0:
-                editEstadoImp.setText("Pendiente");
-                break;
-            case 1:
-                editEstadoImp.setText("Realizada");
-                break;
-            case 2:
-                editEstadoImp.setText("No se realizó");
-        }
+        editAprobacion.setText(estadoAprobacion[impresion.getEstadoAprobacion()]);
+        editEstadoImp.setText(estadoImpresion[impresion.getEstadoImpresion()]);
 
 
-        if (impresion.getIdMotivoNoImp()!=0){
+        if (impresion.getIdMotivoNoImp()!=0 || impresion.getIdMotivoNoImp()!=-1){
             editMotivo.setText(motivos.get(motivos.indexOf(impresion.getIdMotivoNoImp())).getMotivoNoImpresion());
         }
         observaciones.setText(impresion.getDescripcionNoImp());

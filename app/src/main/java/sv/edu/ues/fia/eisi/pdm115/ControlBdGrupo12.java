@@ -65,6 +65,7 @@ public class ControlBdGrupo12 {
         this.context = ctx;
         DBHelper = new DatabaseHelper(context);
     }
+
     public static class DatabaseHelper extends SQLiteOpenHelper {
         private static final String BASE_DATOS = "procesosGrupo12_40.s3db";
         private static final int VERSION = 1;
@@ -3515,7 +3516,7 @@ public class ControlBdGrupo12 {
 
     public EncargadoDeImpresiones consultarEncargado(String id){
         EncargadoDeImpresiones encargados = new EncargadoDeImpresiones();
-        Cursor cursor = db.rawQuery("SELECT * FROM EMCARGADODEIMPRESIONES WHERE IDENCARGADO='"+id+"'",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM ENCARGADODEIMPRESIONES WHERE IDENCARGADO='"+id+"'",null);
         if(cursor.moveToFirst()){
             return new EncargadoDeImpresiones(
                     cursor.getInt(cursor.getColumnIndex("IDENCARGADO")),
@@ -3571,10 +3572,33 @@ public class ControlBdGrupo12 {
         }
     }
 
-    public Docente getDocente(String idDocente){
-        String query = "SELECT * FROM DOCENTE WHERE IDDOCENTE=? LIMIT 1;";
+    public ArrayList<Docente> getDocentes(String idEscuela){
+        ArrayList<Docente> docentes = new ArrayList<>();
+        String query = "SELECT * FROM DOCENTE WHERE IDESCUELA=? ";
+        Cursor cursor = db.rawQuery(query,new String[]{idEscuela});
+       while (cursor.moveToNext()){
+
+            Docente docente = new Docente(
+                    cursor.getString(cursor.getColumnIndex("IDDOCENTE")),
+                    cursor.getString(cursor.getColumnIndex("IDTIPODOCENTECICLO")),
+                    cursor.getString(cursor.getColumnIndex("IDESCUELA")),
+                    cursor.getString(cursor.getColumnIndex("IDASIGNATURA")),
+                    cursor.getString(cursor.getColumnIndex("IDCICLO")),
+                    cursor.getString(cursor.getColumnIndex("USUARIO")),
+                    cursor.getString(cursor.getColumnIndex("ID_OPCION")),
+                    cursor.getString(cursor.getColumnIndex("NOMBREDOCENTE")),
+                    cursor.getString(cursor.getColumnIndex("APELLIDODOCENTE")),
+                    cursor.getInt(cursor.getColumnIndex("ID_ROL"))
+            );
+            docentes.add(docente);
+        }
+       return docentes;
+    }
+
+    public Docente getDocenteAdmin(String idDocente){
+        String query = "SELECT * FROM DOCENTE WHERE IDDOCENTE=? LIMIT 1";
         Cursor cursor = db.rawQuery(query,new String[]{idDocente});
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()){
 
             return new Docente(
                     cursor.getString(cursor.getColumnIndex("IDDOCENTE")),
@@ -3588,9 +3612,9 @@ public class ControlBdGrupo12 {
                     cursor.getString(cursor.getColumnIndex("APELLIDODOCENTE")),
                     cursor.getInt(cursor.getColumnIndex("ID_ROL"))
             );
-        }else {
-            return null;
+
         }
+        return null;
     }
 
     public int getIdEncargadoImpresionesEscuela(String idEscuela){
@@ -3654,6 +3678,28 @@ public class ControlBdGrupo12 {
     public String eliminarSolicitudImpresion(String idSolicitud){
         return (db.delete("SOLICITUDIMPRESION","IDSOLICITUDIMPRESION='"+idSolicitud+"'",null)>0)
                 ?"Registro eliminado":"Error";
+    }
+
+    public Impresion getSolicitudImpresion(String idSolicitud) {
+        String query = "SELECT * FROM SOLICITUDIMPRESION WHERE IDSOLICITUDIMPRESION=? LIMIT 1;";
+        Cursor cursor = db.rawQuery(query,new String[]{idSolicitud});
+        if(cursor.moveToFirst()){
+
+            return new Impresion(
+                    cursor.getInt(cursor.getColumnIndex("IDSOLICITUDIMPRESION")),
+                    cursor.getString(cursor.getColumnIndex("IDDOCENTE")),
+                    cursor.getInt(cursor.getColumnIndex("IDENCARGADO")),
+                    cursor.getInt(cursor.getColumnIndex("MOTIVONOIMP")),
+                    cursor.getString(cursor.getColumnIndex("DESCRIPCION_NO_IMP")),
+                    cursor.getString(cursor.getColumnIndex("DESCRIPCION_SOLICITUD")),
+                    cursor.getInt(cursor.getColumnIndex("CANTIDADEXAMENES")),
+                    cursor.getInt(cursor.getColumnIndex("HOJASEMPAQUE")),
+                    cursor.getInt(cursor.getColumnIndex("ESTADOAPROBACION")),
+                    cursor.getInt(cursor.getColumnIndex("ESTADOIMPRESION"))
+            );
+        }else {
+            return null;
+        }
     }
 
     //Solicitud impresiones ENCARGADO
