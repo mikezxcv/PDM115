@@ -1,5 +1,6 @@
 package sv.edu.ues.fia.eisi.pdm115.docente;
 
+import androidx.annotation.IntegerRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 
@@ -35,6 +36,7 @@ public class AdmAprobarsolicitudDiferido extends AppCompatActivity {
     RadioButton estadoDenegado;
     TextView fechaDiferido;
     TextView HoraDiferido;
+    TextView minDiferido;
     TextView localDiferido;
     TextView observaciones;
     String idDiferido;
@@ -60,6 +62,7 @@ public class AdmAprobarsolicitudDiferido extends AppCompatActivity {
         estadoAprobado= (RadioButton) findViewById(R.id.radioAprobadoAprobar);
         fechaDiferido= (TextView) findViewById(R.id.editfechaDiferidoAprobar);
         HoraDiferido=(TextView) findViewById(R.id.editHoraAprobar);
+        minDiferido=(TextView) findViewById(R.id.editMinutosAprobar);
         localDiferido= (TextView) findViewById(R.id.editLocalAprobar);
         observaciones=(TextView) findViewById(R.id.editObservacionesAprobar);
         guardar = (Button)findViewById(R.id.guardarDiferidoAprobar);
@@ -146,20 +149,33 @@ public class AdmAprobarsolicitudDiferido extends AppCompatActivity {
 
         String fecha= fechaDiferido.getText().toString();
         String hora = HoraDiferido.getText().toString();
+        String min = minDiferido.getText().toString();
         String local=localDiferido.getText().toString();
         String observacion= observaciones.getText().toString();
 
+        String horaFinal = hora + ":" + min;
+
+        int horaINT = -1;
+        int minINT = -1;
+        if(hora.isEmpty()||min.isEmpty()){
+            Toast.makeText(this, "Ingrese hora y min",Toast.LENGTH_SHORT).show();
+        }else{
+            horaINT = Integer.valueOf(hora);
+            minINT = Integer.valueOf(min);
+        }
 
         if(!estadoAprobado.isChecked() && !estadoDenegado.isChecked()){
             Toast.makeText(this, "Seleccione un estado",Toast.LENGTH_SHORT).show();
-
         }
         else{
-            if(fecha.isEmpty()||hora.isEmpty()||local.isEmpty()||observacion.isEmpty()){
+            if(fecha.isEmpty()||hora.isEmpty()||min.isEmpty()||local.isEmpty()||observacion.isEmpty()){
                 Toast.makeText(this, "Rellene todos los campos",Toast.LENGTH_SHORT).show();
-
             }
-            else{
+            else if(!(horaINT >= 0 && horaINT <= 23)){
+                Toast.makeText(this, "La hora debe de estar entre 0 y 23",Toast.LENGTH_SHORT).show();
+            }else if(!(minINT >= 0 && minINT <= 59)){
+                Toast.makeText(this, "Ingrese minutos entre 0 y 59",Toast.LENGTH_SHORT).show();
+            }else{
                 String opcion= (estadoAprobado.isChecked())?  APROBADO:DENEGADO;
                 Toast.makeText(this, opcion,Toast.LENGTH_SHORT).show();
 
@@ -167,7 +183,7 @@ public class AdmAprobarsolicitudDiferido extends AppCompatActivity {
 
                 solicitudDiferido.setESTADODIFERIDO(opcion);
                 solicitudDiferido.setFECHADIFERIDO(fecha);
-                solicitudDiferido.setHORADIFERIDO(hora);
+                solicitudDiferido.setHORADIFERIDO(horaFinal);
                 solicitudDiferido.setLOCALDIFERIDO(local);
                 solicitudDiferido.setOBSERVACIONESDIFERIDO(observacion);
 
@@ -177,7 +193,6 @@ public class AdmAprobarsolicitudDiferido extends AppCompatActivity {
                 String resultado= helper.actualizar(solicitudDiferido);
                 helper.cerrar();
                 Toast.makeText(this,resultado,Toast.LENGTH_SHORT).show();
-
 
             }
         }

@@ -212,7 +212,7 @@ public class ControlBdGrupo12 {
                         "   FECHASOLICITUDREPETIDO DATE,\n" +
                         "   ESTADOREPETIDO       CHAR(50),\n" +
                         "   FECHAREPETIDO        DATE,\n" +
-                        "   HORAREPETIDO         TIME,\n" +
+                        "   HORAREPETIDO         CHAR(50),\n" +
                         "   NOTADESPUESREPETIDO  FLOAT,\n" +
                         "   NOTAANTESREPETIDO    FLOAT,\n" +
                         "   OBSERVACIONES        CHAR(100),\n" +
@@ -251,7 +251,7 @@ public class ControlBdGrupo12 {
                         "   MATERIADIFERIDO      CHAR(20),\n" +
                         "   IDLOCAL      CHAR(20),\n" +
                         "   MOTIVODIFERIDO       CHAR(100),\n" +
-                        "   HORADIFERIDO         TIME,\n" +
+                        "   HORADIFERIDO         CHAR(100),\n" +
                         "   primary key (IDDIFERIDO)\n" +
                         ");");
                 db.execSQL("CREATE TABLE SOLICITUDIMPRESION  (\n" +
@@ -339,6 +339,10 @@ public class ControlBdGrupo12 {
                         "\t(3, '1', 'PARCIAL 1', '2020-12-12','MAT115');");
                 db.execSQL("INSERT INTO `evaluacion` (`IDEVALUACION`, `IDTIPOEVAL`, `NOMBREEVALUACION`, `FECHAEVALUACION`,`IDASIGNATURA`) VALUES\n" +
                         "\t(4, '1', 'PARCIAL 2', '2020-12-12','MAT115');");
+                db.execSQL("INSERT INTO `evaluacion` (`IDEVALUACION`, `IDTIPOEVAL`, `NOMBREEVALUACION`, `FECHAEVALUACION`,`IDASIGNATURA`) VALUES\n" +
+                        "\t(5, '1', 'PARCIAL 1', '2020-12-12','SIC115');");
+                db.execSQL("INSERT INTO `evaluacion` (`IDEVALUACION`, `IDTIPOEVAL`, `NOMBREEVALUACION`, `FECHAEVALUACION`,`IDASIGNATURA`) VALUES\n" +
+                        "\t(6, '1', 'PARCIAL 1', '2020-12-12','BAD115');");
 
 
                 db.execSQL("INSERT INTO `docente` (`IDDOCENTE`, `IDTIPODOCENTECICLO`, `IDESCUELA`, `IDASIGNATURA`, `IDCICLO`, `USUARIO`, `ID_OPCION`, `NOMBREDOCENTE`, `APELLIDODOCENTE`,`ID_ROL`) VALUES\n" +
@@ -361,7 +365,10 @@ public class ControlBdGrupo12 {
                         "\t(2, 3, 'ESCUELA DE INGENIERIA INDUSTRIAL', 'INGENIERIA Y ARQUITECTURA');");
 
                 db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
-                        "\t('MP16001', 'DOCENTE', '1', 'MIGUEL', 'PEREZ', 'SISTEMAS', 'SISTEMAS');");
+                        "\t('MP16001', 'DOCENTE', '1    ', 'MIGUEL', 'PEREZ', 'SISTEMAS', 'SISTEMAS');");
+                db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
+                        "\t('CS17049', 'DOCENTE', '1', 'JOSE', 'AMILCAR', 'SISTEMAS', 'SISTEMAS');");
+
                 db.execSQL("INSERT INTO `local` (`IDLOCAL`, `NOMBRELOCAL`, `UBICACION`) VALUES\n" +
                         "\t(1, 'B-21', 'PLANTA MEDIA');");
                 db.execSQL("INSERT INTO `materia` (`IDASIGNATURA`, `NOMBREASIGNATURA`) VALUES\n" +
@@ -377,8 +384,6 @@ public class ControlBdGrupo12 {
                         "\t('DSI115', '01-20');");
                 db.execSQL("INSERT INTO `opcioncrud` (`ID_OPCION`, `DESOPCION`, `NUMCRUD`) VALUES\n" +
                         "\t('1', 'VER SOLICITUD', 1);");
-
-
 
 
                 db.execSQL("INSERT INTO `primerrevision` (`IDPRIMERREVISION`, `IDLOCAL`, `IDDOCENTE`, `ID_DETALLEALUMNOSEVALUADOS`, `FECHASOLICITUDPRIMERAREV`, `ESTADOPRIMERAREV`, `FECHAPRIMERAREV`, `HORAPRIMERAREV`, `NOTAANTESPRIMERAREV`, `NOTADESPUESPRIMERAREV`, `OBSERVACIONESPRIMERAREV`,`FECHALIMITESEGUNDAREVISION`) VALUES\n" +
