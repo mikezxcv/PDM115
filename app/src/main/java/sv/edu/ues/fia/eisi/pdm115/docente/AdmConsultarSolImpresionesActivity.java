@@ -6,14 +6,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -33,44 +30,45 @@ public class AdmConsultarSolImpresionesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adm_consultar_sol_impresiones);
+        this.setTitle("Lista de solicitudes");
+
         listView= findViewById(R.id.listViewImp);
         prefs= getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-        String usuarioDocente = prefs.getString("usuarioActual","ADMIN");
+        final String usuarioActual = prefs.getString("usuarioActual","ADMIN");
         helper.abrir();
-        if (!usuarioDocente.equals("ADMIN")) {
-            idDocente = helper.getDocenteActual(usuarioDocente).getIdDocente();
+        if (!usuarioActual.equals("ADMIN")) {
+            idDocente = helper.getDocenteActual(usuarioActual).getIdDocente();
             llenadoNormal();
         }
         else {llenadoAdmin();}
 
-        if (!impresiones.isEmpty()) {
+        if (lista.length>0) {
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AdmConsultarSolImpresionesActivity.this,
                     android.R.layout.simple_list_item_1, lista);
             listView.setAdapter(arrayAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Gson gson = new Gson();
                     Intent intent = new Intent(AdmConsultarSolImpresionesActivity.this, AdmDetalleSolicitudImpresionActivity.class);
-                    intent.putExtra("impresion", gson.toJson(impresiones.get(position)));
+                    intent.putExtra("idImpresion", impresiones.get(position).getIdSolicitudImpresion());
+                    intent.putExtra("usuarioActual", usuarioActual);
                     startActivity(intent);
                 }
             });
         } else {
-            Toast.makeText(this,"No hay solicitudes",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"No hay solicitudes",Toast.LENGTH_LONG).show();
         }
+        helper.cerrar();
     }
 
     public void llenadoNormal(){
         impresiones = helper.consultarImpresionesDocente(idDocente);
-        helper.cerrar();
         if (!impresiones.isEmpty()){
             lista = new String[impresiones.size()];
             for (int i=0; i<impresiones.size();i++){
                lista[i]= "Solicitud # "+i+" ["+impresiones.get(i).getDescripcionSolicitud()+"]";
             }
         }
-        helper.cerrar();
     }
 
     public void llenadoAdmin(){
@@ -81,6 +79,11 @@ public class AdmConsultarSolImpresionesActivity extends AppCompatActivity {
                 lista[i]= "Solicitud # "+i+" ["+impresiones.get(i).getDescripcionSolicitud()+"]";
             }
         }
-        helper.cerrar();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        recreate();
     }
 }

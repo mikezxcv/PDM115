@@ -10,12 +10,74 @@
     android:layout_height="wrap_content"
     android:padding="10dip"
     android:stretchColumns="*"  >
+
     <TextView
         android:text="@string/detalles_de_la_solicitud"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center"/>
+        <TableRow android:id="@+id/tableRow1">
+            <TextView android:text="Encargado"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+            <!-- Solo sirve como padding -->
+            <EditText
+                android:id="@+id/hiddenEdit1"
+                android:inputType="number"
+                android:maxLength="3"
+                android:gravity="center"
+                android:visibility="invisible"/>
+        </TableRow>
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:gravity="center">
 
+            <EditText
+                android:id="@+id/editEncargado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="false"
+                android:inputType="text"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:maxLength="100" />
+        </LinearLayout>
+        <TableRow android:id="@+id/tableRow2">
+            <TextView android:text="Docente solicitante"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+            <!-- Solo sirve como padding -->
+            <EditText
+                android:id="@+id/hiddenEdit2"
+                android:inputType="number"
+                android:maxLength="3"
+                android:gravity="center"
+                android:visibility="invisible"/>
+        </TableRow>
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/editDocente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="false"
+                android:inputType="text"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:maxLength="100" />
+        </LinearLayout>
     <TableRow>
         <TextView
             android:layout_width="wrap_content"
@@ -29,6 +91,7 @@
             android:focusable="false"
             android:clickable="false"
             android:maxLength="3"
+            android:textColor="#000000"
             android:gravity="center"/>
     </TableRow>
 
@@ -46,6 +109,7 @@
             android:focusable="false"
             android:clickable="false"
             android:inputType="number"
+            android:textColor="#000000"
             android:maxLength="2" />
     </TableRow>
     <TableRow>
@@ -54,7 +118,7 @@
             android:layout_width="wrap_content"/>
         <!-- Solo sirve como padding -->
         <EditText
-            android:id="@+id/hiddenEdit"
+            android:id="@+id/hiddenEdit3"
             android:inputType="number"
             android:maxLength="3"
             android:gravity="center"
@@ -75,6 +139,7 @@
             android:clickable="false"
             android:inputType="textMultiLine"
             android:gravity="top"
+            android:textColor="#000000"
             android:maxLength="100" />
     </LinearLayout>
     <LinearLayout
@@ -104,7 +169,7 @@
             android:clickable="false"
             android:gravity="center"
             android:textColor="#000000"
-            android:text="PENDIENTE" />
+            android:text="PENDIENTE"/>
 
     </TableRow>
     <TableRow
@@ -133,7 +198,7 @@
         android:paddingTop="20dp"
         android:gravity="center"/>
     <TableRow
-        android:id="@+id/tableRow1">
+        android:id="@+id/tableRow3">
         <TextView android:text="Motivo"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
@@ -146,7 +211,7 @@
             android:visibility="invisible"/>
     </TableRow>
     <LinearLayout
-        android:id="@+id/linearLayout1"
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:orientation="horizontal"
@@ -162,10 +227,11 @@
             android:clickable="false"
             android:inputType="textMultiLine"
             android:gravity="top"
+            android:textColor="#000000"
             android:maxLength="100" />
     </LinearLayout>
     <TableRow
-        android:id="@+id/tableRow2">
+        android:id="@+id/tableRow4">
         <TextView android:text="Observaciones"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
@@ -178,7 +244,7 @@
             android:visibility="invisible"/>
     </TableRow>
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:editable="false"
@@ -197,7 +263,8 @@
             android:focusable="false"
             android:clickable="false"
             android:gravity="top"
-            android:maxLength="100" />
+            android:maxLength="100"
+            android:textColor="#000000"/>
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"

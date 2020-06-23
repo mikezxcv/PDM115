@@ -10,16 +10,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.Impresion;
 import sv.edu.ues.fia.eisi.pdm115.R;
-import sv.edu.ues.fia.eisi.pdm115.docente.AdmConsultarSolImpresionesActivity;
-import sv.edu.ues.fia.eisi.pdm115.docente.AdmDetalleSolicitudImpresionActivity;
+
 
 public class VerSolicitudesImpresionActivity extends AppCompatActivity {
     ControlBdGrupo12 helper = new ControlBdGrupo12(this);
@@ -32,28 +31,36 @@ public class VerSolicitudesImpresionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_solicitudes_impresion);
-        listView= findViewById(R.id.listViewImpEnc);
-        prefs= getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-        String usuarioEncargado = prefs.getString("usuarioActual","ADMIN");
+        this.setTitle("PDM115: Solicitudes");
+
+        listView = findViewById(R.id.listViewImpEnc);
+        prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        final String usuarioActual= prefs.getString("usuarioActual", "ADMIN");
         helper.abrir();
-        if (!usuarioEncargado.equals("ADMIN")) {
-            idEncargado = helper.getEncargadoActual(usuarioEncargado).getIdEncargado();
+        if (!usuarioActual.equals("ADMIN")) {
+            idEncargado = helper.getEncargadoActual(usuarioActual).getIdEncargado();
             llenadoNormal();
+        } else {
+            llenadoAdmin();
         }
-        else {llenadoAdmin();}
-        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(VerSolicitudesImpresionActivity.this,
-                android.R.layout.simple_list_item_1,lista);
-        listView.setAdapter(arrayAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Gson gson = new Gson();
-                Intent intent= new Intent(VerSolicitudesImpresionActivity.this, DetalleSolicitudImpresionActivity.class);
-                intent.putExtra("impresion", gson.toJson(impresiones.get(position)));
-                startActivity(intent);
-            }
-        });
+        if (lista.length>0) {
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(VerSolicitudesImpresionActivity.this,
+                    android.R.layout.simple_list_item_1, lista);
+            listView.setAdapter(arrayAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(VerSolicitudesImpresionActivity.this, DetalleSolicitudImpresionActivity.class);
+                    intent.putExtra("idImpresion", impresiones.get(position).getIdSolicitudImpresion());
+                    intent.putExtra("usuarioActual", usuarioActual);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            Toast.makeText(this, "No hay solicitudes", Toast.LENGTH_LONG).show();
+        }
     }
+
     public void llenadoNormal(){
         impresiones = helper.consultarImpresionesEncargado(idEncargado);
         helper.cerrar();

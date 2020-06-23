@@ -1,31 +1,41 @@
 package sv.edu.ues.fia.eisi.pdm115.encargadoImpresion;
 
-import android.app.ListActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class EncargadoImpresionesMenuActivity extends ListActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+import sv.edu.ues.fia.eisi.pdm115.R;
+
+public class EncargadoImpresionesMenuActivity extends AppCompatActivity {
     String[] menu={"Administrar solicitudes de impresión", "Administrar Encargados de Impresiones","Administrar Motivos"};
     String[] actividades ={"VerSolicitudesImpresionActivity","GestionarEncargadosActivity","GestionarMotivosActivity"};
-
+    ListView listView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menu));
+        setContentView(R.layout.activity_encargado_impresiones_menu);
+        this.setTitle("PDM115: Impresiones");
 
-    }
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-
-            try{
-                Class<?> clase = Class.forName("sv.edu.ues.fia.eisi.pdm115.encargadoImpresion."+actividades[position]);
-                Intent inte = new Intent(this,clase);
-                this.startActivity(inte);
-            }catch(ClassNotFoundException e){ e.printStackTrace();
+        listView = findViewById(R.id.listViewMenuEncargado);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(EncargadoImpresionesMenuActivity.this,
+                android.R.layout.simple_list_item_1, menu);
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                try{
+                    Class<?> clase = Class.forName("sv.edu.ues.fia.eisi.pdm115.encargadoImpresion."+actividades[position]);
+                    Intent inte = new Intent(EncargadoImpresionesMenuActivity.this,clase);
+                    startActivity(inte);
+                }catch(ClassNotFoundException e){ e.printStackTrace();
+                }
             }
+        });
     }
 }

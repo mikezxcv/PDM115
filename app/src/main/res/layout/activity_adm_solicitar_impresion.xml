@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<TableLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="10dip"
@@ -10,7 +14,68 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="center"/>
+    <TableRow android:id="@+id/tableRow1">
+        <TextView android:text="Escuela"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <!-- Solo sirve como padding -->
+        <EditText
+            android:id="@+id/hiddenEdit1"
+            android:inputType="number"
+            android:maxLength="3"
+            android:gravity="center"
+            android:visibility="invisible"/>
+    </TableRow>
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center">
 
+        <EditText
+            android:id="@+id/editEscuela"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="false"
+            android:inputType="text"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:maxLength="100" />
+    </LinearLayout>
+    <TableRow android:id="@+id/tableRow2">
+        <TextView android:text="Docente"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
+        <!-- Solo sirve como padding -->
+        <EditText
+            android:id="@+id/hiddenEdit2"
+            android:inputType="number"
+            android:maxLength="3"
+            android:gravity="center"
+            android:visibility="invisible"/>
+    </TableRow>
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/editDocente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:focusable="false"
+            android:clickable="false"
+            android:inputType="text"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:maxLength="100" />
+    </LinearLayout>
     <TableRow>
         <TextView
             android:layout_width="wrap_content"
@@ -104,3 +169,4 @@
     </LinearLayout>
 
 </TableLayout>
+</ScrollView>

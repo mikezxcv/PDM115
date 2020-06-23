@@ -53,8 +53,8 @@ public class AdmDetalleEvaluacionActivity extends AppCompatActivity {
 
         llenar();
 
-        btnActualizar = (Button)findViewById(R.id.irActualizarEvaluacion);
-        btnEliminar = (Button)findViewById(R.id.irEliminarEvaluacion);
+        //btnActualizar = (Button)findViewById(R.id.irActualizarEvaluacion);
+        //btnEliminar = (Button)findViewById(R.id.irEliminarEvaluacion);
 
     }
 

@@ -4,15 +4,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 import java.io.File;
@@ -21,9 +24,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.Docente;
+import sv.edu.ues.fia.eisi.pdm115.Escuela;
 import sv.edu.ues.fia.eisi.pdm115.Impresion;
 import sv.edu.ues.fia.eisi.pdm115.R;
 import sv.edu.ues.fia.eisi.pdm115.utilidades.BuscarRuta;
@@ -31,15 +36,12 @@ import sv.edu.ues.fia.eisi.pdm115.webServices.SubirDocumentoService;
 
 public class AdmSolicitarImpresionActivity extends AppCompatActivity {
     ControlBdGrupo12 helper = new ControlBdGrupo12(this);;
-    EditText cantExamenes, cantHojasEmpaque, detExtras, editPath;
+    EditText editEscuela, editDocente, cantExamenes, cantHojasEmpaque, detExtras, editPath;
+    TableRow tr1, tr2;
+    LinearLayout li1, li2;
     Button buscar;
     int idEncargado;
-    String idDocente;
-    String path;
-    String nombre;
-    String directorio;
-    String nuevoNombre;
-    Docente docente;
+    String idDocente, idEscuela, path, nombre, directorio, nuevoNombre;
     Impresion impresion;
     private SharedPreferences prefs;
 
@@ -47,18 +49,89 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adm_solicitar_impresion);
+        this.setTitle("Nueva solicitud de impresión");
+
+        tr1 = findViewById(R.id.tableRow1);
+        tr2 = findViewById(R.id.tableRow2);
+        li1 = findViewById(R.id.linearLayout1);
+        li2 = findViewById(R.id.linearLayout2);
+        editEscuela = findViewById(R.id.editEscuela);
+        editDocente = findViewById(R.id.editDocente);
         cantExamenes = findViewById(R.id.cantidadExamenes);
         cantHojasEmpaque = findViewById(R.id.cantidadHojasEmpaque);
         detExtras = findViewById(R.id.detallesExtra);
         editPath = findViewById(R.id.path);
         buscar = findViewById(R.id.buscar);
+
         prefs= getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-        String usuarioDocente = prefs.getString("usuarioActual","");
-        helper.abrir();
-        docente = helper.getDocenteActual(usuarioDocente);
-        idDocente = docente.getIdDocente();
-        idEncargado = helper.getIdEncargadoImpresionesEscuela(docente.getIdEscuela());
-        helper.cerrar();
+        String usuario = prefs.getString("usuarioActual","");
+
+        if (usuario.equals("ADMIN")){
+            editEscuela.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    helper.abrir();
+                    final ArrayList<Escuela> escuelas = helper.consultarEscuelas();
+                    helper.cerrar();
+                    final String[] opcionesEscuela = new String[escuelas.size()];
+                    for (int i=0; i<escuelas.size(); i++){
+                        opcionesEscuela[i] = escuelas.get(i).getNombreEscuela();
+                    }
+                    AlertDialog.Builder seleccion =
+                            new AlertDialog.Builder(AdmSolicitarImpresionActivity.this);
+                    seleccion.setTitle("Seleccione una escuela:");
+                    seleccion.setItems(opcionesEscuela,
+                            new DialogInterface.OnClickListener(){
+
+                                public void onClick(DialogInterface dialog, int item) {
+
+                                    editEscuela.setText(opcionesEscuela[item]);
+                                    helper.abrir();
+                                    idEscuela = escuelas.get(item).getIdEscuela();
+                                    idEncargado = helper.getIdEncargadoImpresionesEscuela(idEscuela);
+                                }
+                            });
+                    seleccion.show();
+                }
+            });
+            editDocente.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    helper.abrir();
+                    final ArrayList<Docente> docentes = helper.getDocentes(idEscuela);
+                    helper.cerrar();
+                    final String[] opcionesDocente = new String[docentes.size()];
+                    for (int i=0; i<docentes.size(); i++){
+                        opcionesDocente[i] = docentes.get(i).getNombreDocente()+" "+docentes.get(i).getApellidoDocente();
+                    }
+                    AlertDialog.Builder seleccion =
+                            new AlertDialog.Builder(AdmSolicitarImpresionActivity.this);
+                    seleccion.setTitle("Seleccione una escuela:");
+                    seleccion.setItems(opcionesDocente,
+                            new DialogInterface.OnClickListener(){
+
+                                public void onClick(DialogInterface dialog, int item) {
+
+                                    editDocente.setText(opcionesDocente[item]);
+                                    idDocente = docentes.get(item).getIdDocente();
+                                }
+                            });
+                    seleccion.show();
+                }
+            });
+        }else {
+            tr1.setVisibility(View.GONE);
+            tr2.setVisibility(View.GONE);
+            li1.setVisibility(View.GONE);
+            li2.setVisibility(View.GONE);
+            helper.abrir();
+            Docente docente = helper.getDocenteActual(usuario);
+            idDocente = docente.getIdDocente();
+            nuevoNombre = docente.getApellidoDocente();
+            idEncargado = helper.getIdEncargadoImpresionesEscuela(docente.getIdEscuela());
+            helper.cerrar();
+        }
+
     }
 
     @Override
@@ -72,7 +145,6 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
             String[] partes = path.split("/");
             nombre = partes[partes.length - 1];
             directorio = "documentos";
-            nuevoNombre =  docente.getApellidoDocente();
             editPath.setText(nombre);
 
             try {
