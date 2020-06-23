@@ -1237,7 +1237,7 @@ public class ControlBdGrupo12 {
         List<String> resultado= new ArrayList<String>();
         Cursor datos= db.rawQuery("select * from segundarevicion where idsegundarevicion = "+id,null);
         if(datos.moveToFirst()){
-            resultado.add(datos.getString(4));
+            resultado.add(datos.getString(5));
         }
         return resultado;
     }
