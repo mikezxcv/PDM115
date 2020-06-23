@@ -45,7 +45,7 @@ public class NuevoEncargadoActivity extends AppCompatActivity {
         int ultimoUsuario = helper.obtenerUsuariosEncargados().length;
         helper.cerrar();
         usuario = "IMPRESIONADMIN"+(ultimoUsuario+1);
-        nombreUsuario = "IMPRESIONADMIN "+(ultimoUsuario+1);
+        nombreUsuario = "ADMIN IMPRESION "+(ultimoUsuario+1);
         txtUsuario.setText(usuario);
         txtEscuela.setOnClickListener(new View.OnClickListener() {
             @Override

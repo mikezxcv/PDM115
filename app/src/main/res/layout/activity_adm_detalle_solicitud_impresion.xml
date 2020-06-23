@@ -58,6 +58,7 @@
                 android:inputType="number"
                 android:enabled="false"
                 android:maxLength="3"
+                android:textColor="#000000"
                 android:gravity="center"/>
         </TableRow>
 
@@ -73,6 +74,7 @@
                 android:gravity="center"
                 android:enabled="false"
                 android:inputType="number"
+                android:textColor="#000000"
                 android:maxLength="2" />
         </TableRow>
         <TableRow>
@@ -100,6 +102,7 @@
                android:enabled="false"
                 android:inputType="textMultiLine"
                 android:gravity="top"
+                android:textColor="#000000"
                 android:maxLength="100" />
         </LinearLayout>
         <LinearLayout
@@ -156,6 +159,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:paddingTop="20dp"
+            android:textColor="#000000"
             android:gravity="center"/>
         <TableRow
             android:id="@+id/tableRow2">
@@ -187,6 +191,7 @@
                 android:clickable="false"
                 android:inputType="textMultiLine"
                 android:gravity="top"
+                android:textColor="#000000"
                 android:maxLength="100" />
         </LinearLayout>
         <TableRow
@@ -222,6 +227,7 @@
                 android:focusable="false"
                 android:clickable="false"
                 android:gravity="top"
+                android:textColor="#000000"
                 android:maxLength="100" />
         </LinearLayout>
         <LinearLayout

@@ -3893,5 +3893,4 @@ public class ControlBdGrupo12 {
         return (db.delete("MOTIVONOIMPRESION","IDMOTIVONOIMP='"+idMotivo+"'",null)>0)?"Registro eliminado":"Error";
     }
 
-
 }
