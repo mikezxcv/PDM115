@@ -66,7 +66,7 @@ public class AdmConsultarSolImpresionesActivity extends AppCompatActivity {
         if (!impresiones.isEmpty()){
             lista = new String[impresiones.size()];
             for (int i=0; i<impresiones.size();i++){
-               lista[i]= "Solicitud # "+i+" ["+impresiones.get(i).getDescripcionSolicitud()+"]";
+               lista[i]= "Solicitud # "+(i+1)+" ["+impresiones.get(i).getDescripcionSolicitud()+"]";
             }
         }
     }
@@ -76,7 +76,7 @@ public class AdmConsultarSolImpresionesActivity extends AppCompatActivity {
         lista = new String[impresiones.size()];
         if (!impresiones.isEmpty()){
             for (int i=0; i<impresiones.size();i++){
-                lista[i]= "Solicitud # "+i+" ["+impresiones.get(i).getDescripcionSolicitud()+"]";
+                lista[i]= "Solicitud # "+(i+1)+" ["+impresiones.get(i).getDescripcionSolicitud()+"]";
             }
         }
     }

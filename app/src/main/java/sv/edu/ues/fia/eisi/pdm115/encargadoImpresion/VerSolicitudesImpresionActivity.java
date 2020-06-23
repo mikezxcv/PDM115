@@ -43,7 +43,7 @@ public class VerSolicitudesImpresionActivity extends AppCompatActivity {
         } else {
             llenadoAdmin();
         }
-        if (lista.length>0) {
+        if (lista!=null && lista.length>0) {
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(VerSolicitudesImpresionActivity.this,
                     android.R.layout.simple_list_item_1, lista);
             listView.setAdapter(arrayAdapter);
@@ -67,7 +67,7 @@ public class VerSolicitudesImpresionActivity extends AppCompatActivity {
         if (!impresiones.isEmpty()){
             lista = new String[impresiones.size()];
             for (int i=0; i<impresiones.size();i++){
-                lista[i]= "Solicitud # "+i+" ["+impresiones.get(i).getDescripcionSolicitud()+"]";
+                lista[i]= "Solicitud # "+(i+1)+" ["+impresiones.get(i).getDescripcionSolicitud()+"]";
             }
         }
         helper.cerrar();
@@ -77,7 +77,7 @@ public class VerSolicitudesImpresionActivity extends AppCompatActivity {
         if (!impresiones.isEmpty()){
             lista = new String[impresiones.size()];
             for (int i=0; i<impresiones.size();i++){
-                lista[i]= "Solicitud # "+i+" ["+impresiones.get(i).getDescripcionSolicitud()+"]";
+                lista[i]= "Solicitud # "+(i+1)+" ["+impresiones.get(i).getDescripcionSolicitud()+"]";
             }
         }
         helper.cerrar();

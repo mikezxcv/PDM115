@@ -25,7 +25,7 @@ public class DetalleEncargadoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalle_encargado);
-        this.setTitle("Registrar nuevo encargado");
+        this.setTitle("Datos del encargado");
 
         txtEscuela = findViewById(R.id.editEscuelaEnc);
         txtNombre = findViewById(R.id.editNombreEnc);

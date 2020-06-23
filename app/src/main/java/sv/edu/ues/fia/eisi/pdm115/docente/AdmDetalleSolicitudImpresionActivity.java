@@ -63,7 +63,12 @@ public class AdmDetalleSolicitudImpresionActivity extends AppCompatActivity {
         String usuario = getIntent().getStringExtra("usuarioActual");
         helper.abrir();
         impresion = helper.getSolicitudImpresion(String.valueOf(idSolicitud));
-        editMotivo.setText(helper.getMotivo(impresion.getIdMotivoNoImp()));
+        if (impresion.getEstadoAprobacion()==2){
+            editMotivo.setText("Solicitud no aprobada");
+        }else{
+            editMotivo.setText(helper.getMotivo(impresion.getIdMotivoNoImp()));
+        }
+
         if (usuario.equals("ADMIN")){
             Docente docente = helper.getDocenteAdmin(impresion.getIdDocente());
             String edDocente = docente.getNombreDocente()+" "+docente.getApellidoDocente();
@@ -82,7 +87,7 @@ public class AdmDetalleSolicitudImpresionActivity extends AppCompatActivity {
         editAprobacion.setText(estadoAprobacion[impresion.getEstadoAprobacion()]);
         editEstadoImp.setText(estadoImpresion[impresion.getEstadoImpresion()]);
 
-        if(impresion.getEstadoImpresion()!=2||impresion.getEstadoAprobacion()!=2){
+        if(impresion.getEstadoImpresion()!=2){
             tr2.setVisibility(View.GONE);
             li2.setVisibility(View.GONE);
             tr3.setVisibility(View.GONE);
