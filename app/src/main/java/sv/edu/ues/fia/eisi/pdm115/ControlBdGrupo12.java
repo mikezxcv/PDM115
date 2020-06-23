@@ -338,6 +338,10 @@ public class ControlBdGrupo12 {
                         "\t(3, '1', 'PARCIAL 1', '2020-12-12','MAT115');");
                 db.execSQL("INSERT INTO `evaluacion` (`IDEVALUACION`, `IDTIPOEVAL`, `NOMBREEVALUACION`, `FECHAEVALUACION`,`IDASIGNATURA`) VALUES\n" +
                         "\t(4, '1', 'PARCIAL 2', '2020-12-12','MAT115');");
+                db.execSQL("INSERT INTO `evaluacion` (`IDEVALUACION`, `IDTIPOEVAL`, `NOMBREEVALUACION`, `FECHAEVALUACION`,`IDASIGNATURA`) VALUES\n" +
+                        "\t(5, '1', 'PARCIAL 1', '2020-12-12','SIC115');");
+                db.execSQL("INSERT INTO `evaluacion` (`IDEVALUACION`, `IDTIPOEVAL`, `NOMBREEVALUACION`, `FECHAEVALUACION`,`IDASIGNATURA`) VALUES\n" +
+                        "\t(6, '1', 'PARCIAL 1', '2020-12-12','BAD115');");
 
 
                 db.execSQL("INSERT INTO `docente` (`IDDOCENTE`, `IDTIPODOCENTECICLO`, `IDESCUELA`, `IDASIGNATURA`, `IDCICLO`, `USUARIO`, `ID_OPCION`, `NOMBREDOCENTE`, `APELLIDODOCENTE`,`ID_ROL`) VALUES\n" +
@@ -360,7 +364,10 @@ public class ControlBdGrupo12 {
                         "\t(2, 3, 'ESCUELA DE INGENIERIA INDUSTRIAL', 'INGENIERIA Y ARQUITECTURA');");
 
                 db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
-                        "\t('MP16001', 'DOCENTE', '1', 'MIGUEL', 'PEREZ', 'SISTEMAS', 'SISTEMAS');");
+                        "\t('MP16001', 'DOCENTE', '1    ', 'MIGUEL', 'PEREZ', 'SISTEMAS', 'SISTEMAS');");
+                db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
+                        "\t('CS17049', 'DOCENTE', '1', 'JOSE', 'AMILCAR', 'SISTEMAS', 'SISTEMAS');");
+
                 db.execSQL("INSERT INTO `local` (`IDLOCAL`, `NOMBRELOCAL`, `UBICACION`) VALUES\n" +
                         "\t(1, 'B-21', 'PLANTA MEDIA');");
                 db.execSQL("INSERT INTO `materia` (`IDASIGNATURA`, `NOMBREASIGNATURA`) VALUES\n" +

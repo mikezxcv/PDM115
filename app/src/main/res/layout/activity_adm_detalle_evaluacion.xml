@@ -137,20 +137,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"/>
 
-            <Button
-                android:id="@+id/irActualizarEvaluacion"
-
-                android:text="ACTUALIZAR"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
-
-
-            <Button
-                android:id="@+id/irEliminarEvaluacion"
-                android:text="Eliminar"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
-
         </LinearLayout>
     </ScrollView>
 
