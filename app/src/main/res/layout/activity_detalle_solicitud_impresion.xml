@@ -168,8 +168,7 @@
             android:enabled="false"
             android:clickable="false"
             android:gravity="center"
-            android:textColor="#000000"
-            android:text="PENDIENTE"/>
+            android:textColor="#000000"/>
 
     </TableRow>
     <TableRow
@@ -188,7 +187,7 @@
             android:enabled="false"
             android:gravity="center"
             android:textColor="#000000"
-            android:text="PENDIENTE"/>
+            android:text="---"/>
     </TableRow>
     <TextView
         android:id="@+id/tvRazonTitulo"
@@ -247,8 +246,6 @@
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:editable="false"
-        android:focusable="false"
         android:enabled="false"
         android:clickable="false"
         android:orientation="horizontal"
@@ -259,9 +256,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textMultiLine"
-            android:editable="false"
-            android:focusable="false"
-            android:clickable="false"
+            android:enabled="false"
             android:gravity="top"
             android:maxLength="100"
             android:textColor="#000000"/>

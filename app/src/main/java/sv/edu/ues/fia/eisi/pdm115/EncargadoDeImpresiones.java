@@ -11,7 +11,7 @@ public class EncargadoDeImpresiones {
     private String usuario;
     private String idOpcion;
 
-    EncargadoDeImpresiones(){}
+    public EncargadoDeImpresiones(){}
 
     EncargadoDeImpresiones(int idEncargado, String idEscuela, String nombreEncargado, String apellidoEncargado, String usuario, @Nullable String idOpcion){
         this.idEncargado = idEncargado;

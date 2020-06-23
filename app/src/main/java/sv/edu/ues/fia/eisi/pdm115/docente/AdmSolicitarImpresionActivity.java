@@ -221,7 +221,7 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
         }
 
     }
-
+    //PROYECTO 2
     public void buscarArchivo(View view) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("application/pdf");

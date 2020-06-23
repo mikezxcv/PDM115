@@ -16,6 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
     String[] menuAdmin={"Estudiante","Docente","Encargado de Impresion","Web Services","LLenar Base de Datos"};
     String[] menuDocente={"Docente","Web Services","LLenar Base de Datos"};
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     String[] activitiesDocente={"DocenteMenuActivity","webServices"};
     String[] activitiesEncargadoImpresion={"EncargadoImpresionesMenuActivity"};
     String[] activitiesEstudiante={"EstudianteMenuActivity"};
+    String[] impresionUsuarios;
 
     ControlBdGrupo12 BDhelper;
     ListView listViewMain;
@@ -47,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
        String user= bundle.getString("usuario");
         prefs= getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         String shared=prefs.getString("user","");
-
 
         //menu de admin
         if(user.contentEquals("ADMIN") || shared.contentEquals("ADMIN")){
@@ -214,8 +217,10 @@ public class MainActivity extends AppCompatActivity {
             });
         }
         //menu encargado impresiones
-        if((user.contentEquals("IMPRESIONADMIN") || shared.contentEquals("IMPRESIONADMIN")) ||
-                (user.contentEquals("IMPRESIONADMIN2") || shared.contentEquals("IMPRESIONADMIN2"))){
+        BDhelper.abrir();
+        impresionUsuarios = BDhelper.obtenerUsuariosEncargados();
+        BDhelper.cerrar();
+        if(Arrays.asList(impresionUsuarios).contains(user) || Arrays.asList(impresionUsuarios).contains(shared)){
 
             ArrayAdapter<String>  arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,menuEncargadoImpresion);
             listViewMain.setAdapter(arrayAdapter);
@@ -226,7 +231,6 @@ public class MainActivity extends AppCompatActivity {
                         String nombreValue=activitiesEncargadoImpresion[position];
                         if(position==0){
 
-
                             try{
                                 Class<?>
                                         clase=Class.forName("sv.edu.ues.fia.eisi.pdm115.encargadoImpresion."+nombreValue);
@@ -235,11 +239,7 @@ public class MainActivity extends AppCompatActivity {
                             }catch(ClassNotFoundException e){
                                 e.printStackTrace();
                             }
-
                         }
-
-
-
                     }else{
                         ControlBdGrupo12 BDhelper = new ControlBdGrupo12(MainActivity.this);
                         BDhelper.abrir();
@@ -247,11 +247,9 @@ public class MainActivity extends AppCompatActivity {
                         BDhelper.cerrar();
                         Toast.makeText(getApplicationContext(), mensaje, Toast.LENGTH_SHORT).show();
                     }
-
                 }
             });
         }
-
     }
 
     @Override

@@ -130,7 +130,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerPadding="10sp">
+        android:dividerPadding="10sp"
+        android:visibility="gone">
 
         <EditText
             android:id="@+id/path"
