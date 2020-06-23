@@ -66,8 +66,9 @@ public class ControlBdGrupo12 {
         DBHelper = new DatabaseHelper(context);
     }
 
+
     public static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "procesosGrupo12_40.s3db";
+        private static final String BASE_DATOS = "procesosGrupo12_42.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -211,7 +212,7 @@ public class ControlBdGrupo12 {
                         "   FECHASOLICITUDREPETIDO DATE,\n" +
                         "   ESTADOREPETIDO       CHAR(50),\n" +
                         "   FECHAREPETIDO        DATE,\n" +
-                        "   HORAREPETIDO         TIME,\n" +
+                        "   HORAREPETIDO         CHAR(50),\n" +
                         "   NOTADESPUESREPETIDO  FLOAT,\n" +
                         "   NOTAANTESREPETIDO    FLOAT,\n" +
                         "   OBSERVACIONES        CHAR(100),\n" +
@@ -250,7 +251,7 @@ public class ControlBdGrupo12 {
                         "   MATERIADIFERIDO      CHAR(20),\n" +
                         "   IDLOCAL      CHAR(20),\n" +
                         "   MOTIVODIFERIDO       CHAR(100),\n" +
-                        "   HORADIFERIDO         TIME,\n" +
+                        "   HORADIFERIDO         CHAR(100),\n" +
                         "   primary key (IDDIFERIDO)\n" +
                         ");");
                 db.execSQL("CREATE TABLE SOLICITUDIMPRESION  (\n" +
@@ -383,8 +384,6 @@ public class ControlBdGrupo12 {
                         "\t('DSI115', '01-20');");
                 db.execSQL("INSERT INTO `opcioncrud` (`ID_OPCION`, `DESOPCION`, `NUMCRUD`) VALUES\n" +
                         "\t('1', 'VER SOLICITUD', 1);");
-
-
 
 
                 db.execSQL("INSERT INTO `primerrevision` (`IDPRIMERREVISION`, `IDLOCAL`, `IDDOCENTE`, `ID_DETALLEALUMNOSEVALUADOS`, `FECHASOLICITUDPRIMERAREV`, `ESTADOPRIMERAREV`, `FECHAPRIMERAREV`, `HORAPRIMERAREV`, `NOTAANTESPRIMERAREV`, `NOTADESPUESPRIMERAREV`, `OBSERVACIONESPRIMERAREV`,`FECHALIMITESEGUNDAREVISION`) VALUES\n" +
@@ -3491,22 +3490,77 @@ public class ControlBdGrupo12 {
         return escuelas;
     }
 
+    public Escuela consultarEscuela(String id){
+        Escuela escuela = new Escuela();
+        Cursor cursor = db.rawQuery("SELECT * FROM ESCUELA WHERE IDESCUELA='"+id+"'",null);
+        if(cursor.moveToFirst()){
+            return new Escuela(
+                    cursor.getString(cursor.getColumnIndex("IDESCUELA")),
+                    cursor.getInt(cursor.getColumnIndex("ID_AREA")),
+                    cursor.getString(cursor.getColumnIndex("NOMBREESCUELA")),
+                    cursor.getString(cursor.getColumnIndex("FACULTAD"))
+            );
+        }else {
+            return null;
+        }
+    }
+
+    public String[] obtenerUsuariosEncargados(){
+        Cursor cursor = db.rawQuery("SELECT USUARIO FROM USUARIO WHERE USUARIO LIKE '%IMPRESION%'",null);
+        if (cursor==null) return null;
+
+        String[] usuarios;
+        int i=0;
+        usuarios = new String[cursor.getCount()];
+        while (cursor.moveToNext()) {
+            usuarios[i] = cursor.getString(cursor.getColumnIndex("USUARIO"));
+            i++;
+        }
+        return usuarios;
+    }
+
+    public String obtenerPassEncargado(String idUsuario){
+        Cursor cursor = db.rawQuery("SELECT CONTRASENA FROM USUARIO WHERE USUARIO='"+idUsuario+"'",null);
+        if(cursor != null && cursor.moveToFirst()){
+            return cursor.getString(cursor.getColumnIndex("CONTRASENA"));
+        }
+        return null;
+    }
+
+
+    public String crearUsuarioEncargado(String usuario, String nombreUsuario, String pass){
+        ContentValues regUsuario = new ContentValues();
+        regUsuario.put("USUARIO", usuario);
+        regUsuario.put("NOMBRE_USUARIO", nombreUsuario);
+        regUsuario.put("CONTRASENA", pass);
+
+        ContentValues regAccceso = new ContentValues();
+        regAccceso.put("USUARIO", usuario);
+        regAccceso.put("ID_OPCION", "1");
+
+        long res1 = db.insert("USUARIO",null,regUsuario);
+        long res2 = res1!=-1 && res1!=0 ?
+                db.insert("ACCESOUSUARIO",null,regAccceso) : -1;
+
+        return  res2>0 ? "Usuario creado: "+usuario :"Error";
+
+    }
+
     public String insertarEncargado(EncargadoDeImpresiones encargado){
         ContentValues regEncargado = new ContentValues();
-        regEncargado.put("IDENCARGADO", encargado.getIdEncargado());
         regEncargado.put("IDESCUELA", encargado.getIdEscuela());
         regEncargado.put("USUARIO", encargado.getUsuario());
         regEncargado.put("ID_OPCION", encargado.getIdOpcion());
         regEncargado.put("NOMBREENCARGADO", encargado.getNombreEncargado());
         regEncargado.put("APELLIDOENCARGADO", encargado.getApellidoEncargado());
        return  (db.insert("ENCARGADODEIMPRESIONES",null,regEncargado)>0)
-               ? "Registro exitoso" : "Error";
+               ? "Registro exitoso: "+encargado.getNombreEncargado()+""+encargado.getApellidoEncargado() : "Error";
 
     }
 
     public ArrayList<EncargadoDeImpresiones> obtenerEncargados(){
         ArrayList<EncargadoDeImpresiones> encargados = new ArrayList<EncargadoDeImpresiones>();
-        Cursor cursor = db.rawQuery("SELECT * FROM EMCARGADODEIMPRESIONES",null);
+        Cursor cursor = db.rawQuery("SELECT * FROM ENCARGADODEIMPRESIONES",null);
 
         while (cursor.moveToNext()){
             EncargadoDeImpresiones encargado = new EncargadoDeImpresiones(
@@ -3550,10 +3604,15 @@ public class ControlBdGrupo12 {
 
     }
 
-    public String eliminarEncargado(String idEncargado){
-        return (db.delete("ENCARGADODEIMPRESIONES","IDENCARGADO='"+idEncargado+"'",null)>0)?"Registro eliminado":"Error";
-    }
+    public String eliminarEncargado(String idEncargado, String usuario){
 
+        if((db.delete("ENCARGADODEIMPRESIONES","IDENCARGADO='"+idEncargado+"'",null)>0)){
+            if ( db.delete("ACCESOUSUARIO","USUARIO='"+usuario+"'",null)>0){
+                return (db.delete("USUARIO","USUARIO='"+usuario+"'",null)>0) ? "Registro eliminado":"Error";
+            }
+        }
+        return "Error";
+    }
 
   //Solicitud impresiones DOCENTE
 
@@ -3756,6 +3815,7 @@ public class ControlBdGrupo12 {
         ContentValues solicitud = new ContentValues();
         solicitud.put("MOTIVONOIMP", impresion.getIdMotivoNoImp());
         solicitud.put("DESCRIPCION_NO_IMP", impresion.getDescripcionNoImp());
+        solicitud.put("ESTADOAPROBACION", impresion.getEstadoAprobacion());
         solicitud.put("ESTADOIMPRESION", impresion.getEstadoImpresion());
 
         return  (db.update("SOLICITUDIMPRESION",solicitud,"IDSOLICITUDIMPRESION='"+impresion.getIdSolicitudImpresion()+"'",null)>0)
@@ -3767,36 +3827,8 @@ public class ControlBdGrupo12 {
         ContentValues solicitud = new ContentValues();
         solicitud.put("MOTIVONOIMP", impresion.getIdMotivoNoImp());
         solicitud.put("DESCRIPCION_NO_IMP", impresion.getDescripcionNoImp());
-        solicitud.put("ESTADOAPROBACION", impresion.getEstadoAprobacion());
         solicitud.put("ESTADOIMPRESION", impresion.getEstadoImpresion());
 
-        return  (db.update("SOLICITUDIMPRESION",solicitud,"IDSOLICITUDIMPRESION='"+impresion.getIdSolicitudImpresion()+"'",null)>0)
-                ? resultado : "Error";
-    }
-
-    public String aprobarSolicitudImpresion(Impresion impresion){
-        String resultado = "Solicitud actualizada";
-        ContentValues solicitud = new ContentValues();
-        solicitud.put("ESTADOAPROBACION", impresion.getEstadoAprobacion());
-        solicitud.put("ESTADOIMPRESION", impresion.getEstadoAprobacion());
-        return  (db.update("SOLICITUDIMPRESION",solicitud,"IDSOLICITUDIMPRESION='"+impresion.getIdSolicitudImpresion()+"'",null)>0)
-                ? resultado : "Error";
-    }
-
-    public String impresionRechazada(Impresion impresion){
-        String resultado = "La impresion no se ha realizado por el siguiente motivo: "+getMotivo(impresion.getIdMotivoNoImp());
-        ContentValues solicitud = new ContentValues();
-        solicitud.put("MOTIVONOIMP", impresion.getEstadoAprobacion());
-        solicitud.put("DESCRIPCION_NO_IMP", impresion.getEstadoAprobacion());
-        solicitud.put("ESTADOIMPRESION", impresion.getEstadoAprobacion());
-        return  (db.update("SOLICITUDIMPRESION",solicitud,"IDSOLICITUDIMPRESION='"+impresion.getIdSolicitudImpresion()+"'",null)>0)
-                ? resultado : "Error";
-    }
-
-    public String impresionRealizada(Impresion impresion){
-        String resultado = "Se ha realizado la impresion";
-        ContentValues solicitud = new ContentValues();
-        solicitud.put("ESTADOIMPRESION", impresion.getEstadoImpresion());
         return  (db.update("SOLICITUDIMPRESION",solicitud,"IDSOLICITUDIMPRESION='"+impresion.getIdSolicitudImpresion()+"'",null)>0)
                 ? resultado : "Error";
     }

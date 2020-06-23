@@ -9,14 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.MotivoNoImpresion;
 import sv.edu.ues.fia.eisi.pdm115.R;
-import sv.edu.ues.fia.eisi.pdm115.docente.AdmRolActivity;
-import sv.edu.ues.fia.eisi.pdm115.docente.AdmRolDetalle;
 
 public class DetalleMotivoActivity extends AppCompatActivity {
 

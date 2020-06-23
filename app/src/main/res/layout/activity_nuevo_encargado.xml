@@ -1,9 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="sv.edu.ues.fia.eisi.pdm115.encargadoImpresion.NuevoEncargadoActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+        android:stretchColumns="*"  >
+
+        <TextView
+            android:text="Nuevo Encargado de Impresiones"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:gravity="center"/>
+        <TableRow>
+            <TextView android:text="Escuela"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+            <!-- Solo sirve como padding -->
+            <EditText
+                android:id="@+id/hiddenEdit1"
+                android:inputType="number"
+                android:maxLength="3"
+                android:gravity="center"
+                android:visibility="invisible"/>
+        </TableRow>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/editEscuelaEnc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="false"
+                android:inputType="text"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:maxLength="100" />
+        </LinearLayout>
+        <TableRow>
+            <TextView android:text="Nombre"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+            <!-- Solo sirve como padding -->
+            <EditText
+                android:inputType="number"
+                android:maxLength="3"
+                android:gravity="center"
+                android:visibility="invisible"/>
+        </TableRow>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/editNombreEnc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:maxLength="100"
+                android:hint="Nombre del encargado"/>
+        </LinearLayout>
+        <TableRow android:id="@+id/tableRow2">
+            <TextView android:text="Apellidos"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+            <!-- Solo sirve como padding -->
+            <EditText
+                android:inputType="number"
+                android:maxLength="3"
+                android:gravity="center"
+                android:visibility="invisible"/>
+        </TableRow>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/editApellidoEnc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:gravity="center"
+                android:textColor="#000000"
+                android:maxLength="100"
+                android:hint="Apellidos del encargado"/>
+        </LinearLayout>
+        <TextView
+            android:text="CREDENCIALES"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingTop="20dp"
+            android:gravity="center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@android:color/darker_gray"/>
+
+        <TableRow>
+            <TextView android:text="Nombre de usuario"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+            <!-- Solo sirve como padding -->
+            <EditText
+                android:inputType="number"
+                android:maxLength="3"
+                android:gravity="center"
+                android:visibility="invisible"/>
+        </TableRow>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/usuarioEncargado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="start"
+                android:textColor="#000000"
+                android:maxLength="15" />
+        </LinearLayout>
+        <TableRow >
+            <TextView android:text="Contraseña"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+            <!-- Solo sirve como padding -->
+            <EditText
+                android:inputType="number"
+                android:maxLength="3"
+                android:gravity="center"
+                android:visibility="invisible"/>
+        </TableRow>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/passUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:gravity="start"
+                android:textColor="#000000"
+                android:hint="Ingrese la contraseña que desea"/>
+        </LinearLayout>
+        <TableRow >
+            <TextView android:text="Confirmar contraseña"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+            <!-- Solo sirve como padding -->
+            <EditText
+                android:id="@+id/hiddenEdit2"
+                android:inputType="number"
+                android:maxLength="3"
+                android:gravity="center"
+                android:visibility="invisible"/>
+        </TableRow>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <EditText
+                android:id="@+id/confirmarPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:gravity="start"
+                android:textColor="#000000"
+                android:hint="Repita la contraseña"/>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:paddingTop="1dp">
+
+            <Button
+                android:id="@+id/guardarCambios"
+                android:onClick="guardar"
+                android:text="guardar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/cancelar"
+                android:onClick="cancelar"
+                android:text="Cancelar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </TableLayout>
+</ScrollView>

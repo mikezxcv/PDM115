@@ -33,6 +33,7 @@ public class AdmAprobarSolRepetido extends AppCompatActivity {
 
     TextView fechaRealizarRepetido;
     TextView horaRepetido;
+    TextView minRepetido;
     TextView localRepetido;
     TextView observaciones;
 
@@ -58,6 +59,7 @@ public class AdmAprobarSolRepetido extends AppCompatActivity {
 
         fechaRealizarRepetido = (TextView) findViewById(R.id.editfechaEvaluacionRepetido);
         horaRepetido = (TextView)findViewById(R.id.editHoraRepetido);
+        minRepetido = (TextView)findViewById(R.id.editminRepetido);
         localRepetido = (TextView)findViewById(R.id.editLocalRepetido);
         observaciones = (TextView)findViewById(R.id.editObservacionesRepetido);
 
@@ -148,16 +150,31 @@ public class AdmAprobarSolRepetido extends AppCompatActivity {
 
         String fecha= fechaRealizarRepetido.getText().toString();
         String hora = horaRepetido.getText().toString();
+        String min = minRepetido.getText().toString();
         String local= localRepetido.getText().toString();
         String observacion= observaciones.getText().toString();
 
+        String horaFinal = hora + ":" + min;
+
+        int horaINT = -1;
+        int minINT = -1;
+        if(hora.isEmpty()||min.isEmpty()){
+            Toast.makeText(this, "Ingrese hora y min",Toast.LENGTH_SHORT).show();
+        }else{
+            horaINT = Integer.valueOf(hora);
+            minINT = Integer.valueOf(min);
+        }
 
         if(!estadoAprobado.isChecked() && !estadoDenegado.isChecked()){
             Toast.makeText(this, "Seleccione un estado",Toast.LENGTH_LONG).show();
         }
         else{
-            if(fecha.isEmpty()||hora.isEmpty()||local.isEmpty()||observacion.isEmpty()){
+            if(fecha.isEmpty()||hora.isEmpty()||min.isEmpty()||local.isEmpty()||observacion.isEmpty()){
                 Toast.makeText(this, "Rellene todos los campos",Toast.LENGTH_LONG).show();
+            }else if(!(horaINT >= 0 && horaINT <= 23)){
+                Toast.makeText(this, "La hora debe de estar entre 0 y 23",Toast.LENGTH_SHORT).show();
+            }else if(!(minINT >= 0 && minINT <= 59)){
+                Toast.makeText(this, "Ingrese minutos entre 0 y 59",Toast.LENGTH_SHORT).show();
             }
             else{
                 String opcion= (estadoAprobado.isChecked())?  APROBADO:DENEGADO;
@@ -167,7 +184,7 @@ public class AdmAprobarSolRepetido extends AppCompatActivity {
 
                 repetidoTabla.setESTADOREPETIDO(opcion);
                 repetidoTabla.setFECHAREPETIDO(fecha);
-                repetidoTabla.setHORAREPETIDO(hora);
+                repetidoTabla.setHORAREPETIDO(horaFinal);
                 repetidoTabla.setLOCAL(local);
                 repetidoTabla.setOBSERVACIONES(observacion);
 
@@ -177,7 +194,6 @@ public class AdmAprobarSolRepetido extends AppCompatActivity {
                 String resultado= helper.actualizar(repetidoTabla);
                 helper.cerrar();
                 Toast.makeText(this,resultado,Toast.LENGTH_SHORT).show();
-
             }
         }
     }

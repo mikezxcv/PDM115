@@ -33,7 +33,7 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
     String observacionesTmp;
     Impresion impresion;
     String[] estadoAprobacion = {"Pendiente","Aprobada","Rechazada"};
-    String[] estadoImpresion = {"Pendiente", "Realizada", "No se realizó"};
+    String[] estadoImpresion = {"En espera", "Realizada", "No se realizó"};
     ArrayList<MotivoNoImpresion> motivos;
     EditText editExamenes, editHojas, editDetalles, editAprobacion, editEstadoImp,
             editMotivo, observaciones, editDocente, editEncargado;
@@ -75,23 +75,21 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
                     String.valueOf(impresion.getIdEncargado()));
             String edEncargado = encargado.getNombreEncargado()+" "+encargado.getApellidoEncargado();
             editEncargado.setText(edEncargado);
-
         }else{
             tr1.setVisibility(View.GONE);
             li1.setVisibility(View.GONE);
         }
-
+        if (impresion.getIdMotivoNoImp()!=0){
+            editMotivo.setText(helper.getMotivo(impresion.getIdMotivoNoImp()));
+        }else {
+            if (impresion.getEstadoAprobacion()==2) editMotivo.setText("Solicitud no aprobada");
+            else { editMotivo.setText("---");}
+        }
         helper.cerrar();
-
 
         editExamenes.setText(String.valueOf(impresion.getCantidadExamenes()));
         editHojas.setText(String.valueOf(impresion.getHojasEmpaque()));
         editDetalles.setText(impresion.getDescripcionSolicitud());
-        if (impresion.getIdMotivoNoImp()!=0){
-            editMotivo.setText(motivos.get(impresion.getIdMotivoNoImp()).getMotivoNoImpresion());
-        }else {
-            editMotivo.setText("No asignado");
-        }
         observaciones.setText(impresion.getDescripcionNoImp());
         editAprobacion.setText(estadoAprobacion[impresion.getEstadoAprobacion()]);
         editEstadoImp.setText(estadoImpresion[impresion.getEstadoImpresion()]);
@@ -105,28 +103,24 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
                 AlertDialog.Builder seleccion =
                         new AlertDialog.Builder(contexto);
                 seleccion.setTitle("Seleccione una opcion:");
-                seleccion.setItems(estadoAprobacion,
-                        new DialogInterface.OnClickListener()
-                        {
-                            public void onClick(DialogInterface dialog, int item)
-                            {
+                seleccion.setItems(estadoAprobacion, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int item) {
                                 editAprobacion.setText(estadoAprobacion[item]);
                                 impresion.setEstadoAprobacion(item);
-                                switch (item){
-                                    case 0:
-                                    case 1:
-                                        editEstadoImp.setText("Pendiente");
-                                        impresion.setEstadoImpresion(0);
-                                        impresion.setIdMotivoNoImp(0);
-                                        impresion.setDescripcionNoImp("");
-                                        observaciones.getText().clear();
-                                        break;
-                                    case 2:
-                                        editEstadoImp.setText("No se realizó");
-                                        impresion.setEstadoImpresion(2);
-                                        impresion.setIdMotivoNoImp(0);
-                                        observaciones.setText("El docente director no aprobó la solicitud");
-                                        impresion.setDescripcionNoImp(observaciones.getText().toString());
+                                if (item!=2){
+                                    editEstadoImp.setText(estadoImpresion[0]);
+                                    impresion.setEstadoImpresion(0);
+                                    impresion.setIdMotivoNoImp(0);
+                                    impresion.setDescripcionNoImp("");
+                                    editMotivo.setText("---");
+                                    observaciones.getText().clear();
+                                }else {
+                                    editEstadoImp.setText("No se realizó");
+                                    impresion.setEstadoImpresion(2);
+                                    impresion.setIdMotivoNoImp(0);
+                                    observaciones.setText("El docente director no aprobó la solicitud");
+                                    editMotivo.setText("Solicitud no aprobada");
+                                    impresion.setDescripcionNoImp(observaciones.getText().toString());
                                 }
                             }
                         });
@@ -137,37 +131,26 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         editEstadoImp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (impresion.getEstadoAprobacion()) {
-                    case 0:
-                    case 1:
-                        AlertDialog.Builder seleccion = new AlertDialog
-                                .Builder(contexto);
-                        seleccion.setTitle("Seleccione una opcion:");
-                        seleccion.setItems(estadoImpresion,
-                            new DialogInterface.OnClickListener() {
+                if(impresion.getEstadoAprobacion()!=2) {
+                    AlertDialog.Builder seleccion = new AlertDialog.Builder(contexto);
+                    seleccion.setTitle("Seleccione una opcion:");
+                    seleccion.setItems(estadoImpresion, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int item) {
                                     editEstadoImp.setText(estadoImpresion[item]);
                                     impresion.setEstadoImpresion(item);
-                                    if (item==2){
+                                    if (item == 2) {
                                         editMotivo.setEnabled(true);
                                         observaciones.setEnabled(true);
-                                        observaciones.setClickable(true);
-                                        observaciones.setFocusable(true);
-                                    }else {
+                                        editMotivo.setText("No asignado");
+                                    } else {
                                         editMotivo.setEnabled(false);
                                         observaciones.setEnabled(false);
                                     }
-
                                 }
                             });
-                        seleccion.show();
-                        break;
-
-                    case 2:
-                        Toast.makeText(contexto, "La solicitud no se aprobó",Toast.LENGTH_LONG).show();
-                        break;
-                    default:
-                        break;
+                    seleccion.show();
+                }else {
+                    Toast.makeText(contexto, "La solicitud no se aprobó", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -198,7 +181,7 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
                                     public void onClick(DialogInterface dialog, int item)
                                     {
                                         editMotivo.setText(opciones[item]);
-                                        impresion.setIdMotivoNoImp(item);
+                                        impresion.setIdMotivoNoImp(motivos.get(item).getIdMotivo());
                                     }
                                 });
                         seleccion.show();
@@ -206,8 +189,6 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
                     default:
                         break;
                 }
-
-
             }
         });
     }
@@ -227,6 +208,10 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         modo=2;
         variablesTemporales();
         cancelar.setVisibility(View.VISIBLE);
+        if (impresion.getEstadoImpresion()==2){
+            editMotivo.setEnabled(true);
+            observaciones.setEnabled(true);
+        }
         guardar.setVisibility(View.VISIBLE);
         modificarEstadoAprobacion.setVisibility(View.GONE);
         cambiarEstadoImpresion.setVisibility(View.GONE);
@@ -234,6 +219,7 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
     }
 
     public void guardar(View view) {
+
         switch (modo){
             case 1:
                 helper.abrir();
@@ -248,13 +234,17 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
                 helper.cerrar();
                 Toast.makeText(contexto,res2,Toast.LENGTH_SHORT).show();
                 break;
-
+            default:
+                break;
         }
+
         cambiarEstadoImpresion.setVisibility(View.VISIBLE);
         modificarEstadoAprobacion.setVisibility(View.VISIBLE);
+        editEstadoImp.setEnabled(false);
+        editMotivo.setEnabled(false);
+        observaciones.setEnabled(false);
         cancelar.setVisibility(View.GONE);
         guardar.setVisibility(View.GONE);
-
     }
 
     public void cancelar(View view) {
@@ -264,8 +254,13 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         editEstadoImp.setText(estadoImpresion[impresion.getEstadoImpresion()]);
 
 
-        if (impresion.getIdMotivoNoImp()!=0 || impresion.getIdMotivoNoImp()!=-1){
-            editMotivo.setText(motivos.get(motivos.indexOf(impresion.getIdMotivoNoImp())).getMotivoNoImpresion());
+        if (impresion.getIdMotivoNoImp()!=0 && impresion.getIdMotivoNoImp()!=-1){
+            helper.abrir();
+            editMotivo.setText(helper.getMotivo(impresion.getIdMotivoNoImp()));
+            helper.cerrar();
+        }else {
+            if (impresion.getEstadoAprobacion()!=2) editMotivo.setText("---");
+            else {editMotivo.setText("Solicitud no aprobada");}
         }
         observaciones.setText(impresion.getDescripcionNoImp());
         editEstadoImp.setEnabled(false);
