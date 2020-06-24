@@ -14,13 +14,13 @@ import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
 public class DocenteMenuActivity extends ListActivity {
-    String[] menu={"Administrar Primera Revision","Administrar Segunda Revision","Administrar Diferiddos ","Administrar Repetidos ","Administrar Impresiones","Gestionar Locales  de Revision", "Gestionar Roles de Docentes","Gestionar Escuelas", "Gestionar Evaluaciones","Gestionar fechas evaluaciones"};
     String[] activities={"AdmPrimeraRevisionActivity","AdmSegundaRevisionActivity","AdmDiferidoActivity","AdmRepetidoActivity","AdmImpresionesActivity","AdmLocalActivity", "AdmRolActivity","AdmEscuelaActivity", "AdmListaEvaluacionActivity","AdmGestionarEvaluacionesActivity"};
     //ControlBdGrupo12 BDhelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String[] menu={getString(R.string.AdministrarPrimeraRevisionDOC),getString(R.string.AdministrarSegundaRevisionDOC),getString(R.string.AdministrarDiferiddosDOC),getString(R.string.AdministrarRepetidosDOC),getString(R.string.AdministrarImpresionesDOC),getString(R.string.GestionarLocalesRevisionDOC), getString(R.string.GestionarRolesDocentesDOC),getString(R.string.GestionarEscuelasDOC), getString(R.string.GestionarEvaluacionesDOC),getString(R.string.GestionarfechasevaluacionesDOC)};
         setListAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, menu));
         // BDhelper = new ControlBDGrupo12(this);

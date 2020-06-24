@@ -13,7 +13,6 @@ import android.widget.ListView;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
 public class MenuWebServices extends AppCompatActivity {
-    String [] opciones={"Actualizar Lista de Locales","Cantidad Solicitudes de Procesos Academicos","Actualizar Lista de Estudiantes","Eliminar Estudiante","Ingresar materia","Consultar Lista de Usuarios"};
     String []activity={"sv.edu.ues.fia.eisi.pdm115.webServices.ActualizarLocales",
             "sv.edu.ues.fia.eisi.pdm115.webServices.ConsultarCantidadSolicitudes",
             "sv.edu.ues.fia.eisi.pdm115.webServices.ActualizarEstudiantes",
@@ -29,6 +28,8 @@ public class MenuWebServices extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_web_services);
         listView=(ListView) findViewById(R.id.listVievWebServices);
+
+        String [] opciones={getString(R.string.ActualizarListaLocalesWEB),getString(R.string.CantidadSolicitudesProcesosAcademicosWEB),getString(R.string.ActualizarListaEstudiantesWEB),getString(R.string.EliminarEstudianteWEB),getString(R.string.IngresarmateriaWEB),getString(R.string.ConsultarListaUsuariosWEB)};
 
         ArrayAdapter<String> arrayAdapter= new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,opciones);
         listView.setAdapter(arrayAdapter);
