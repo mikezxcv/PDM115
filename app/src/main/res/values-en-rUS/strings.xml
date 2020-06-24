@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">P2MP16001</string>
+    <string name="escuela">School</string>
+    <string name="docente">Teacher</string>
+    <string name="estudianteMENU">Student</string>
+    <string name="DocenteMENU">Teacher</string>
+    <string name="EncargadoImpresionMENU">" Print Manager"</string>
+    <string name="WebServicesMENU">Web Services</string>
+    <string name="PrimeraRevisionESTU">" First checking"</string>
+    <string name="SegundaRevisionESTU">" Second revision"</string>
+    <string name="DiferidoESTU">" Deferred"</string>
+    <string name="RepetidoESTU">" Repeated"</string>
+    <string name="AdministrarPrimeraRevisionDOC">" Manage First Review"</string>
+    <string name="AdministrarSegundaRevisionDOC">" Manage Second Review"</string>
+    <string name="AdministrarDiferiddosDOC">" Manage Deferrals"</string>
+    <string name="AdministrarRepetidosDOC">" Manage Repeats"</string>
+    <string name="AdministrarImpresionesDOC">Manage Prints</string>
+    <string name="GestionarLocalesRevisionDOC">Manage Revision Rooms</string>
+    <string name="GestionarRolesDocentesDOC">Manage Teacher Roles</string>
+    <string name="GestionarEscuelasDOC">Manage Schools</string>
+    <string name="GestionarEvaluacionesDOC">" Manage Assessments"</string>
+    <string name="GestionarfechasevaluacionesDOC">Manage evaluation dates</string>
+    <string name="AdministrarsolicitudesimpresionIMP">" Manage print requests"</string>
+    <string name="AdministrarMotivosIMP">" Manage Reasons"</string>
+    <string name="AdministrarEncargadosImpresionesIMP">" Manage Print Managers"</string>
+    <string name="ActualizarListaLocalesWEB">" Update Locals List"</string>
+    <string name="CantidadSolicitudesProcesosAcademicosWEB">" Number of Academic Process Requests"</string>
+    <string name="ActualizarListaEstudiantesWEB">" Update Student List"</string>
+    <string name="EliminarEstudianteWEB">" Delete Student"</string>
+    <string name="IngresarmateriaWEB">" Enter subject"</string>
+    <string name="ConsultarListaUsuariosWEB">" Consult User List"</string>
+</resources>

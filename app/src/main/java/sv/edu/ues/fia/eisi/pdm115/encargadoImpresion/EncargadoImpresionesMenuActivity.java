@@ -15,9 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
 public class EncargadoImpresionesMenuActivity extends AppCompatActivity {
-    String[] menu={"Administrar solicitudes de impresión","Administrar Motivos"};
+
     String[] actividades ={"VerSolicitudesImpresionActivity","GestionarMotivosActivity"};
-    String[] menuAdmin={"Administrar solicitudes de impresión", "Administrar Encargados de Impresiones","Administrar Motivos"};
     String[] actividadesAdmin ={"VerSolicitudesImpresionActivity","GestionarEncargadosActivity","GestionarMotivosActivity"};
     private SharedPreferences prefs;
     ListView listView;
@@ -25,6 +24,10 @@ public class EncargadoImpresionesMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_encargado_impresiones_menu);
+
+        String[] menu={getString(R.string.AdministrarsolicitudesimpresionIMP),getString(R.string.AdministrarMotivosIMP)};
+        String[] menuAdmin={getString(R.string.AdministrarsolicitudesimpresionIMP),getString(R.string.AdministrarEncargadosImpresionesIMP), getString(R.string.AdministrarMotivosIMP)};
+
         this.setTitle("PDM115: Impresiones");
         prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         String usuarioActual = prefs.getString("usuarioActual", "");

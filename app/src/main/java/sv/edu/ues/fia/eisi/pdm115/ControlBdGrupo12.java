@@ -360,15 +360,16 @@ public class ControlBdGrupo12 {
                         "\t(2, 3, 'ESCUELA DE INGENIERIA INDUSTRIAL', 'INGENIERIA Y ARQUITECTURA');");
 
                 db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
-                        "\t('MP16001', 'DOCENTE', '1    ', 'MIGUEL', 'PEREZ', 'SISTEMAS', 'SISTEMAS');");
-                db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
-                        "\t('CS17049', 'DOCENTE', '1', 'JOSE', 'AMILCAR', 'SISTEMAS', 'SISTEMAS');");
+                        "\t('MP16001', 'DOCENTE', '1', 'MIGUEL', 'PEREZ', 'SISTEMAS', 'SISTEMAS');");
+                /*db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
+                        "\t('CS17049', 'DOCENTE', '1', 'JOSE', 'AMILCAR', 'SISTEMAS', 'SISTEMAS');");*/
                 db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
                         "\t('GM141114', 'DOCENTE', '1', 'CHRISTIAN', 'GARCIA', 'SISTEMAS', 'SISTEMAS');");
                 db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
                         "\t('HA15005', 'DOCENTE', '1', 'GEOVANY', 'AMAYA', 'SISTEMAS', 'SISTEMAS');");
                 db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
                         "\t('BR15007', 'DOCENTE', '1', 'ADONAY', 'BARAHONA', 'SISTEMAS', 'SISTEMAS');");
+
 
 
                 db.execSQL("INSERT INTO `local` (`IDLOCAL`, `NOMBRELOCAL`, `UBICACION`) VALUES\n" +
