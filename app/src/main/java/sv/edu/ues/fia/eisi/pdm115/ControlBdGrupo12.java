@@ -211,7 +211,7 @@ public class ControlBdGrupo12 {
                         "   FECHASOLICITUDREPETIDO DATE,\n" +
                         "   ESTADOREPETIDO       CHAR(50),\n" +
                         "   FECHAREPETIDO        DATE,\n" +
-                        "   HORAREPETIDO         TIME,\n" +
+                        "   HORAREPETIDO         CHAR(50),\n" +
                         "   NOTADESPUESREPETIDO  FLOAT,\n" +
                         "   NOTAANTESREPETIDO    FLOAT,\n" +
                         "   OBSERVACIONES        CHAR(100),\n" +
@@ -250,7 +250,7 @@ public class ControlBdGrupo12 {
                         "   MATERIADIFERIDO      CHAR(20),\n" +
                         "   IDLOCAL      CHAR(20),\n" +
                         "   MOTIVODIFERIDO       CHAR(100),\n" +
-                        "   HORADIFERIDO         TIME,\n" +
+                        "   HORADIFERIDO         CHAR(100),\n" +
                         "   primary key (IDDIFERIDO)\n" +
                         ");");
                 db.execSQL("CREATE TABLE SOLICITUDIMPRESION  (\n" +
@@ -383,8 +383,6 @@ public class ControlBdGrupo12 {
                         "\t('DSI115', '01-20');");
                 db.execSQL("INSERT INTO `opcioncrud` (`ID_OPCION`, `DESOPCION`, `NUMCRUD`) VALUES\n" +
                         "\t('1', 'VER SOLICITUD', 1);");
-
-
 
 
                 db.execSQL("INSERT INTO `primerrevision` (`IDPRIMERREVISION`, `IDLOCAL`, `IDDOCENTE`, `ID_DETALLEALUMNOSEVALUADOS`, `FECHASOLICITUDPRIMERAREV`, `ESTADOPRIMERAREV`, `FECHAPRIMERAREV`, `HORAPRIMERAREV`, `NOTAANTESPRIMERAREV`, `NOTADESPUESPRIMERAREV`, `OBSERVACIONESPRIMERAREV`,`FECHALIMITESEGUNDAREVISION`) VALUES\n" +
