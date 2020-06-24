@@ -68,8 +68,7 @@ public class DetalleMotivoActivity extends AppCompatActivity {
                         String resultado= helper.eliminarMotivo(idMotivo);
                         helper.cerrar();
                         Toast.makeText(DetalleMotivoActivity.this, resultado, Toast.LENGTH_SHORT).show();
-                        Intent intent= new Intent(DetalleMotivoActivity.this, GestionarMotivosActivity.class);
-                        startActivity(intent);
+                        finish();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -97,9 +96,13 @@ public class DetalleMotivoActivity extends AppCompatActivity {
                             helper.abrir();
                             String resultado= helper.actualizarMotivo(motivo);
                             helper.cerrar();
-                            Toast.makeText(DetalleMotivoActivity.this,resultado, Toast.LENGTH_SHORT).show();
-                            Intent intent= new Intent(DetalleMotivoActivity.this, GestionarEncargadosActivity.class);
-                            startActivity(intent);
+                            if(!resultado.equals("Error")){
+                                Toast.makeText(DetalleMotivoActivity.this,resultado, Toast.LENGTH_SHORT).show();
+                                recreate();
+                            }else{
+                                Toast.makeText(DetalleMotivoActivity.this,"Se produjo un error", Toast.LENGTH_SHORT).show();
+                            }
+
                         }
                     }
                 })
