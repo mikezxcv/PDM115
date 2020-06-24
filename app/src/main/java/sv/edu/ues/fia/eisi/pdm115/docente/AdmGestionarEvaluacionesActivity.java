@@ -35,7 +35,7 @@ public class AdmGestionarEvaluacionesActivity extends Activity {
 
     String[] datos;
     int[] idEvaluaciones;
-    FloatingActionButton boton;
+   // FloatingActionButton boton;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     String date;
@@ -46,7 +46,7 @@ public class AdmGestionarEvaluacionesActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adm_gestionar_evaluaciones);
         listView = (ListView) findViewById(R.id.listViewev);
-        boton = (FloatingActionButton) findViewById(R.id.botonEmergente);
+//        boton = (FloatingActionButton) findViewById(R.id.botonEmergente);
         helper = new ControlBdGrupo12(this);
         helper.abrir();
         datos = helper.obtenerEvaluacionesCRUD();
@@ -68,13 +68,13 @@ public class AdmGestionarEvaluacionesActivity extends Activity {
         });
 
         //agregar nueva evaluacion
-        boton.setOnClickListener(new View.OnClickListener() {
+  /*      boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AdmGestionarEvaluacionesActivity.this,AdmCrearEvaluacionActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
     }
 

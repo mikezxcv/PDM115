@@ -20,10 +20,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
-    String[] menuAdmin={"Estudiante","Docente","Encargado de Impresion","Web Services","LLenar Base de Datos"};
+    String[] menuAdmin={"Estudiante","Docente","Encargado de Impresion","Web Services"};
     String[] menuDocente={"Docente","Web Services","LLenar Base de Datos"};
-    String[] menuEncargadoImpresion={"Encargado de Impresion","LLenar Base de Datos"};
-    String[] menuEstudiante={"Estudiante","LLenar Base de Datos"};
+    String[] menuEncargadoImpresion={"Encargado de Impresion"};
+    String[] menuEstudiante={"Estudiante"};
 
     String[] activitiesAdmin={"EstudianteMenuActivity","DocenteMenuActivity","EncargadoImpresionesMenuActivity","webServices"};
     String[] activitiesDocente={"DocenteMenuActivity","webServices"};
