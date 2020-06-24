@@ -221,6 +221,7 @@ public class EstudianteSolicitudSegundaRevisionActivity extends AppCompatActivit
             evaluacion=evaluacion2.getText().toString();
             helper.abrir();
             int idPrimeraRev = helper.idSolicitudesPrimeraRevisionCR(carnet, materia, evaluacion);
+            String idENVIAR = String.valueOf(idPrimeraRev);
             helper.cerrar();
             if(carnet.isEmpty()||materia.isEmpty()||evaluacion.isEmpty())
             {
@@ -229,7 +230,8 @@ public class EstudianteSolicitudSegundaRevisionActivity extends AppCompatActivit
                 if(idPrimeraRev == 0){
                     Toast.makeText(this, "No realizo Primera rev con los datos insertados", Toast.LENGTH_SHORT).show();
                 }else{
-                    helper.insertSegundaRevision(fecha, carnet, materia, evaluacion);
+                    String result =  helper.insertSegundaRevision(fecha, carnet, materia, evaluacion, idENVIAR);
+                    Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
                 }
             }
         }catch (Exception e){

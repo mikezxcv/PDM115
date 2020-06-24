@@ -223,11 +223,9 @@ public void crearSolicitudPR () {
                 Toast.makeText(this, "Ya existe una revision con estos datos", Toast.LENGTH_LONG).show();
                 helper.cerrar();
             }else{
-                if(helper.insertPrimerRevision(fecha, carnet, materia, evaluacion).equals("1")){
-                    helper.insertPrimerRevision(fecha, carnet, materia, evaluacion);
-                    helper.cerrar();
-                    Toast.makeText(this, "Datos Insertados", Toast.LENGTH_LONG).show();
-                }
+                helper.insertPrimerRevision(fecha, carnet, materia, evaluacion);
+                helper.cerrar();
+                Toast.makeText(this, "Datos Insertados", Toast.LENGTH_LONG).show();
             }
 
 

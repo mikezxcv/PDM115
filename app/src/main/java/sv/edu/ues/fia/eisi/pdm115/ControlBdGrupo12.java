@@ -2139,7 +2139,6 @@ public class ControlBdGrupo12 {
             area.setID_ROL(ID_ROL[i]);
             area.setNOMBRE_AREA(NOMBRE_AREA[i]);
             insertar(area);
-
         }
 
         SolicitudDiferidoTabla solDiferido  = new SolicitudDiferidoTabla();
@@ -2674,6 +2673,7 @@ public class ControlBdGrupo12 {
     }
 
     public String insertPrimerRevision(String fechaSolcitud, String carnet, String materia, String evaluacion) {
+
         try {
             abrir();
             // Buscando materia
@@ -3226,95 +3226,92 @@ public class ControlBdGrupo12 {
 
 
     //METODO PARA INSERTAR SEGUNDA REVISION
-    public void insertSegundaRevision(String fechaSolicitud, String carnet, String materia, String evaluacion)
+    public String insertSegundaRevision(String fechaSolicitud, String carnet, String materia, String evaluacion, String idENVIAR)
     {
+        String SALIDA = null;
+        // Abriendo base de datos
+        abrir();
 
-        try {
+        Cursor cursor = db.rawQuery("SELECT IDDOCENTE FROM DOCENTE WHERE IDASIGNATURA = '" +materia+ "' " ,null);
 
-            // Abriendo base de datos
+        // Variable del ID del Docente
+        String idDocente = null;
+
+        if(cursor.moveToFirst()){
+            while (cursor.isAfterLast()==false){
+                idDocente=cursor.getString(0);
+                cursor.moveToNext();
+            }
+        }
+        if (idDocente == null) {
+            return SALIDA = "No se encontró el docente de la materia indicada: '" + materia + "'";
+        }
+
+        // Buscando que exista una evaluación para la materia indicada
+        Cursor evaluacionCursor = db.rawQuery("SELECT eva.IDEVALUACION FROM EVALUACION AS EVA\n" +
+                "JOIN DETALLEALUMNOSEVALUADOS AS det ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "WHERE IDASIGNATURA = '"+materia+"' AND NOMBREEVALUACION = '"+evaluacion+"' And det.ASISTIO = 1" ,null);
+        // Asumiendo que solo se recibe un registro, se omite un loop y se extrae la primera fila
+        // Siempre que no sea la última
+
+        int idEvaluacion = 0;
+        if(evaluacionCursor.moveToFirst()){
+            while (evaluacionCursor.isAfterLast()==false){
+                idEvaluacion=evaluacionCursor.getInt(0);
+                evaluacionCursor.moveToNext();
+            }
+        }
+        if (idEvaluacion == 0) {
+            return SALIDA = "Id De evaluacion No encontrado";
+        }
+        // Buscando al alumno en la tabla DETALLEALUMNOSEVALUADOS
+        Cursor detalleAlumnoEvaluado = db.rawQuery("SELECT det.ID_DETALLEALUMNOSEVALUADOS FROM DETALLEALUMNOSEVALUADOS as det\n" +
+                "WHERE det.IDEVALUACION = '" +idEvaluacion+ "' And ASISTIO = 1 AND CARNET = '" +carnet+ "'", null);
+
+        int idDetalleAlumnoEvaluado = 0;
+        if(detalleAlumnoEvaluado.moveToFirst()){
+            while (detalleAlumnoEvaluado.isAfterLast()==false){
+                idDetalleAlumnoEvaluado=detalleAlumnoEvaluado.getInt(0);
+                detalleAlumnoEvaluado.moveToNext();
+            }
+        }
+        if (idDetalleAlumnoEvaluado == 0) {
+            return SALIDA = "NO se encontro id de Detalle Alumno evaluado";
+        }
+
+        Cursor integridad = db.rawQuery("\n" +
+                "SELECT p.IDSEGUNDAREVICION FROM SEGUNDAREVICION AS p\n" +
+                "JOIN DETALLEALUMNOSEVALUADOS AS det on P.ID_DETALLEALUMNOSEVALUADOS = det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "WHERE det.IDEVALUACION = '"+idEvaluacion+"' AND p.ID_DETALLEALUMNOSEVALUADOS = '"+idDetalleAlumnoEvaluado+"'",null);
+
+        int integridadSol = 0;
+        if(integridad.moveToFirst()){
+            while (integridad.isAfterLast()==false){
+                integridadSol=integridad.getInt(0);
+                integridad.moveToNext();
+
+            }
+        }
+        if (integridad == null) {
+            SALIDA = "No se encuentra evalucion en el Detalle de la evaluacion == null";
+        }
+        if(!(integridadSol == 0)){
+            SALIDA = "Ya se encuantra un registro";
+        }else{
             abrir();
-
-            Cursor cursor = db.rawQuery("SELECT IDDOCENTE FROM DOCENTE WHERE IDASIGNATURA = '" +materia+ "' " ,null);
-
-            // Variable del ID del Docente
-            String idDocente = null;
-
-            if(cursor.moveToFirst()){
-                while (cursor.isAfterLast()==false){
-                    idDocente=cursor.getString(0);
-                    cursor.moveToNext();
-                }
-            }
-            if (idDocente == null) {
-                throw new NoSuchFieldException("No se encontró el docente de la materia indicada: '" + materia + "'");
-            }
-
-            // Buscando que exista una evaluación para la materia indicada
-            Cursor evaluacionCursor = db.rawQuery("SELECT eva.IDEVALUACION FROM EVALUACION AS EVA\n" +
-                    "JOIN DETALLEALUMNOSEVALUADOS AS det ON det.IDEVALUACION = eva.IDEVALUACION\n" +
-                    "WHERE IDASIGNATURA = '"+materia+"' AND NOMBREEVALUACION = '"+evaluacion+"' And det.ASISTIO = 1" ,null);
-            // Asumiendo que solo se recibe un registro, se omite un loop y se extrae la primera fila
-            // Siempre que no sea la última
-
-            int idEvaluacion = 0;
-            if(evaluacionCursor.moveToFirst()){
-                while (evaluacionCursor.isAfterLast()==false){
-                    idEvaluacion=evaluacionCursor.getInt(0);
-                    evaluacionCursor.moveToNext();
-                }
-            }
-            if (idEvaluacion == 0) {
-                throw new NoSuchFieldException("Id De evaluacion No encontrado");
-            }
-
-            // Buscando al alumno en la tabla DETALLEALUMNOSEVALUADOS
-            Cursor detalleAlumnoEvaluado = db.rawQuery("SELECT det.ID_DETALLEALUMNOSEVALUADOS FROM DETALLEALUMNOSEVALUADOS as det\n" +
-                    "WHERE det.IDEVALUACION = '" +idEvaluacion+ "' And ASISTIO = 1 AND CARNET = '" +carnet+ "'", null);
-
-            int idDetalleAlumnoEvaluado = 0;
-            if(detalleAlumnoEvaluado.moveToFirst()){
-                while (detalleAlumnoEvaluado.isAfterLast()==false){
-                    idDetalleAlumnoEvaluado=detalleAlumnoEvaluado.getInt(0);
-                    detalleAlumnoEvaluado.moveToNext();
-                }
-            }
-            if (idDetalleAlumnoEvaluado == 0) {
-                throw new NoSuchFieldException("NO se encontro evaluacion relacaionada");
-            }
-
-            Cursor integridad = db.rawQuery("\n" +
-                    "SELECT p.IDSEGUNDAREVICION FROM SEGUNDAREVICION AS p\n" +
-                    "JOIN DETALLEALUMNOSEVALUADOS AS det on P.ID_DETALLEALUMNOSEVALUADOS = det.ID_DETALLEALUMNOSEVALUADOS\n" +
-                    "WHERE det.IDEVALUACION = '"+idEvaluacion+"' AND p.ID_DETALLEALUMNOSEVALUADOS = '"+idDetalleAlumnoEvaluado+"'",null);
-
-            int integridadSol = 0;
-            if(integridad.moveToFirst()){
-                while (integridad.isAfterLast()==false){
-                    integridadSol=integridad.getInt(0);
-                    integridad.moveToNext();
-                }
-            }
-            if (integridad == null) {
-                throw new NoSuchFieldException("Integridad Nula");
-            }
-            if(!(integridadSol == 0)){
-                throw new NoSuchFieldException("Ya se realizo una solicitud de con estos datos");
-            }else{
-                abrir();
-                ContentValues segundaRevisionParametros = new ContentValues();
-                segundaRevisionParametros.put("FECHASOLICITUDSEGUNDAREVICION", fechaSolicitud);
-                segundaRevisionParametros.put("ID_DETALLEALUMNOSEVALUADOS", idDetalleAlumnoEvaluado);
-                segundaRevisionParametros.put("MATERIASEGUNDAREVICION", materia);
-                // Solicitando la inserción a la tabla
-                db.insert("SEGUNDAREVICION", null, segundaRevisionParametros);
-                cerrar();
-            }
-
+            ContentValues segundaRevisionParametros = new ContentValues();
+            segundaRevisionParametros.put("FECHASOLICITUDSEGUNDAREVICION", fechaSolicitud);
+            segundaRevisionParametros.put("ID_DETALLEALUMNOSEVALUADOS", idDetalleAlumnoEvaluado);
+            segundaRevisionParametros.put("MATERIASEGUNDAREVICION", materia);
+            segundaRevisionParametros.put("IDPRIMERAREVISION", idENVIAR);
+            // Solicitando la inserción a la tabla
+            db.insert("SEGUNDAREVICION", null, segundaRevisionParametros);
             cerrar();
+            return SALIDA = "Segunda revicion Creada";
         }
-        catch(Exception e) {
-            Toast.makeText(this.context, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+
+        cerrar();
+        return SALIDA;
     }
 
 
