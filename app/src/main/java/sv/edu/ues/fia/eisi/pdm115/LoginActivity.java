@@ -76,12 +76,14 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
     private void saveOnPreferences(String user, String pasword){
+        SharedPreferences.Editor editor= prefs.edit();
         if(remeberData.isChecked()){
-            SharedPreferences.Editor editor= prefs.edit();
             editor.putString("user",user);
             editor.putString("password",pasword);
-            editor.apply();
         }
+        //Necesario para asignar el IDDOCENTE en las solicitudes (y otros cruds)
+        editor.putString("usuarioActual", user);
+        editor.apply();
     }
     private void setCredencial(){
         String email; String pass;

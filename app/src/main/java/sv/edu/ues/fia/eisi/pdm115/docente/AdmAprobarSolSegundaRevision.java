@@ -1,7 +1,5 @@
 package sv.edu.ues.fia.eisi.pdm115.docente;
 
-import androidx.annotation.IntegerRes;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -24,7 +22,7 @@ import java.util.Calendar;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 
-import sv.edu.ues.fia.eisi.pdm115.Docente;
+import sv.edu.ues.fia.eisi.pdm115.DocenteSegundaRevision;
 import sv.edu.ues.fia.eisi.pdm115.R;
 import sv.edu.ues.fia.eisi.pdm115.SegundaRevision;
 
@@ -128,14 +126,14 @@ public class AdmAprobarSolSegundaRevision extends AppCompatActivity {
                                                   Toast.LENGTH_SHORT).show();
 
 
-                                          //implementacion delmetodo insertar en docente-segundarevision
+                                          //implementacion delmetodo insertar en docenteSegundaRevision-segundarevision
                                           String idDocente= listaIdElementos[item];
                                           String idSegundaRev= idSegundaRevicion;
-                                          Docente docente= new Docente();
-                                          docente.setIdDocente(idDocente);
-                                          docente.setIdSegundaRevision(idSegundaRev);
+                                          DocenteSegundaRevision docenteSegundaRevision = new DocenteSegundaRevision();
+                                          docenteSegundaRevision.setIdDocente(idDocente);
+                                          docenteSegundaRevision.setIdSegundaRevision(idSegundaRev);
                                           helper.abrir();
-                                          String resultado= helper.insertar(docente);
+                                          String resultado= helper.insertar(docenteSegundaRevision);
                                           helper.cerrar();
                                           Toast.makeText(getApplicationContext(),resultado,Toast.LENGTH_LONG).show();
                                           listaElementos[item]= "";
