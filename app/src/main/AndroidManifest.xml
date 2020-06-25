@@ -20,8 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".webServices.MenuWebServices" />
+        <activity android:name=".webServices.MenuWebServices"></activity>
 
+        <activity android:name=".docente.AdmDetalleEvaluacionActivity"></activity>
+        <activity android:name=".docente.AdmListaEvaluacionActivity" />
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
@@ -29,7 +31,9 @@
         <activity android:name=".webServices.ActualizarLocales" />
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/SplashScreen" />
+            android:theme="@style/SplashScreen">
+        </activity>
+
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,6 +65,7 @@
         <activity android:name=".docente.AdmAprobarsolicitudDiferido" />
         <activity android:name=".docente.AdmDetallesolicitudDiferido" />
         <activity android:name=".docente.AdmListaSolicitudesDiferido" />
+        <activity android:name=".encargadoImpresion.EncargadoImpresionesMenuActivity" />
         <activity android:name=".estudiante.EstudianteMenuActivity" />
         <activity android:name=".docente.DocenteMenuActivity" />
         <activity android:name=".MainActivity" />

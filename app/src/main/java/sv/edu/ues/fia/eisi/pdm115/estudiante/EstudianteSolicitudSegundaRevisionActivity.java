@@ -11,8 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
@@ -49,7 +51,11 @@ public class EstudianteSolicitudSegundaRevisionActivity extends AppCompatActivit
         btnEnviarSolicitudSR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                crearSolicitudSR();
+                if(compararFechas()){
+                    crearSolicitudSR();
+                }else{
+                    Toast.makeText(getApplicationContext(),"Fecha para hacer Segunda Revicion Caducada",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -146,6 +152,64 @@ public class EstudianteSolicitudSegundaRevisionActivity extends AppCompatActivit
             }
         });
 
+    }
+
+    public boolean compararFechas(){
+        boolean lapsoValido = false;
+        ControlBdGrupo12 helper = new ControlBdGrupo12(EstudianteSolicitudSegundaRevisionActivity.this);
+        materia = materia2.getText().toString();
+        evaluacion = evaluacion2.getText().toString();
+        carnet  = carnet2.getText().toString();
+
+        helper.abrir();
+        String fechaLimiteDetalleEvaluacion = helper.fechaLimiteParaSegundaRevicion(materia, evaluacion, carnet);
+        helper.cerrar();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
+        Calendar calendar1 = Calendar.getInstance();
+        Calendar calendar2 = Calendar.getInstance();
+        Calendar calendarLimiteSegundaRevision = Calendar.getInstance();
+
+        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+        try
+        {
+            String fechaLocal= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
+            if(fechaLimiteDetalleEvaluacion  == null){
+                Toast.makeText(EstudianteSolicitudSegundaRevisionActivity.this, "O No se encontro fecha asignada Con los datos Proposionados Para hacer usta revicion ", Toast.LENGTH_SHORT).show();
+            }else{
+                Date fechaLimite = formateador.parse(fechaLimiteDetalleEvaluacion);
+
+                Date fechaSolicitud = formateador.parse(fechaLocal);
+
+                calendar2.setTime(fechaLimite);
+                int yearLimite=calendar1.get(Calendar.YEAR);
+                int monthLimite=  calendar1.get(Calendar.MONTH) + 1;
+                int dayLimite= calendar1.get(Calendar.DAY_OF_MONTH);
+
+
+                calendar1.setTime(fechaSolicitud);
+                int yearLocal=calendar1.get(Calendar.YEAR);
+                int monthLocal=  calendar1.get(Calendar.MONTH) + 1;
+                int dayLocal= calendar1.get(Calendar.DAY_OF_MONTH);
+
+
+                long tiempoLocal = calendar1.getTimeInMillis();
+                long tiempoLimite = calendar2.getTimeInMillis();
+
+
+                long dias = ((tiempoLimite - tiempoLocal) / (1000*60*60*24));
+
+                if(dias >= 0){
+                    lapsoValido = true;
+                }
+            }
+
+        }
+        catch (ParseException e)
+        {
+            Toast.makeText(EstudianteSolicitudSegundaRevisionActivity.this, "No extiste Fecha Limite de Evaluacion", Toast.LENGTH_SHORT).show();
+        }
+        return lapsoValido;
     }
 
     public void crearSolicitudSR(){

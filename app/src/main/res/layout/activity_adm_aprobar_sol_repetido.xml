@@ -21,7 +21,6 @@
 
 
 
-
     <TextView android:text="Fecha a realizar Evaluacion"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>

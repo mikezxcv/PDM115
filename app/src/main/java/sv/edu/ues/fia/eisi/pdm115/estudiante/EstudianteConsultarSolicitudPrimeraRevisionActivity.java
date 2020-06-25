@@ -51,6 +51,9 @@ public class EstudianteConsultarSolicitudPrimeraRevisionActivity extends AppComp
         btnConsultar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
                 ConsultarSolicitudesPR(v);
             }
         });

@@ -76,7 +76,10 @@
                 android:inputType="text"
                 android:maxLength="15"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
 
             <TextView android:text="Fecha Revision"
                 android:layout_width="fill_parent"
@@ -86,7 +89,10 @@
                 android:inputType="text"
                 android:maxLength="30"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
 
             <TextView android:text="Hora Revision"
                 android:layout_width="fill_parent"
@@ -97,7 +103,10 @@
                 android:inputType="text"
                 android:maxLength="30"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
 
 
             <TextView android:text="Local Revision"
@@ -109,7 +118,10 @@
                 android:inputType="text"
                 android:maxLength="10"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
 
             <TextView android:text="Nota despues Revision"
                 android:layout_width="fill_parent"
@@ -119,7 +131,10 @@
                 android:inputType="text"
                 android:maxLength="30"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
 
             <TextView android:text="Observaciones"
                 android:layout_width="fill_parent"
@@ -130,7 +145,10 @@
                 android:inputType="text"
                 android:maxLength="30"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
+                android:layout_height="fill_parent"
+                android:editable="false"
+                android:focusable="false"
+                android:clickable="true"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -30,6 +30,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.PrimeraRevision;
@@ -42,7 +43,7 @@ public class EstudianteSolicitudPrimeraRevisionActivity extends AppCompatActivit
     String materia;
     String evaluacion;
     String fecha= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
-    int fechaLimiteDetalleEvaluacion;
+    String fechaLimiteDetalleEvaluacion;
     TextView carnet1;
     TextView nombre1;
     TextView materia1;
@@ -64,25 +65,21 @@ public class EstudianteSolicitudPrimeraRevisionActivity extends AppCompatActivit
         TextView textViewDate = findViewById(R.id.fecha_evaluacion);
         textViewDate.setText(currentDate);
 
-
         carnet1 = (TextView) findViewById(R.id.editCarnet);
-        nombre1 = (TextView) findViewById(R.id.editNombre);
         materia1 = (TextView) findViewById(R.id.editMateria);
         evaluacion1 = (TextView) findViewById(R.id.editEvaluacion);
         btnEnviarSolicitud = (Button) findViewById(R.id.enviarSolicitud);
-        probarFechas = (Button)findViewById(R.id.probarFechas);
 
         btnEnviarSolicitud.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                crearSolicitudPR();
-            }
-        });
-        probarFechas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                compararFechas();
+                if(compararFechas()){
+                    crearSolicitudPR();
+                }else{
+                    Toast.makeText(getApplicationContext(),"El tiempo para hacer la solicitud a expirado",Toast.LENGTH_SHORT).show();
                 }
+
+            }
         });
 
         evaluacion1.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +92,6 @@ public class EstudianteSolicitudPrimeraRevisionActivity extends AppCompatActivit
                     Toast.makeText(getApplicationContext(),"Carnet o Materia estan vacios",Toast.LENGTH_SHORT).show();
                 }else{
                     helper.abrir();
-
                     final String [] evaluaciones= helper.obtenerEvaluacionesCR(carnetGET, materiaGET);
                     helper.cerrar();
 
@@ -151,49 +147,74 @@ public class EstudianteSolicitudPrimeraRevisionActivity extends AppCompatActivit
         });
     }
 
-
-
-    public void compararFechas(){
-        ControlBdGrupo12 helper = new ControlBdGrupo12(this);
+    public boolean compararFechas(){
+        boolean lapsoValido = false;
+        ControlBdGrupo12 helper = new ControlBdGrupo12(EstudianteSolicitudPrimeraRevisionActivity.this);
         materia = materia1.getText().toString();
         evaluacion = evaluacion1.getText().toString();
         carnet  = carnet1.getText().toString();
 
-        fechaLimiteDetalleEvaluacion = helper.fechaLimiteDetalleEvaluacion(materia, evaluacion, carnet);
+        helper.abrir();
+        fechaLimiteDetalleEvaluacion = helper.fechaLimiteDetalleEvaluacionPRIMERREVICION(materia, evaluacion, carnet);
+        helper.cerrar();
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
         Calendar calendar1 = Calendar.getInstance();
         Calendar calendar2 = Calendar.getInstance();
+        Calendar calendarLimiteSegundaRevision = Calendar.getInstance();
 
         SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
         try
         {
             String fechaLocal= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime());
+            if(fechaLimiteDetalleEvaluacion  == null){
+                Toast.makeText(EstudianteSolicitudPrimeraRevisionActivity.this, "No se encontro fecha asignada Con los datos Proposionados Para hacer usta revicion ", Toast.LENGTH_SHORT).show();
+            }else{
+                Date fechaLimite = formateador.parse(fechaLimiteDetalleEvaluacion);
 
-            //Date fechaLimite = formateador.parse(fechaLimiteDetalleEvaluacion);
-            Date fechaSolicitud = formateador.parse(fechaLocal);
+                Date fechaSolicitud = formateador.parse(fechaLocal);
 
-            //calendar1.setTime(fechaLimite);
-            calendar2.setTime(fechaSolicitud);
+                calendar2.setTime(fechaLimite);
+                int yearLimite=calendar1.get(Calendar.YEAR);
+                int monthLimite=  calendar1.get(Calendar.MONTH) + 1;
+                int dayLimite= calendar1.get(Calendar.DAY_OF_MONTH);
 
-            System.out.println("Compare Result : " + calendar2.compareTo(calendar1));
-            System.out.println("Compare Result : " + calendar1.compareTo(calendar2));
+
+                calendar1.setTime(fechaSolicitud);
+                int yearLocal=calendar1.get(Calendar.YEAR);
+                int monthLocal=  calendar1.get(Calendar.MONTH) + 1;
+                int dayLocal= calendar1.get(Calendar.DAY_OF_MONTH);
+
+
+                long tiempoLocal = calendar1.getTimeInMillis();
+                long tiempoLimite = calendar2.getTimeInMillis();
+
+
+                long dias = ((tiempoLimite - tiempoLocal) / (1000*60*60*24));
+
+                if(dias >= 0){
+                    lapsoValido = true;
+                }
+
+                calendarLimiteSegundaRevision = calendar1;
+                calendarLimiteSegundaRevision.add(Calendar.DAY_OF_MONTH, 3);
+            }
+
         }
         catch (ParseException e)
         {
             Toast.makeText(EstudianteSolicitudPrimeraRevisionActivity.this, "No extiste Fecha Limite de Evaluacion", Toast.LENGTH_SHORT).show();
         }
-
+        return lapsoValido;
     }
 
 public void crearSolicitudPR () {
     try {
         carnet  = carnet1.getText().toString();
-        nombre  = nombre1.getText().toString();
         materia = materia1.getText().toString();
         evaluacion = evaluacion1.getText().toString();
 
-        if(carnet.isEmpty()||nombre.isEmpty()||materia.isEmpty()||evaluacion.isEmpty()){
+        if(carnet.isEmpty()||materia.isEmpty()||evaluacion.isEmpty()){
             Toast.makeText(this, "Rellene todos los campos", Toast.LENGTH_LONG).show();
         }
         else{
@@ -204,5 +225,7 @@ public void crearSolicitudPR () {
         Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
      }
     }
+
+
 
 }
