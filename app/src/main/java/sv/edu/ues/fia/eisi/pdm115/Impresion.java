@@ -12,9 +12,11 @@ public class Impresion {
     private int estadoAprobacion;
     private int estadoImpresion;
 
+    private String url;
+
     public Impresion(int idSolicitudImpresion, String idDocente, int idEncargado, int idMotivoNoImp,
                      String descripcionNoImp, String descripcionSolicitud, int cantidadExamenes,
-                     int hojasEmpaque, int estadoAprobacion, int estadoImpresion){
+                     int hojasEmpaque, int estadoAprobacion, int estadoImpresion, String url){
 
         this.idSolicitudImpresion = idSolicitudImpresion;
         this.idDocente = idDocente;
@@ -26,6 +28,7 @@ public class Impresion {
         this.hojasEmpaque = hojasEmpaque;
         this.estadoAprobacion = estadoAprobacion;
         this.estadoImpresion = estadoImpresion;
+        this.url = url;
 
     }
 
@@ -109,6 +112,14 @@ public class Impresion {
 
     public void setEstadoImpresion(int estadoImpresion) {
         this.estadoImpresion = estadoImpresion;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
 }

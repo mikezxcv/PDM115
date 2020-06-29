@@ -132,6 +132,6 @@ public class SubirDocumentoService extends JobIntentService {
     public void onDestroy() {
         //Si termina el proceso exitosamente, se muestra el toast.
         super.onDestroy();
-        Toast.makeText(SubirDocumentoService.this, "Archivo subido con exito", Toast.LENGTH_SHORT).show();
+        Toast.makeText(SubirDocumentoService.this, reply, Toast.LENGTH_SHORT).show();
     }
 }

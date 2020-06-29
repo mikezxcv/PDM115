@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,8 +39,8 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
     String[] estadoImpresion = {"En espera", "Realizada", "No se realizó"};
     ArrayList<MotivoNoImpresion> motivos;
     EditText editExamenes, editHojas, editDetalles, editAprobacion, editEstadoImp,
-            editMotivo, observaciones, editDocente, editEncargado;
-    Button guardar, cancelar, modificarEstadoAprobacion, cambiarEstadoImpresion;
+            editMotivo, observaciones, editDocente, editEncargado, path;
+    Button guardar, cancelar, modificarEstadoAprobacion, cambiarEstadoImpresion, verArchivo;
     TableRow tr1;
     LinearLayout li1;
     @Override
@@ -57,6 +60,8 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         editEstadoImp = findViewById(R.id.estadoImpresionSol);
         editMotivo = findViewById(R.id.editMotivoSol);
         observaciones = findViewById(R.id.detallesRechazoSol);
+        verArchivo = findViewById(R.id.verArchivo);
+        path = findViewById(R.id.path);
         guardar = findViewById(R.id.guardarCambios);
         cancelar = findViewById(R.id.cancelarCambios);
         modificarEstadoAprobacion = findViewById(R.id.modificarEstadoAprobacion);
@@ -93,6 +98,11 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         observaciones.setText(impresion.getDescripcionNoImp());
         editAprobacion.setText(estadoAprobacion[impresion.getEstadoAprobacion()]);
         editEstadoImp.setText(estadoImpresion[impresion.getEstadoImpresion()]);
+        if(impresion.getUrl()!=null && !impresion.getUrl().equals("Sin archivo")){
+            path.setText(impresion.getUrl());
+        }else{
+            verArchivo.setEnabled(false);
+        }
 
         guardar.setVisibility(View.GONE);
         cancelar.setVisibility(View.GONE);
@@ -288,5 +298,10 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         impresion.setEstadoImpresion(estadoTmp);
         impresion.setIdMotivoNoImp(motivoTmp);
         impresion.setDescripcionNoImp(observacionesTmp);
+    }
+
+    public void verPDF(View view) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://pdmgrupo12.000webhostapp.com/documentos/"+impresion.getUrl()));
+        startActivity(browserIntent);
     }
 }

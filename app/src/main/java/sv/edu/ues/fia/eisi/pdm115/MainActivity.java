@@ -2,10 +2,14 @@ package sv.edu.ues.fia.eisi.pdm115;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         //menu de admin
         if(user.contentEquals("ADMIN") || shared.contentEquals("ADMIN")){
+            checarPermisos();
             ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,menuAdmin);
             listViewMain.setAdapter(arrayAdapter);
             listViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -167,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         if((user.contentEquals("DOCENTE") || shared.contentEquals("DOCENTE")) ||
                 (user.contentEquals("DOCENTE2") || shared.contentEquals("DOCENTE2")) ||
                 (user.contentEquals("DOCENTE3") || shared.contentEquals("DOCENTE3"))){
-
+            checarPermisos();
             ArrayAdapter<String>  arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,menuDocente);
             listViewMain.setAdapter(arrayAdapter);
             listViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -221,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
         impresionUsuarios = BDhelper.obtenerUsuariosEncargados();
         BDhelper.cerrar();
         if(Arrays.asList(impresionUsuarios).contains(user) || Arrays.asList(impresionUsuarios).contains(shared)){
-
+            checarPermisos();
             ArrayAdapter<String>  arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,menuEncargadoImpresion);
             listViewMain.setAdapter(arrayAdapter);
             listViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -250,6 +255,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+
     }
 
     @Override
@@ -269,6 +275,24 @@ public class MainActivity extends AppCompatActivity {
         Intent intent= new Intent(this,LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    public void checarPermisos() {
+        // Checar permisos de almacenamiento (Escritura)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        }
+        // Checar permisos de almacenamiento (Lectura)
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        }
+        // Checar permisos de WIFI
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, 1);
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_NETWORK_STATE}, 1);
+        }
     }
 
 }

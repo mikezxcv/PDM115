@@ -109,6 +109,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:dividerPadding="10sp"
+            android:visibility="visible">
+
+            <EditText
+                android:id="@+id/path"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:focusable="false"
+                android:text="Sin Archivo de formato"
+                android:gravity="center"
+                android:inputType="none" />
+
+            <Button
+                android:id="@+id/verArchivo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Ver"
+                android:onClick="verPDF"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerPadding="10sp"
             android:paddingBottom="20dp">
 
         </LinearLayout>

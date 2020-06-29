@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.Docente;
@@ -41,6 +42,7 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
     LinearLayout li1, li2;
     Button buscar;
     int idEncargado;
+    long secs = (new Date().getTime())/1000;
     String idDocente, idEscuela, path, nombre, directorio, nuevoNombre;
     Impresion impresion;
     private SharedPreferences prefs;
@@ -89,6 +91,7 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
                                     helper.abrir();
                                     idEscuela = escuelas.get(item).getIdEscuela();
                                     idEncargado = helper.getIdEncargadoImpresionesEscuela(idEscuela);
+                                    helper.cerrar();
                                 }
                             });
                     seleccion.show();
@@ -114,6 +117,7 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
 
                                     editDocente.setText(opcionesDocente[item]);
                                     idDocente = docentes.get(item).getIdDocente();
+                                    nuevoNombre = "formato-"+ docentes.get(item).getApellidoDocente()+"-"+secs;
                                 }
                             });
                     seleccion.show();
@@ -127,9 +131,10 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
             helper.abrir();
             Docente docente = helper.getDocenteActual(usuario);
             idDocente = docente.getIdDocente();
-            nuevoNombre = docente.getApellidoDocente();
             idEncargado = helper.getIdEncargadoImpresionesEscuela(docente.getIdEscuela());
             helper.cerrar();
+            long secs = (new Date().getTime())/1000;
+            nuevoNombre = "formato-"+docente.getApellidoDocente()+"-"+secs;
         }
 
     }
@@ -144,22 +149,8 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
             path = BuscarRuta.getPath(this, uri);
             String[] partes = path.split("/");
             nombre = partes[partes.length - 1];
-            directorio = "documentos";
+            directorio = "documentos/";
             editPath.setText(nombre);
-
-            try {
-                Intent mIntent = new Intent(this, SubirDocumentoService.class);
-                mIntent.putExtra("path", path);
-                mIntent.putExtra("directorio", directorio);
-                mIntent.putExtra("nombre", nuevoNombre);
-                SubirDocumentoService.enqueueWork(getApplicationContext(), mIntent);
-
-                copiarLocal(path, nombre, directorio);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Algo salio mal", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 
@@ -174,10 +165,25 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
             impresion.setCantidadExamenes(Integer.parseInt(cantExamenes.getText().toString()));
             impresion.setHojasEmpaque(Integer.parseInt(cantHojasEmpaque.getText().toString()));
             impresion.setDescripcionSolicitud(detExtras.getText().toString());
+            if(nuevoNombre!=null) impresion.setUrl(nuevoNombre+".pdf");
+            else impresion.setUrl("Sin archivo");
             helper.abrir();
             String resultado = helper.insertarSolicitudImpresion(impresion);
             helper.cerrar();
             if(!resultado.equals("Error")){
+                try {
+                    Intent mIntent = new Intent(this, SubirDocumentoService.class);
+                    mIntent.putExtra("path", path);
+                    mIntent.putExtra("directorio", directorio);
+                    mIntent.putExtra("nombre", nuevoNombre);
+                    SubirDocumentoService.enqueueWork(getApplicationContext(), mIntent);
+
+                   // copiarLocal(path, nombre, directorio);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Algo salio mal", Toast.LENGTH_SHORT).show();
+                }
                 Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
                 finish();
             }else {

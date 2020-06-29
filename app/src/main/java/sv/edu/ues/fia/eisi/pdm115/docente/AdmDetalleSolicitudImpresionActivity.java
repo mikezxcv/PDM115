@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -24,7 +26,8 @@ public class AdmDetalleSolicitudImpresionActivity extends AppCompatActivity {
     Impresion impresion;
     Context contexto = AdmDetalleSolicitudImpresionActivity.this;
     EditText editDocente, editExamenes, editHojas,editAprobacion, editDetalles,
-            editEstadoImp, editMotivo, observaciones;
+            editEstadoImp, editMotivo, observaciones, path;
+    Button verArchivo;
     TextView razonTitulo;
     TableRow tr1, tr2, tr3;
     LinearLayout li1, li2, li3;
@@ -54,6 +57,8 @@ public class AdmDetalleSolicitudImpresionActivity extends AppCompatActivity {
         editEstadoImp = findViewById(R.id.estadoImpresionSol);
         editMotivo = findViewById(R.id.editMotivoSol);
         observaciones = findViewById(R.id.detallesRechazoSol);
+        verArchivo = findViewById(R.id.verArchivo);
+        path = findViewById(R.id.path);
         cancelar = findViewById(R.id.cancelarmod);
         guardar = findViewById(R.id.guardarSol);
         eliminar = findViewById(R.id.eliminarSolicitud);
@@ -84,6 +89,11 @@ public class AdmDetalleSolicitudImpresionActivity extends AppCompatActivity {
         editExamenes.setText(String.valueOf(impresion.getCantidadExamenes()));
         editHojas.setText(String.valueOf(impresion.getHojasEmpaque()));
         editDetalles.setText(impresion.getDescripcionSolicitud());
+        if(impresion.getUrl()!=null && !impresion.getUrl().equals("Sin archivo")){
+            path.setText(impresion.getUrl());
+        }else{
+            verArchivo.setEnabled(false);
+        }
         editAprobacion.setText(estadoAprobacion[impresion.getEstadoAprobacion()]);
         editEstadoImp.setText(estadoImpresion[impresion.getEstadoImpresion()]);
 
@@ -166,5 +176,10 @@ public class AdmDetalleSolicitudImpresionActivity extends AppCompatActivity {
         actualizar.setVisibility(View.VISIBLE);
         recreate();
 
+    }
+
+    public void verPDF(View view) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://pdmgrupo12.000webhostapp.com/documentos/"+impresion.getUrl()));
+        startActivity(browserIntent);
     }
 }

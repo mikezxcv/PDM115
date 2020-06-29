@@ -68,7 +68,7 @@ public class ControlBdGrupo12 {
 
 
     public static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "procesosGrupo12_42.s3db";
+        private static final String BASE_DATOS = "procesosGrupo12_44.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -265,6 +265,7 @@ public class ControlBdGrupo12 {
                         "   ESTADOAPROBACION     SMALLINT,\n" +
                         "   ESTADOIMPRESION      SMALLINT,\n" +
                         "   HOJASEMPAQUE         SMALLINT                        not null,\n" +
+                        "   URLFORMATO         CHAR(256),\n" +
                         "  primary key (IDSOLICITUDIMPRESION)\n" +
                         ");");
 
@@ -408,9 +409,9 @@ public class ControlBdGrupo12 {
                 db.execSQL("INSERT INTO SOLICITUDDIFERIDO VALUES (2,1, '2020-04-01','APROBADO','2020-04-02','5','OBSERVACION 1','DSI115','1', 'MOTIVO 1', '00:05:00');");
                 // Fin Llenados CS17049
 
-                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(1,3,2,null,null,'Desc. generica', 25, null, null,0);");
-                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(2,4,1,null,null,'Desc. generica', 40, null, null,1);");
-                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(3,3,2,null,null,'Desc. generica', 80, null, null,2);");
+                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(1,3,2,null,null,'Desc. generica', 25, null, null,0,'Sin archivo');");
+                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(2,4,1,null,null,'Desc. generica', 40, null, null,1,'Sin archivo');");
+                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(3,3,2,null,null,'Desc. generica', 80, null, null,2,'Sin archivo');");
 
                 //FIN DATOS DE PRUEBA
 
@@ -3701,6 +3702,7 @@ public class ControlBdGrupo12 {
         solicitud.put("DESCRIPCION_SOLICITUD", impresion.getDescripcionSolicitud());
         solicitud.put("CANTIDADEXAMENES", impresion.getCantidadExamenes());
         solicitud.put("HOJASEMPAQUE", impresion.getHojasEmpaque());
+        solicitud.put("URLFORMATO", impresion.getUrl());
         return (db.insert("SOLICITUDIMPRESION",null,solicitud)>0)
                 ? resultado : "Error";
     }
@@ -3734,7 +3736,8 @@ public class ControlBdGrupo12 {
                     cursor.getInt(cursor.getColumnIndex("CANTIDADEXAMENES")),
                     cursor.getInt(cursor.getColumnIndex("HOJASEMPAQUE")),
                     cursor.getInt(cursor.getColumnIndex("ESTADOAPROBACION")),
-                    cursor.getInt(cursor.getColumnIndex("ESTADOIMPRESION"))
+                    cursor.getInt(cursor.getColumnIndex("ESTADOIMPRESION")),
+                    cursor.getString(cursor.getColumnIndex("URLFORMATO"))
             );
             solicitudes.add(solicitud);
         }
@@ -3761,7 +3764,8 @@ public class ControlBdGrupo12 {
                     cursor.getInt(cursor.getColumnIndex("CANTIDADEXAMENES")),
                     cursor.getInt(cursor.getColumnIndex("HOJASEMPAQUE")),
                     cursor.getInt(cursor.getColumnIndex("ESTADOAPROBACION")),
-                    cursor.getInt(cursor.getColumnIndex("ESTADOIMPRESION"))
+                    cursor.getInt(cursor.getColumnIndex("ESTADOIMPRESION")),
+                    cursor.getString(cursor.getColumnIndex("URLFORMATO"))
             );
         }else {
             return null;
@@ -3803,7 +3807,8 @@ public class ControlBdGrupo12 {
                     cursor.getInt(cursor.getColumnIndex("CANTIDADEXAMENES")),
                     cursor.getInt(cursor.getColumnIndex("HOJASEMPAQUE")),
                     cursor.getInt(cursor.getColumnIndex("ESTADOAPROBACION")),
-                    cursor.getInt(cursor.getColumnIndex("ESTADOIMPRESION"))
+                    cursor.getInt(cursor.getColumnIndex("ESTADOIMPRESION")),
+                    cursor.getString(cursor.getColumnIndex("URLFORMATO"))
             );
             solicitudes.add(solicitud);
         }
@@ -3849,7 +3854,8 @@ public class ControlBdGrupo12 {
                     cursor.getInt(cursor.getColumnIndex("CANTIDADEXAMENES")),
                     cursor.getInt(cursor.getColumnIndex("HOJASEMPAQUE")),
                     cursor.getInt(cursor.getColumnIndex("ESTADOAPROBACION")),
-                    cursor.getInt(cursor.getColumnIndex("ESTADOIMPRESION"))
+                    cursor.getInt(cursor.getColumnIndex("ESTADOIMPRESION")),
+                    cursor.getString(cursor.getColumnIndex("URLFORMATO"))
             );
             solicitudes.add(solicitud);
         }
