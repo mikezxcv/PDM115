@@ -24,10 +24,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
-    String[] menuAdmin={"Estudiante","Docente","Encargado de Impresion","Web Services","LLenar Base de Datos"};
-    String[] menuDocente={"Docente","Web Services","LLenar Base de Datos"};
-    String[] menuEncargadoImpresion={"Encargado de Impresion","LLenar Base de Datos"};
-    String[] menuEstudiante={"Estudiante","LLenar Base de Datos"};
+
+
 
     String[] activitiesAdmin={"EstudianteMenuActivity","DocenteMenuActivity","EncargadoImpresionesMenuActivity","webServices"};
     String[] activitiesDocente={"DocenteMenuActivity","webServices"};
@@ -46,6 +44,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String[] menuAdmin={ getString(R.string.estudianteMENU),getString(R.string.DocenteMENU),getString(R.string.EncargadoImpresionMENU), getString(R.string.WebServicesMENU)};
+        String[] menuDocente={"Docente","Web Services","LLenar Base de Datos"};
+        String[] menuEncargadoImpresion={"Encargado de Impresion"};
+        String[] menuEstudiante={"Estudiante"};
+
+
         BDhelper = new ControlBdGrupo12(this);
         loginUser= findViewById(R.id.textloginUser);
         listViewMain= (ListView) findViewById(R.id.listViewMainMenu);
@@ -59,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         //menu de admin
         if(user.contentEquals("ADMIN") || shared.contentEquals("ADMIN")){
             checarPermisos();
+
             ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,menuAdmin);
             listViewMain.setAdapter(arrayAdapter);
             listViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {

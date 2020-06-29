@@ -64,6 +64,7 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
         detExtras = findViewById(R.id.detallesExtra);
         editPath = findViewById(R.id.path);
         buscar = findViewById(R.id.buscar);
+        editDocente.setEnabled(false);
 
         prefs= getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         String usuario = prefs.getString("usuarioActual","");
@@ -92,6 +93,7 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
                                     idEscuela = escuelas.get(item).getIdEscuela();
                                     idEncargado = helper.getIdEncargadoImpresionesEscuela(idEscuela);
                                     helper.cerrar();
+                                    editDocente.setEnabled(true);
                                 }
                             });
                     seleccion.show();

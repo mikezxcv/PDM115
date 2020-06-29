@@ -13,12 +13,14 @@ import android.widget.Toast;
 import sv.edu.ues.fia.eisi.pdm115.R;
 
 public class EstudianteMenuActivity extends ListActivity {
-    String[] menu={"Primera Revision","Segunda Revision","Diferido", "Repetido"};
+
     String[] activities={"EstudiantePrimeraRevisionActivity","EstudianteSegundaRevisionActivity","EstudianteDiferidoActivity", "EstudianteRepetidoActivity"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String[] menu={getString(R.string.PrimeraRevisionESTU),getString(R.string.SegundaRevisionESTU),getString(R.string.DiferidoESTU), getString(R.string.RepetidoESTU)};
+
         setListAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, menu));
     }
@@ -39,10 +41,10 @@ public class EstudianteMenuActivity extends ListActivity {
                 e.printStackTrace();
             }
         }else{
-          /*  BDhelper.abrir();
+          /* BDhelper.abrir();
             String tost=BDhelper.llenarBDCarnet();
             BDhelper.cerrar(); */
             Toast.makeText(this, "falta implementacion", Toast.LENGTH_SHORT).show();
         }
-}
+    }
 }

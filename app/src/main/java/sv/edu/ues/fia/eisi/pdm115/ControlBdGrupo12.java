@@ -302,11 +302,6 @@ public class ControlBdGrupo12 {
                         "\t(25, 25, 'AREA DE BASE DE DATOS');");
                 db.execSQL("INSERT INTO `ciclo` (`IDCICLO`, `FECHADESDE`, `FECHAHASTA`) VALUES\n" +
                         "\t('01-20', '2020-06-07', '2020-07-07');");
-                db.execSQL("INSERT INTO `detallealumnosevaluados` (`ID_DETALLEALUMNOSEVALUADOS`, `ASISTIO`, `NOTAEVALUACION`, `FECHA_PUBLICACION`, `FECHA_LIMITE`, `CARNET`, `IDREPETIDO`, `IDDIFERIDO`, `IDDOCENTE`, `IDPRIMERREVISION`, `IDEVALUACION`) VALUES\n" +
-                        "\t(1, 1, 8, '2020-06-07', '2020-06-25', 'MP16001', NULL, 11, '1', NULL, 1);");
-                db.execSQL("  INSERT INTO `detallealumnosevaluados` (`ID_DETALLEALUMNOSEVALUADOS`, `ASISTIO`, `NOTAEVALUACION`, `FECHA_PUBLICACION`, `FECHA_LIMITE`, `CARNET`, `IDREPETIDO`, `IDDIFERIDO`, `IDDOCENTE`, `IDPRIMERREVISION`, `IDEVALUACION`) VALUES\n" +
-                        "    (2, 1, 8, '2020-06-08', '2020-06-26', 'MP16001', NULL, 22, '2', NULL, 2);");
-
 
               /*   db.execSQL("INSERT INTO `detallealumnosevaluados` (`ID_DETALLEALUMNOSEVALUADOS`, `ASISTIO`, `NOTAEVALUACION`, `FECHA_PUBLICACION`, `FECHA_LIMITE`, `CARNET`, `IDREPETIDO`, `IDDIFERIDO`, `IDDOCENTE`, `IDPRIMERREVISION`, `IDEVALUACION`,`NOMBRELOCAL`) VALUES\n" +
                         "\t(3, 1, 8, '2020-06-09', '2020-06-27', 'MP16001', NULL, 11, '1', NULL, 3, NULL);");
@@ -347,7 +342,7 @@ public class ControlBdGrupo12 {
 
 
                 db.execSQL("INSERT INTO `docente` (`IDDOCENTE`, `IDTIPODOCENTECICLO`, `IDESCUELA`, `IDASIGNATURA`, `IDCICLO`, `USUARIO`, `ID_OPCION`, `NOMBREDOCENTE`, `APELLIDODOCENTE`,`ID_ROL`) VALUES\n" +
-                        "\t(1, '01', 1, 'DSI115', '01-20', 'DOCENTE', '1', 'JUAN', 'RAMOS',1);");
+                        "\t(1, '01', 1, 'DSI115', '01-20', 'DOCENTE', '1', 'ASCENCIO', 'MARTINEZ',1);");
                 db.execSQL("INSERT INTO `docente` (`IDDOCENTE`, `IDTIPODOCENTECICLO`, `IDESCUELA`, `IDASIGNATURA`, `IDCICLO`, `USUARIO`, `ID_OPCION`, `NOMBREDOCENTE`, `APELLIDODOCENTE`,`ID_ROL`) VALUES\n" +
                         "\t(2, '01', 1, 'MAT115', '01-20', 'DOCENTE', '1', 'RUDY', 'RAMOS',1);");
                 db.execSQL("INSERT INTO `docente` (`IDDOCENTE`, `IDTIPODOCENTECICLO`, `IDESCUELA`, `IDASIGNATURA`, `IDCICLO`, `USUARIO`, `ID_OPCION`, `NOMBREDOCENTE`, `APELLIDODOCENTE`,`ID_ROL`) VALUES\n" +
@@ -366,9 +361,17 @@ public class ControlBdGrupo12 {
                         "\t(2, 3, 'ESCUELA DE INGENIERIA INDUSTRIAL', 'INGENIERIA Y ARQUITECTURA');");
 
                 db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
-                        "\t('MP16001', 'DOCENTE', '1    ', 'MIGUEL', 'PEREZ', 'SISTEMAS', 'SISTEMAS');");
+                        "\t('MP16001', 'DOCENTE', '1', 'MIGUEL', 'PEREZ', 'SISTEMAS', 'SISTEMAS');");
+                /*db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
+                        "\t('CS17049', 'DOCENTE', '1', 'JOSE', 'AMILCAR', 'SISTEMAS', 'SISTEMAS');");*/
                 db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
-                        "\t('CS17049', 'DOCENTE', '1', 'JOSE', 'AMILCAR', 'SISTEMAS', 'SISTEMAS');");
+                        "\t('GM141114', 'DOCENTE', '1', 'CHRISTIAN', 'GARCIA', 'SISTEMAS', 'SISTEMAS');");
+                db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
+                        "\t('HA15005', 'DOCENTE', '1', 'GEOVANY', 'AMAYA', 'SISTEMAS', 'SISTEMAS');");
+                db.execSQL("INSERT INTO `estudiante` (`CARNET`, `USUARIO`, `ID_OPCION`, `NOMBREESTUDIANTE`, `APELLIDOESTUDIANTE`, `CARRERA`, `CONTRA`) VALUES\n" +
+                        "\t('BR15007', 'DOCENTE', '1', 'ADONAY', 'BARAHONA', 'SISTEMAS', 'SISTEMAS');");
+
+
 
                 db.execSQL("INSERT INTO `local` (`IDLOCAL`, `NOMBRELOCAL`, `UBICACION`) VALUES\n" +
                         "\t(1, 'B-21', 'PLANTA MEDIA');");
@@ -387,26 +390,19 @@ public class ControlBdGrupo12 {
                         "\t('1', 'VER SOLICITUD', 1);");
 
 
-                db.execSQL("INSERT INTO `primerrevision` (`IDPRIMERREVISION`, `IDLOCAL`, `IDDOCENTE`, `ID_DETALLEALUMNOSEVALUADOS`, `FECHASOLICITUDPRIMERAREV`, `ESTADOPRIMERAREV`, `FECHAPRIMERAREV`, `HORAPRIMERAREV`, `NOTAANTESPRIMERAREV`, `NOTADESPUESPRIMERAREV`, `OBSERVACIONESPRIMERAREV`,`FECHALIMITESEGUNDAREVISION`) VALUES\n" +
-                        "\t(1, NULL, '1', 1, '2020-06-07', 'APROBADO', NULL, NULL, NULL, NULL, NULL, '2020-06-28');");
-                db.execSQL("INSERT INTO `primerrevision` (`IDPRIMERREVISION`, `IDLOCAL`, `IDDOCENTE`, `ID_DETALLEALUMNOSEVALUADOS`, `FECHASOLICITUDPRIMERAREV`, `ESTADOPRIMERAREV`, `FECHAPRIMERAREV`, `HORAPRIMERAREV`, `NOTAANTESPRIMERAREV`, `NOTADESPUESPRIMERAREV`, `OBSERVACIONESPRIMERAREV`,`FECHALIMITESEGUNDAREVISION`) VALUES\n" +
-                        "\t(2, NULL, '2', 2, '2020-06-07', NULL, NULL, NULL, NULL, NULL, NULL, '2020-06-28');");
 
                 db.execSQL("INSERT INTO `rol` (`ID_ROL`, `NOMBRE_ROL`) VALUES\n" +
                         "\t(25, 'ADMINISTRADOR');");
                 db.execSQL("INSERT INTO `tipodocente` (`IDTIPODOCENTECICLO`, `NOMTIPODOCENTECICLO`) VALUES\n" +
                         "\t('01', 'NOMBRE TIPO DOCENTE');");
-                db.execSQL("  INSERT INTO `segundarevicion` (`IDSEGUNDAREVICION`, `FECHASOLICITUDSEGUNDAREVICION`, `ESTADOSEGUNDAREVICION`, `FECHASEGUNDAREVICION`, `HORASEGUNDAREVICION`, `NOTADESPUESSEGUNDAREVICION`, `OBSERVACIONESSEGUNDAREVICION`, `MATERIASEGUNDAREVICION`, `MOTIVOSSEGUNDAREVICION`, `IDPRIMERAREVISION`,`ID_DETALLEALUMNOSEVALUADOS`) VALUES\n" +
-                        "\t(1, '2020-06-09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1',1),\n" +
-                        "\t(2, '2020-06-09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2',2);");
+
                 // Llenados CS17049
 
-                db.execSQL("INSERT INTO REPETIDO VALUES(1, 1,'2000-04-04', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
+               /* db.execSQL("INSERT INTO REPETIDO VALUES(1, 1,'2000-04-04', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
                 db.execSQL("INSERT INTO REPETIDO VALUES(2, 1,'2000-04-05', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
-                db.execSQL("INSERT INTO REPETIDO VALUES(3, 1,'2000-04-06', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
-                db.execSQL("INSERT INTO REPETIDO VALUES(4, 1,'2000-04-07', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);");
+
                 db.execSQL("INSERT INTO SOLICITUDDIFERIDO VALUES (1,1, '2020-04-01','APROBADO','2020-04-02','5','OBSERVACION 1','MAT115','1', 'MOTIVO 1', '00:05:00');");
-                db.execSQL("INSERT INTO SOLICITUDDIFERIDO VALUES (2,1, '2020-04-01','APROBADO','2020-04-02','5','OBSERVACION 1','DSI115','1', 'MOTIVO 1', '00:05:00');");
+                db.execSQL("INSERT INTO SOLICITUDDIFERIDO VALUES (2,1, '2020-04-01','APROBADO','2020-04-02','5','OBSERVACION 1','DSI115','1', 'MOTIVO 1', '00:05:00');");*/
                 // Fin Llenados CS17049
 
                 db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(1,3,2,null,null,'Desc. generica', 25, null, null,0,'Sin archivo');");
@@ -638,8 +634,7 @@ public class ControlBdGrupo12 {
         int contador=0;
 
         contador+=db.delete("primerrevision", "IDPRIMERREVISION= '"+primeraRevision.getIdPrimeraRevision()+"'", null);
-
-
+        contador+=db.delete("segundarevicion", "IDPRIMERAREVISION= '"+primeraRevision.getIdPrimeraRevision()+"'", null);
 
         regAfectados+=contador;
         return regAfectados;
@@ -2146,7 +2141,6 @@ public class ControlBdGrupo12 {
             area.setID_ROL(ID_ROL[i]);
             area.setNOMBRE_AREA(NOMBRE_AREA[i]);
             insertar(area);
-
         }
 
         SolicitudDiferidoTabla solDiferido  = new SolicitudDiferidoTabla();
@@ -2681,6 +2675,7 @@ public class ControlBdGrupo12 {
     }
 
     public String insertPrimerRevision(String fechaSolcitud, String carnet, String materia, String evaluacion) {
+
         try {
             abrir();
             // Buscando materia
@@ -3233,95 +3228,92 @@ public class ControlBdGrupo12 {
 
 
     //METODO PARA INSERTAR SEGUNDA REVISION
-    public void insertSegundaRevision(String fechaSolicitud, String carnet, String materia, String evaluacion)
+    public String insertSegundaRevision(String fechaSolicitud, String carnet, String materia, String evaluacion, String idENVIAR)
     {
+        String SALIDA = null;
+        // Abriendo base de datos
+        abrir();
 
-        try {
+        Cursor cursor = db.rawQuery("SELECT IDDOCENTE FROM DOCENTE WHERE IDASIGNATURA = '" +materia+ "' " ,null);
 
-            // Abriendo base de datos
+        // Variable del ID del Docente
+        String idDocente = null;
+
+        if(cursor.moveToFirst()){
+            while (cursor.isAfterLast()==false){
+                idDocente=cursor.getString(0);
+                cursor.moveToNext();
+            }
+        }
+        if (idDocente == null) {
+            return SALIDA = "No se encontró el docente de la materia indicada: '" + materia + "'";
+        }
+
+        // Buscando que exista una evaluación para la materia indicada
+        Cursor evaluacionCursor = db.rawQuery("SELECT eva.IDEVALUACION FROM EVALUACION AS EVA\n" +
+                "JOIN DETALLEALUMNOSEVALUADOS AS det ON det.IDEVALUACION = eva.IDEVALUACION\n" +
+                "WHERE IDASIGNATURA = '"+materia+"' AND NOMBREEVALUACION = '"+evaluacion+"' And det.ASISTIO = 1" ,null);
+        // Asumiendo que solo se recibe un registro, se omite un loop y se extrae la primera fila
+        // Siempre que no sea la última
+
+        int idEvaluacion = 0;
+        if(evaluacionCursor.moveToFirst()){
+            while (evaluacionCursor.isAfterLast()==false){
+                idEvaluacion=evaluacionCursor.getInt(0);
+                evaluacionCursor.moveToNext();
+            }
+        }
+        if (idEvaluacion == 0) {
+            return SALIDA = "Id De evaluacion No encontrado";
+        }
+        // Buscando al alumno en la tabla DETALLEALUMNOSEVALUADOS
+        Cursor detalleAlumnoEvaluado = db.rawQuery("SELECT det.ID_DETALLEALUMNOSEVALUADOS FROM DETALLEALUMNOSEVALUADOS as det\n" +
+                "WHERE det.IDEVALUACION = '" +idEvaluacion+ "' And ASISTIO = 1 AND CARNET = '" +carnet+ "'", null);
+
+        int idDetalleAlumnoEvaluado = 0;
+        if(detalleAlumnoEvaluado.moveToFirst()){
+            while (detalleAlumnoEvaluado.isAfterLast()==false){
+                idDetalleAlumnoEvaluado=detalleAlumnoEvaluado.getInt(0);
+                detalleAlumnoEvaluado.moveToNext();
+            }
+        }
+        if (idDetalleAlumnoEvaluado == 0) {
+            return SALIDA = "NO se encontro id de Detalle Alumno evaluado";
+        }
+
+        Cursor integridad = db.rawQuery("\n" +
+                "SELECT p.IDSEGUNDAREVICION FROM SEGUNDAREVICION AS p\n" +
+                "JOIN DETALLEALUMNOSEVALUADOS AS det on P.ID_DETALLEALUMNOSEVALUADOS = det.ID_DETALLEALUMNOSEVALUADOS\n" +
+                "WHERE det.IDEVALUACION = '"+idEvaluacion+"' AND p.ID_DETALLEALUMNOSEVALUADOS = '"+idDetalleAlumnoEvaluado+"'",null);
+
+        int integridadSol = 0;
+        if(integridad.moveToFirst()){
+            while (integridad.isAfterLast()==false){
+                integridadSol=integridad.getInt(0);
+                integridad.moveToNext();
+
+            }
+        }
+        if (integridad == null) {
+            SALIDA = "No se encuentra evalucion en el Detalle de la evaluacion == null";
+        }
+        if(!(integridadSol == 0)){
+            SALIDA = "Ya se encuantra un registro";
+        }else{
             abrir();
-
-            Cursor cursor = db.rawQuery("SELECT IDDOCENTE FROM DOCENTE WHERE IDASIGNATURA = '" +materia+ "' " ,null);
-
-            // Variable del ID del Docente
-            String idDocente = null;
-
-            if(cursor.moveToFirst()){
-                while (cursor.isAfterLast()==false){
-                    idDocente=cursor.getString(0);
-                    cursor.moveToNext();
-                }
-            }
-            if (idDocente == null) {
-                throw new NoSuchFieldException("No se encontró el docente de la materia indicada: '" + materia + "'");
-            }
-
-            // Buscando que exista una evaluación para la materia indicada
-            Cursor evaluacionCursor = db.rawQuery("SELECT eva.IDEVALUACION FROM EVALUACION AS EVA\n" +
-                    "JOIN DETALLEALUMNOSEVALUADOS AS det ON det.IDEVALUACION = eva.IDEVALUACION\n" +
-                    "WHERE IDASIGNATURA = '"+materia+"' AND NOMBREEVALUACION = '"+evaluacion+"' And det.ASISTIO = 1" ,null);
-            // Asumiendo que solo se recibe un registro, se omite un loop y se extrae la primera fila
-            // Siempre que no sea la última
-
-            int idEvaluacion = 0;
-            if(evaluacionCursor.moveToFirst()){
-                while (evaluacionCursor.isAfterLast()==false){
-                    idEvaluacion=evaluacionCursor.getInt(0);
-                    evaluacionCursor.moveToNext();
-                }
-            }
-            if (idEvaluacion == 0) {
-                throw new NoSuchFieldException("Id De evaluacion No encontrado");
-            }
-
-            // Buscando al alumno en la tabla DETALLEALUMNOSEVALUADOS
-            Cursor detalleAlumnoEvaluado = db.rawQuery("SELECT det.ID_DETALLEALUMNOSEVALUADOS FROM DETALLEALUMNOSEVALUADOS as det\n" +
-                    "WHERE det.IDEVALUACION = '" +idEvaluacion+ "' And ASISTIO = 1 AND CARNET = '" +carnet+ "'", null);
-
-            int idDetalleAlumnoEvaluado = 0;
-            if(detalleAlumnoEvaluado.moveToFirst()){
-                while (detalleAlumnoEvaluado.isAfterLast()==false){
-                    idDetalleAlumnoEvaluado=detalleAlumnoEvaluado.getInt(0);
-                    detalleAlumnoEvaluado.moveToNext();
-                }
-            }
-            if (idDetalleAlumnoEvaluado == 0) {
-                throw new NoSuchFieldException("NO se encontro evaluacion relacaionada");
-            }
-
-            Cursor integridad = db.rawQuery("\n" +
-                    "SELECT p.IDSEGUNDAREVICION FROM SEGUNDAREVICION AS p\n" +
-                    "JOIN DETALLEALUMNOSEVALUADOS AS det on P.ID_DETALLEALUMNOSEVALUADOS = det.ID_DETALLEALUMNOSEVALUADOS\n" +
-                    "WHERE det.IDEVALUACION = '"+idEvaluacion+"' AND p.ID_DETALLEALUMNOSEVALUADOS = '"+idDetalleAlumnoEvaluado+"'",null);
-
-            int integridadSol = 0;
-            if(integridad.moveToFirst()){
-                while (integridad.isAfterLast()==false){
-                    integridadSol=integridad.getInt(0);
-                    integridad.moveToNext();
-                }
-            }
-            if (integridad == null) {
-                throw new NoSuchFieldException("Integridad Nula");
-            }
-            if(!(integridadSol == 0)){
-                throw new NoSuchFieldException("Ya se realizo una solicitud de con estos datos");
-            }else{
-                abrir();
-                ContentValues segundaRevisionParametros = new ContentValues();
-                segundaRevisionParametros.put("FECHASOLICITUDSEGUNDAREVICION", fechaSolicitud);
-                segundaRevisionParametros.put("ID_DETALLEALUMNOSEVALUADOS", idDetalleAlumnoEvaluado);
-                segundaRevisionParametros.put("MATERIASEGUNDAREVICION", materia);
-                // Solicitando la inserción a la tabla
-                db.insert("SEGUNDAREVICION", null, segundaRevisionParametros);
-                cerrar();
-            }
-
+            ContentValues segundaRevisionParametros = new ContentValues();
+            segundaRevisionParametros.put("FECHASOLICITUDSEGUNDAREVICION", fechaSolicitud);
+            segundaRevisionParametros.put("ID_DETALLEALUMNOSEVALUADOS", idDetalleAlumnoEvaluado);
+            segundaRevisionParametros.put("MATERIASEGUNDAREVICION", materia);
+            segundaRevisionParametros.put("IDPRIMERAREVISION", idENVIAR);
+            // Solicitando la inserción a la tabla
+            db.insert("SEGUNDAREVICION", null, segundaRevisionParametros);
             cerrar();
+            return SALIDA = "Segunda revicion Creada";
         }
-        catch(Exception e) {
-            Toast.makeText(this.context, e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
+
+        cerrar();
+        return SALIDA;
     }
 
 
@@ -3904,6 +3896,5 @@ public class ControlBdGrupo12 {
     public String eliminarMotivo(int idMotivo){
         return (db.delete("MOTIVONOIMPRESION","IDMOTIVONOIMP='"+idMotivo+"'",null)>0)?"Registro eliminado":"Error";
     }
-
 
 }

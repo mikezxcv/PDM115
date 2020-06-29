@@ -42,7 +42,7 @@ public class AdmConsultarSolImpresionesActivity extends AppCompatActivity {
         }
         else {llenadoAdmin();}
 
-        if (lista.length>0) {
+        if (lista!=null && lista.length>0) {
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(AdmConsultarSolImpresionesActivity.this,
                     android.R.layout.simple_list_item_1, lista);
             listView.setAdapter(arrayAdapter);

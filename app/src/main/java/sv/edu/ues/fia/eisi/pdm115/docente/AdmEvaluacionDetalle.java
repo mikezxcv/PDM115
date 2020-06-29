@@ -149,6 +149,7 @@ public class AdmEvaluacionDetalle extends Activity {
                                 String resultado=helper.eliminarEvaluacion(Integer.valueOf(id));
                                 helper.cerrar();
                                 Intent intent= new Intent(AdmEvaluacionDetalle.this,AdmGestionarEvaluacionesActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
 
 

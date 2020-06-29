@@ -20,4 +20,44 @@
     <string name="detalles_de_la_solicitud">Detalles de la solicitud</string>
     <string name="escuela">Escuela</string>
     <string name="docente">Docente</string>
+
+    <string name="estudianteMENU">Estudiante</string>
+    <string name="DocenteMENU">Docente</string>
+    <string name="EncargadoImpresionMENU">Encargado de Impresion</string>
+    <string name="WebServicesMENU">Servicios Web</string>
+
+
+    <!-- ESTUDIANTE-->
+    <string name="PrimeraRevisionESTU">Primera Revision</string>
+    <string name="SegundaRevisionESTU">Segunda Revision</string>
+    <string name="DiferidoESTU">Diferido</string>
+    <string name="RepetidoESTU">Repetido</string>
+
+    <!--DOCENTE-->
+    <string name="AdministrarPrimeraRevisionDOC">Administrar Primera Revision</string>
+    <string name="AdministrarSegundaRevisionDOC">Administrar Segunda Revision</string>
+    <string name="AdministrarDiferiddosDOC">Administrar Diferiddos</string>
+    <string name="AdministrarRepetidosDOC">Administrar Repetidos</string>
+    <string name="AdministrarImpresionesDOC">Administrar Impresiones</string>
+    <string name="GestionarLocalesRevisionDOC">Gestionar Locales de Revision</string>
+    <string name="GestionarRolesDocentesDOC">Gestionar Roles de Docentes</string>
+    <string name="GestionarEscuelasDOC">Gestionar Escuelas</string>
+    <string name="GestionarEvaluacionesDOC">Gestionar Evaluaciones</string>
+    <string name="GestionarfechasevaluacionesDOC">Gestionar fechas evaluaciones</string>
+
+    <!-- IMPRESIONES -->
+    <string name="AdministrarsolicitudesimpresionIMP">Administrar solicitudes de impresión</string>
+    <string name="AdministrarMotivosIMP">Administrar Motivos</string>
+    <string name="AdministrarEncargadosImpresionesIMP">Administrar Encargados de Impresiones</string>
+
+    <!--SERVICIOS WEB-->
+    <string name="ActualizarListaLocalesWEB">Actualizar Lista de Locales</string>
+    <string name="CantidadSolicitudesProcesosAcademicosWEB">Cantidad Solicitudes de Procesos Academicos</string>
+    <string name="ActualizarListaEstudiantesWEB">Actualizar Lista de Estudiantes</string>
+    <string name="EliminarEstudianteWEB">Eliminar Estudiante</string>
+    <string name="IngresarmateriaWEB">Ingresar materia</string>
+    <string name="ConsultarListaUsuariosWEB">Consultar Lista de Usuarios</string>
+
+
+
 </resources>
