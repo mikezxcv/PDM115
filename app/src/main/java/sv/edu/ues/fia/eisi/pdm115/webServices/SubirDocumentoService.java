@@ -16,7 +16,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class SubirDocumentoService extends JobIntentService {
-    final Handler mHandler = new Handler();
+
     private static final String TAG = "SubirDocumentoService";
     private static final int JOB_ID = 1000;
     String urlServidor = "https://pdmgrupo12.000webhostapp.com/upload.php?directorio=%s&nombre=%s";
@@ -37,8 +37,8 @@ public class SubirDocumentoService extends JobIntentService {
     }
     @Override
     public void onCreate() {
-        super.onCreate();
         Toast.makeText(SubirDocumentoService.this, "Subiendo archivo...", Toast.LENGTH_SHORT).show();
+        super.onCreate();
     }
 
     @Override
@@ -46,7 +46,11 @@ public class SubirDocumentoService extends JobIntentService {
         rutaArchivoLocal = intent.getStringExtra("path");
         String dir = intent.getStringExtra("directorio");
         String nombre = intent.getStringExtra("nombre");
-
+        String antiguo;
+        if (intent.hasExtra("antiguo")) {
+            antiguo = intent.getStringExtra("antiguo");
+            urlServidor = urlServidor+"&antiguo="+antiguo;
+        }
         try {
             //Prepara la url con los parametros enviados desde la actividad.
             //El directorio y nombre del documento en el servidor se mandan por variables GET

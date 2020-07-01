@@ -1,16 +1,20 @@
 package sv.edu.ues.fia.eisi.pdm115;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +26,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
     String[] activitiesEncargadoImpresion={"EncargadoImpresionesMenuActivity"};
     String[] activitiesEstudiante={"EstudianteMenuActivity"};
     String[] impresionUsuarios;
+
+    String[] permisos = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            // Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+    };
+
+    private  static final int REQUEST_CODE = 1001;
 
     ControlBdGrupo12 BDhelper;
     ListView listViewMain;
@@ -283,23 +298,73 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void checarPermisos() {
-        // Checar permisos de almacenamiento (Escritura)
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+    public boolean checarPermisos() {
+        // Checar permisos de almacenamiento (Escritura) y camara.
+        List<String> listaPermisos = new ArrayList<>();
+
+        for(String perm : permisos){
+            if (ContextCompat.checkSelfPermission(this, perm) != PackageManager.PERMISSION_GRANTED){
+                listaPermisos.add(perm);
+            }
         }
-        // Checar permisos de almacenamiento (Lectura)
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+        if (!listaPermisos.isEmpty()){
+            ActivityCompat.requestPermissions(this, listaPermisos.toArray(new String[listaPermisos.size()]),REQUEST_CODE);
+            return false;
         }
-        // Checar permisos de WIFI
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.INTERNET}, 1);
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_NETWORK_STATE}, 1);
+        return true;
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE){
+            HashMap<String, Integer> permResult = new HashMap<>();
+            int deniedCount = 0;
+
+            for (int i=0; i<grantResults.length; i++){
+                if (grantResults[i] == PackageManager.PERMISSION_DENIED){
+                    permResult.put(permissions[i], grantResults[i]);
+                    deniedCount++;
+                }
+            }
+            if (deniedCount==0){
+                //Terminar
+            }
+            else {
+                showDialog("Permisos necesarios", "Se necesitan permisos de almacenamiento y " +
+                                "acceso a la camara. Al rechazarlos, algunas funciones pueden no estar disponibles",
+                        "Otorgar permisos", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        checarPermisos();
+                    }
+                    },"Continuar sin permisos", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                    },false);
+            }
         }
     }
 
+    private AlertDialog showDialog(String title, String msg, String positiveLabel,
+                                   DialogInterface.OnClickListener positiveOnClick,
+                                   String negativeLabel, DialogInterface.OnClickListener negativeOnClick,
+                                   boolean isCancelable) {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setCancelable(isCancelable);
+        builder.setMessage(msg);
+        builder.setPositiveButton(positiveLabel, positiveOnClick);
+        builder.setNegativeButton(negativeLabel, negativeOnClick);
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        return  alertDialog;
+    }
 }
 

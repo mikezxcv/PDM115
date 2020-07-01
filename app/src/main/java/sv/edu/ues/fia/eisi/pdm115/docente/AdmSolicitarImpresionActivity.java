@@ -45,6 +45,7 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
     long secs = (new Date().getTime())/1000;
     String idDocente, idEscuela, path, nombre, directorio, nuevoNombre;
     Impresion impresion;
+    Docente docente;
     private SharedPreferences prefs;
 
     @Override
@@ -111,12 +112,11 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
                     }
                     AlertDialog.Builder seleccion =
                             new AlertDialog.Builder(AdmSolicitarImpresionActivity.this);
-                    seleccion.setTitle("Seleccione una escuela:");
+                    seleccion.setTitle("Seleccione un docente:");
                     seleccion.setItems(opcionesDocente,
                             new DialogInterface.OnClickListener(){
 
                                 public void onClick(DialogInterface dialog, int item) {
-
                                     editDocente.setText(opcionesDocente[item]);
                                     idDocente = docentes.get(item).getIdDocente();
                                     nuevoNombre = "formato-"+ docentes.get(item).getApellidoDocente()+"-"+secs;
@@ -131,12 +131,10 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
             li1.setVisibility(View.GONE);
             li2.setVisibility(View.GONE);
             helper.abrir();
-            Docente docente = helper.getDocenteActual(usuario);
+            docente = helper.getDocenteActual(usuario);
             idDocente = docente.getIdDocente();
             idEncargado = helper.getIdEncargadoImpresionesEscuela(docente.getIdEscuela());
             helper.cerrar();
-            long secs = (new Date().getTime())/1000;
-            nuevoNombre = "formato-"+docente.getApellidoDocente()+"-"+secs;
         }
 
     }
@@ -153,6 +151,10 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
             nombre = partes[partes.length - 1];
             directorio = "documentos/";
             editPath.setText(nombre);
+            String usuario = prefs.getString("usuarioActual","");
+            if (!usuario.equals("ADMIN")){
+                nuevoNombre = "formato-"+ docente.getApellidoDocente()+"-"+secs;
+            }
         }
     }
 
@@ -167,12 +169,9 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
             impresion.setCantidadExamenes(Integer.parseInt(cantExamenes.getText().toString()));
             impresion.setHojasEmpaque(Integer.parseInt(cantHojasEmpaque.getText().toString()));
             impresion.setDescripcionSolicitud(detExtras.getText().toString());
-            if(nuevoNombre!=null) impresion.setUrl(nuevoNombre+".pdf");
-            else impresion.setUrl("Sin archivo");
-            helper.abrir();
-            String resultado = helper.insertarSolicitudImpresion(impresion);
-            helper.cerrar();
-            if(!resultado.equals("Error")){
+
+            if(nuevoNombre!=null){
+                impresion.setUrl(nuevoNombre+".pdf");
                 try {
                     Intent mIntent = new Intent(this, SubirDocumentoService.class);
                     mIntent.putExtra("path", path);
@@ -180,12 +179,22 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
                     mIntent.putExtra("nombre", nuevoNombre);
                     SubirDocumentoService.enqueueWork(getApplicationContext(), mIntent);
 
-                   // copiarLocal(path, nombre, directorio);
+                    // copiarLocal(path, nombre, directorio);
 
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(this, "Algo salio mal", Toast.LENGTH_SHORT).show();
                 }
+            }
+            else {
+                impresion.setUrl("Sin archivo de formato");
+            }
+
+            helper.abrir();
+            String resultado = helper.insertarSolicitudImpresion(impresion);
+            helper.cerrar();
+
+            if(!resultado.equals("Error")){
                 Toast.makeText(this, resultado, Toast.LENGTH_SHORT).show();
                 finish();
             }else {
@@ -229,6 +238,7 @@ public class AdmSolicitarImpresionActivity extends AppCompatActivity {
         }
 
     }
+
     //PROYECTO 2
     public void buscarArchivo(View view) {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);

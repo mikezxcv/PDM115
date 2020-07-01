@@ -405,9 +405,9 @@ public class ControlBdGrupo12 {
                 db.execSQL("INSERT INTO SOLICITUDDIFERIDO VALUES (2,1, '2020-04-01','APROBADO','2020-04-02','5','OBSERVACION 1','DSI115','1', 'MOTIVO 1', '00:05:00');");*/
                 // Fin Llenados CS17049
 
-                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(1,3,2,null,null,'Desc. generica', 25, null, null,0,'Sin archivo');");
-                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(2,4,1,null,null,'Desc. generica', 40, null, null,1,'Sin archivo');");
-                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(3,3,2,null,null,'Desc. generica', 80, null, null,2,'Sin archivo');");
+                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(1,3,2,null,null,'Desc. generica', 25, null, null,0,'Sin archivo de formato');");
+                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(2,4,1,null,null,'Desc. generica', 40, null, null,1,'Sin archivo de formato');");
+                db.execSQL("INSERT INTO SOLICITUDIMPRESION VALUES(3,3,2,null,null,'Desc. generica', 80, null, null,2,'Sin archivo de formato');");
 
                 //FIN DATOS DE PRUEBA
 
@@ -3707,6 +3707,7 @@ public class ControlBdGrupo12 {
         solicitud.put("DESCRIPCION_SOLICITUD", impresion.getDescripcionSolicitud());
         solicitud.put("CANTIDADEXAMENES", impresion.getCantidadExamenes());
         solicitud.put("HOJASEMPAQUE", impresion.getHojasEmpaque());
+        solicitud.put("URLFORMATO", impresion.getUrl());
 
         return  (db.update("SOLICITUDIMPRESION",solicitud,"IDSOLICITUDIMPRESION='"+impresion.getIdSolicitudImpresion()+"'",null)>0)
                 ? resultado : "Error";
@@ -3825,6 +3826,15 @@ public class ControlBdGrupo12 {
         solicitud.put("MOTIVONOIMP", impresion.getIdMotivoNoImp());
         solicitud.put("DESCRIPCION_NO_IMP", impresion.getDescripcionNoImp());
         solicitud.put("ESTADOIMPRESION", impresion.getEstadoImpresion());
+
+        return  (db.update("SOLICITUDIMPRESION",solicitud,"IDSOLICITUDIMPRESION='"+impresion.getIdSolicitudImpresion()+"'",null)>0)
+                ? resultado : "Error";
+    }
+
+    public String actualizarDocumentoDeFormato(Impresion impresion) {
+        String resultado = "Solicitud actualizada exitosamente";
+        ContentValues solicitud = new ContentValues();
+        solicitud.put("URLFORMATO", impresion.getUrl());
 
         return  (db.update("SOLICITUDIMPRESION",solicitud,"IDSOLICITUDIMPRESION='"+impresion.getIdSolicitudImpresion()+"'",null)>0)
                 ? resultado : "Error";

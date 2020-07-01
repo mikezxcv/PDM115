@@ -1,7 +1,9 @@
 package sv.edu.ues.fia.eisi.pdm115.encargadoImpresion;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,10 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.Docente;
@@ -24,23 +26,23 @@ import sv.edu.ues.fia.eisi.pdm115.EncargadoDeImpresiones;
 import sv.edu.ues.fia.eisi.pdm115.Impresion;
 import sv.edu.ues.fia.eisi.pdm115.MotivoNoImpresion;
 import sv.edu.ues.fia.eisi.pdm115.R;
+import sv.edu.ues.fia.eisi.pdm115.utilidades.BuscarRuta;
+import sv.edu.ues.fia.eisi.pdm115.webServices.SubirDocumentoService;
 
 
 public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
     ControlBdGrupo12 helper= new ControlBdGrupo12(this);
     Context contexto = DetalleSolicitudImpresionActivity.this;
-    int modo;
-    int aprobacionTmp;
-    int estadoTmp;
-    int motivoTmp;
-    String observacionesTmp;
+    int modo, aprobacionTmp, estadoTmp, motivoTmp;
+    long secs;
+    String observacionesTmp, path, nombre, directorio, nuevoNombre, nombreTmp;
     Impresion impresion;
     String[] estadoAprobacion = {"Pendiente","Aprobada","Rechazada"};
     String[] estadoImpresion = {"En espera", "Realizada", "No se realizó"};
     ArrayList<MotivoNoImpresion> motivos;
     EditText editExamenes, editHojas, editDetalles, editAprobacion, editEstadoImp,
-            editMotivo, observaciones, editDocente, editEncargado, path;
-    Button guardar, cancelar, modificarEstadoAprobacion, cambiarEstadoImpresion, verArchivo;
+            editMotivo, observaciones, editDocente, editEncargado, editPath;
+    Button guardar, cancelar, modificarEstadoAprobacion, cambiarEstadoImpresion, verArchivo, cambiarArchivo;
     TableRow tr1;
     LinearLayout li1;
     @Override
@@ -61,7 +63,8 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         editMotivo = findViewById(R.id.editMotivoSol);
         observaciones = findViewById(R.id.detallesRechazoSol);
         verArchivo = findViewById(R.id.verArchivo);
-        path = findViewById(R.id.path);
+        cambiarArchivo = findViewById(R.id.cambiarArchivo);
+        editPath = findViewById(R.id.path);
         guardar = findViewById(R.id.guardarCambios);
         cancelar = findViewById(R.id.cancelarCambios);
         modificarEstadoAprobacion = findViewById(R.id.modificarEstadoAprobacion);
@@ -74,6 +77,7 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         impresion = helper.getSolicitudImpresion(String.valueOf(idSolicitud));
         Docente docente = helper.getDocenteAdmin(impresion.getIdDocente());
         String edDocente = docente.getNombreDocente()+" "+docente.getApellidoDocente();
+        nuevoNombre = "formato-"+docente.getApellidoDocente();
         editDocente.setText(edDocente);
         if (usuario.equals("ADMIN")){
             EncargadoDeImpresiones encargado = helper.consultarEncargado(
@@ -98,10 +102,11 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         observaciones.setText(impresion.getDescripcionNoImp());
         editAprobacion.setText(estadoAprobacion[impresion.getEstadoAprobacion()]);
         editEstadoImp.setText(estadoImpresion[impresion.getEstadoImpresion()]);
-        if(impresion.getUrl()!=null && !impresion.getUrl().equals("Sin archivo")){
-            path.setText(impresion.getUrl());
+        if(impresion.getUrl()!=null && !impresion.getUrl().equals("Sin archivo de formato")){
+            editPath.setText(impresion.getUrl());
         }else{
             verArchivo.setEnabled(false);
+            cambiarArchivo.setText("Agregar archivo");
         }
 
         guardar.setVisibility(View.GONE);
@@ -203,6 +208,20 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            assert data != null;
+            Uri uri = data.getData();
+            path = BuscarRuta.getPath(this, uri);
+            String[] partes = path.split("/");
+            nombre = partes[partes.length - 1];
+            directorio = "documentos/";
+            editPath.setText(nombre);
+        }
+    }
 
     public void ActualizarAprobacion(View view) {
         modo=1;
@@ -229,7 +248,6 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
     }
 
     public void guardar(View view) {
-
         switch (modo){
             case 1:
                 helper.abrir();
@@ -244,17 +262,47 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
                 helper.cerrar();
                 Toast.makeText(contexto,res2,Toast.LENGTH_SHORT).show();
                 break;
+            case 3:
+                if (impresion.getUrl()!=editPath.getText().toString()) {
+                    secs = (new Date().getTime())/1000;
+                    try {
+                        Intent mIntent = new Intent(this, SubirDocumentoService.class);
+                        mIntent.putExtra("path", path);
+                        mIntent.putExtra("directorio", directorio);
+                        mIntent.putExtra("nombre", nuevoNombre+"-"+secs);
+                        if (!impresion.getUrl().equals("Sin archivo de formato"))
+                            mIntent.putExtra("antiguo", impresion.getUrl());
+
+                        SubirDocumentoService.enqueueWork(getApplicationContext(), mIntent);
+                        impresion.setUrl(nuevoNombre+"-"+secs+".pdf");
+                        editPath.setText(impresion.getUrl());
+                        // copiarLocal(path, nombre, directorio);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Toast.makeText(this, "Algo salio mal", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                helper.abrir();
+                String res3 = helper.actualizarDocumentoDeFormato(impresion);
+                helper.cerrar();
+                editPath.setText(impresion.getUrl());
+                Toast.makeText(contexto,res3,Toast.LENGTH_SHORT).show();
+                modo=0;
+                break;
             default:
                 break;
         }
 
         cambiarEstadoImpresion.setVisibility(View.VISIBLE);
         modificarEstadoAprobacion.setVisibility(View.VISIBLE);
+        cambiarArchivo.setVisibility(View.VISIBLE);
         editEstadoImp.setEnabled(false);
         editMotivo.setEnabled(false);
         observaciones.setEnabled(false);
         cancelar.setVisibility(View.GONE);
         guardar.setVisibility(View.GONE);
+        recreate();
     }
 
     public void cancelar(View view) {
@@ -272,12 +320,21 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
             if (impresion.getEstadoAprobacion()!=2) editMotivo.setText("---");
             else {editMotivo.setText("Solicitud no aprobada");}
         }
+        if(impresion.getUrl()!=null && !impresion.getUrl().equals("Sin archivo de formato")){
+            editPath.setText(impresion.getUrl());
+        }else{
+            verArchivo.setEnabled(false);
+            cambiarArchivo.setText("Agregar Archivo");
+        }
         observaciones.setText(impresion.getDescripcionNoImp());
         editEstadoImp.setEnabled(false);
         editMotivo.setEnabled(false);
         observaciones.setEnabled(false);
+        editPath.setText(impresion.getUrl());
+
         cambiarEstadoImpresion.setVisibility(View.VISIBLE);
         modificarEstadoAprobacion.setVisibility(View.VISIBLE);
+        cambiarArchivo.setVisibility(View.VISIBLE);
         cancelar.setVisibility(View.GONE);
         guardar.setVisibility(View.GONE);
         estadoTmp=-1;
@@ -303,5 +360,23 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
     public void verPDF(View view) {
         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://pdmgrupo12.000webhostapp.com/documentos/"+impresion.getUrl()));
         startActivity(browserIntent);
+    }
+
+    public void CambiarPDF(View view) {
+        modo = 3;
+        cancelar.setVisibility(View.VISIBLE);
+        guardar.setVisibility(View.VISIBLE);
+        modificarEstadoAprobacion.setVisibility(View.GONE);
+        cambiarEstadoImpresion.setVisibility(View.GONE);
+        cambiarArchivo.setVisibility(View.GONE);
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("application/pdf");
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(Intent.createChooser(intent, "Seleccionar archivo"), 1);
+        setResult(Activity.RESULT_OK);
+    }
+
+    public void imprimirFormato(View view) {
+
     }
 }
