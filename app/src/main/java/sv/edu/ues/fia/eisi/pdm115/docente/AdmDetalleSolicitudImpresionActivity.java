@@ -11,6 +11,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +28,7 @@ import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
 import sv.edu.ues.fia.eisi.pdm115.Docente;
 import sv.edu.ues.fia.eisi.pdm115.Impresion;
 import sv.edu.ues.fia.eisi.pdm115.R;
+import sv.edu.ues.fia.eisi.pdm115.impresionInalambrica.AdaptadorImpresoraURL;
 import sv.edu.ues.fia.eisi.pdm115.utilidades.BuscarRuta;
 import sv.edu.ues.fia.eisi.pdm115.webServices.SubirDocumentoService;
 
@@ -35,11 +39,10 @@ public class AdmDetalleSolicitudImpresionActivity extends AppCompatActivity {
     Context contexto = AdmDetalleSolicitudImpresionActivity.this;
     EditText editDocente, editExamenes, editHojas,editAprobacion, editDetalles,
             editEstadoImp, editMotivo, observaciones, editPath;
-    Button verArchivo, cambiarArchivo;
     TextView razonTitulo;
     TableRow tr1, tr2, tr3;
     LinearLayout li1, li2, li3;
-    Button cancelar, guardar, eliminar, actualizar;
+    Button cancelar, guardar, eliminar, actualizar, verArchivo, cambiarArchivo, imprimirBtn;
     final String[] estadoAprobacion = {"Pendiente", "Aprobada", "Rechazada"};
     final String[] estadoImpresion = {"Pendiente", "Aprobada", "No se realizó"};
     ControlBdGrupo12 helper = new ControlBdGrupo12(this);
@@ -72,6 +75,7 @@ public class AdmDetalleSolicitudImpresionActivity extends AppCompatActivity {
         guardar = findViewById(R.id.guardarSol);
         eliminar = findViewById(R.id.eliminarSolicitud);
         actualizar = findViewById(R.id.actualizarSolicitud);
+        imprimirBtn = findViewById(R.id.imprimir);
 
         int idSolicitud = getIntent().getIntExtra("idImpresion",0);
         String usuario = getIntent().getStringExtra("usuarioActual");
@@ -92,18 +96,20 @@ public class AdmDetalleSolicitudImpresionActivity extends AppCompatActivity {
             tr1.setVisibility(View.GONE);
             li1.setVisibility(View.GONE);
         }
-
         helper.cerrar();
 
         observaciones.setText(impresion.getDescripcionNoImp());
         editExamenes.setText(String.valueOf(impresion.getCantidadExamenes()));
         editHojas.setText(String.valueOf(impresion.getHojasEmpaque()));
         editDetalles.setText(impresion.getDescripcionSolicitud());
+
         if(impresion.getUrl()!=null && !impresion.getUrl().equals("Sin archivo de formato")){
             editPath.setText(impresion.getUrl());
         }else{
             verArchivo.setEnabled(false);
+            imprimirBtn.setEnabled(false);
         }
+
         editAprobacion.setText(estadoAprobacion[impresion.getEstadoAprobacion()]);
         editEstadoImp.setText(estadoImpresion[impresion.getEstadoImpresion()]);
 
@@ -247,5 +253,13 @@ public class AdmDetalleSolicitudImpresionActivity extends AppCompatActivity {
     }
 
     public void imprimirFormato(View view) {
+        PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
+        try {
+            PrintDocumentAdapter printAdapter = new AdaptadorImpresoraURL(impresion.getUrl());
+            assert printManager != null;
+            printManager.print("PDM115-GPO12", printAdapter, new PrintAttributes.Builder().build());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

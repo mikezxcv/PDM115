@@ -22,11 +22,11 @@ import java.io.OutputStream;
 
 
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-public class AdaptadorImpresora extends PrintDocumentAdapter {
+public class AdaptadorImpresoraArchivoLocal extends PrintDocumentAdapter {
 
     private String path;
 
-    public AdaptadorImpresora(String path){
+    public AdaptadorImpresoraArchivoLocal(String path){
         this.path = path;
     }
 
@@ -55,7 +55,7 @@ public class AdaptadorImpresora extends PrintDocumentAdapter {
             input = new FileInputStream(file);
             output = new FileOutputStream(destino.getFileDescriptor());
 
-            //Define el tamaño de buffer a utilizar
+            //Define el tamaño de buffer a utilizar.
             byte[] buf = new byte[1024];
             int bytesRead;
 

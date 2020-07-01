@@ -10,6 +10,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.print.PrintAttributes;
+import android.print.PrintDocumentAdapter;
+import android.print.PrintManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +29,7 @@ import sv.edu.ues.fia.eisi.pdm115.EncargadoDeImpresiones;
 import sv.edu.ues.fia.eisi.pdm115.Impresion;
 import sv.edu.ues.fia.eisi.pdm115.MotivoNoImpresion;
 import sv.edu.ues.fia.eisi.pdm115.R;
+import sv.edu.ues.fia.eisi.pdm115.impresionInalambrica.AdaptadorImpresoraURL;
 import sv.edu.ues.fia.eisi.pdm115.utilidades.BuscarRuta;
 import sv.edu.ues.fia.eisi.pdm115.webServices.SubirDocumentoService;
 
@@ -42,7 +46,7 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
     ArrayList<MotivoNoImpresion> motivos;
     EditText editExamenes, editHojas, editDetalles, editAprobacion, editEstadoImp,
             editMotivo, observaciones, editDocente, editEncargado, editPath;
-    Button guardar, cancelar, modificarEstadoAprobacion, cambiarEstadoImpresion, verArchivo, cambiarArchivo;
+    Button guardar, cancelar, modificarEstadoAprobacion, cambiarEstadoImpresion, verArchivo, cambiarArchivo, imprimirBtn;
     TableRow tr1;
     LinearLayout li1;
     @Override
@@ -69,6 +73,7 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         cancelar = findViewById(R.id.cancelarCambios);
         modificarEstadoAprobacion = findViewById(R.id.modificarEstadoAprobacion);
         cambiarEstadoImpresion = findViewById(R.id.cambiarEstadoImpresion);
+        imprimirBtn = findViewById(R.id.imprimir);
 
         int idSolicitud = getIntent().getIntExtra("idImpresion",0);
         String usuario = getIntent().getStringExtra("usuarioActual");
@@ -82,6 +87,7 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         if (usuario.equals("ADMIN")){
             EncargadoDeImpresiones encargado = helper.consultarEncargado(
                     String.valueOf(impresion.getIdEncargado()));
+
             String edEncargado = encargado.getNombreEncargado()+" "+encargado.getApellidoEncargado();
             editEncargado.setText(edEncargado);
         }else{
@@ -91,7 +97,9 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         if (impresion.getIdMotivoNoImp()!=0){
             editMotivo.setText(helper.getMotivo(impresion.getIdMotivoNoImp()));
         }else {
-            if (impresion.getEstadoAprobacion()==2) editMotivo.setText("Solicitud no aprobada");
+            if (impresion.getEstadoAprobacion()==2){
+                editMotivo.setText("Solicitud no aprobada");
+            }
             else { editMotivo.setText("---");}
         }
         helper.cerrar();
@@ -101,11 +109,15 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         editDetalles.setText(impresion.getDescripcionSolicitud());
         observaciones.setText(impresion.getDescripcionNoImp());
         editAprobacion.setText(estadoAprobacion[impresion.getEstadoAprobacion()]);
+        if (impresion.getEstadoAprobacion()!=1){
+            imprimirBtn.setEnabled(false);
+        }
         editEstadoImp.setText(estadoImpresion[impresion.getEstadoImpresion()]);
         if(impresion.getUrl()!=null && !impresion.getUrl().equals("Sin archivo de formato")){
             editPath.setText(impresion.getUrl());
         }else{
             verArchivo.setEnabled(false);
+            imprimirBtn.setEnabled(false);
             cambiarArchivo.setText("Agregar archivo");
         }
 
@@ -377,6 +389,13 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
     }
 
     public void imprimirFormato(View view) {
-
+        PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
+        try {
+            PrintDocumentAdapter printAdapter = new AdaptadorImpresoraURL(impresion.getUrl());
+            assert printManager != null;
+            printManager.print("PDM115-GPO12", printAdapter, new PrintAttributes.Builder().build());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

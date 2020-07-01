@@ -271,7 +271,7 @@
             <Button
                 android:id="@+id/imprimir"
                 android:onClick="imprimirFormato"
-                android:text="Cancelar"
+                android:text="Imprimir formato"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"/>
 
