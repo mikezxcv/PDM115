@@ -1,0 +1,174 @@
+package com.example.basedatosmp16001;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+public class ControlBDCarnet{
+    private static final String[]camposCliente = new String []
+            {"id","nombre","apellido","direccion", "telefono"};
+    private static final String[] camposCliente_Vehiculo = new String []
+            {"idcliente","idvehiculo", "precio"};
+    private static final String[] camposVehiculo = new String []
+            {"idvehiculo","marca","modelo","anio"};
+    private final Context context;
+    private DatabaseHelper DBHelper;
+    private SQLiteDatabase db;
+    public ControlBDCarnet(Context ctx) {
+        this.context = ctx;
+        DBHelper = new DatabaseHelper(context);}
+    private static class DatabaseHelper extends SQLiteOpenHelper {
+        private static final String BASE_DATOS = "prueba.s3db";
+        private static final int VERSION = 1;
+        public DatabaseHelper(Context context) {
+            super(context, BASE_DATOS, null, VERSION);
+        }
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            try{
+                db.execSQL("CREATE TABLE [cliente_vehiculo] ([idcliente] VARCHAR(20) not NULL,[idvehiculo] vaRCHAR(20) not null, [precio] varchar(20)   not NULL,PRIMARY KEY ([idcliente],[idvehiculo]));");
+                db.execSQL("CREATE TABLE [cliente] ([id] varchar(30)  NOT NULL PRIMARY KEY,[nombre] VARCHAR(50)  NOT NULL,[apellido] VARCHAR(30)  NOT NULL,[direccion] VARCHAR(50)  NOT NULL,[telefono] VARCHAR(50)  NOT NULL);");
+                db.execSQL("CREATE TABLE [vehiculo] ([idvehiculo] vARCHAR(20)  PRIMARY KEY NOT NULL,[marca] vaRCHAR(20) NOT NULL,[modelo] vARCHAR(20) NOT NULL,[anio] vaRCHAR(20)   NOT NULL);");
+
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+// TODO Auto-generated method stub
+        }
+    }
+    public void abrir() throws SQLException{
+        db = DBHelper.getWritableDatabase();
+        return;
+    }
+    public void cerrar(){
+        DBHelper.close();
+    }
+    public String insertar(Cliente cliente){
+        String regInsertados="Registro Insertado Nº= ";
+        long contador=0;
+        ContentValues alum = new ContentValues();
+        alum.put("id", cliente.getIdVehiculo());
+        alum.put("nombre", cliente.getIdCliente());
+        alum.put("apellido", cliente.getApellido());
+        alum.put("direccion", cliente.getDireccion());
+        alum.put("telefono", cliente.getTelefono());
+        contador=db.insert("cliente", null, alum);
+        if(contador==-1 || contador==0)
+        {
+            regInsertados= "Error al Insertar el registro, Registro Duplicado. Verificar inserción";
+        }
+        else {
+            regInsertados=regInsertados+contador;
+        }
+        return regInsertados;
+
+    }
+    public String insertar(ClienteVehiculo clienteVehiculo){
+        String regInsertados="Registro Insertado Nº= ";
+        long contador=0;
+        if(verificarIntegridad(clienteVehiculo,1))
+        {
+            ContentValues notas = new ContentValues();
+            notas.put("idcliente", clienteVehiculo.getIdCliente());
+            notas.put("idvehiculo", clienteVehiculo.getIdVehiculo());
+            notas.put("precio", clienteVehiculo.getPrecio());
+
+            contador=db.insert("cliente_vehiculo", null, notas);
+        }
+        if(contador==-1 || contador==0)
+        {
+            regInsertados= "Error al Insertar el registro, Materia o carnet no existe, verificar inserccion";
+        }
+        else {
+            regInsertados=regInsertados+contador;
+        }
+        return regInsertados;
+    }
+    public String insertar(Vehiculo vehiculo){
+
+        String regInsertados="Registro Insertado Nº= ";
+        long contador=0;
+        ContentValues mate = new ContentValues();
+        mate.put("idvehiculo", vehiculo.getIdvehiculo());
+        mate.put("marca", vehiculo.getMarca());
+        mate.put("modelo", vehiculo.getModelo());
+        mate.put("anio", vehiculo.getAnio());
+        contador=db.insert("vehiculo", null, mate);
+        if(contador==-1 || contador==0)
+        {
+            regInsertados= "Error al Insertar el registro, Registro Duplicado. Verificar inserccion";
+        }
+        else {
+            regInsertados=regInsertados+contador;
+        }
+        return regInsertados;
+    }
+    public String actualizar(Cliente cliente){
+
+        if(verificarIntegridad(cliente, 5)){
+            String[] id = {cliente.getIdVehiculo()};
+            ContentValues cv = new ContentValues();
+            cv.put("nombre", cliente.getIdCliente());
+            cv.put("apellido", cliente.getApellido());
+            cv.put("direccion", cliente.getDireccion());
+            cv.put("telefono",cliente.getTelefono());
+            db.update("cliente", cv, "id = ?", id);
+            return "Registro Actualizado Correctamente";
+        }else{
+            return "Registro con carnet " + cliente.getIdVehiculo() + " no existe";
+        }
+    }
+    public String actualizar(Vehiculo vehiculo){
+        if(verificarIntegridad(vehiculo, 6)){
+            String[] id = {vehiculo.getIdvehiculo()};
+            ContentValues cv = new ContentValues();
+            cv.put("marca", vehiculo.getMarca());
+            cv.put("modelo", vehiculo.getModelo());
+            cv.put("anio", vehiculo.getAnio());
+            db.update("vehiculo",cv,"idvehiculo = ?",id);
+            return "Materia Actualizada Correctamente";
+        }
+        else{
+            return "Materia con codigo " + vehiculo.getIdvehiculo() + " no existe";
+        }
+
+
+    }
+    public String actualizar(ClienteVehiculo clienteVehiculo){
+        if(verificarIntegridad(clienteVehiculo, 2)){
+            String[] id = {clienteVehiculo.getIdCliente(), clienteVehiculo.getIdVehiculo()};
+            ContentValues cv = new ContentValues();
+            cv.put("precio", clienteVehiculo.getPrecio());
+            db.update("cliente_vehiculo", cv, "idcliente = ? AND idvehiculo = ? ", id);
+            return "Registro Actualizado Correctamente";
+        }else{
+            return "Registro no Existe";
+        }
+    }
+    public String eliminar(Cliente cliente){
+        String regAfectados="filas afectadas= ";
+        int contador=0;
+        if (verificarIntegridad(cliente,3)) {
+            contador+=db.delete("cliente_vehiculo", "idcliente='"+ cliente.getIdCliente()+"'", null);
+        }
+        contador+=db.delete("cliente", "id='"+ cliente.getIdVehiculo()+"'", null);
+        regAfectados+=contador;
+        return regAfectados;
+    }
+    public String eliminar(ClienteVehiculo clienteVehiculo){
+        String regAfectados="filas afectadas= ";
+        int contador=0;
+        String where="idcliente='"+ clienteVehiculo.getIdCliente()+"'";
+        where=where+" AND idvehiculo='"+ clienteVehiculo.getIdVehiculo()+"'";
+
+        contador+=db.delete("cliente_vehiculo", where, null);
+        regAfectados+=contador;
+        return regAfectados;
+    }
+    public String eliminar(Vehiculo vehiculo){
+        String regAfectados="filas afec

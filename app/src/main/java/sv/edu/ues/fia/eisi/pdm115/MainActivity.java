@@ -24,7 +24,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    String[] activitiesAdmin={"EstudianteMenuActivity","DocenteMenuActivity","EncargadoImpresionesMenuActivity","webServices"};
+    String[] activitiesAdmin={"EstudianteMenuActivity","DocenteMenuActivity","EncargadoImpresionesMenuActivity","webServices","Mostrar Ubicaciones (MAPA)"};
     String[] activitiesDocente={"DocenteMenuActivity","webServices"};
     String[] activitiesEncargadoImpresion={"EncargadoImpresionesMenuActivity"};
     String[] activitiesEstudiante={"EstudianteMenuActivity"};
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String[] menuAdmin={ getString(R.string.estudianteMENU),getString(R.string.DocenteMENU),getString(R.string.EncargadoImpresionMENU), getString(R.string.WebServicesMENU)};
+        String[] menuAdmin={ getString(R.string.estudianteMENU),getString(R.string.DocenteMENU),getString(R.string.EncargadoImpresionMENU), getString(R.string.WebServicesMENU),"Mostrar Ubicaciones (MAPA)"};
         String[] menuDocente={"Docente","Web Services","LLenar Base de Datos"};
         String[] menuEncargadoImpresion={"Encargado de Impresion"};
         String[] menuEstudiante={"Estudiante"};
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
             listViewMain.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    if(position!=4){
+                    if(position!=5){
                         String nombreValue=activitiesAdmin[position];
                         if(position==0){
 
@@ -138,6 +137,16 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
+                        }
+                        if(position==4){
+                            try{
+                                Class<?>
+                                        clase=Class.forName("sv.edu.ues.fia.eisi.pdm115.mapa.MapsActivity2");
+                                Intent inte = new Intent(getApplicationContext(),clase);
+                                startActivity(inte);
+                            }catch(ClassNotFoundException e){
+                                e.printStackTrace();
+                            }
                         }
 
 

@@ -1,0 +1,9 @@
+package com.example.basedatosmp16001;
+
+    public class Cliente_Vehiculo {private String idCliente;private String idVehiculo;
+
+    public  Cliente_Vehiculo(){
+
+    }public Cliente_Vehiculo(String idCliente, String idVehiculo) {
+
+    this.idClie

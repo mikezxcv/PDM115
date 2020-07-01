@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-<item
-    android:id="@+id/menu_logout"
-    android:title="Cerrar Sesion"
-    app:showAsAction="never">
+    <item
+        android:id="@+id/menu_logout"
+        android:title="Cerrar Sesion"
+        app:showAsAction="never">
 
-</item>
+    </item>
+    <item
+        android:id="@+id/menu_welcome"
+        android:title="Bienvenido"
+        app:showAsAction="always">
+
+    </item>
+    <item
+        android:id="@+id/menu_map"
+        android:title="Ver Mapa "
+        app:showAsAction="always">
+
+    </item>
+
 
 
 </menu>

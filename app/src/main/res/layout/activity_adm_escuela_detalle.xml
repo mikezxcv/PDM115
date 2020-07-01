@@ -30,7 +30,7 @@
     <EditText
         android:id="@+id/escuela_nombre"
         android:inputType="text"
-        android:maxLength="25" />
+        android:maxLength="50" />
     <TableRow>
         <TextView android:text="FACULTAD" />
 
@@ -42,7 +42,7 @@
     <EditText
         android:id="@+id/escuela_facultad"
         android:inputType="text"
-        android:maxLength="15" />
+        android:maxLength="50" />
 
     <Button
 
