@@ -265,17 +265,13 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
 
         if (requestCode == 2 && resultCode == Activity.RESULT_OK){
             if (imprimirBtn.isEnabled()) {
-                if (impresion.getEstadoAprobacion()==1) {
-                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    String match = result.get(0);
-                    if (!match.contains("no") && match.contains("imprimir") && match.contains("formato")) {
-                        imprimirFormato();
-                    }
-                } else {
-                    Toast.makeText(this, "La solicitud aun no ha sido aprobada", Toast.LENGTH_LONG).show();
+                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                String match = result.get(0);
+                if (!match.contains("no") && match.contains("imprimir") && match.contains("formato")) {
+                    imprimirFormato();
                 }
             } else {
-                Toast.makeText(this, "No se puede imprimir si no hay archivos en la solicitud", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "No se puede imprimir sin autorización o archivo disponible", Toast.LENGTH_LONG).show();
             }
         }
     }
