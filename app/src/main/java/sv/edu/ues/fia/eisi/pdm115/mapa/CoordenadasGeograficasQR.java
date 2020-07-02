@@ -66,7 +66,7 @@ public class CoordenadasGeograficasQR extends AppCompatActivity {
                 Toast.makeText(this, "No se recibieron los datos", Toast.LENGTH_SHORT).show();
             }
         }else {
-            Toast.makeText(this, "Ocurrió un error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Se ha cancelado el escaneo", Toast.LENGTH_SHORT).show();
         }
 
     }
