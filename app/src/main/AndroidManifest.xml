@@ -52,7 +52,6 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".encargadoImpresion.DetalleEncargadoActivity" />
         <activity android:name=".login.login" />
-        <activity android:name=".encargadoImpresion.DetalleEncargadoActivity" />
         <activity android:name=".encargadoImpresion.NuevoEncargadoActivity" />
         <activity android:name=".encargadoImpresion.DetalleMotivoActivity" />
         <activity android:name=".docente.AdmDetalleSolicitudImpresionActivity" />
@@ -127,8 +126,6 @@
         <activity android:name=".docente.AdmSolicitarImpresionActivity" />
         <activity android:name=".encargadoImpresion.VerSolicitudesImpresionActivity" />
         <activity android:name=".encargadoImpresion.GestionarEncargadosActivity" />
-        <activity android:name=".encargadoImpresion.DetalleSolicitudImpresionActivity" />
-        <activity android:name=".encargadoImpresion.GestionarMotivosActivity" />
         <activity android:name=".qr.EscanerActivity" />
         <activity android:name=".docente.AdmCrearEvaluacionActivity" />
         <activity android:name=".docente.AdmGestionarEvaluacionesActivity" />

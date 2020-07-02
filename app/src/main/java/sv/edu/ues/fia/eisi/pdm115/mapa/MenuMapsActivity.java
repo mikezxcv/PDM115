@@ -18,7 +18,7 @@ public class MenuMapsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_maps);
-        String[] menu={"Mostrar Ubicaciones (MAPA)","Coordenads Geograficas (Codigo QR)"};
+        String[] menu={"Mostrar Ubicaciones (MAPA)","Coordenadas Geograficas (Codigo QR)"};
          menuMapa = (ListView) findViewById(R.id.listViewMenuMapa);
         ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,menu);
         menuMapa.setAdapter(arrayAdapter);

@@ -14,7 +14,7 @@
     <string name="cantidad_de_hojas_empaque">Cantidad de hojas empaque</string>
     <string name="solicitar_impresion">Solicitar impresión</string>
 
-    <string name="detectando">Detectando…</string>
+    <string name="detectando">Detectando...</string>
     <string name="detalles_extra">Detalles extra</string>
     <string name="elegir_archivo">Elegir archivo...</string>
     <string name="detalles_de_la_solicitud">Detalles de la solicitud</string>

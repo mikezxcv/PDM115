@@ -106,7 +106,7 @@ public class CoordenadasGeograficasQrMapa extends FragmentActivity implements On
 
 
         //permisos de localizacion
-        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ubicacion,10));
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ubicacion,15));
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},2);

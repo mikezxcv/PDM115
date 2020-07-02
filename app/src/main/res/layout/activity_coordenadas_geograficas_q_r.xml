@@ -8,9 +8,6 @@
       <TextView android:text="Coordenadas Geograficas"/>
    </TableRow>
 
-
-
-
    <TableRow>
       <TextView android:text="Latitud" />
       <EditText
@@ -37,12 +34,16 @@
    </TableRow>
 
 
+   <TableRow>
+      <Button
+          android:id="@+id/escanearQR"
+          android:text="Escanear codigo QR" />
+   </TableRow>
    <TableRow android:layout_height="105dp">
       <Button
           android:id="@+id/goToMap"
           android:text="Ver Coordenadas en mapa" />
    </TableRow>
-
 
 
 </TableLayout>
