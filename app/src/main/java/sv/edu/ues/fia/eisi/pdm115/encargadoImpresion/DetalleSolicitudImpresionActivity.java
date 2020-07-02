@@ -1,5 +1,6 @@
 package sv.edu.ues.fia.eisi.pdm115.encargadoImpresion;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +14,10 @@ import android.os.Bundle;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
+import android.speech.RecognizerIntent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -94,6 +99,7 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
             tr1.setVisibility(View.GONE);
             li1.setVisibility(View.GONE);
         }
+
         if (impresion.getIdMotivoNoImp()!=0){
             editMotivo.setText(helper.getMotivo(impresion.getIdMotivoNoImp()));
         }else {
@@ -123,6 +129,13 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
 
         guardar.setVisibility(View.GONE);
         cancelar.setVisibility(View.GONE);
+
+        imprimirBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imprimirFormato();
+            }
+        });
 
         editAprobacion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,6 +234,22 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.speech, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_speech){
+            iniciarSpeech();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -232,6 +261,18 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
             nombre = partes[partes.length - 1];
             directorio = "documentos/";
             editPath.setText(nombre);
+        }
+
+        if (requestCode == 2 && resultCode == Activity.RESULT_OK){
+            if (imprimirBtn.isEnabled()) {
+                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                String match = result.get(0);
+                if (!match.contains("no") && match.contains("imprimir") && match.contains("formato")) {
+                    imprimirFormato();
+                }
+            } else {
+                Toast.makeText(this, "No se puede imprimir sin autorización o archivo disponible", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -388,7 +429,7 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
         setResult(Activity.RESULT_OK);
     }
 
-    public void imprimirFormato(View view) {
+    public void imprimirFormato() {
         PrintManager printManager = (PrintManager) this.getSystemService(Context.PRINT_SERVICE);
         try {
             PrintDocumentAdapter printAdapter = new AdaptadorImpresoraURL(impresion.getUrl());
@@ -396,6 +437,19 @@ public class DetalleSolicitudImpresionActivity extends AppCompatActivity {
             printManager.print("PDM115-GPO12", printAdapter, new PrintAttributes.Builder().build());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void iniciarSpeech(){
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        // intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "es-MX");
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Hable ahora");
+
+        try{
+            startActivityForResult(intent, 2);
+        }catch(Exception e){
+            Toast.makeText(this, "Algo salió mal",Toast.LENGTH_SHORT).show();
         }
     }
 }
