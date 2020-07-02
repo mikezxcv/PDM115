@@ -18,6 +18,7 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -29,7 +30,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mapa.MapsActivity2"></activity>
+        <activity android:name=".mapa.CoordenadasGeograficasQrMapa"></activity>
+        <activity android:name=".mapa.CoordenadasGeograficasQR" />
+        <activity android:name=".mapa.MenuMapsActivity" />
+        <activity android:name=".mapa.MapsActivity2" />
         <activity android:name=".mapa.fragments.MapsActivity2" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -46,7 +50,6 @@
         <activity
             android:name=".mapa.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".mapa.MainMap" />
         <activity android:name=".encargadoImpresion.DetalleEncargadoActivity" />
         <activity android:name=".login.login" />
         <activity android:name=".encargadoImpresion.DetalleEncargadoActivity" />

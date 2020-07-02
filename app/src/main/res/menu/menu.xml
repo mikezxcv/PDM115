@@ -7,18 +7,7 @@
         app:showAsAction="never">
 
     </item>
-    <item
-        android:id="@+id/menu_welcome"
-        android:title="Bienvenido"
-        app:showAsAction="always">
 
-    </item>
-    <item
-        android:id="@+id/menu_map"
-        android:title="Ver Mapa "
-        app:showAsAction="always">
-
-    </item>
 
 
 

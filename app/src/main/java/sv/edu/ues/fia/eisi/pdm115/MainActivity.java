@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String[] menuAdmin={ getString(R.string.estudianteMENU),getString(R.string.DocenteMENU),getString(R.string.EncargadoImpresionMENU), getString(R.string.WebServicesMENU),"Mostrar Ubicaciones (MAPA)"};
+        String[] menuAdmin={ getString(R.string.estudianteMENU),getString(R.string.DocenteMENU),getString(R.string.EncargadoImpresionMENU), getString(R.string.WebServicesMENU),"Edificios de Ingenieria (MAPA)"};
         String[] menuDocente={"Docente","Web Services","LLenar Base de Datos"};
         String[] menuEncargadoImpresion={"Encargado de Impresion"};
         String[] menuEstudiante={"Estudiante"};
@@ -141,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                         if(position==4){
                             try{
                                 Class<?>
-                                        clase=Class.forName("sv.edu.ues.fia.eisi.pdm115.mapa.MapsActivity2");
+                                        clase=Class.forName("sv.edu.ues.fia.eisi.pdm115.mapa.MenuMapsActivity");
                                 Intent inte = new Intent(getApplicationContext(),clase);
                                 startActivity(inte);
                             }catch(ClassNotFoundException e){
