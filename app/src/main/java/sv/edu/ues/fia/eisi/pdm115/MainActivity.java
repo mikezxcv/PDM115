@@ -7,12 +7,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
@@ -24,17 +26,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static android.Manifest.permission.CAMERA;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 public class MainActivity extends AppCompatActivity {
 
-
-
-    String[] activitiesAdmin={"EstudianteMenuActivity","DocenteMenuActivity","EncargadoImpresionesMenuActivity","webServices","Mostrar Ubicaciones (MAPA)"};
+    String[] activitiesAdmin={"EstudianteMenuActivity","DocenteMenuActivity","EncargadoImpresionesMenuActivity","webServices","Mostrar Ubicaciones (MAPA)", "Camara"};
     String[] activitiesDocente={"DocenteMenuActivity","webServices"};
     String[] activitiesEncargadoImpresion={"EncargadoImpresionesMenuActivity"};
     String[] activitiesEstudiante={"EstudianteMenuActivity"};
@@ -42,8 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
     String[] permisos = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            // Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
     };
 
     private  static final int REQUEST_CODE = 1001;
@@ -59,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         String[] menuAdmin={ getString(R.string.estudianteMENU),getString(R.string.DocenteMENU),getString(R.string.EncargadoImpresionMENU), getString(R.string.WebServicesMENU),"Edificios de Ingenieria (MAPA)"};
         String[] menuDocente={"Docente","Web Services","LLenar Base de Datos"};
@@ -298,6 +306,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.menu_logout){ logOut(); }
+        if(item.getItemId()==R.id.perfil_user){ perfilView(); }
+
         return super.onOptionsItemSelected(item);
 
     }
@@ -305,6 +315,16 @@ public class MainActivity extends AppCompatActivity {
         prefs.edit().clear().apply();
         Intent intent= new Intent(this,LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+    private void camaraView(){
+        Intent intent= new Intent(this,CamaraActivity.class);
+        startActivity(intent);
+    }
+
+    private void perfilView(){
+        Intent intent= new Intent(this,Perfil.class);
         startActivity(intent);
     }
 
@@ -376,5 +396,6 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
         return  alertDialog;
     }
+
 }
 

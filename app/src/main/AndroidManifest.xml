@@ -6,21 +6,22 @@
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the 'MyLocation' functionality.
     -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <protected-broadcast android:name="android.intent.action.MEDIA_MOUNTED"/>
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="false" />
 
     <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
+    <!--<uses-feature
+    android:name="android.hardware.camera"
+    android:required="true" />-->
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -30,7 +31,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mapa.CoordenadasGeograficasQrMapa"></activity>
+        <activity android:name=".CamaraActivity"></activity>
+        <activity android:name=".Perfil" />
+        <activity android:name=".mapa.CoordenadasGeograficasQrMapa" />
         <activity android:name=".mapa.CoordenadasGeograficasQR" />
         <activity android:name=".mapa.MenuMapsActivity" />
         <activity android:name=".mapa.MapsActivity2" />
@@ -130,6 +133,18 @@
         <activity android:name=".docente.AdmCrearEvaluacionActivity" />
         <activity android:name=".docente.AdmGestionarEvaluacionesActivity" />
         <activity android:name=".docente.AdmEvaluacionDetalle" />
+
+        <provider
+            android:authorities="sv.edu.ues.fia.eisi.pdm115"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"
+                >
+            </meta-data>
+        </provider>
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"

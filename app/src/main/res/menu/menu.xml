@@ -8,6 +8,11 @@
 
     </item>
 
+    <item
+        android:id="@+id/perfil_user"
+        android:title="Camara"
+        app:showAsAction="never">
+    </item>
 
 
 

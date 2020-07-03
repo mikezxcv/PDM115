@@ -70,5 +70,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
 
+    <!--Projecto 2-->
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="pictureText">Picture!</string>
+    <string name="contentDescriptionImagenSet">This is where the picture is going to assign</string>
+    <string name="contentDescriptionButtonImage">This is a button with an image that open the camera or galery</string>
+    <string name="title_activity_hola">Hola</string>
 
 </resources>

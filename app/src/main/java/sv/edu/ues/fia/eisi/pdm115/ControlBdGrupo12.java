@@ -372,7 +372,6 @@ public class ControlBdGrupo12 {
                         "\t('BR15007', 'DOCENTE', '1', 'ADONAY', 'BARAHONA', 'SISTEMAS', 'SISTEMAS');");
 
 
-
                 db.execSQL("INSERT INTO `local` (`IDLOCAL`, `NOMBRELOCAL`, `UBICACION`) VALUES\n" +
                         "\t(1, 'B-21', 'PLANTA MEDIA');");
                 db.execSQL("INSERT INTO `materia` (`IDASIGNATURA`, `NOMBREASIGNATURA`) VALUES\n" +
