@@ -80,7 +80,7 @@ public class CamaraActivity extends Activity {
         // -----------------------------------------------------------------
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camara);
-        TomarFoto = (Button) findViewById(R.id.mainbttomarfoto);
+/*        TomarFoto = (Button) findViewById(R.id.mainbttomarfoto);
         SeleccionarFoto = (Button) findViewById(R.id.seleccionarFoto);
         image = (ImageView) findViewById(R.id.mainimage);
 
@@ -114,10 +114,11 @@ public class CamaraActivity extends Activity {
 
 
             }
-        });
+        });*/
 
     }
 
+/*
 
     public void onSaveInstanceState(Bundle bundle){
         if (file!=null){
@@ -126,7 +127,7 @@ public class CamaraActivity extends Activity {
         bundle.putString("file_path", mPath);
         super.onSaveInstanceState(bundle);
 
-        //------
+
 
     }
 
@@ -163,5 +164,6 @@ public class CamaraActivity extends Activity {
                     Toast.LENGTH_SHORT).show();
         }
     }
+*/
 
 }
