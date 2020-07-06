@@ -10,10 +10,15 @@
 
     <item
         android:id="@+id/perfil_user"
-        android:title="Camara"
-        app:showAsAction="never">
+        android:title="Perfil"
+        app:showAsAction="always">
     </item>
 
+    <item
+        android:id="@+id/video_user"
+        android:title="Video"
+        app:showAsAction="always">
+    </item>
 
 
 </menu>

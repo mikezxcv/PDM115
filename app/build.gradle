@@ -6,7 +6,6 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        // dsfdf
         applicationId "sv.edu.ues.fia.eisi.pdm115"
         minSdkVersion 16
         targetSdkVersion 29
