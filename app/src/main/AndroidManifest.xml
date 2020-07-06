@@ -88,6 +88,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme2"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".docente.AdmLocalDetalle" />
         <activity android:name=".docente.AdmLocalActivity" />
@@ -116,7 +118,6 @@
         <activity android:name=".encargadoImpresion.EncargadoImpresionesMenuActivity" />
         <activity android:name=".estudiante.EstudianteMenuActivity" />
         <activity android:name=".docente.DocenteMenuActivity" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".estudiante.EstudianteSolicitudRepetidoActivity" />
         <activity android:name=".estudiante.EstudianteSolicitudDiferidoActivity" />
         <activity android:name=".estudiante.EstudianteRepetidoActivity" />
