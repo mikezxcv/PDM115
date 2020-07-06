@@ -68,7 +68,7 @@ public class ControlBdGrupo12 {
 
 
     public static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "procesosGrupo12_44.s3db";
+        private static final String BASE_DATOS = "procesosGrupo12_45.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -290,6 +290,7 @@ public class ControlBdGrupo12 {
                         "   USUARIO              VARCHAR(15)                     not null,\n" +
                         "   NOMBRE_USUARIO       VARCHAR(256)                   not null,\n" +
                         "   CONTRASENA       VARCHAR(256)                   NOT null,\n" +
+                        "   URLIMAGEN       VARCHAR(256),\n" +
                         "   primary key (USUARIO)\n" +
                         ");");
                 //fin creacion de tablas
@@ -3904,6 +3905,14 @@ public class ControlBdGrupo12 {
     }
     public String eliminarMotivo(int idMotivo){
         return (db.delete("MOTIVONOIMPRESION","IDMOTIVONOIMP='"+idMotivo+"'",null)>0)?"Registro eliminado":"Error";
+    }
+
+    //Guardar URL de Imagen de perfil
+    public String actualizarUrlImagen(String URL, String usuario){
+        ContentValues perfil = new ContentValues();
+        perfil.put("URLIMAGEN", URL);
+        return (db.update("USUARIO", perfil,"USUARIO='"+usuario+"'",null)>0)
+                ? "Imagen agregada" : "Error";
     }
 
 }

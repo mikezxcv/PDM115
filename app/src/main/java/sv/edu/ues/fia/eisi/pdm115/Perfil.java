@@ -1,7 +1,9 @@
 package sv.edu.ues.fia.eisi.pdm115;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,6 +27,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 
+import sv.edu.ues.fia.eisi.pdm115.utilidades.BuscarRuta;
+import sv.edu.ues.fia.eisi.pdm115.webServices.SubirDocumentoService;
+
 /*import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;*/
 
@@ -42,14 +47,15 @@ public class Perfil extends AppCompatActivity {
     private Button mOptionButton;
     private RelativeLayout mRlView;
 
-    private String mPath;
-
+    private String mPath, usuarioActual;
+    private SharedPreferences prefs;
     //-------------------------------------
     Button TomarFoto;
     ImageView image;
     final int FOTOGRAFIA = 654;
     Uri file;
     Button SeleccionarFoto;
+    private String pathFinal;
 
 
     @Override
@@ -61,6 +67,9 @@ public class Perfil extends AppCompatActivity {
         // -----------------------------------------------------------------
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
+        prefs= getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        String usuario = prefs.getString("usuarioActual","");
+        usuarioActual = usuario;
         if (savedInstanceState != null) {
             if (savedInstanceState.getString("Foto") != null) {
                 image.setImageURI(Uri.parse(savedInstanceState.getString("Foto")));
@@ -161,15 +170,31 @@ public class Perfil extends AppCompatActivity {
                                 }
                             });
 
-
                     Bitmap bitmap = BitmapFactory.decodeFile(mPath);
                     mSetImage.setImageBitmap(bitmap);
+                    pathFinal = mPath;
                     break;
                 case SELECT_PICTURE:
                     Uri path = data.getData();
                     mSetImage.setImageURI(path);
+                    pathFinal = BuscarRuta.getPath(this,path);
                     break;
+            }
+            try {
+                Intent mIntent = new Intent(this, SubirDocumentoService.class);
 
+                String[] partes = pathFinal.split("/");
+                String nuevoNombre = usuarioActual+"-"+partes[partes.length-1];
+                mIntent.putExtra("path", pathFinal);
+                mIntent.putExtra("directorio", "imagenes/");
+                mIntent.putExtra("nombre", nuevoNombre);
+                SubirDocumentoService.enqueueWork(getApplicationContext(), mIntent);
+
+                // copiarLocal(path, nombre, directorio);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Algo salio mal", Toast.LENGTH_SHORT).show();
             }
         }
     }
