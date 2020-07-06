@@ -67,8 +67,9 @@ public class ControlBdGrupo12 {
     }
 
 
+
     public static class DatabaseHelper extends SQLiteOpenHelper {
-        private static final String BASE_DATOS = "procesosGrupo12_45.s3db";
+        private static final String BASE_DATOS = "procesosGrupo12_46.s3db";
         private static final int VERSION = 1;
         public DatabaseHelper(Context context) {
             super(context, BASE_DATOS, null, VERSION);
@@ -309,15 +310,15 @@ public class ControlBdGrupo12 {
                 db.execSQL("  INSERT INTO `detallealumnosevaluados` (`ID_DETALLEALUMNOSEVALUADOS`, `ASISTIO`, `NOTAEVALUACION`, `FECHA_PUBLICACION`, `FECHA_LIMITE`, `CARNET`, `IDREPETIDO`, `IDDIFERIDO`, `IDDOCENTE`, `IDPRIMERREVISION`, `IDEVALUACION`,`NOMBRELOCAL`) VALUES\n" +
                         "    (4, 1, 8, '2020-06-10', '2020-06-28', 'MP16001', NULL, 22, '2', NULL, 4, NULL);");*/
 
-                db.execSQL("INSERT INTO `usuario` (`USUARIO`, `NOMBRE_USUARIO`, `CONTRASENA`) VALUES\n" +
-                        "\t('DOCENTE', 'DOCENTE 1','PASS1'),\n" +
-                        "\t('ESTUDIANTE', 'ESTUDIANTE 1','PASS2');\n");
-                db.execSQL("INSERT INTO `usuario` (`USUARIO`, `NOMBRE_USUARIO`, `CONTRASENA`) VALUES\n" +
-                        "\t('IMPRESIONADMIN', 'ADMIN IMPRESION 1','PASS3'),\n" +
-                        "\t('ADMIN', 'ADMIN GENERAL','PASS4'),\n" +
-                        "\t('DOCENTE2', 'DOCENTE 2','PASS5'),\n" +
-                        "\t('DOCENTE3', 'DOCENTE 3','PASS6'),\n" +
-                        "\t('IMPRESIONADMIN2', 'ADMIN IMPRESION 2','PASS7');\n");
+                db.execSQL("INSERT INTO `usuario` (`USUARIO`, `NOMBRE_USUARIO`, `CONTRASENA`,`URLIMAGEN`) VALUES\n" +
+                        "\t('DOCENTE', 'DOCENTE 1','PASS1', 'Sin imagen'),\n" +
+                        "\t('ESTUDIANTE', 'ESTUDIANTE 1','PASS2', 'Sin imagen');\n");
+                db.execSQL("INSERT INTO `usuario` (`USUARIO`, `NOMBRE_USUARIO`, `CONTRASENA`, `URLIMAGEN`) VALUES\n" +
+                        "\t('IMPRESIONADMIN', 'ADMIN IMPRESION 1','PASS3', 'Sin imagen'),\n" +
+                        "\t('ADMIN', 'ADMIN GENERAL','PASS4', 'Sin imagen'),\n" +
+                        "\t('DOCENTE2', 'DOCENTE 2','PASS5', 'Sin imagen'),\n" +
+                        "\t('DOCENTE3', 'DOCENTE 3','PASS6', 'Sin imagen'),\n" +
+                        "\t('IMPRESIONADMIN2', 'ADMIN IMPRESION 2','PASS7', 'Sin imagen');\n");
 
                 db.execSQL("INSERT INTO ACCESOUSUARIO VALUES ('DOCENTE','1');");
                 db.execSQL("INSERT INTO ACCESOUSUARIO VALUES ('ESTUDIANTE','1');");
@@ -3913,6 +3914,16 @@ public class ControlBdGrupo12 {
         perfil.put("URLIMAGEN", URL);
         return (db.update("USUARIO", perfil,"USUARIO='"+usuario+"'",null)>0)
                 ? "Imagen agregada" : "Error";
+    }
+
+    public String obtenerURLImagen(String usuario) {
+        final String query = "SELECT URLIMAGEN FROM USUARIO  WHERE USUARIO=? LIMIT 1;";
+        Cursor cursor = db.rawQuery(query,new String[]{usuario});
+        if(cursor.moveToFirst()){
+            return cursor.getString(cursor.getColumnIndex("URLIMAGEN"));
+        }else {
+            return "Sin imagen";
+        }
     }
 
 }

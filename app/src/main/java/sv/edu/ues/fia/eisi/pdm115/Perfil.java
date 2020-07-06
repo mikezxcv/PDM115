@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
@@ -49,6 +52,7 @@ public class Perfil extends AppCompatActivity {
 
     private String mPath, usuarioActual;
     private SharedPreferences prefs;
+    private ControlBdGrupo12 DBHelper;
     //-------------------------------------
     Button TomarFoto;
     ImageView image;
@@ -67,15 +71,22 @@ public class Perfil extends AppCompatActivity {
         // -----------------------------------------------------------------
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
+
+        DBHelper = new ControlBdGrupo12(this);
         prefs= getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         String usuario = prefs.getString("usuarioActual","");
         usuarioActual = usuario;
+        DBHelper.abrir();
+        String urlUsuario = DBHelper.obtenerURLImagen(usuarioActual);
+        DBHelper.cerrar();
+
         if (savedInstanceState != null) {
             if (savedInstanceState.getString("Foto") != null) {
                 image.setImageURI(Uri.parse(savedInstanceState.getString("Foto")));
                 file = Uri.parse(savedInstanceState.getString("Foto"));
             }
         }
+
 
         //-------------------------------------------------------------------
         mSetImage = (ImageView) findViewById(R.id.set_picture);
@@ -89,6 +100,11 @@ public class Perfil extends AppCompatActivity {
             }
         });
 
+        if (urlUsuario.isEmpty() || !urlUsuario.equals("Sin imagen")){
+            Picasso.get().load("https://pdmgrupo12.000webhostapp.com/imagenes/"+urlUsuario).into(mSetImage);
+        }else {
+          Picasso.get().load("https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png").into(mSetImage);
+        }
     }
 
     private void showOptions() {
@@ -183,14 +199,17 @@ public class Perfil extends AppCompatActivity {
             try {
                 Intent mIntent = new Intent(this, SubirDocumentoService.class);
 
-                String[] partes = pathFinal.split("/");
-                String nuevoNombre = usuarioActual+"-"+partes[partes.length-1];
+                Long timestamp = System.currentTimeMillis() / 1000;
+                String nuevoNombre = usuarioActual+"-"+timestamp+".jpg";
                 mIntent.putExtra("path", pathFinal);
                 mIntent.putExtra("directorio", "imagenes/");
                 mIntent.putExtra("nombre", nuevoNombre);
+                DBHelper.abrir();
+                String resultado = DBHelper.actualizarUrlImagen(nuevoNombre, usuarioActual);
+                DBHelper.cerrar();
+                Toast.makeText(this, resultado,Toast.LENGTH_SHORT).show();
                 SubirDocumentoService.enqueueWork(getApplicationContext(), mIntent);
 
-                // copiarLocal(path, nombre, directorio);
 
             } catch (Exception e) {
                 e.printStackTrace();
