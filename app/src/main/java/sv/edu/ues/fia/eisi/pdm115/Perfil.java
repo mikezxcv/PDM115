@@ -54,8 +54,9 @@ public class Perfil extends AppCompatActivity {
     private SharedPreferences prefs;
     private ControlBdGrupo12 DBHelper;
     //-------------------------------------
-    Button TomarFoto;
+    Button TomarFoto, verImagen;
     ImageView image;
+    String urlUsuario;
     final int FOTOGRAFIA = 654;
     Uri file;
     Button SeleccionarFoto;
@@ -77,7 +78,7 @@ public class Perfil extends AppCompatActivity {
         String usuario = prefs.getString("usuarioActual","");
         usuarioActual = usuario;
         DBHelper.abrir();
-        String urlUsuario = DBHelper.obtenerURLImagen(usuarioActual);
+        urlUsuario = DBHelper.obtenerURLImagen(usuarioActual);
         DBHelper.cerrar();
 
         if (savedInstanceState != null) {
@@ -91,6 +92,7 @@ public class Perfil extends AppCompatActivity {
         //-------------------------------------------------------------------
         mSetImage = (ImageView) findViewById(R.id.set_picture);
         mOptionButton = (Button) findViewById(R.id.show_options_button);
+        verImagen = (Button) findViewById(R.id.verimagen);
         mRlView = (RelativeLayout) findViewById(R.id.rl_view);
 
         mOptionButton.setOnClickListener(new View.OnClickListener() {
@@ -99,11 +101,19 @@ public class Perfil extends AppCompatActivity {
                 showOptions();
             }
         });
+        verImagen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                verImagen();
+            }
+        });
 
         if (urlUsuario.isEmpty() || !urlUsuario.equals("Sin imagen")){
             Picasso.get().load("https://pdmgrupo12.000webhostapp.com/imagenes/"+urlUsuario).into(mSetImage);
+            verImagen.setVisibility(View.VISIBLE);
         }else {
           Picasso.get().load("https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png").into(mSetImage);
+            verImagen.setVisibility(View.GONE);
         }
     }
 
@@ -209,11 +219,13 @@ public class Perfil extends AppCompatActivity {
                 DBHelper.cerrar();
                 Toast.makeText(this, resultado,Toast.LENGTH_SHORT).show();
                 SubirDocumentoService.enqueueWork(getApplicationContext(), mIntent);
-
+                verImagen.setVisibility(View.VISIBLE);
+                urlUsuario = nuevoNombre;
 
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Algo salio mal", Toast.LENGTH_SHORT).show();
+                verImagen.setVisibility(View.GONE);
             }
         }
     }
@@ -257,5 +269,9 @@ public class Perfil extends AppCompatActivity {
         builder.show();
     }
 
+    public void verImagen() {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://pdmgrupo12.000webhostapp.com/imagenes/"+urlUsuario));
+        startActivity(browserIntent);
+    }
 
 }

@@ -110,7 +110,11 @@ public class SubirDocumentoService extends JobIntentService {
                         try {
                             int chr;
                             while ((chr = in.read()) != -1) {
-                                sb.append((char) chr);
+                                if('<'==(char)chr){
+                                    break;
+                                }else {
+                                    sb.append((char) chr);
+                                }
                             }
                             reply = sb.toString();
                         } finally {
