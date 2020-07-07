@@ -6,6 +6,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.BufferedOutputStream;
 import java.net.CacheRequest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -90,6 +91,11 @@ public class ControlBdGrupo12 {
                         "   USUARIO              VARCHAR(15)                     not null,\n" +
                         "   ID_OPCION            VARCHAR(3)                         not null,\n" +
                         "   primary key (USUARIO, ID_OPCION)\n" +
+                        ");");
+                db.execSQL("CREATE TABLE URLPERFIL (\n" +
+                        "   ID_URL              INTEGER                    not null,\n" +
+                        "   URL            CHAR(150)                       ,\n" +
+                        "   primary key (ID_URL)\n" +
                         ");");
                 db.execSQL("CREATE TABLE AREA  (\n" +
                         "   ID_AREA              INTEGER                         not null,\n" +
@@ -304,6 +310,8 @@ public class ControlBdGrupo12 {
                         "\t(25, 25, 'AREA DE BASE DE DATOS');");
                 db.execSQL("INSERT INTO `ciclo` (`IDCICLO`, `FECHADESDE`, `FECHAHASTA`) VALUES\n" +
                         "\t('01-20', '2020-06-07', '2020-07-07');");
+
+                db.execSQL("Insert into URLPERFIL values (1, 'URL');");
 
               /*   db.execSQL("INSERT INTO `detallealumnosevaluados` (`ID_DETALLEALUMNOSEVALUADOS`, `ASISTIO`, `NOTAEVALUACION`, `FECHA_PUBLICACION`, `FECHA_LIMITE`, `CARNET`, `IDREPETIDO`, `IDDIFERIDO`, `IDDOCENTE`, `IDPRIMERREVISION`, `IDEVALUACION`,`NOMBRELOCAL`) VALUES\n" +
                         "\t(3, 1, 8, '2020-06-09', '2020-06-27', 'MP16001', NULL, 11, '1', NULL, 3, NULL);");
@@ -1263,6 +1271,28 @@ public class ControlBdGrupo12 {
         return false;
     }
     // INICIO METODOS DE CS17049 --------------------------------------------------------------------
+    public void actualizarURL(String URLtexto){
+        String[] id = {"1"};
+        ContentValues cv = new ContentValues();
+        //aprobar revision
+        cv.put("URL", URLtexto);
+        db.update("URLPERFIL", cv, "ID_URL = ? ",id);
+        Toast.makeText(this.context, "Actualizado", Toast.LENGTH_SHORT).show();
+    }
+
+    public String cargarURL(){
+        String urlImagen = "";
+        Cursor cursor = db.rawQuery("Select URL from URLPERFIL", null);
+        if(cursor.moveToFirst()){
+            while (cursor.isAfterLast()== false){
+                urlImagen= cursor.getString(0);
+                cursor.moveToNext();
+            }
+        }
+
+        return urlImagen;
+    }
+
     // INICIO METODOS DE EVALUACION
     public String[] obtenerDocentesParaDetalle(String materia){
 
@@ -2081,6 +2111,8 @@ public class ControlBdGrupo12 {
         regAfectados+=contador;
         return regAfectados;
     }
+
+
 
 
 

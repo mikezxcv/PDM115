@@ -26,6 +26,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -57,11 +62,14 @@ public class Perfil extends AppCompatActivity {
     Button TomarFoto, verImagen;
     ImageView image;
     String urlUsuario;
+   // ImageView image;
     final int FOTOGRAFIA = 654;
     Uri file;
     Button SeleccionarFoto;
     private String pathFinal;
 
+    RequestQueue request;
+    ControlBdGrupo12 BD = new ControlBdGrupo12(Perfil.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +88,13 @@ public class Perfil extends AppCompatActivity {
         DBHelper.abrir();
         urlUsuario = DBHelper.obtenerURLImagen(usuarioActual);
         DBHelper.cerrar();
+        mSetImage = (ImageView) findViewById(R.id.set_picture);
+        mOptionButton = (Button) findViewById(R.id.show_options_button);
+        mRlView = (RelativeLayout) findViewById(R.id.rl_view);
 
         if (savedInstanceState != null) {
             if (savedInstanceState.getString("Foto") != null) {
-                image.setImageURI(Uri.parse(savedInstanceState.getString("Foto")));
+                mSetImage.setImageURI(Uri.parse(savedInstanceState.getString("Foto")));
                 file = Uri.parse(savedInstanceState.getString("Foto"));
             }
         }
@@ -95,6 +106,10 @@ public class Perfil extends AppCompatActivity {
         verImagen = (Button) findViewById(R.id.verimagen);
         mRlView = (RelativeLayout) findViewById(R.id.rl_view);
 
+        request = Volley.newRequestQueue(Perfil.this);
+        //mSetImage.setImageResource(android.R.drawable.ic_lock_power_off);
+
+        //cargarImagenDB();
         mOptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -222,12 +237,40 @@ public class Perfil extends AppCompatActivity {
                 verImagen.setVisibility(View.VISIBLE);
                 urlUsuario = nuevoNombre;
 
+
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Algo salio mal", Toast.LENGTH_SHORT).show();
                 verImagen.setVisibility(View.GONE);
             }
+
         }
+    }
+
+
+
+    private void cargarImagenDB(){
+        //SubirDocumentoService URL = new SubirDocumentoService();
+        BD.abrir();
+        String url = BD.cargarURL();
+        BD.cerrar();
+
+        ImageRequest imageRequest = new ImageRequest(url,
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        mSetImage.setImageBitmap(response);
+                    }
+                }, 0, 0, ImageView.ScaleType.CENTER, null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(Perfil.this, error.toString(), Toast.LENGTH_LONG).show();
+
+            }
+        });
+
+        request.add(imageRequest);
+
     }
 
     @Override

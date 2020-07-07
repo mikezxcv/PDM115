@@ -2,7 +2,6 @@ package sv.edu.ues.fia.eisi.pdm115.webServices;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,11 +14,15 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import sv.edu.ues.fia.eisi.pdm115.ControlBdGrupo12;
+
 public class SubirDocumentoService extends JobIntentService {
+
+    ControlBdGrupo12 DB = new ControlBdGrupo12(SubirDocumentoService.this);
 
     private static final String TAG = "SubirDocumentoService";
     private static final int JOB_ID = 1000;
-    String urlServidor = "https://pdmgrupo12.000webhostapp.com/upload.php?directorio=%s&nombre=%s";
+    public String urlServidor = "https://pdmgrupo12.000webhostapp.com/upload.php?directorio=%s&nombre=%s";
     HttpURLConnection conn = null;
     DataOutputStream output = null;
     FileInputStream fileInputStream = null;
@@ -136,10 +139,21 @@ public class SubirDocumentoService extends JobIntentService {
             ex.printStackTrace();
         }
     }
+
     @Override
     public void onDestroy() {
         //Si termina el proceso exitosamente, se muestra el toast.
         super.onDestroy();
         Toast.makeText(SubirDocumentoService.this, reply, Toast.LENGTH_SHORT).show();
+        // Se debe mod Para pasarle la URL del la imagen del servidor Luego eliminar la URL de prueba
+        //guardarURL();
+    }
+
+    private void guardarURL(){
+        // URL DE PRUEBA
+        String URL = "https://www.animemes.org/images/meme/es/anime-meme-F36BoGx9HC.jpg";
+        DB.abrir();
+        DB.actualizarURL(URL);
+        DB.cerrar();
     }
 }
